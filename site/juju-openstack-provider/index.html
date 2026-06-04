@@ -794,7 +794,7 @@ glance-simplestreams-sync:
 <span class="w">  </span>--channel<span class="w"> </span><span class="m">2024</span>.1/stable<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>glance-simplestreams-sync
 </code></pre></div>
-<p><strong>Note:</strong> You need to deploy with the <code>jammy</code> series as it's the one compatible with <code>Openstack Caracal</code> release.</p>
+<p><strong>Note:</strong> You need to deploy with the <code>jammy</code> series as it's the one compatible with <code>OpenStack Caracal</code> release.</p>
 <p>Add the relation from Glance Simplestreams Sync to Keystone (authentication and authorization) and Vault (certificates) with:</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>integrate<span class="w"> </span>glance-simplestreams-sync<span class="w"> </span>keystone
 juju<span class="w"> </span>integrate<span class="w"> </span>glance-simplestreams-sync<span class="w"> </span>vault
@@ -810,7 +810,7 @@ cloud.</p>
 <p>On the MAAS server run the following to have environment variables set:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<p>Then, add the cloud definition for your Openstack cloud by running the following:</p>
+<p>Then, add the cloud definition for your OpenStack cloud by running the following:</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>add-cloud<span class="w"> </span>--client
 </code></pre></div>
 <p>When prompted enter the following values:</p>
@@ -853,7 +853,7 @@ openstack<span class="w"> </span>endpoint<span class="w"> </span>list<span class
 <span class="w">  </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.Interface==&quot;public&quot;).URL&#39;</span>
 </code></pre></div>
 <p>We will refer to this value as the SWIFT_URL</p>
-<p>On the MAAS server, the fine named <code>~/os_files/my-config.yaml</code> already exists.
+<p>On the MAAS server, the file named <code>~/os_files/my-config.yaml</code> already exists.
 Edit it in a text editor and replace the <code>XXX</code> with the IP from the previous command:   </p>
 <p>Enter the following values in the file:</p>
 <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/os_files/my-config.yaml
@@ -890,7 +890,7 @@ openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="
 <span class="w">  </span>--bootstrap-constraints<span class="o">=</span><span class="s2">&quot;mem=2G cores=2 allocate-public-ip=true&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--constraints<span class="o">=</span><span class="s2">&quot;mem=2G&quot;</span><span class="w"> </span>my-openstack<span class="w"> </span>my-controller
 </code></pre></div>
-<p>Bootstrapping Juju controller inside Openstack is going to take around 15 minutes.</p>
+<p>Bootstrapping the Juju controller inside OpenStack is going to take around 15 minutes.</p>
 <p>When the juju bootstrap command has finished, enter the following command to
 view the status of the Juju environment:</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller
@@ -976,14 +976,14 @@ relations:
 -<span class="w"> </span>-<span class="w"> </span>landscape-server:db
 <span class="w">  </span>-<span class="w"> </span>postgresql:db-admin
 </code></pre></div>
-<p>Enter the following command to deploy the Wordpress application bundle:</p>
+<p>Enter the following command to deploy the Landscape application bundle:</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>add-model<span class="w"> </span>landscape
 
 juju<span class="w"> </span>set-model-constraints<span class="w"> </span>allocate-public-ip<span class="o">=</span><span class="nb">true</span>
 
 juju<span class="w"> </span>deploy<span class="w"> </span>./os_files/landscape_bundle.yaml
 </code></pre></div>
-<p>Deploying the bundle inside Openstack will take around 30 minutes. Access the Landscape Web UI after the deployment finishes.</p>
+<p>Deploying the bundle inside OpenStack will take around 30 minutes. Access the Landscape Web UI after the deployment finishes.</p>
 <p>Enter the following command to monitor the deployment of the bundle:</p>
 <div class="highlight"><pre><span></span><code>watch<span class="w"> </span>-c<span class="w"> </span>juju<span class="w"> </span>status<span class="w"> </span>--color
 </code></pre></div>
@@ -993,7 +993,7 @@ To find out the IP address of your HAProxy unit, run the following command:</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>haproxy<span class="w"> </span>--format<span class="w"> </span>line<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^$<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
 </code></pre></div>
 <h3 id="task-3-remove-the-landscape-application-bundle-together-with-the-controller">Task 3: Remove the Landscape Application Bundle together with the controller<a class="headerlink" href="#task-3-remove-the-landscape-application-bundle-together-with-the-controller" title="Permanent link">&para;</a></h3>
-<p>Remove the Juju controller managing Openstack resources:</p>
+<p>Remove the Juju controller managing OpenStack resources:</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>switch<span class="w"> </span>maas-controller
 juju<span class="w"> </span>destroy-controller<span class="w"> </span>--destroy-all-models<span class="w"> </span>my-controller<span class="w"> </span>--no-prompt
 </code></pre></div>

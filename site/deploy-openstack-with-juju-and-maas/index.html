@@ -828,7 +828,6 @@ Machine<span class="w">  </span>State<span class="w">    </span>Address<span cla
 <p>For more information on Vault and Certificate management in OpenStack, please
 visit:</p>
 <p>https://docs.openstack.org/charm-guide/latest/admin/security/tls.html</p>
-<p>The env diagram looks like this:</p>
 <h3 id="task-2-disable-automatic-updates">Task 2: Disable automatic updates<a class="headerlink" href="#task-2-disable-automatic-updates" title="Permanent link">&para;</a></h3>
 <p>Use <code>juju ssh</code> to disable automatic updates on all nodes</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">4</span><span class="p">;</span>i++<span class="o">))</span>
@@ -872,8 +871,6 @@ the OpenStack Dashboard:</p>
 - <code>Username</code>: admin
 - <code>Password</code>: openstack</p>
 <h3 id="task-2-interacting-with-openstack-cli">Task 2: Interacting with OpenStack CLI<a class="headerlink" href="#task-2-interacting-with-openstack-cli" title="Permanent link">&para;</a></h3>
-<p>At the terminal of the MAAS server, enter the following command to retrieve the
-IP address of the Keystone Server:</p>
 <p>Install the OpenStack CLI tools.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>openstackclients<span class="w"> </span>--channel<span class="o">=</span><span class="m">2024</span>.1/stable<span class="w"> </span>--devmode
 </code></pre></div>
