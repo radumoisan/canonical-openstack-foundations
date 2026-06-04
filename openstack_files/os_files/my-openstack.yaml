@@ -1,0 +1,7 @@
+clouds:
+  my-openstack:
+    type: openstack
+    auth-types: [userpass]
+    regions:
+      RegionOne:
+        endpoint: https://192.168.100.XXX:5000/v3

@@ -1,0 +1,5 @@
+clouds:
+  maas:
+    type: maas
+    auth-types: [oauth1]
+    endpoint: http://192.168.100.3:5240/MAAS/

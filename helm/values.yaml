@@ -1,0 +1,42 @@
+# Default values for cb-dbs.
+replicaCount: 1
+logging: INFO
+certmanager:
+  cluster_issuer: letsencrypt
+image:
+  repository: cr.virtomat.io/virtomat/canonical-openstack-foundations
+  tag: 0.0.0
+  pullPolicy: IfNotPresent
+service:
+  port: 80
+  targetPort: 80
+ingress:
+  use_tls: true
+  host: opentack.foundations.cloudbase.wiki
+  class: nginx
+redis:
+  enabled: false
+  fullnameOverride: redis
+  architecture: standalone # 'replication' or 'standalone'
+  image:
+    registry: cr.virtomat.io
+    repository: library/bitnami/redis
+    tag: 7.2.1-debian-11-r0
+  global:
+    storageClass: microk8s-hostpath
+  auth:
+    existingSecret: redis
+    existingSecretPasswordKey: password
+proxy:
+  enabled: true
+  service:
+    targetPort: 4180
+  CLIENT_ID: mkdocs
+  CLIENT_SECRET: XjrgXQoXxt75qKHE09RsQJO9gU9zuYl7
+  COOKIE_SECRET: B8aKLnnvIQv3Ql0P
+  COOKIE_REFRESH: '12h' # aligned with "Access Token Lifespan"
+  COOKIE_EXPIRE: '168h' # aligned with "SSO Session Idle"
+  REDIRECT_URL: https://ubuntu.advanced.cloudbase.wiki/oauth2/callback
+  OIDC_ISSUER_URL: https://auth.virtomat.dev/realms/mkdocs
+  EMAIL_DOMAINS: '*'
+  INSECURE_OIDC_ALLOW_UNVERIFIED_EMAIL: true
