@@ -1,0 +1,1846 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation site for the OpenStack Foundations training">
+      
+      
+      
+      
+        <link rel="prev" href="../connect-to-canonical-openstack/">
+      
+      
+        <link rel="next" href="../install-and-configure-juju/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Install and Configure MAAS - OpenStack Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-install-and-configure-maas" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenStack Foundations" class="md-header__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenStack Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Install and Configure MAAS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenStack Foundations" class="md-nav__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OpenStack Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect-to-canonical-openstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Connect to Canonical OpenStack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Install and Configure MAAS
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure MAAS
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-install-a-maas-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Install a MAAS Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Install a MAAS Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-install-maas-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Install MAAS Packages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-perform-initial-configuration-of-a-maas-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Perform Initial Configuration of a MAAS Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Perform Initial Configuration of a MAAS Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-the-administrator-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create the Administrator User
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-log-into-the-maas-server-api-via-the-command-line-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Log into the MAAS server API via the Command Line Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-download-the-boot-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Download the Boot Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-generate-ssh-keys-for-the-maas-shell-admin-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Generate SSH Keys for the MAAS Shell Admin User
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-configure-a-maas-rack-controller-to-manage-dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Configure a MAAS Rack Controller to Manage DHCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Configure a MAAS Rack Controller to Manage DHCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-enable-dhcp-and-reserve-ip-ranges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Enable DHCP and Reserve IP Ranges
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-configure-upstream-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Configure Upstream DNS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-configure-kernel-options-for-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Configure Kernel options for nodes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-configure-local-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Configure Local DNS Resolution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-enable-maas-to-manage-libvirt-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Enable MAAS to Manage Libvirt Virtual Machines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Enable MAAS to Manage Libvirt Virtual Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-enable-maas-to-manage-libvirt-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Enable MAAS to Manage Libvirt Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-create-the-cloud-infrastructure-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Create the Cloud Infrastructure Virtual Machines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Create the Cloud Infrastructure Virtual Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-the-virtual-machine-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create the virtual machine infrastructure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-enlist-and-commission-virtual-machines-with-maas" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Enlist and Commission Virtual Machines with MAAS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Enlist and Commission Virtual Machines with MAAS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-disable-running-smartctl-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Disable running smartctl tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-enlist-the-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Enlist the Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-commission-the-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Commission the Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-performance-tune-the-lab-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Performance tune the LAB environment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-define-tags-for-the-cloud-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 Define Tags for the Cloud Nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7 Define Tags for the Cloud Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-list-tags-and-systems-by-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: List Tags and Systems by Tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8 WEB UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#282-perform-initial-configuration-of-a-maas-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.2 Perform Initial Configuration of a MAAS Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.2 Perform Initial Configuration of a MAAS Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-3-download-the-boot-images_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Download the Boot Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#283-configure-a-maas-rack-controller-to-manage-dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.3 Configure a MAAS Rack Controller to Manage DHCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.3 Configure a MAAS Rack Controller to Manage DHCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-enable-dhcp-and-reserve-ip-ranges_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Enable DHCP and Reserve IP Ranges
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-configure-upstream-dns_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Configure Upstream DNS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-configure-kernel-options-for-nodes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Configure Kernel options for nodes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#284-enlist-and-commission-virtual-machines-with-maas" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.4 Enlist and Commission Virtual Machines with MAAS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.4 Enlist and Commission Virtual Machines with MAAS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-2-enlist-the-virtual-machines_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Enlist the Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-commission-the-virtual-machines_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Commission the Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#285-define-tags-for-the-cloud-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.5 Define Tags for the Cloud Nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.5 Define Tags for the Cloud Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-list-tags-and-systems-by-tag_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: List Tags and Systems by Tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-juju/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure Juju
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-charms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju Charms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-openstack-with-juju-and-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy OpenStack with Juju and MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-defined-networks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Defined Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure-openstack-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure an OpenStack Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-workload-instances/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Workload Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openstack-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenStack Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-openstack-provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju OpenStack Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-install-a-maas-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Install a MAAS Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Install a MAAS Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-install-maas-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Install MAAS Packages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-perform-initial-configuration-of-a-maas-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Perform Initial Configuration of a MAAS Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Perform Initial Configuration of a MAAS Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-the-administrator-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create the Administrator User
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-log-into-the-maas-server-api-via-the-command-line-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Log into the MAAS server API via the Command Line Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-download-the-boot-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Download the Boot Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-generate-ssh-keys-for-the-maas-shell-admin-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Generate SSH Keys for the MAAS Shell Admin User
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-configure-a-maas-rack-controller-to-manage-dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Configure a MAAS Rack Controller to Manage DHCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Configure a MAAS Rack Controller to Manage DHCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-enable-dhcp-and-reserve-ip-ranges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Enable DHCP and Reserve IP Ranges
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-configure-upstream-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Configure Upstream DNS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-configure-kernel-options-for-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Configure Kernel options for nodes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-configure-local-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Configure Local DNS Resolution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-enable-maas-to-manage-libvirt-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Enable MAAS to Manage Libvirt Virtual Machines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Enable MAAS to Manage Libvirt Virtual Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-enable-maas-to-manage-libvirt-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Enable MAAS to Manage Libvirt Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-create-the-cloud-infrastructure-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Create the Cloud Infrastructure Virtual Machines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Create the Cloud Infrastructure Virtual Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-the-virtual-machine-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create the virtual machine infrastructure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-enlist-and-commission-virtual-machines-with-maas" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Enlist and Commission Virtual Machines with MAAS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Enlist and Commission Virtual Machines with MAAS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-disable-running-smartctl-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Disable running smartctl tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-enlist-the-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Enlist the Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-commission-the-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Commission the Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-performance-tune-the-lab-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Performance tune the LAB environment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-define-tags-for-the-cloud-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 Define Tags for the Cloud Nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7 Define Tags for the Cloud Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-list-tags-and-systems-by-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: List Tags and Systems by Tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8 WEB UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#282-perform-initial-configuration-of-a-maas-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.2 Perform Initial Configuration of a MAAS Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.2 Perform Initial Configuration of a MAAS Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-3-download-the-boot-images_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Download the Boot Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#283-configure-a-maas-rack-controller-to-manage-dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.3 Configure a MAAS Rack Controller to Manage DHCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.3 Configure a MAAS Rack Controller to Manage DHCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-enable-dhcp-and-reserve-ip-ranges_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Enable DHCP and Reserve IP Ranges
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-configure-upstream-dns_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Configure Upstream DNS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-configure-kernel-options-for-nodes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Configure Kernel options for nodes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#284-enlist-and-commission-virtual-machines-with-maas" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.4 Enlist and Commission Virtual Machines with MAAS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.4 Enlist and Commission Virtual Machines with MAAS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-2-enlist-the-virtual-machines_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Enlist the Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-commission-the-virtual-machines_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Commission the Virtual Machines
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#285-define-tags-for-the-cloud-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.5 Define Tags for the Cloud Nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.5 Define Tags for the Cloud Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-list-tags-and-systems-by-tag_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: List Tags and Systems by Tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="2-install-and-configure-maas">2. Install and Configure MAAS<a class="headerlink" href="#2-install-and-configure-maas" title="Permanent link">&para;</a></h1>
+<p><strong>Description:</strong></p>
+<p>In this section, you install and configure a MAAS environment.</p>
+<h2 id="21-install-a-maas-server">2.1 Install a MAAS Server<a class="headerlink" href="#21-install-a-maas-server" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-install-maas-packages">Task 1: Install MAAS Packages<a class="headerlink" href="#task-1-install-maas-packages" title="Permanent link">&para;</a></h3>
+<p>Generate an ssh key:</p>
+<div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>~/.ssh/id_rsa
+</code></pre></div>
+<p>Copy the ssh key to the MAAS server, with <code>ubuntu</code> as password :</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># password is ubuntu</span>
+ssh-copy-id<span class="w"> </span><span class="m">192</span>.168.100.3
+</code></pre></div>
+<p>Copy configuration files and bundles that you are  going to use later:</p>
+<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>/home/ubuntu/os_files<span class="w"> </span><span class="m">192</span>.168.100.3:~
+</code></pre></div>
+<p>Login to your MAAS VM and install the MAAS snaps:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span><span class="m">192</span>.168.100.3
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>maas<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.4
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>maas-test-db<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.4
+sudo<span class="w"> </span>maas<span class="w"> </span>init<span class="w"> </span>region+rack<span class="w"> </span>--database-uri<span class="w"> </span>maas-test-db:///
+</code></pre></div>
+<blockquote>
+<p>NOTE: press ENTER when asked about the MAAS URL.</p>
+</blockquote>
+<p>Here's the output:</p>
+<div class="highlight"><pre><span></span><code>MAAS<span class="w"> </span>URL<span class="w"> </span><span class="o">[</span><span class="nv">default</span><span class="o">=</span>http://192.168.100.3:5240/MAAS<span class="o">]</span>:
+MAAS<span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span><span class="nb">set</span><span class="w"> </span>up.
+
+If<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>configure<span class="w"> </span>external<span class="w"> </span>authentication<span class="w"> </span>or<span class="w"> </span>use
+MAAS<span class="w"> </span>with<span class="w"> </span>Canonical<span class="w"> </span>RBAC,<span class="w"> </span>please<span class="w"> </span>run
+
+<span class="w">  </span>sudo<span class="w"> </span>maas<span class="w"> </span>configauth
+
+To<span class="w"> </span>create<span class="w"> </span>admins<span class="w"> </span>when<span class="w"> </span>not<span class="w"> </span>using<span class="w"> </span>external<span class="w"> </span>authentication,<span class="w"> </span>run
+
+<span class="w">  </span>sudo<span class="w"> </span>maas<span class="w"> </span>createadmin
+
+To<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>TLS<span class="w"> </span><span class="k">for</span><span class="w"> </span>secured<span class="w"> </span>communication,<span class="w"> </span>please<span class="w"> </span>run
+
+<span class="w">  </span>sudo<span class="w"> </span>maas<span class="w"> </span>config-tls<span class="w"> </span><span class="nb">enable</span>
+</code></pre></div>
+<h2 id="22-perform-initial-configuration-of-a-maas-server">2.2 Perform Initial Configuration of a MAAS Server<a class="headerlink" href="#22-perform-initial-configuration-of-a-maas-server" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you perform the initial configuration steps of a MAAS server
+such as creating the administrator user and downloading the boot images, both focal (20.04) and jammy (22.04).</p>
+<h3 id="task-1-create-the-administrator-user">Task 1: Create the Administrator User<a class="headerlink" href="#task-1-create-the-administrator-user" title="Permanent link">&para;</a></h3>
+<p>Enter the following command to create the administrator account, <code>ubuntu</code> is the password:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>maas<span class="w"> </span>createadmin<span class="w"> </span>--username<span class="o">=</span>admin<span class="w"> </span>--password<span class="o">=</span>ubuntu<span class="w"> </span>--email<span class="o">=</span>admin@example.com
+</code></pre></div>
+<h3 id="task-2-log-into-the-maas-server-api-via-the-command-line-interface">Task 2: Log into the MAAS server API via the Command Line Interface<a class="headerlink" href="#task-2-log-into-the-maas-server-api-via-the-command-line-interface" title="Permanent link">&para;</a></h3>
+<p>In a terminal on the MAAS server, while logged in as the <code>ubuntu</code>, enter
+the following command to retrieve the API key for the MAAS admin user and save
+it to the file <code>~/maas-apikey</code>:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>maas<span class="w"> </span>apikey<span class="w"> </span>--username<span class="o">=</span>admin<span class="w"> </span>&gt;<span class="w"> </span>~/maas-apikey
+</code></pre></div>
+<p>Enter the following command to log into MAAS and create a profile:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>login<span class="w"> </span>myprofile<span class="w"> </span>http://192.168.100.3:5240/MAAS<span class="w"> </span>-<span class="w"> </span>&lt;<span class="w"> </span>~/maas-apikey
+</code></pre></div>
+<p>Verify that you are logged into the MAAS with the profile name of <code>myprofile</code></p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>list
+</code></pre></div>
+<h3 id="task-3-download-the-boot-images">Task 3: Download the Boot Images<a class="headerlink" href="#task-3-download-the-boot-images" title="Permanent link">&para;</a></h3>
+<p>By default, the "focal" (20.04) Ubuntu LTS is marked for download and we need to also download "jammy" (22.04) release, as well. Download the selected boot images:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>boot-source-selections<span class="w"> </span>create<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;ubuntu&quot;</span><span class="w"> </span><span class="nv">release</span><span class="o">=</span><span class="s2">&quot;jammy&quot;</span><span class="w"> </span><span class="nv">arches</span><span class="o">=</span><span class="s2">&quot;amd64&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">subarches</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="nv">labels</span><span class="o">=</span><span class="s2">&quot;*&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>boot-resources<span class="w"> </span>import
+</code></pre></div>
+<h3 id="task-4-generate-ssh-keys-for-the-maas-shell-admin-user">Task 4: Generate SSH Keys for the MAAS Shell Admin User<a class="headerlink" href="#task-4-generate-ssh-keys-for-the-maas-shell-admin-user" title="Permanent link">&para;</a></h3>
+<p>In the terminal on the MAAS server, while logged in as the <code>ubuntu</code>,
+enter the following command to generate a new SSH key pair:</p>
+<div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>~/.ssh/id_rsa
+</code></pre></div>
+<h3 id="task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas">Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS<a class="headerlink" href="#task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas" title="Permanent link">&para;</a></h3>
+<p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>,
+enter the following command to upload the SSH key generated in Task 4:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>sshkeys<span class="w"> </span>create<span class="w"> </span><span class="nv">key</span><span class="o">=</span><span class="s2">&quot;`cat ~/.ssh/id_rsa.pub`&quot;</span>
+</code></pre></div>
+<h2 id="23-configure-a-maas-rack-controller-to-manage-dhcp">2.3 Configure a MAAS Rack Controller to Manage DHCP<a class="headerlink" href="#23-configure-a-maas-rack-controller-to-manage-dhcp" title="Permanent link">&para;</a></h2>
+<p><strong>Description</strong></p>
+<p>In this exercise, you configure a MAAS rack controller to manage DHCP on it's
+network. You will also reserve two IP address ranges for use external to MAAS.
+Finally, you will configure the DNS servers and kernel parameters to be used by
+the MAAS server and any nodes it deploys.</p>
+<h3 id="task-1-enable-dhcp-and-reserve-ip-ranges">Task 1: Enable DHCP and Reserve IP Ranges<a class="headerlink" href="#task-1-enable-dhcp-and-reserve-ip-ranges" title="Permanent link">&para;</a></h3>
+<p>Enabling DHCP and reserving IP ranges can be accomplished via the CLI or the WebUI.</p>
+<p>In the terminal of the MAAS server, while logged in as <code>ubuntu</code>:</p>
+<p>Retrieve the fabric ID of the first fabric:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">FABRIC_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>fabrics<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">&quot;.[0].id&quot;</span><span class="sb">`</span>
+</code></pre></div>
+<p>Retrieve the VLAN ID of the first VLAN associated with the fabric ID:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">VLAN_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>vlans<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">$FABRIC_ID</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">&quot;.[0].vid&quot;</span><span class="sb">`</span>
+</code></pre></div>
+<p>Retrieve the system ID for the primary rack controller:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">RACK_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>rack-controllers<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.[0].system_id&quot;</span><span class="sb">`</span>
+</code></pre></div>
+<p>Add the Dynamic IP address range that will be used by MAAS for enlistment and commissioning and enable DHCP:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>dynamic<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">start_ip</span><span class="o">=</span><span class="m">192</span>.168.100.200<span class="w"> </span><span class="nv">end_ip</span><span class="o">=</span><span class="m">192</span>.168.100.254
+</code></pre></div>
+<p>Enable DHCP:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>vlan<span class="w"> </span>update<span class="w"> </span><span class="nv">$FABRIC_ID</span><span class="w"> </span><span class="nv">$VLAN_ID</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">primary_rack</span><span class="o">=</span><span class="nv">$RACK_ID</span><span class="w"> </span><span class="nv">dhcp_on</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">mtu</span><span class="o">=</span><span class="m">1400</span>
+</code></pre></div>
+<p>Add the static IP address range:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>reserved<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">start_ip</span><span class="o">=</span><span class="m">192</span>.168.100.1<span class="w"> </span><span class="nv">end_ip</span><span class="o">=</span><span class="m">192</span>.168.100.9
+</code></pre></div>
+<p>Add the IP address range that will be used for Floating Ips:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>reserved<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">start_ip</span><span class="o">=</span><span class="m">192</span>.168.100.150<span class="w"> </span><span class="nv">end_ip</span><span class="o">=</span><span class="m">192</span>.168.100.199
+</code></pre></div>
+<h3 id="task-2-configure-upstream-dns">Task 2: Configure Upstream DNS<a class="headerlink" href="#task-2-configure-upstream-dns" title="Permanent link">&para;</a></h3>
+<p>Configuring the upstream DNS can be accomplished via the CLI or the WebUI.</p>
+<p>Set the Upstream DNS server with the following command:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>upstream_dns<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s2">&quot;8.8.8.8&quot;</span>
+</code></pre></div>
+<h3 id="task-3-configure-kernel-options-for-nodes">Task 3: Configure Kernel options for nodes<a class="headerlink" href="#task-3-configure-kernel-options-for-nodes" title="Permanent link">&para;</a></h3>
+<p>Configuring the kernel options that will be supplied to nodes can be accomplished
+via the CLI or the WebUI.</p>
+<p>Set the kernel options server with the following command:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>kernel_opts<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s2">&quot;net.ifnames=0&quot;</span>
+</code></pre></div>
+<h3 id="task-4-configure-local-dns-resolution">Task 4: Configure Local DNS Resolution<a class="headerlink" href="#task-4-configure-local-dns-resolution" title="Permanent link">&para;</a></h3>
+<p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>, set the DNS and search domain to point to the MAAS server.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/netplan/50-cloud-init.yaml<span class="w"> </span>/etc/netplan/00-installer-config.yaml
+</code></pre></div>
+<p>Adjust the contents of the file to match this, be careful to double check the name of your network interface, it may vary:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cat<span class="w"> </span>/etc/netplan/00-installer-config.yaml
+
+<span class="c1"># output</span>
+network:
+<span class="w">    </span>ethernets:
+<span class="w">        </span>enp1s0:
+<span class="w">            </span>addresses:
+<span class="w">            </span>-<span class="w"> </span><span class="m">192</span>.168.100.3/24
+<span class="w">            </span>nameservers:
+<span class="w">                </span>addresses:
+<span class="w">                </span>-<span class="w"> </span><span class="m">192</span>.168.100.3
+<span class="w">                </span>-<span class="w"> </span><span class="m">8</span>.8.8.8
+<span class="w">                </span>search:
+<span class="w">                </span>-<span class="w"> </span>maas
+<span class="w">            </span>renderer:<span class="w"> </span>networkd
+<span class="w">            </span>routes:
+<span class="w">            </span>-<span class="w">   </span>to:<span class="w"> </span>default
+<span class="w">                </span>via:<span class="w"> </span><span class="m">192</span>.168.100.1
+<span class="w">    </span>version:<span class="w"> </span><span class="m">2</span>
+</code></pre></div>
+<p>Apply the changes:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+</code></pre></div>
+<p>and validate the DNS has been updated:</p>
+<div class="highlight"><pre><span></span><code>resolvectl<span class="w"> </span>status
+</code></pre></div>
+<h2 id="24-enable-maas-to-manage-libvirt-virtual-machines">2.4 Enable MAAS to Manage Libvirt Virtual Machines<a class="headerlink" href="#24-enable-maas-to-manage-libvirt-virtual-machines" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you enable MAAS to manage VMs on the Libvirt vhosts by generating
+an ssh key for the maas user and uploading it to the vhosts.</p>
+<h3 id="task-1-enable-maas-to-manage-libvirt-virtual-machines">Task 1: Enable MAAS to Manage Libvirt Virtual Machines<a class="headerlink" href="#task-1-enable-maas-to-manage-libvirt-virtual-machines" title="Permanent link">&para;</a></h3>
+<p>Enter the following commands to create a SSH key pair that will be used to authenticate 
+<code>MAAS</code> to <code>libvirt</code> running on your host machine:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/snap/maas/current/root/.ssh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>/var/snap/maas/current/root/.ssh/id_rsa
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>/var/snap/maas/current/root/.ssh/id_rsa<span class="w"> </span>ubuntu@192.168.100.1
+
+<span class="nb">exit</span>
+</code></pre></div>
+<blockquote>
+<p>NOTE: at the last step, use the password received via email from the instructor</p>
+</blockquote>
+<h2 id="25-create-the-cloud-infrastructure-virtual-machines">2.5 Create the Cloud Infrastructure Virtual Machines<a class="headerlink" href="#25-create-the-cloud-infrastructure-virtual-machines" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you create the infrastructure VMs for the lab environment.</p>
+<h3 id="task-1-create-the-virtual-machine-infrastructure">Task 1: Create the virtual machine infrastructure<a class="headerlink" href="#task-1-create-the-virtual-machine-infrastructure" title="Permanent link">&para;</a></h3>
+<p>On your <code>HOST MACHINE</code> (NOT the MAAS server) you have the script <code>~/deploy/create-vms.sh</code> that automate the VM creation process. Execute the command as follows:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>bash<span class="w"> </span>~/deploy/create-vms.sh
+</code></pre></div>
+<h2 id="26-enlist-and-commission-virtual-machines-with-maas">2.6 Enlist and Commission Virtual Machines with MAAS<a class="headerlink" href="#26-enlist-and-commission-virtual-machines-with-maas" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you enlist and commission the virtual machines in the lab
+environment with MAAS.</p>
+<h3 id="task-1-disable-running-smartctl-tests">Task 1: Disable running smartctl tests<a class="headerlink" href="#task-1-disable-running-smartctl-tests" title="Permanent link">&para;</a></h3>
+<p>You need to disable running <code>smartctl</code> tests upon provisioning of the LAB environment.</p>
+<p><strong>Note:</strong> This is only needed in the lab environment due to running it in virtual machines.
+In a real production environment it is advised to leave these tests enabled.</p>
+<p>Go back to the MAAS server:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span><span class="m">192</span>.168.100.3
+</code></pre></div>
+<p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code> user,
+enter the following commands:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">SCRIPT_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>node-scripts<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;smartctl-validate&quot;) | .id&#39;</span><span class="sb">`</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>node-script<span class="w"> </span>update<span class="w"> </span><span class="nv">$SCRIPT_ID</span><span class="w"> </span><span class="nv">tags</span><span class="o">=</span>storage
+</code></pre></div>
+<p>Before adding the chassis, we need to downgrade core22 snap to fix a bug described here: https://bugs.launchpad.net/maas/+bug/2053033</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>refresh<span class="w"> </span>core22<span class="w"> </span>--channel<span class="o">=</span>latest/stable<span class="w"> </span>--revision<span class="o">=</span><span class="m">1033</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>maas.supervisor
+</code></pre></div>
+<h3 id="task-2-enlist-the-virtual-machines">Task 2: Enlist the Virtual Machines<a class="headerlink" href="#task-2-enlist-the-virtual-machines" title="Permanent link">&para;</a></h3>
+<p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code> user,
+enter the following command to enlist all virtual machines starting with a
+VM name of “os-”:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span>add-chassis<span class="w"> </span><span class="nv">chassis_type</span><span class="o">=</span>virsh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">hostname</span><span class="o">=</span>qemu+ssh://ubuntu@192.168.100.1/system<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">prefix_filter</span><span class="o">=</span><span class="s2">&quot;os-&quot;</span>
+</code></pre></div>
+<p>You should see a message similar to:</p>
+<div class="highlight"><pre><span></span><code><span class="go">Success.</span>
+<span class="go">Machine-readable output follows:</span>
+<span class="go">Asking maas to add machines from chassis qemu+ssh://ubuntu@192.168.100.1/system</span>
+</code></pre></div>
+<h3 id="task-3-commission-the-virtual-machines">Task 3: Commission the Virtual Machines<a class="headerlink" href="#task-3-commission-the-virtual-machines" title="Permanent link">&para;</a></h3>
+<p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>, enter the following command to commission all virtual machines that are in the <code>New</code> state:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span>accept-all
+<span class="c1"># output</span>
+Success.
+Machine-readable<span class="w"> </span>output<span class="w"> </span>follows...
+</code></pre></div>
+<h3 id="task-4-performance-tune-the-lab-environment">Task 4: Performance tune the LAB environment<a class="headerlink" href="#task-4-performance-tune-the-lab-environment" title="Permanent link">&para;</a></h3>
+<p>In this task you will perform some LAB specific tasks to allow you to successfully
+complete the rest of the tasks.</p>
+<p><strong>Note:</strong> It is recommended that you do not perform these steps in a production environment
+as doing so might lead to undesired results.</p>
+<p>While logged into the MAAS machine as <code>ubuntu</code>, execute the following to
+disable adding a swap file and generating excessive IO on the host.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/var/snap/maas/current/preseeds/curtin_userdata.sample<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">swap:</span>
+<span class="s">  size: 0</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Edit the file and add 2 spaces before &quot;size&quot;:</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/var/snap/maas/current/preseeds/curtin_userdata.sample
+</code></pre></div>
+<p>Configure quick disk erasing, otherwise when redeploying nodes will take longer
+than 40 minutes and thus fail with a timeout. This needs to be done prior to
+commissioning of the VMs.</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>disk_erase_with_secure_erase<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">false</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>disk_erase_with_quick_erase<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>enable_disk_erasing_on_release<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<h2 id="27-define-tags-for-the-cloud-nodes">2.7 Define Tags for the Cloud Nodes<a class="headerlink" href="#27-define-tags-for-the-cloud-nodes" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you view and define tags in the MAAS system.</p>
+<h3 id="task-1-list-tags-and-systems-by-tag">Task 1: List Tags and Systems by Tag<a class="headerlink" href="#task-1-list-tags-and-systems-by-tag" title="Permanent link">&para;</a></h3>
+<p>The listing of existing tags and systems associated with each tag can be accomplished
+via the CLI or the WebUI.</p>
+<p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>,
+enter the following command to list the existing tags:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span><span class="nb">read</span>
+</code></pre></div>
+<p>You should see a list of the existing tags.</p>
+<p>Enter the following command to list all of the systems that match the tag <code>virtual</code>:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>virtual<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
+</code></pre></div>
+<p>You should see the hostname of all of the nodes that match the tag <code>virtual</code>.</p>
+<h3 id="task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them">Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them<a class="headerlink" href="#task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them" title="Permanent link">&para;</a></h3>
+<p>Defining new tags and assigning systems to them can be accomplished via the CLI or the WebUI.</p>
+<p>Enter the following command to create a tag without a definition for the Juju bootstrap node:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span>create<span class="w"> </span><span class="nv">name</span><span class="o">=</span>juju
+</code></pre></div>
+<p>Enter the following command to list details for the Juju bootstrap node:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">hostname</span><span class="o">=</span>os-juju01
+</code></pre></div>
+<p>Enter the following command to associate this system with the juju tag:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">JUJU01_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">hostname</span><span class="o">=</span>os-juju01<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.[].system_id&quot;</span><span class="sb">`</span>
+
+maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>update-nodes<span class="w"> </span>juju<span class="w"> </span><span class="nv">add</span><span class="o">=</span><span class="nv">$JUJU01_ID</span>
+</code></pre></div>
+<p>Enter the following command to view the system associated the juju tag:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>juju<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
+</code></pre></div>
+<p>You should see the system you just added the tag to listed.</p>
+<p>Enter the following command to create the tag for the os-compute## nodes:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span>create<span class="w"> </span><span class="nv">name</span><span class="o">=</span>storage
+</code></pre></div>
+<p>Run the following command to associate the <code>storage</code> tag to the rest of the VMs:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="sb">`</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">NODE_NAME</span><span class="o">=</span>os-compute0<span class="si">${</span><span class="nv">i</span><span class="si">}</span>
+<span class="w">  </span><span class="nv">NODE_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">hostname</span><span class="o">=</span><span class="si">${</span><span class="nv">NODE_NAME</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.[].system_id&quot;</span><span class="sb">`</span>
+<span class="w">  </span>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>update-nodes<span class="w"> </span>storage<span class="w"> </span><span class="nv">add</span><span class="o">=</span><span class="si">${</span><span class="nv">NODE_ID</span><span class="si">}</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>Enter the following command to view the systems associated with the storage tag:</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>storage<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
+<span class="c1"># output</span>
+<span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute01&quot;</span>,
+<span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute02&quot;</span>,
+<span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute03&quot;</span>,
+<span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute04&quot;</span>,
+</code></pre></div>
+<h2 id="28-web-ui">2.8 WEB UI<a class="headerlink" href="#28-web-ui" title="Permanent link">&para;</a></h2>
+<h2 id="282-perform-initial-configuration-of-a-maas-server">2.8.2 Perform Initial Configuration of a MAAS Server<a class="headerlink" href="#282-perform-initial-configuration-of-a-maas-server" title="Permanent link">&para;</a></h2>
+<h3 id="task-3-download-the-boot-images_1">Task 3: Download the Boot Images<a class="headerlink" href="#task-3-download-the-boot-images_1" title="Permanent link">&para;</a></h3>
+<p><strong>To download the boot images via the WebUI perform the following:</strong></p>
+<ol>
+<li>Open a web browser and point to: <code>http://192.168.100.3:5240/MAAS</code>.</li>
+<li>Log in as <code>admin</code>.</li>
+<li>Go on the <code>Images</code> page.</li>
+<li>Under <code>Releases</code> section select <code>22.04 LTS</code>.</li>
+<li>Under <code>Architecture</code> select <code>amd64</code>.</li>
+<li>Click <code>Update selection</code>.</li>
+</ol>
+<h3 id="task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas_1">Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS<a class="headerlink" href="#task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas_1" title="Permanent link">&para;</a></h3>
+<p><strong>To Upload the SSH keys into MAAS via the WebUI perform the following:</strong></p>
+<ol>
+<li>In the MAAS WebUI, click on  <code>admin</code> user in the bottom left sidebar.</li>
+<li>In the  <code>SSH Keys</code> section, click on <code>Import SSH Key</code>.</li>
+<li>As <code>Source</code>, select <code>Upload</code>.</li>
+<li>Copy and paste the contents of the <code>~/.ssh/id_rsa.pub</code> file into the <code>Public key</code>.
+   field and then click  <code>Import SSH key</code>.</li>
+</ol>
+<h2 id="283-configure-a-maas-rack-controller-to-manage-dhcp">2.8.3 Configure a MAAS Rack Controller to Manage DHCP<a class="headerlink" href="#283-configure-a-maas-rack-controller-to-manage-dhcp" title="Permanent link">&para;</a></h2>
+<p><strong>Description</strong></p>
+<p>In this exercise, you configure a MAAS rack controller to manage DHCP on it's
+network. You will also reserve two IP address ranges for use external to MAAS.
+Finally, you will configure the DNS servers and kernel parameters to be used by
+the MAAS server and any nodes it deploys.</p>
+<h3 id="task-1-enable-dhcp-and-reserve-ip-ranges_1">Task 1: Enable DHCP and Reserve IP Ranges<a class="headerlink" href="#task-1-enable-dhcp-and-reserve-ip-ranges_1" title="Permanent link">&para;</a></h3>
+<p><strong>To enable DHCP and reserve IP ranges via the WebUI perform the following:</strong></p>
+<ol>
+<li>If not already logged into the MAAS web UI, open a web browser and point to <code>http://192.168.100.3:5240/MAAS</code>.<blockquote>
+<p>Log in using the MAAS administrator credentials.</p>
+</blockquote>
+</li>
+<li>Select the <code>Subnets</code> menu on the left.</li>
+<li>On the <code>Subnets</code> page, select the <code>untagged</code> link under the <code>VLAN</code> header.<blockquote>
+<p>You should see the <code>Default VLAN in Fabric-0</code> configuration page displayed.</p>
+</blockquote>
+</li>
+<li>In the <code>DHCP</code> section, click on <code>Enable DHCP</code>.</li>
+<li>Configure the subnet, <code>192.168.100.200</code> and <code>192.168.100.254</code> values.</li>
+<li>Click the <code>Configure DHCP</code> button.</li>
+<li>On the <code>Subnets</code> page, scroll down to the <code>Reserved</code> section.</li>
+<li>Click on the <code>Reserve range</code> button, <code>Reserve range</code> section.</li>
+<li>Enter the following values in their corresponding fields with <code>192.168.100.1</code>, <code>192.168.100.9</code> and <code>Purpose: static</code> values.</li>
+<li>Click on the <code>Reserve</code> button.</li>
+<li>Click on the <code>Reserve Range</code> button again.</li>
+<li>Enter the following values in their corresponding fields with <code>192.168.100.150</code>, <code>192.168.100.199</code> and <code>Purpose: floating</code> values.</li>
+<li>Click on the <code>Reserve</code> button.</li>
+</ol>
+<h3 id="task-2-configure-upstream-dns_1">Task 2: Configure Upstream DNS<a class="headerlink" href="#task-2-configure-upstream-dns_1" title="Permanent link">&para;</a></h3>
+<p>Configuring the upstream DNS can be accomplished via the CLI or the WebUI.</p>
+<p><strong>To configure the upstream DNS via the WebUI perform the following:</strong></p>
+<ol>
+<li>If not already logged into the MAAS web UI, open a web browser and point to <code>http://192.168.100.3:5240/MAAS</code>.</li>
+<li>Log in using the MAAS administrator credentials.</li>
+<li>Go on <code>Settings</code> menu on the left sidebar, then <code>DNS</code> under the <code>Network</code> menu.</li>
+<li>Under the <code>DNS</code>section, in the <code>Upstream DNS used to resolve domains not managed by this MAAS</code> fields, enter the following value: <code>8.8.8.8</code>.</li>
+<li>Click the <code>Save</code> button below the <code>DNS</code> section.</li>
+</ol>
+<h3 id="task-3-configure-kernel-options-for-nodes_1">Task 3: Configure Kernel options for nodes<a class="headerlink" href="#task-3-configure-kernel-options-for-nodes_1" title="Permanent link">&para;</a></h3>
+<p>Configuring the kernel options that will be supplied to nodes can be accomplished
+via the CLI or the WebUI.</p>
+<p><strong>To configure the kernel options via the WebUI perform the following:</strong></p>
+<ol>
+<li>If not already logged into the MAAS web UI, open a web browser and point to <code>http://192.168.100.3:5240/MAAS</code></li>
+<li>Log in using the MAAS administrator credentials</li>
+<li>Go on <code>Settings</code> menu on the left sidebar, and under <code>Configuration</code> section, you'll see <code>Kernel parameters</code> section</li>
+<li>In the <code>Global boot parameters always passed to the kernel</code> field, enter the following value: <code>net.ifnames=0</code></li>
+<li>Click the <code>Save</code> button below.</li>
+</ol>
+<h2 id="284-enlist-and-commission-virtual-machines-with-maas">2.8.4 Enlist and Commission Virtual Machines with MAAS<a class="headerlink" href="#284-enlist-and-commission-virtual-machines-with-maas" title="Permanent link">&para;</a></h2>
+<h3 id="task-2-enlist-the-virtual-machines_1">Task 2: Enlist the Virtual Machines<a class="headerlink" href="#task-2-enlist-the-virtual-machines_1" title="Permanent link">&para;</a></h3>
+<p><strong>To enlist virtual machines via the WebUI perform the following:</strong></p>
+<ol>
+<li>If not already logged into the MAAS web UI, open a web browser and point to <code>http://192.168.100.3:5240/MAAS</code>.</li>
+<li>Click on the <code>Machines</code> on the left sidebar.</li>
+<li>From the <code>Add Hardware</code> drop-down list, select <code>Chassis</code>.</li>
+<li>Under the <code>Add chassis</code> section change <code>Power type</code> to <code>Virsh (virtual systems)</code>.</li>
+<li>Enter the following values:<blockquote>
+<p><code>Address</code>: <code>qemu+ssh://ubuntu@192.168.100.1/system</code><br/></p>
+</blockquote>
+</li>
+<li>When finished entering the values, click <code>Save chassis</code>.<blockquote>
+<p>After saving the chassis, you will see all of the VMs you previously created appear in the nodes list.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="task-3-commission-the-virtual-machines_1">Task 3: Commission the Virtual Machines<a class="headerlink" href="#task-3-commission-the-virtual-machines_1" title="Permanent link">&para;</a></h3>
+<p><strong>To commission virtual machines via the WebUI perform the following:</strong></p>
+<ol>
+<li>In the MAAS server web interface, select the <code>Machines</code> tab.</li>
+<li>Tick the <code>check-box</code> next to <code>FQDN</code> to select all of the nodes.</li>
+<li>From the <code>Actions</code> drop-down list, select <code>Commission</code>.</li>
+<li>Click <code>Commision nodes</code>.<blockquote>
+<p>All of the nodes should start powering on. While the nodes are commissioning
+their status should go from  <code>New</code> to <code>Commissioning</code> Once the commissioning
+is complete, they should power off and their status should change from
+<code>Commissioning</code> to <code>Ready</code>.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="285-define-tags-for-the-cloud-nodes">2.8.5 Define Tags for the Cloud Nodes<a class="headerlink" href="#285-define-tags-for-the-cloud-nodes" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you view and define tags in the MAAS system.</p>
+<h3 id="task-1-list-tags-and-systems-by-tag_1">Task 1: List Tags and Systems by Tag<a class="headerlink" href="#task-1-list-tags-and-systems-by-tag_1" title="Permanent link">&para;</a></h3>
+<p><strong>To list the tags and systems via the WebUI perform the following:</strong></p>
+<ol>
+<li>Open a web browser and point to: <code>http://192.168.100.3:5240/MAAS</code> and log in as <code>admin</code>.</li>
+<li>From the tabs at the top of the screen, click on the  <code>Machines</code> tab.</li>
+<li>In the <code>Filter</code> drop down box on the left side of the browser window click on the <code>Tags</code> link to expand the view. A listing of tags should be displayed.</li>
+<li>Click on the tag <code>virtual</code> to display the systems (in the right pane of the browser window) assigned to the tag <code>virtual</code>.</li>
+</ol>
+<h3 id="task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them_1">Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them<a class="headerlink" href="#task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them_1" title="Permanent link">&para;</a></h3>
+<p><strong>To define tags and assign systems via the WebUI perform the following:</strong></p>
+<ol>
+<li>In the MAAS WebUI, select the <code>Machines</code> left sidebar menu.</li>
+<li>Click on the <code>os-juju01</code> node.</li>
+<li>In the <code>Machine summary</code>, click on the <code>Tags</code> field.</li>
+<li>In the <code>Tags</code> section, type <code>juju</code> and press <code>Enter</code>.</li>
+<li>Click on <code>Save changes</code>.<blockquote>
+<p>You should see the <code>juju</code> tag listed in the <code>Tags</code> section.</p>
+</blockquote>
+</li>
+<li>For each of the compute nodes click on the node name and repeat steps 3 though 6 entering  <code>storage</code> instead of <code>juju</code>.<blockquote>
+<p>You should see the  <code>storage</code> tag listed for each node in the <code>Machine summary</code>.</p>
+</blockquote>
+</li>
+<li>Return to the Machines page by clicking the <code>Machines</code> tab.</li>
+<li>Click on the <code>Tags</code> link in the <code>Filter by</code> pane. You should see the <code>juju</code> and <code>storage</code> tags in the list.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

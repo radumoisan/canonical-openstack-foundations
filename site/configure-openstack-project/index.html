@@ -1,0 +1,1894 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation site for the OpenStack Foundations training">
+      
+      
+      
+      
+        <link rel="prev" href="../cloud-images/">
+      
+      
+        <link rel="next" href="../cloud-workload-instances/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Configure an OpenStack Project - OpenStack Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8-configure-an-openstack-project" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenStack Foundations" class="md-header__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenStack Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configure an OpenStack Project
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenStack Foundations" class="md-nav__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OpenStack Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect-to-canonical-openstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Connect to Canonical OpenStack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-juju/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure Juju
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-charms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju Charms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-openstack-with-juju-and-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy OpenStack with Juju and MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-defined-networks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Defined Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Configure an OpenStack Project
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Configure an OpenStack Project
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81-create-an-openstack-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Create an OpenStack Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 Create an OpenStack Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-a-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create a New Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-and-assign-a-user-to-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create and Assign a User to a Project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-configure-access-to-a-project-in-openstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Configure Access to a Project in OpenStack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Configure Access to a Project in OpenStack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-use-the-student-resource-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Use the student resource file
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-generate-key-pairs-for-workload-instance-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Generate Key Pairs for Workload Instance Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Generate Key Pairs for Workload Instance Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-generate-a-new-key-pair" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Generate a New Key Pair
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-import-a-public-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Import a Public Key
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-define-a-security-group-for-icmp-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 Define a Security Group for ICMP Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.4 Define a Security Group for ICMP Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-rule-to-allow-incoming-icmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Rule to Allow Incoming ICMP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-define-a-security-group-for-ssh-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5 Define a Security Group for SSH Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.5 Define a Security Group for SSH Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-rule-to-allow-incoming-and-outgoing-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Rule to Allow Incoming and Outgoing SSH
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86-define-quotas-for-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.6 Define Quotas for a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.6 Define Quotas for a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-modify-a-projects-quotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Modify a Project's Quotas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87-configure-virtual-networks-for-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.7 Configure Virtual Networks for a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.7 Configure Virtual Networks for a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-the-tenant-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create the Tenant Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-a-router-to-connect-the-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create a Router to Connect the Networks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#88-assign-public-ip-addresses-to-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.8 Assign Public IP Addresses to a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.8 Assign Public IP Addresses to a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-allocate-a-floating-ip-to-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Allocate a Floating IP to a Project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#89-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9 WEB UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#891-create-a-project-in-openstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.1 Create a project in OpenStack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.1 Create a project in OpenStack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-a-new-project_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create a New Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-and-assign-a-user-to-a-project_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create and Assign a User to a Project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#892-configure-access-to-a-project-in-openstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.2 Configure Access to a Project in OpenStack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#893-generate-key-pairs-for-workload-instance-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.3 Generate Key Pairs for Workload Instance Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.3 Generate Key Pairs for Workload Instance Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-generate-a-new-key-pair_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Generate a New Key Pair
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#894-define-a-security-group-for-icmp-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.4 Define a Security Group for ICMP Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.4 Define a Security Group for ICMP Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-rule-to-allow-incoming-icmp_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Rule to Allow Incoming ICMP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#895-define-a-security-group-for-ssh-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.5 Define a Security Group for SSH Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.5 Define a Security Group for SSH Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-rule-to-allow-incoming-and-outgoing-ssh_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Rule to Allow Incoming and Outgoing SSH
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#896-define-quotas-for-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.6 Define Quotas for a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.6 Define Quotas for a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-modify-a-projects-quotas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Modify a Project's Quotas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#897-configure-virtual-networks-for-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.7 Configure Virtual Networks for a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.7 Configure Virtual Networks for a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-the-tenant-private-network_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create the Tenant Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-a-router-to-connect-the-networks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create a Router to Connect the Networks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#898-assign-public-ip-addresses-to-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.8 Assign Public IP Addresses to a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.8 Assign Public IP Addresses to a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-allocate-a-floating-ip-to-a-project_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Allocate a Floating IP to a Project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-workload-instances/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Workload Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openstack-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenStack Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-openstack-provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju OpenStack Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81-create-an-openstack-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Create an OpenStack Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 Create an OpenStack Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-a-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create a New Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-and-assign-a-user-to-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create and Assign a User to a Project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-configure-access-to-a-project-in-openstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Configure Access to a Project in OpenStack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Configure Access to a Project in OpenStack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-use-the-student-resource-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Use the student resource file
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-generate-key-pairs-for-workload-instance-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Generate Key Pairs for Workload Instance Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Generate Key Pairs for Workload Instance Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-generate-a-new-key-pair" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Generate a New Key Pair
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-import-a-public-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Import a Public Key
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-define-a-security-group-for-icmp-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 Define a Security Group for ICMP Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.4 Define a Security Group for ICMP Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-rule-to-allow-incoming-icmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Rule to Allow Incoming ICMP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-define-a-security-group-for-ssh-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5 Define a Security Group for SSH Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.5 Define a Security Group for SSH Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-rule-to-allow-incoming-and-outgoing-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Rule to Allow Incoming and Outgoing SSH
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86-define-quotas-for-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.6 Define Quotas for a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.6 Define Quotas for a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-modify-a-projects-quotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Modify a Project's Quotas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87-configure-virtual-networks-for-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.7 Configure Virtual Networks for a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.7 Configure Virtual Networks for a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-the-tenant-private-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create the Tenant Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-a-router-to-connect-the-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create a Router to Connect the Networks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#88-assign-public-ip-addresses-to-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.8 Assign Public IP Addresses to a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.8 Assign Public IP Addresses to a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-allocate-a-floating-ip-to-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Allocate a Floating IP to a Project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#89-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9 WEB UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#891-create-a-project-in-openstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.1 Create a project in OpenStack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.1 Create a project in OpenStack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-a-new-project_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create a New Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-and-assign-a-user-to-a-project_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create and Assign a User to a Project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#892-configure-access-to-a-project-in-openstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.2 Configure Access to a Project in OpenStack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#893-generate-key-pairs-for-workload-instance-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.3 Generate Key Pairs for Workload Instance Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.3 Generate Key Pairs for Workload Instance Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-generate-a-new-key-pair_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Generate a New Key Pair
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#894-define-a-security-group-for-icmp-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.4 Define a Security Group for ICMP Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.4 Define a Security Group for ICMP Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-rule-to-allow-incoming-icmp_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Rule to Allow Incoming ICMP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#895-define-a-security-group-for-ssh-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.5 Define a Security Group for SSH Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.5 Define a Security Group for SSH Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-rule-to-allow-incoming-and-outgoing-ssh_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Rule to Allow Incoming and Outgoing SSH
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#896-define-quotas-for-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.6 Define Quotas for a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.6 Define Quotas for a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-modify-a-projects-quotas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Modify a Project's Quotas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#897-configure-virtual-networks-for-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.7 Configure Virtual Networks for a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.7 Configure Virtual Networks for a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-the-tenant-private-network_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create the Tenant Private Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-a-router-to-connect-the-networks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create a Router to Connect the Networks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#898-assign-public-ip-addresses-to-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9.8 Assign Public IP Addresses to a Project
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9.8 Assign Public IP Addresses to a Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-allocate-a-floating-ip-to-a-project_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Allocate a Floating IP to a Project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="8-configure-an-openstack-project">8. Configure an OpenStack Project<a class="headerlink" href="#8-configure-an-openstack-project" title="Permanent link">&para;</a></h1>
+<p><strong>Description:</strong></p>
+<p>In this section you create and configuration a project in OpenStack.</p>
+<h2 id="81-create-an-openstack-project">8.1 Create an OpenStack Project<a class="headerlink" href="#81-create-an-openstack-project" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you create a new OpenStack project and then create and assign
+a new user to it.</p>
+<h3 id="task-1-create-a-new-project">Task 1: Create a New Project<a class="headerlink" href="#task-1-create-a-new-project" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following commands to create
+a new project:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>project<span class="w"> </span>create<span class="w"> </span>--enable<span class="w"> </span>--description<span class="w"> </span><span class="s1">&#39;Student Project&#39;</span><span class="w"> </span>StudentProject<span class="w"> </span>--domain<span class="w"> </span>admin_domain
+</code></pre></div>
+<h3 id="task-2-create-and-assign-a-user-to-a-project">Task 2: Create and Assign a User to a Project<a class="headerlink" href="#task-2-create-and-assign-a-user-to-a-project" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to create a 
+new user and assign that user to a project:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>--project<span class="w"> </span>StudentProject<span class="w"> </span>--email<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>student@example.com<span class="w"> </span>--password<span class="w"> </span>openstack<span class="w"> </span>--enable<span class="w"> </span>student<span class="w"> </span>--domain<span class="w"> </span>admin_domain
+</code></pre></div>
+<p>To assign the user and project to the Member role:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>role<span class="w"> </span>add<span class="w"> </span>--project-domain<span class="w"> </span>admin_domain<span class="w"> </span>--user-domain<span class="w"> </span>admin_domain<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="w"> </span>student<span class="w"> </span>--project<span class="w"> </span>StudentProject<span class="w"> </span>Member
+</code></pre></div>
+<h2 id="82-configure-access-to-a-project-in-openstack">8.2 Configure Access to a Project in OpenStack<a class="headerlink" href="#82-configure-access-to-a-project-in-openstack" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you use Juju to configure access to a project in OpenStack.</p>
+<h3 id="task-1-use-the-student-resource-file">Task 1: Use the student resource file<a class="headerlink" href="#task-1-use-the-student-resource-file" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, copy the student openrc file to the home directory:</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>os_files/student_*<span class="w"> </span>~/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<h2 id="83-generate-key-pairs-for-workload-instance-access">8.3 Generate Key Pairs for Workload Instance Access<a class="headerlink" href="#83-generate-key-pairs-for-workload-instance-access" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you generate a new key pair for workload instance access and
+then import an existing public key</p>
+<h3 id="task-1-generate-a-new-key-pair">Task 1: Generate a New Key Pair<a class="headerlink" href="#task-1-generate-a-new-key-pair" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to generate
+the key pair:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>keypair<span class="w"> </span>create<span class="w"> </span>student-keypair<span class="w"> </span>&gt;<span class="w"> </span>~/.ssh/student-keypair.pem
+</code></pre></div>
+<p>A file named <code>~/.ssh/student-keypair.pem</code> should be created.</p>
+<p>Verify the key file <code>~/.ssh/student-keypair.pem</code> is created:</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-al<span class="w"> </span>~/.ssh/student-keypair.pem
+</code></pre></div>
+<p>You should see something similar to:</p>
+<div class="highlight"><pre><span></span><code>-rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w"> </span><span class="m">1684</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">01</span>:20<span class="w">   </span>/home/ubuntu/.ssh/student-keypair.pem
+</code></pre></div>
+<p>Permissions on the key file are set based on umask. They should be changed to <code>600</code>:</p>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/student-keypair.pem
+</code></pre></div>
+<h3 id="task-2-import-a-public-key">Task 2: Import a Public Key<a class="headerlink" href="#task-2-import-a-public-key" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to import an
+existing key pair:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>keypair<span class="w"> </span>create<span class="w"> </span>--public-key<span class="w"> </span>~/.ssh/id_rsa.pub<span class="w"> </span>existing-keypair
+</code></pre></div>
+<p>At the terminal of the MAAS server, enter the following command to view
+existing key pairs:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>keypair<span class="w"> </span>list
+</code></pre></div>
+<p>You should see key pairs named existing-keypair and student-keypair and their
+fingerprints listed.</p>
+<h2 id="84-define-a-security-group-for-icmp-traffic">8.4 Define a Security Group for ICMP Traffic<a class="headerlink" href="#84-define-a-security-group-for-icmp-traffic" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you define a security group that allows both incoming and outgoing
+ICMP traffic.</p>
+<p><strong>Note:</strong></p>
+<p>By default, when you create a security group it will allow all outgoing IPv4 and IPv6
+traffic. The examples in the following exercises are there to familiarize you with
+the concept of <code>ingress</code> and <code>egress</code>.</p>
+<p>If you ever do need to restrict egress traffic make sure to remove all default egress
+rules from the security groups you apply to an instance or a port.</p>
+<h3 id="task-1-define-a-rule-to-allow-incoming-icmp">Task 1: Define a Rule to Allow Incoming ICMP<a class="headerlink" href="#task-1-define-a-rule-to-allow-incoming-icmp" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to create a
+security group for ICMP traffic:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--description<span class="w"> </span><span class="s1">&#39;Allow ICMP Traffic&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>StudentProject_Allow_ICMP
+</code></pre></div>
+<p>You should see detailed information on the ICMP security group you just created.</p>
+<p>To create the rules for the newly created ICMP security group:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>icmp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>StudentProject_Allow_ICMP
+</code></pre></div>
+<p>You should see your ICMP ingress rule listed.</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>icmp<span class="w"> </span>--egress<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>StudentProject_Allow_ICMP
+</code></pre></div>
+<p>You should see your ICMP egress rule listed.</p>
+<p>To view the security group rules list inside StudentProject_Allow_ICMP security group, run the following command:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>list<span class="w"> </span>StudentProject_Allow_ICMP
+</code></pre></div>
+<h2 id="85-define-a-security-group-for-ssh-traffic">8.5 Define a Security Group for SSH Traffic<a class="headerlink" href="#85-define-a-security-group-for-ssh-traffic" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you define a security group that allows both incoming and
+outgoing SSH traffic.</p>
+<h5 id="task-1-define-a-rule-to-allow-incoming-and-outgoing-ssh">Task 1: Define a Rule to Allow Incoming and Outgoing SSH<a class="headerlink" href="#task-1-define-a-rule-to-allow-incoming-and-outgoing-ssh" title="Permanent link">&para;</a></h5>
+<p>To define a rule allowing incoming SSH via the CLI perform the following:</p>
+<p>At the terminal of the MAAS server, enter the following command to create
+a security group for SSH traffic:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--description<span class="w"> </span><span class="s1">&#39;Allow SSH Traffic&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>StudentProject_Allow_SSH
+</code></pre></div>
+<p>You should see detailed information on the SSH security group you just created.</p>
+<p>To create rules for the newly created SSH security group:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>tcp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dst-port<span class="w"> </span><span class="m">22</span><span class="w"> </span>StudentProject_Allow_SSH
+</code></pre></div>
+<p>You should see your SSH ingress rule listed.</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>tcp<span class="w"> </span>--egress<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dst-port<span class="w"> </span><span class="m">22</span><span class="w"> </span>StudentProject_Allow_SSH
+</code></pre></div>
+<p>You should see your SSH egress rule listed.</p>
+<p>To view the security group rules list in StudentProject_Allow_SSH security group, run the following command:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>list<span class="w"> </span>StudentProject_Allow_SSH
+</code></pre></div>
+<h2 id="86-define-quotas-for-a-project">8.6 Define Quotas for a Project<a class="headerlink" href="#86-define-quotas-for-a-project" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you will modify the quotas for a project.</p>
+<h5 id="task-1-modify-a-projects-quotas">Task 1: Modify a Project's Quotas<a class="headerlink" href="#task-1-modify-a-projects-quotas" title="Permanent link">&para;</a></h5>
+<p>At the terminal of the MAAS server, enter the following command to view the
+quotas for the project StudentProject:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>quota<span class="w"> </span>show<span class="w"> </span>StudentProject
+</code></pre></div>
+<p>You should see all quotas for project StudentProject.</p>
+<p>At the terminal of the MAAS server, enter the following command to set new
+quotas for the project StudentProject:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>quota<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">40</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">25600</span><span class="w"> </span>--instances<span class="w"> </span><span class="m">20</span><span class="w"> </span>--volumes<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--snapshots<span class="w"> </span><span class="m">5</span><span class="w"> </span>--floating-ips<span class="w"> </span><span class="m">10</span><span class="w"> </span>--secgroups<span class="w"> </span><span class="m">20</span><span class="w"> </span>--secgroup-rules<span class="w"> </span><span class="m">200</span><span class="w"> </span>StudentProject
+</code></pre></div>
+<p>At the terminal of the MAAS server, enter the following command to view the
+newly set quotas for the project StudentProject:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>quota<span class="w"> </span>show<span class="w"> </span>StudentProject
+</code></pre></div>
+<p>You should see all quotas for project StudentProject.</p>
+<h2 id="87-configure-virtual-networks-for-a-project">8.7 Configure Virtual Networks for a Project<a class="headerlink" href="#87-configure-virtual-networks-for-a-project" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you create a private network, subnet and router for a project.</p>
+<h3 id="task-1-create-the-tenant-private-network">Task 1: Create the Tenant Private Network<a class="headerlink" href="#task-1-create-the-tenant-private-network" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the <code>MAAS server</code>, enter the following command to read in
+the environment for the StudentProject project.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<p>Enter the following command to define the private network:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>StudentProject_Network<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1300</span>
+</code></pre></div>
+<p>You should see the details of the newly created tenant network.</p>
+<p>Enter the following command to define the private subnet properties:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>subnet<span class="w"> </span>create<span class="w"> </span>--ip-version<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--allocation-pool<span class="w"> </span><span class="nv">start</span><span class="o">=</span><span class="m">10</span>.20.30.10,end<span class="o">=</span><span class="m">10</span>.20.30.199<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gateway<span class="o">=</span><span class="m">10</span>.20.30.1<span class="w"> </span>--dhcp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dns-nameserver<span class="w"> </span><span class="m">192</span>.168.100.3<span class="w"> </span>--dns-nameserver<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--subnet-range<span class="w"> </span><span class="m">10</span>.20.30.0/24<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--network<span class="w"> </span>StudentProject_Network<span class="w"> </span>StudentProject_Subnet
+</code></pre></div>
+<p>You should see the details of the newly created private subnet.</p>
+<p>Enter the following command to list the current networks:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>list
+</code></pre></div>
+<p>You should see the StudentProject_Network network listed</p>
+<p>Using the ID of the subnet associated with StudentProject_Network enter
+the following command to view the details of the subnet:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>subnet<span class="w"> </span>list
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>show<span class="w"> </span>StudentProject_Network
+openstack<span class="w"> </span>subnet<span class="w"> </span>show<span class="w"> </span>StudentProject_Subnet
+</code></pre></div>
+<p>You should see details of the private network and subnet listed.</p>
+<h3 id="task-2-create-a-router-to-connect-the-networks">Task 2: Create a Router to Connect the Networks<a class="headerlink" href="#task-2-create-a-router-to-connect-the-networks" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to read in
+the environment for the StudentProject project.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<p>Enter the following command to create the router:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>router<span class="w"> </span>create<span class="w"> </span>StudentProject_Public_Router
+</code></pre></div>
+<p>You should see details on the newly created router.</p>
+<p>Enter the following define the router's gateway:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>router<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--external-gateway<span class="w"> </span>Public_Network<span class="w"> </span>StudentProject_Public_Router
+</code></pre></div>
+<p>If successful you should not see any output.</p>
+<p>Enter the following command to add a router interface on the Private Network:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>router<span class="w"> </span>add<span class="w"> </span>subnet<span class="w"> </span>StudentProject_Public_Router<span class="w"> </span>StudentProject_Subnet
+</code></pre></div>
+<p>If successful you should not see any output.</p>
+<p>Check details of the router:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>router<span class="w"> </span>show<span class="w"> </span>StudentProject_Public_Router
+</code></pre></div>
+<p>You should see details on the newly created router.</p>
+<h2 id="88-assign-public-ip-addresses-to-a-project">8.8 Assign Public IP Addresses to a Project<a class="headerlink" href="#88-assign-public-ip-addresses-to-a-project" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you allocate a floating IP to a project.</p>
+<h3 id="task-1-allocate-a-floating-ip-to-a-project">Task 1: Allocate a Floating IP to a Project<a class="headerlink" href="#task-1-allocate-a-floating-ip-to-a-project" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to allocate a
+floating IP:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
+</code></pre></div>
+<p>You should see details on the allocated floating IP.</p>
+<hr />
+<h2 id="89-web-ui">8.9 WEB UI<a class="headerlink" href="#89-web-ui" title="Permanent link">&para;</a></h2>
+<h2 id="891-create-a-project-in-openstack">8.9.1 Create a project in OpenStack<a class="headerlink" href="#891-create-a-project-in-openstack" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-create-a-new-project_1">Task 1: Create a New Project<a class="headerlink" href="#task-1-create-a-new-project_1" title="Permanent link">&para;</a></h3>
+<p><strong>To create a new project via the WebUI perform the following:</strong></p>
+<ol>
+<li>In a web browser, point to the OpenStack Dashboard and log in as the <code>admin</code> user.</li>
+<li>From the panels on the left select <code>Identity &gt; Projects</code>.</li>
+<li>Click <code>Create Project</code>:<blockquote>
+<p>On the <code>Create Project</code> screen, on the <code>Project Information</code> tab, enter the following:
+<code>Name</code>: <strong>StudentProject</strong><br/>
+<code>Description</code>: <strong>First Project</strong><br/>
+<code>Enabled</code>: <strong>(checked)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Project</code>.<blockquote>
+<p>You should see the new project listed.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="task-2-create-and-assign-a-user-to-a-project_1">Task 2: Create and Assign a User to a Project<a class="headerlink" href="#task-2-create-and-assign-a-user-to-a-project_1" title="Permanent link">&para;</a></h3>
+<p><strong>To create a user and assign them to a project via the WebUI perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Identity &gt; Users</code>.</li>
+<li>Click on <code>Create User</code>:<blockquote>
+<p>On the Create User screen, enter/select the following:
+<code>User Name</code>: <strong>student</strong><br/>
+<code>Email</code>: <strong>student@example.com</strong><br/>
+<code>Password</code>: <strong>openstack</strong><br/>
+<code>Primary Project</code>: <strong>StudentProject</strong><br/>
+<code>Role</code>: <strong>Member</strong><br/>
+<code>Enabled</code>: <strong>(checked)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create User</code>.<blockquote>
+<p>You should see the new user listed</p>
+</blockquote>
+</li>
+<li>Log out of the Dashboard and then log back in as the new <code>student</code>.<blockquote>
+<p>You should see only the <code>Project</code> and <code>Identity</code> panels on the left.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="892-configure-access-to-a-project-in-openstack">8.9.2 Configure Access to a Project in OpenStack<a class="headerlink" href="#892-configure-access-to-a-project-in-openstack" title="Permanent link">&para;</a></h2>
+<p><strong>To create a project user resource file via the WebUI perform the following:</strong></p>
+<ol>
+<li>In a web browser, point to the OpenStack Dashboard and log in as  <code>student</code>.</li>
+<li>From the panels on the left select: <code>Project &gt; API Access</code>.</li>
+<li>Click on <code>Download OpenStack RC File</code> -&gt; <code>OpenStack RC File</code>. Rename the RC file to <code>StudentProject.rc</code>.</li>
+<li>Copy the RC file from the system running the web browser to the <code>ubuntu</code> account on the MAAS server.</li>
+<li>At the terminal of the MAAS server, enter the following command to test the <code>StudentProject.rc</code> file:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>.<span class="w"> </span>~/StudentProject.rc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>catalog<span class="w"> </span>list
+</code></pre></div>
+<blockquote>
+<p>You should see the endpoints of the cloud services displayed.</p>
+<p>When using the resource file downloaded the the WebUI you will be prompted for the project user's password.</p>
+</blockquote>
+<h2 id="893-generate-key-pairs-for-workload-instance-access">8.9.3 Generate Key Pairs for Workload Instance Access<a class="headerlink" href="#893-generate-key-pairs-for-workload-instance-access" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-generate-a-new-key-pair_1">Task 1: Generate a New Key Pair<a class="headerlink" href="#task-1-generate-a-new-key-pair_1" title="Permanent link">&para;</a></h3>
+<p><strong>To generate a new keypair via the WebUI perform the following:</strong></p>
+<ol>
+<li>In a web browser, point to the OpenStack Dashboard and log in as  <code>student</code>.</li>
+<li>From the panels on the left select: <code>Project &gt; Compute &gt; Key pairs</code>.</li>
+<li>You should see a list of existing key pairs. (There are probably none at this point).</li>
+<li>Click <code>Create a Key Pair</code>.</li>
+<li>In the <code>Create a Key Pair</code> screen, enter the following: <code>Key Pair Name</code>: <code>student-keypair</code>, <code>Key Type</code>: <code>SSH Key</code>.</li>
+<li>Click <code>Create Key Pair</code>.</li>
+<li>You should be prompted to download the private key of the newly generated key pair.<blockquote>
+<p><strong>Important:</strong>: It is imperative that you download the key pair when prompted because you will not be able to download it again later.</p>
+</blockquote>
+</li>
+<li>Once downloaded change permissions on the key pair and move it from your Downloads
+directory to your <code>~/.ssh/</code> directory. At the terminal of the vhost enter the
+following command:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/Downloads/student-keypair.pem
+mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span>~/.ssh
+</code></pre></div>
+<ol>
+<li>Copy this key to the <code>~/.ssh</code> directory of the <code>ubuntu</code> user on the <code>MAAS server</code>. At the terminal of the vhost enter the following command:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>SHELL_USER@MAAS_IP:~/.ssh
+</code></pre></div>
+<h2 id="894-define-a-security-group-for-icmp-traffic">8.9.4 Define a Security Group for ICMP Traffic<a class="headerlink" href="#894-define-a-security-group-for-icmp-traffic" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-define-a-rule-to-allow-incoming-icmp_1">Task 1: Define a Rule to Allow Incoming ICMP<a class="headerlink" href="#task-1-define-a-rule-to-allow-incoming-icmp_1" title="Permanent link">&para;</a></h3>
+<p><strong>To define a rule allowing incoming ICMP via the WebUI perform the following:</strong></p>
+<ol>
+<li>In a web browser point, to the OpenStack Dashboard and log in as  <code>student</code>.</li>
+<li>From the panels on the left select: <code>Project &gt; Network</code>.</li>
+<li>Select the <code>Security Groups</code> tab. You should see the existing security groups (probably only default at this point).</li>
+<li>Click <code>Create Security Group</code>.</li>
+<li>On the <code>Create Security Group</code> screen, enter the following:<blockquote>
+<p><code>Name</code>: <strong>StudentProject_Allow_ICMP</strong><br/>
+<code>Description</code>: <strong>Allow ICMP traffic</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Security Group</code>. You should see the new security group listed.</li>
+<li>Next to the <code>StudentProject_Allow_ICMP</code> security group, click <code>Manage Rules</code>. You should see a list of default rules.</li>
+<li>Click <code>Add Rule</code>.</li>
+<li>On the <code>Add Rule</code> screen, enter/select the following:<blockquote>
+<p><code>Rule</code>: <strong>ALL ICMP</strong><br/>
+<code>Direction</code>: <strong>Ingress</strong><br/>
+<code>Remote</code>: <strong>CIDR</strong><br/>
+<code>CIDR</code>: <strong>0.0.0.0/0</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Add</code>. You should see your new <code>Ingress</code> rule listed.</li>
+<li>Click <code>Add Rule</code> again.</li>
+<li>On the Add Rule screen, enter/select the following:<blockquote>
+<p><code>Rule</code>: <strong>ALL ICMP</strong><br/>
+<code>Direction</code>: <strong>Egress</strong><br/>
+<code>Remote</code>: <strong>CIDR</strong><br/>
+<code>CIDR</code>: <strong>0.0.0.0/0</strong><br/></p>
+</blockquote>
+</li>
+<li>Click <code>Add</code>. You should see your new Egress rule listed.</li>
+</ol>
+<h2 id="895-define-a-security-group-for-ssh-traffic">8.9.5 Define a Security Group for SSH Traffic<a class="headerlink" href="#895-define-a-security-group-for-ssh-traffic" title="Permanent link">&para;</a></h2>
+<h5 id="task-1-define-a-rule-to-allow-incoming-and-outgoing-ssh_1">Task 1: Define a Rule to Allow Incoming and Outgoing SSH<a class="headerlink" href="#task-1-define-a-rule-to-allow-incoming-and-outgoing-ssh_1" title="Permanent link">&para;</a></h5>
+<p><strong>To define a rule allowing incoming SSH via the WebUI perform the following:</strong></p>
+<ol>
+<li>In a web browser point, to the OpenStack Dashboard and log in as  <code>student</code>.</li>
+<li>From the panels on the left select: <code>Project &gt; Network</code>.</li>
+<li>Select the <code>Security Groups</code> tab. You should see the existing security groups (probably only default at this point).</li>
+<li>Click <code>Create Security Group</code>.</li>
+<li>On the <code>Create Security Group</code> screen, enter the following:<blockquote>
+<p><code>Name</code>: <strong>StudentProject_Allow_SSH</strong>
+<code>Description</code>: <strong>Allow SSH traffic</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Security Group</code>. You should see the new security group listed.</li>
+<li>Next to the <code>StudentProject_Allow_SSH</code> security group, click <code>Manage Rules</code>. You should see a list of default rules.</li>
+<li>Click <code>Add Rule</code>.</li>
+<li>On the <code>Add Rule</code> screen, enter/select the following:<blockquote>
+<p><code>Rule</code>: <strong>Custom TCP Rule</strong><br/>
+<code>Direction</code>: <strong>Ingress</strong><br/>
+<code>Open Port</code>: <strong>Port</strong><br/>
+<code>Port</code>: <strong>22</strong><br/>
+<code>Remote</code>: <strong>CIDR</strong><br/>
+<code>CIDR</code>: <strong>0.0.0.0/0</strong><br/></p>
+</blockquote>
+</li>
+<li>Click <code>Add</code>. You should see your new <code>Ingress</code> rule listed.</li>
+<li>Click <code>Add Rule</code> again.</li>
+<li>On the <code>Add Rule</code> screen, enter/select the following:<blockquote>
+<p><code>Rule</code>: <strong>Custom TCP Rule</strong><br/>
+<code>Direction</code>: <strong>Egress</strong><br/>
+<code>Open Port</code>: <strong>Port</strong><br/>
+<code>Port</code>: <strong>22</strong><br/>
+<code>Remote</code>: <strong>CIDR</strong><br/>
+<code>CIDR</code>: <strong>0.0.0.0/0</strong><br/></p>
+</blockquote>
+</li>
+<li>Click <code>Add</code>. You should see your new <code>Egress</code> rule listed.</li>
+</ol>
+<h2 id="896-define-quotas-for-a-project">8.9.6 Define Quotas for a Project<a class="headerlink" href="#896-define-quotas-for-a-project" title="Permanent link">&para;</a></h2>
+<h5 id="task-1-modify-a-projects-quotas_1">Task 1: Modify a Project's Quotas<a class="headerlink" href="#task-1-modify-a-projects-quotas_1" title="Permanent link">&para;</a></h5>
+<p><strong>To define quotas for a project via the WebUI perform the following:</strong></p>
+<ol>
+<li>Log into the OpenStack Dashboard as the <code>student</code>.</li>
+<li>From the panels on the left, select: <code>Project &gt; Compute &gt; Overview</code>.<blockquote>
+<p>In the <code>Limit Summary</code> section, notice the number/amount of instances/resource that are available to the project.</p>
+</blockquote>
+</li>
+<li>Log out of the Dashboard and then back in as the <code>admin</code> user.</li>
+<li>From the panels on the left, select: <code>Identity &gt; Projects</code>.</li>
+<li>Next to the <code>StudentProject</code> project, in the <code>Actions</code> column, from the drop-down list next to <code>Manage Members</code>, select <code>Modify Quotas</code>.</li>
+<li>On the <code>Edit Project</code> screen on the <code>Quota</code> tab, in <code>Compute</code>, <code>Volume</code> and <code>Network</code> modify the values as follows leaving the other values untouched:<blockquote>
+<p><code>VCPUs</code>: <strong>10</strong><br/>
+<code>Instances</code>: <strong>5</strong><br/>
+<code>Volumes</code>: <strong>5</strong><br/>
+<code>Volume Snapshots</code>: <strong>5</strong><br/>
+<code>RAM (MB)</code>: <strong>25600</strong><br/>
+<code>Floating IPs</code>: <strong>10</strong><br/></p>
+</blockquote>
+</li>
+<li>Click <code>Save</code>.</li>
+<li>Log out and then back in as the <code>student</code>.</li>
+<li>From the panels on the left, select: <code>Project &gt; Compute &gt; Overview</code>.<blockquote>
+<p>In the <code>Limit Summary</code> section, notice the changes to the number/amount of instances/resource that are available to the project.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="897-configure-virtual-networks-for-a-project">8.9.7 Configure Virtual Networks for a Project<a class="headerlink" href="#897-configure-virtual-networks-for-a-project" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-create-the-tenant-private-network_1">Task 1: Create the Tenant Private Network<a class="headerlink" href="#task-1-create-the-tenant-private-network_1" title="Permanent link">&para;</a></h3>
+<p><strong>To create a tenant private network via the WebUI perform the following:</strong></p>
+<ol>
+<li>Log into the dashboard as the <code>student</code> user.</li>
+<li>From the list of panels on the left select: <code>Project &gt; Network &gt; Networks</code>.</li>
+<li>Click <code>Create Network</code>.</li>
+<li>On the <code>Create Network</code> screen <code>Network</code> tab, enter/select the following:<blockquote>
+<p><code>Name</code>: <strong>StudentProject_Network</strong><br/>
+<code>Enable admin state</code>: <strong>checked</strong><br/>
+<code>Create Subnet</code>:<strong>(checked)</strong></p>
+</blockquote>
+</li>
+<li>Click<code>Next</code>.</li>
+<li>On the Create Network screen Subnet tab enter/select the following:<blockquote>
+<p><code>Subnet Name</code>: <strong>StudentProject_Subnet</strong><br/>
+<code>Network Address</code>: <strong>PRIVATE_SUBNET</strong><br/>
+<code>IP Version</code>: <strong>IPv4</strong><br/>
+<code>Gateway IP</code>:<strong>PRIVATE_GATEWAY</strong><br/>
+<code>Disable Gateway</code>: <strong>(unchecked)</strong><br/></p>
+</blockquote>
+</li>
+<li>Click <code>Next</code>.</li>
+<li>On the <code>Create Network</code> screen <code>Subnet Details</code> tab, enter/select the following:<blockquote>
+<p><code>Enable DHCP</code>: <strong>(checked)</strong><br/>
+<code>Allocation Pools</code>: <strong>PRIVATE_IP_START,PRIVATE_IP_END</strong><br/>
+<code>DNS Name Servers</code>: <strong>MAAS_IP NAMESERVERS</strong><br/>
+<code>Host Routes</code>: <strong>(leave blank)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create</code></li>
+</ol>
+<h3 id="task-2-create-a-router-to-connect-the-networks_1">Task 2: Create a Router to Connect the Networks<a class="headerlink" href="#task-2-create-a-router-to-connect-the-networks_1" title="Permanent link">&para;</a></h3>
+<p><strong>To create the router via the WebUI perform the following:</strong></p>
+<ol>
+<li>Log into the dashboard as the <code>student</code> user.</li>
+<li>From the list of panels on the left select: <code>Project &gt; Network &gt; Routers</code>.</li>
+<li>Click <code>Create Router</code>.</li>
+<li>On the <code>Create Router</code> screen, enter/select the following:<blockquote>
+<p><code>Router Name</code>: <strong>StudentProject_Public_Router</strong><br/>
+<code>Enable Admin State</code>: <strong>checked</strong><br/>
+<code>External Network</code>: <strong>Public_Network</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Router</code>.</li>
+<li>On the <code>Routers</code> screen, click on the <code>StudentProject_Public_Router</code> in the <code>Name</code> column.</li>
+<li>On the <code>Routers / StudentProject_Public_Router</code> screen select the <code>Interfaces</code> tab.</li>
+<li>Click <code>Add Interface</code>.</li>
+<li>On the <code>Add Interface</code> screen,enter/select the following:<blockquote>
+<p><code>Subnet</code>: <code>`StudentProject_Network 10.20.30.0/24 (StudentProject_Subnet)</code><br/>
+<code>IP Address (optional)</code>: <strong>(leave blank)</strong><br/></p>
+</blockquote>
+</li>
+<li>Click <code>Submit</code>.</li>
+</ol>
+<h2 id="898-assign-public-ip-addresses-to-a-project">8.9.8 Assign Public IP Addresses to a Project<a class="headerlink" href="#898-assign-public-ip-addresses-to-a-project" title="Permanent link">&para;</a></h2>
+<h5 id="task-1-allocate-a-floating-ip-to-a-project_1">Task 1: Allocate a Floating IP to a Project<a class="headerlink" href="#task-1-allocate-a-floating-ip-to-a-project_1" title="Permanent link">&para;</a></h5>
+<p><strong>To allocate a floating IP to a project via the WebUI perform the following:</strong></p>
+<ol>
+<li>In a web browser, log into the Dashboard as <code>student</code>.</li>
+<li>From the panels on the left select: <code>Project &gt; Network &gt; Floating IPs</code>.</li>
+<li>Click <code>Allocate IP To Project</code>.</li>
+<li>On the <code>Allocate Floating IP</code> screen, from the Pool drop-down list, select: <code>Public_Network</code>.</li>
+<li>Click <code>Allocate IP</code>. You should see that an IP address has been allocated to the project.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1221 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation site for the OpenStack Foundations training">
+      
+      
+      
+      
+        <link rel="prev" href="../cloud-workload-instances/">
+      
+      
+        <link rel="next" href="../juju-openstack-provider/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>OpenStack Storage - OpenStack Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#10-work-with-openstack-storage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenStack Foundations" class="md-header__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenStack Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OpenStack Storage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenStack Foundations" class="md-nav__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OpenStack Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect-to-canonical-openstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Connect to Canonical OpenStack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-juju/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure Juju
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-charms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju Charms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-openstack-with-juju-and-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy OpenStack with Juju and MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-defined-networks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Defined Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure-openstack-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure an OpenStack Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-workload-instances/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Workload Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    OpenStack Storage
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    OpenStack Storage
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#101-attach-volume-storage-to-a-cloud-workload-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Attach Volume Storage to a Cloud Workload Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 Attach Volume Storage to a Cloud Workload Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-a-storage-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create a Storage Volume
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-attach-a-volume-to-an-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Attach a Volume to an Instance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-check-the-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Check the Volume
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-upload-objects-into-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Upload Objects into Swift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.2 Upload Objects into Swift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-upload-a-file-to-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Upload a File to Swift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-set-acls-on-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Set ACLs on a Container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-download-an-object-from-the-object-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3 Download an Object from the Object Store
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.3 Download an Object from the Object Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-download-an-object-from-the-object-store-with-the-openstack-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Download an Object from the Object Store with the openstack client
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-download-an-object-from-the-object-store-with-wget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Download an Object from the Object Store with wget
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4 WEB UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1041-attach-volume-storage-to-a-cloud-workload-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4.1 Attach Volume Storage to a Cloud Workload Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.4.1 Attach Volume Storage to a Cloud Workload Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-a-storage-volume_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create a Storage Volume
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-attach-a-volume-to-an-instance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Attach a Volume to an Instance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1042-upload-objects-into-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4.2 Upload Objects into Swift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.4.2 Upload Objects into Swift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-upload-a-file-to-swift_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Upload a File to Swift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-set-acls-on-a-container_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Set ACLs on a Container
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-download-an-object-from-the-object-store-via-the-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Download an Object from the Object Store via the WebUI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-openstack-provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju OpenStack Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#101-attach-volume-storage-to-a-cloud-workload-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Attach Volume Storage to a Cloud Workload Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 Attach Volume Storage to a Cloud Workload Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-a-storage-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create a Storage Volume
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-attach-a-volume-to-an-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Attach a Volume to an Instance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-check-the-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Check the Volume
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-upload-objects-into-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Upload Objects into Swift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.2 Upload Objects into Swift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-upload-a-file-to-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Upload a File to Swift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-set-acls-on-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Set ACLs on a Container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-download-an-object-from-the-object-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3 Download an Object from the Object Store
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.3 Download an Object from the Object Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-download-an-object-from-the-object-store-with-the-openstack-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Download an Object from the Object Store with the openstack client
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-download-an-object-from-the-object-store-with-wget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Download an Object from the Object Store with wget
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4 WEB UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1041-attach-volume-storage-to-a-cloud-workload-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4.1 Attach Volume Storage to a Cloud Workload Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.4.1 Attach Volume Storage to a Cloud Workload Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-a-storage-volume_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create a Storage Volume
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-attach-a-volume-to-an-instance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Attach a Volume to an Instance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1042-upload-objects-into-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4.2 Upload Objects into Swift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.4.2 Upload Objects into Swift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-upload-a-file-to-swift_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Upload a File to Swift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-set-acls-on-a-container_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Set ACLs on a Container
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-download-an-object-from-the-object-store-via-the-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Download an Object from the Object Store via the WebUI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="10-work-with-openstack-storage">10. Work with OpenStack Storage<a class="headerlink" href="#10-work-with-openstack-storage" title="Permanent link">&para;</a></h1>
+<p><strong>Description:</strong></p>
+<p>In this section, you work with Block storage and Object storage.</p>
+<h2 id="101-attach-volume-storage-to-a-cloud-workload-instance">10.1 Attach Volume Storage to a Cloud Workload Instance<a class="headerlink" href="#101-attach-volume-storage-to-a-cloud-workload-instance" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you create a volume and attach it to an instance.</p>
+<h3 id="task-1-create-a-storage-volume">Task 1: Create a Storage Volume<a class="headerlink" href="#task-1-create-a-storage-volume" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, perform the following steps to create a
+storage volume:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>--availability-zone<span class="w"> </span>nova<span class="w"> </span>--size<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--description<span class="w"> </span><span class="s1">&#39;StudentProject Volume 01&#39;</span><span class="w"> </span>volume1
+</code></pre></div>
+<p>You should see the details listed for the newly created volume.</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>volume<span class="w"> </span>list
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>volume<span class="w"> </span>show<span class="w"> </span>volume1
+</code></pre></div>
+<h3 id="task-2-attach-a-volume-to-an-instance">Task 2: Attach a Volume to an Instance<a class="headerlink" href="#task-2-attach-a-volume-to-an-instance" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, perform the following steps to retrieve
+the volume ID of the storage volume:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">VOLUME_ID</span><span class="o">=</span><span class="k">$(</span>openstack<span class="w"> </span>volume<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>volume1<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+</code></pre></div>
+<p>Attach the volume to an instance be performing the following:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>volume<span class="w"> </span>--device<span class="w"> </span>/dev/vdb<span class="w"> </span>jammy1<span class="w"> </span><span class="nv">$VOLUME_ID</span>
+</code></pre></div>
+<p>List the instance details to see the attached volume ID:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>volumes
+</code></pre></div>
+<p>You should see a line beginning with <strong>volumes_attached</strong>
+listing the volume ID(s) attached to the instance.</p>
+<p>Retrieve the key-pair name used with the instance with the following:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>key_name
+</code></pre></div>
+<p>You should see a line beginning with key_name listing the name of the key
+pair used by the instance.</p>
+<p>Retrieve the floating IP of the instance with the following:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>addresses
+</code></pre></div>
+<p>You should see a line beginning with addresses listing the IP addresses
+associated with the instance. The <code>192.168.100.x</code> address will be the
+floating IP.</p>
+<h3 id="task-3-check-the-volume">Task 3: Check the Volume<a class="headerlink" href="#task-3-check-the-volume" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to ssh
+to the instance:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@<span class="nv">$INSTANCE_FLOATING_IP</span>
+</code></pre></div>
+<p>Enter the following command to view the disks attached to the instance:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>fdisk<span class="w"> </span>-l
+</code></pre></div>
+<p>You should see the volume listed as one of the disks. Optionally, you can create partitions on the volume, format with a filesystem and mount it with either <code>parted</code> or <code>fdisk</code>.</p>
+<p>Finally, exit the VM and delete all the existing VMs and volumes:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>list
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>delete<span class="w"> </span>jammy1
+sleep<span class="w"> </span><span class="m">5</span>
+openstack<span class="w"> </span>volume<span class="w"> </span>delete<span class="w"> </span>volume1
+</code></pre></div>
+<p>There is a <code>sleep</code> between commands to allow the volume to become <code>available</code> again. After the instance is deleted, volume attachment also gets deleted and volume transitions from <code>in-use</code> to <code>available</code>. A volume can't be deleted if the status is <code>in-use</code>.</p>
+<h2 id="102-upload-objects-into-swift">10.2 Upload Objects into Swift<a class="headerlink" href="#102-upload-objects-into-swift" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you upload files as objects into Swift.</p>
+<h3 id="task-1-upload-a-file-to-swift">Task 1: Upload a File to Swift<a class="headerlink" href="#task-1-upload-a-file-to-swift" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to source
+in the <code>admin_openrc</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<p><strong>Note:</strong> We need to source in the admin_openrc file rather the then project specific <code>.rc</code>
+file because we will be uploading the files to the Admin project and then make
+it publicly accessible. This way it is available to all tenants in the private
+cloud.</p>
+<p>Enter the following command to create a new container for the files:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>container<span class="w"> </span>create<span class="w"> </span>mydata
+</code></pre></div>
+<p>You should see the details of your newly created container.</p>
+<p>Enter the following command to display the newly created container:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>container<span class="w"> </span>list
+</code></pre></div>
+<p>You should see the new container listed.</p>
+<p>Enter the following command to view the status of the container:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>container<span class="w"> </span>show<span class="w"> </span>mydata
+</code></pre></div>
+<p>Notice the object_count: line. You should see that the container contains
+zero objects.</p>
+<p>Enter the following commands to create a directory and some files:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>~/mydata
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;my file 1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>~/mydata/myfile01.txt
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;my file 2&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>~/mydata/myfile02.txt
+</code></pre></div>
+<p>Enter the following commands to upload the files to the container:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/mydata
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>object<span class="w"> </span>create<span class="w"> </span>mydata<span class="w"> </span>*
+</code></pre></div>
+<p>You should see details on the two files uploaded.</p>
+<p>Enter the following command to view the status of the container:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>container<span class="w"> </span>show<span class="w"> </span>mydata
+</code></pre></div>
+<p>Notice the <code>object_count:</code> line; you should see that the container now
+contains two objects.</p>
+<p>Enter the following command to list the objects in the container:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
+</code></pre></div>
+<p>You should see the files listed.</p>
+<h3 id="task-2-set-acls-on-a-container">Task 2: Set ACLs on a Container<a class="headerlink" href="#task-2-set-acls-on-a-container" title="Permanent link">&para;</a></h3>
+<p>Since all swift client command features have not yet been implemented in the
+common client openstack we're going to use <code>python3-swiftclient</code> instead which 
+is already installed on the MAAS server.</p>
+<p>Enter the following command to display information about the mydata container:</p>
+<div class="highlight"><pre><span></span><code>swift<span class="w"> </span>stat<span class="w"> </span>mydata
+</code></pre></div>
+<p>Notice that there are no Read or Write ACLs. This is essentially a private
+container.</p>
+<p>Enter the following command to add a Read ACL that will make the container
+publicly accessible:</p>
+<div class="highlight"><pre><span></span><code>swift<span class="w"> </span>post<span class="w"> </span>mydata<span class="w"> </span>--read-acl<span class="w"> </span>.r:*
+</code></pre></div>
+<p>Enter the following command to display information about the container again:</p>
+<div class="highlight"><pre><span></span><code>swift<span class="w"> </span>stat<span class="w"> </span>mydata
+</code></pre></div>
+<p>You should see the Read ACL listed now.</p>
+<h2 id="103-download-an-object-from-the-object-store">10.3 Download an Object from the Object Store<a class="headerlink" href="#103-download-an-object-from-the-object-store" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you download an object that was previously uploaded into Swift.</p>
+<p><strong>Note:</strong> You should have uploaded the contents of the <code>~/mydata</code> directory to the
+Object Store container <code>mydata</code> before performing this exercise.</p>
+<h3 id="task-1-download-an-object-from-the-object-store-with-the-openstack-client">Task 1: Download an Object from the Object Store with the openstack client<a class="headerlink" href="#task-1-download-an-object-from-the-object-store-with-the-openstack-client" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the <code>MAAS server</code>, enter the following command to source in the
+<code>admin_openrc</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~<span class="p">;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<p>Enter the following command to display the objects (files) from the container
+mydata within the object store:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
+</code></pre></div>
+<p>Enter the following commands to save the file <code>myfile01.txt</code> from the object store:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~
+openstack<span class="w"> </span>object<span class="w"> </span>save<span class="w"> </span>mydata<span class="w"> </span>myfile01.txt
+</code></pre></div>
+<p>Verify the file has been saved from the object store with the following command:</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-l<span class="w"> </span>~/myfile01.txt
+</code></pre></div>
+<h3 id="task-2-download-an-object-from-the-object-store-with-wget">Task 2: Download an Object from the Object Store with wget<a class="headerlink" href="#task-2-download-an-object-from-the-object-store-with-wget" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the <code>MAAS server</code>, enter the following command source in the
+<code>admin_openrc</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<p>Enter the following command to display the public URL to access the Object Store:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OBJECT_STORE_URL</span><span class="o">=</span><span class="k">$(</span>openstack<span class="w"> </span>endpoint<span class="w"> </span>list<span class="w"> </span>-f<span class="w"> </span>value<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-c<span class="w"> </span><span class="s2">&quot;Service Type&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;URL&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;Interface&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>object-store<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>public<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">)</span>
+</code></pre></div>
+<p>Enter the following command to view the files that are in the <code>mydata</code> container:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
+</code></pre></div>
+<p>You should see the files listed.</p>
+<p>Enter the following commands to download the <code>myfile01.txt</code>file:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span><span class="nv">$OBJECT_STORE_URL</span>/mydata/myfile02.txt<span class="w"> </span>--ca-certificate<span class="o">=</span>/home/ubuntu/snap/openstackclients/common/root-ca.crt
+</code></pre></div>
+<p>You should see that the myfile02.txt file was downloaded into your current directory.</p>
+<p>Enter the following command to view the contents of the myfile02.txt file you downloaded:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>myfile02.txt
+</code></pre></div>
+<p>You should see the contents that you wrote to the file.</p>
+<hr />
+<h2 id="104-web-ui">10.4 WEB UI<a class="headerlink" href="#104-web-ui" title="Permanent link">&para;</a></h2>
+<h2 id="1041-attach-volume-storage-to-a-cloud-workload-instance">10.4.1 Attach Volume Storage to a Cloud Workload Instance<a class="headerlink" href="#1041-attach-volume-storage-to-a-cloud-workload-instance" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-create-a-storage-volume_1">Task 1: Create a Storage Volume<a class="headerlink" href="#task-1-create-a-storage-volume_1" title="Permanent link">&para;</a></h3>
+<p><strong>To create a storage volume via the WebUI perform the following:</strong></p>
+<ol>
+<li>Log into the OpenStack Dashboard as <code>student</code>.</li>
+<li>From the panels on the left, select: <code>Project &gt; Volumes &gt; Volumes</code>.</li>
+<li>click <code>Create Volume</code>.</li>
+<li>On the <code>Create Volume</code> screen, enter/select the following:<blockquote>
+<p><code>Volume Name</code>: <strong>volume1</strong><br/>
+<code>Description</code>: <strong>StudentProject Volume 01</strong><br/>
+<code>Volume Source</code>: <strong>No source, empty volume</strong><br/>
+<code>Type</code>: <strong>No volume type</strong><br/>
+<code>Size (GB)</code>: <strong>1</strong><br/>
+<code>Availability Zone</code>: <strong>nova</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Volume</code>. You should see the new volume listed.</li>
+</ol>
+<h3 id="task-2-attach-a-volume-to-an-instance_1">Task 2: Attach a Volume to an Instance<a class="headerlink" href="#task-2-attach-a-volume-to-an-instance_1" title="Permanent link">&para;</a></h3>
+<p><strong>To attach a volume to an instance via the WebUI perform the following:</strong></p>
+<ol>
+<li>Log into the OpenStack Dashboard as <code>student</code> and go to <code>Project &gt; Volumes &gt; Volumes</code></li>
+<li>Next to the <code>volume1</code> volume, in the Actions column, from the <code>Edit Volume</code> drop-down list, select <code>Manage Attachments</code>.</li>
+<li>On the <code>Manage Volume Attachments</code> screen from the <code>Attach to Instance</code> drop-down list, select one of the running instances.</li>
+<li>Click <code>Attach Volume</code>.</li>
+<li>You should see the instance name listed under the <code>Attached</code> to column.</li>
+<li>From the panels on the left, select: <code>Project &gt; Compute &gt; Instances</code>.</li>
+<li>Click on the instance name of the instance you attached the volume to.</li>
+<li>On the <code>Instances / VM_NAME</code> screen under <code>Volumes Attached</code>, you should see the volume listed</li>
+<li>Note the key pair used by the instance. This will be located under the <code>Metadata</code> section and listed as <code>Key Name</code>.</li>
+<li>Also note the instances floating IP. This should be the second IP address listed in the <code>IP Addresses</code> section adjacent to the <code>Network</code> name.</li>
+<li>We will refer to these as <code>INSTANCE_KEYPAIR</code> and <code>INSTANCE_FLOATING_IP</code>.</li>
+</ol>
+<h2 id="1042-upload-objects-into-swift">10.4.2 Upload Objects into Swift<a class="headerlink" href="#1042-upload-objects-into-swift" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<h3 id="task-1-upload-a-file-to-swift_1">Task 1: Upload a File to Swift<a class="headerlink" href="#task-1-upload-a-file-to-swift_1" title="Permanent link">&para;</a></h3>
+<p><strong>To upload files to swift via the WebUI perform the following:</strong></p>
+<ol>
+<li>Log into the OpenStack Dashboard as <code>admin</code>.</li>
+<li>From the panels on the left, select: <code>Project &gt; Object Store &gt; Containers</code>.</li>
+<li>In the <code>Containers</code> pane, click <code>+ Container</code>.</li>
+<li>On the <code>Create Container</code> screen, enter/select the following:<blockquote>
+<p><code>Container Name</code>: <strong>mydata</strong><br/>
+<code>NotPublic</code>: <strong>selected</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Submit</code>.</li>
+<li>In the <code>Containers</code> pane, click on the container <code>mydata</code>.</li>
+<li>In the <code>Containers</code> pane, click on the <code>Upload File</code> icon (located next to the trashcan on the right side of the pane).</li>
+<li>On the <code>Upload File To: mydata</code> screen, enter/select the following:<blockquote>
+<p><code>File</code>:Click <code>Browse</code>.</p>
+</blockquote>
+</li>
+<li>Select a small file from your local (student machine) file system and click <code>Open</code>.</li>
+<li>Click <code>Upload File</code>. You should see the file listed.</li>
+</ol>
+<h3 id="task-2-set-acls-on-a-container_1">Task 2: Set ACLs on a Container<a class="headerlink" href="#task-2-set-acls-on-a-container_1" title="Permanent link">&para;</a></h3>
+<p><strong>To set ACLs on a container via the WebUI perform the following:</strong></p>
+<ol>
+<li>To perform this task via the OpenStack Dashboard, do the following:</li>
+<li>Log into the OpenStack Dashboard as <code>admin</code>.</li>
+<li>From the panels on the left, select: <code>Project &gt; Object Store &gt; Containers</code>.</li>
+<li>In the <code>Containers</code> pane, click on the container <code>mydata</code>.</li>
+<li>In the <code>mydata</code> info box, enter/select the following:<blockquote>
+<p><code>Public Access</code>: <strong>(checked)</strong></p>
+</blockquote>
+</li>
+<li>You should see a link named <code>link</code> next to the checked <code>Public Access</code> box.</li>
+</ol>
+<h3 id="task-3-download-an-object-from-the-object-store-via-the-webui">Task 3: Download an Object from the Object Store via the WebUI<a class="headerlink" href="#task-3-download-an-object-from-the-object-store-via-the-webui" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Log into the OpenStack Dashboard as <code>admin</code>.</li>
+<li>From the panels on the left, select: <code>Project &gt; Object Store &gt; Containers</code>.</li>
+<li>In the <code>Containers</code> pane, click on the container <code>mydata</code>.</li>
+<li>In the <code>mydata</code> files box, click <code>Download</code> to the right of the file you wish to save locally.</li>
+</ol>
+<blockquote>
+<p>This method will save the file to the local (student) machine and not to the MAAS server.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

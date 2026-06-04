@@ -1,0 +1,1512 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation site for the OpenStack Foundations training">
+      
+      
+      
+      
+        <link rel="prev" href="../configure-openstack-project/">
+      
+      
+        <link rel="next" href="../openstack-storage/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Cloud Workload Instances - OpenStack Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#9-work-with-cloud-workload-instances" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenStack Foundations" class="md-header__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenStack Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cloud Workload Instances
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenStack Foundations" class="md-nav__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OpenStack Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect-to-canonical-openstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Connect to Canonical OpenStack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-juju/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure Juju
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-charms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju Charms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-openstack-with-juju-and-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy OpenStack with Juju and MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-defined-networks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Defined Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure-openstack-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure an OpenStack Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Cloud Workload Instances
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Workload Instances
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91-define-custom-instance-sizing-flavors" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Define Custom Instance Sizing Flavors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1 Define Custom Instance Sizing Flavors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-new-instance-sizing-flavor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a New Instance Sizing Flavor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-define-host-aggregates" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Define Host Aggregates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 Define Host Aggregates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-host-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Host Aggregate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-define-a-key-value-property-for-a-host-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Define a Key-Value property for a Host Aggregate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Define a Custom Instance Sizing Flavor for a Host Aggregate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 Define a Custom Instance Sizing Flavor for a Host Aggregate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-new-instance-sizing-flavor_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a New Instance Sizing Flavor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-enable-the-scheduler-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Enable the Scheduler Filter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94-create-a-cloud-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 Create a cloud Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4 Create a cloud Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-an-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create an Instance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95-expose-a-cloud-workload-to-the-external-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.5 Expose a Cloud Workload to the External Network
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5 Expose a Cloud Workload to the External Network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-assign-a-floating-ip-to-an-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Assign a Floating IP to an Instance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-ping-the-floating-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Ping the floating IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-edit-instance-security-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Edit Instance Security Groups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-ping-the-floating-ip-again" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Ping the floating IP again
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#96-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6 WEB UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#961-define-custom-instance-sizing-flavors" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.1 Define Custom Instance Sizing Flavors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#962-define-host-aggregates" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.2 Define Host Aggregates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6.2 Define Host Aggregates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-host-aggregate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Host Aggregate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-define-a-key-value-property-for-a-host-aggregate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Define a Key-Value property for a Host Aggregate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#963-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-new-instance-sizing-flavor_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a New Instance Sizing Flavor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#964-create-a-cloud-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.4 Create a cloud Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6.4 Create a cloud Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-an-instance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create an Instance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#965-expose-a-cloud-workload-to-the-external-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.5 Expose a Cloud Workload to the External Network
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6.5 Expose a Cloud Workload to the External Network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-assign-a-floating-ip-to-an-instance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Assign a Floating IP to an Instance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-edit-instance-security-groups_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Edit Instance Security Groups
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openstack-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenStack Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-openstack-provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju OpenStack Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91-define-custom-instance-sizing-flavors" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Define Custom Instance Sizing Flavors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1 Define Custom Instance Sizing Flavors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-new-instance-sizing-flavor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a New Instance Sizing Flavor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-define-host-aggregates" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Define Host Aggregates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 Define Host Aggregates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-host-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Host Aggregate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-define-a-key-value-property-for-a-host-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Define a Key-Value property for a Host Aggregate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Define a Custom Instance Sizing Flavor for a Host Aggregate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 Define a Custom Instance Sizing Flavor for a Host Aggregate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-new-instance-sizing-flavor_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a New Instance Sizing Flavor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-enable-the-scheduler-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Enable the Scheduler Filter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94-create-a-cloud-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 Create a cloud Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4 Create a cloud Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-an-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create an Instance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95-expose-a-cloud-workload-to-the-external-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.5 Expose a Cloud Workload to the External Network
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5 Expose a Cloud Workload to the External Network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-assign-a-floating-ip-to-an-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Assign a Floating IP to an Instance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-ping-the-floating-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Ping the floating IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-edit-instance-security-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Edit Instance Security Groups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-ping-the-floating-ip-again" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Ping the floating IP again
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#96-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6 WEB UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#961-define-custom-instance-sizing-flavors" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.1 Define Custom Instance Sizing Flavors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#962-define-host-aggregates" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.2 Define Host Aggregates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6.2 Define Host Aggregates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-host-aggregate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a Host Aggregate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-define-a-key-value-property-for-a-host-aggregate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Define a Key-Value property for a Host Aggregate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#963-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-define-a-new-instance-sizing-flavor_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Define a New Instance Sizing Flavor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#964-create-a-cloud-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.4 Create a cloud Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6.4 Create a cloud Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-an-instance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Create an Instance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#965-expose-a-cloud-workload-to-the-external-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6.5 Expose a Cloud Workload to the External Network
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6.5 Expose a Cloud Workload to the External Network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-assign-a-floating-ip-to-an-instance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Assign a Floating IP to an Instance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-edit-instance-security-groups_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Edit Instance Security Groups
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="9-work-with-cloud-workload-instances">9. Work with Cloud Workload Instances<a class="headerlink" href="#9-work-with-cloud-workload-instances" title="Permanent link">&para;</a></h1>
+<p><strong>Description:</strong></p>
+<p>In this section, you use the OpenStack Nova service to launch and work with cloud instances.</p>
+<h2 id="91-define-custom-instance-sizing-flavors">9.1 Define Custom Instance Sizing Flavors<a class="headerlink" href="#91-define-custom-instance-sizing-flavors" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you create a new instance-sizing flavor.</p>
+<h3 id="task-1-define-a-new-instance-sizing-flavor">Task 1: Define a New Instance Sizing Flavor<a class="headerlink" href="#task-1-define-a-new-instance-sizing-flavor" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following commands to create
+a new instance flavor:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span>create<span class="w"> </span>--vcpus<span class="w"> </span><span class="m">2</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">1024</span><span class="w"> </span>--disk<span class="w"> </span><span class="m">5</span><span class="w"> </span>--ephemeral<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--swap<span class="w"> </span><span class="m">0</span><span class="w"> </span>--public<span class="w"> </span>m1.smaller
+</code></pre></div>
+<p>You should see the details on the newly created flavor listed.</p>
+<h2 id="92-define-host-aggregates">9.2 Define Host Aggregates<a class="headerlink" href="#92-define-host-aggregates" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you create two host aggregates for the compute nodes.</p>
+<h3 id="task-1-define-a-host-aggregate">Task 1: Define a Host Aggregate<a class="headerlink" href="#task-1-define-a-host-aggregate" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following commands to define
+a host aggregate called <code>kvm</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span>create<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span>kvm
+</code></pre></div>
+<p>You should see details on the newly created host aggregate with no hosts listed.</p>
+<p>Run the following command to list the available hosts:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova
+<span class="c1"># output</span>
++-------------------+---------+------+
+<span class="p">|</span><span class="w"> </span>Host<span class="w"> </span>Name<span class="w">         </span><span class="p">|</span><span class="w"> </span>Service<span class="w"> </span><span class="p">|</span><span class="w"> </span>Zone<span class="w"> </span><span class="p">|</span>
++-------------------+---------+------+
+<span class="p">|</span><span class="w"> </span>os-compute03.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-compute04.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-compute01.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-compute02.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
++-------------------+---------+------+
+</code></pre></div>
+<p>You should see a listing of available hosts.</p>
+<p>Add all of the <code>os-compute</code> compute hosts to the <code>kvm</code>  host aggregate:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;maas&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NR==1 {print $2}&#39;</span><span class="k">)</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;maas&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NR==2 {print $2}&#39;</span><span class="k">)</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;maas&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NR==3 {print $2}&#39;</span><span class="k">)</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;maas&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NR==4 {print $2}&#39;</span><span class="k">)</span>
+</code></pre></div>
+<p>For each execution of the command you should see details of the host aggregate
+with the host you added being listed as a value of the hosts field.</p>
+<p>Verify your host have been added with:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span>show<span class="w"> </span>kvm
+<span class="c1"># output</span>
++-------------------+----------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">             </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                      </span><span class="p">|</span>
++-------------------+----------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2024</span>-07-11T13:29:57.000000<span class="w">                                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>deleted_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>hosts<span class="w">             </span><span class="p">|</span><span class="w"> </span>os-compute01.maas,<span class="w"> </span>os-compute02.maas,<span class="w"> </span>os-compute03.maas,<span class="w"> </span>os-compute04.maas<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                                                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_deleted<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">              </span><span class="p">|</span><span class="w"> </span>kvm<span class="w">                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">        </span><span class="p">|</span><span class="w">                                                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>80a7e52a-0a4e-4c5a-b66a-89156fef72ea<span class="w">                                       </span><span class="p">|</span>
++-------------------+----------------------------------------------------------------------------+
+</code></pre></div>
+<p>You should see the host listed as the value for the hosts field.</p>
+<h3 id="task-2-define-a-key-value-property-for-a-host-aggregate">Task 2: Define a Key-Value property for a Host Aggregate<a class="headerlink" href="#task-2-define-a-key-value-property-for-a-host-aggregate" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following to add a key-value property
+to the <code>KVM</code> host aggregate:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="nv">kvm</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>kvm
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span>show<span class="w"> </span>kvm
+</code></pre></div>
+<p>You should see the new key-value pair listed as the value for the properties field.</p>
+<h2 id="93-define-a-custom-instance-sizing-flavor-for-a-host-aggregate">9.3 Define a Custom Instance Sizing Flavor for a Host Aggregate<a class="headerlink" href="#93-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you create a new instance-sizing flavor that corresponds to
+a host aggregate.</p>
+<h3 id="task-1-define-a-new-instance-sizing-flavor_1">Task 1: Define a New Instance Sizing Flavor<a class="headerlink" href="#task-1-define-a-new-instance-sizing-flavor_1" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, enter the following command to create
+a two new flavors, one for each hypervisor:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span>create<span class="w"> </span>--vcpus<span class="w"> </span><span class="m">1</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">512</span><span class="w"> </span>--disk<span class="w"> </span><span class="m">5</span><span class="w"> </span>--public<span class="w"> </span>kvm.smaller
+</code></pre></div>
+<p>You should see details on the newly created flavor listed.</p>
+<p>Enter the following command to define a key-value pair for the <code>KVM</code> flavor
+that matches the key-value pair in the host aggregate:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>aggregate_instance_extra_specs:kvm<span class="o">=</span><span class="nb">true</span><span class="w"> </span>kvm.smaller
+</code></pre></div>
+<p>Enter the following command to display the flavor:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span>show<span class="w"> </span>kvm.smaller
+</code></pre></div>
+<p>You should see the property listed as the value for the  <code>properties</code> field.</p>
+<h3 id="task-2-enable-the-scheduler-filter">Task 2: Enable the Scheduler Filter<a class="headerlink" href="#task-2-enable-the-scheduler-filter" title="Permanent link">&para;</a></h3>
+<p>By default, the Controller node does not have the scheduling filter required to do
+filtering based on the extra_specs you added to the flavor.</p>
+<p>We need to add a special filter called <code>AggregateInstanceExtraSpecsFilter</code> to the default list already present
+on the <code>nova-cloud-controller</code> unit.</p>
+<p>To update the value for <code>scheduler-default-filters</code>, enter the following command:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">DEFAULT_FILTERS</span><span class="o">=</span><span class="sb">`</span>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-u<span class="w"> </span>nova-cloud-controller/0<span class="w"> </span><span class="s2">&quot;grep enabled_filters /etc/nova/nova.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot; &quot;</span><span class="w">  </span>-f<span class="w"> </span><span class="m">3</span>-<span class="sb">`</span>
+</code></pre></div>
+<p>Verify the value of DEFAULT_FILTERS:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="nv">$DEFAULT_FILTERS</span>
+</code></pre></div>
+<p>If the value of DEFAULT_FILTERS is empty, then command did not work as expected and needs to be fixed.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>config<span class="w"> </span>nova-cloud-controller<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>scheduler-default-filters<span class="o">=</span><span class="nv">$DEFAULT_FILTERS</span>,AggregateInstanceExtraSpecsFilter
+</code></pre></div>
+<p>Enter the following command to display the updated <code>scheduler-default-filters</code>.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>config<span class="w"> </span>nova-cloud-controller<span class="w"> </span>scheduler-default-filters
+</code></pre></div>
+<p>Make sure that the nova charm finishes executing the "config-changed" hook.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>nova-cloud-controller
+</code></pre></div>
+<h2 id="94-create-a-cloud-instance">9.4 Create a cloud Instance<a class="headerlink" href="#94-create-a-cloud-instance" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you will launch a cloud instance.</p>
+<h3 id="task-1-create-an-instance">Task 1: Create an Instance<a class="headerlink" href="#task-1-create-an-instance" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, perform the following steps to
+create a new cloud instance:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<p>Create the cloud instance with the following command:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>create<span class="w"> </span>--availability-zone<span class="w"> </span>nova<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--image<span class="w"> </span><span class="s1">&#39;jammy&#39;</span><span class="w"> </span>--flavor<span class="w"> </span>m1.smaller<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--key-name<span class="w"> </span>student-keypair<span class="w"> </span>--security-group<span class="w"> </span>StudentProject_Allow_SSH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--nic<span class="w"> </span>net-id<span class="o">=</span><span class="k">$(</span>openstack<span class="w"> </span>network<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>StudentProject_Network<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print $2 }&#39;</span><span class="k">)</span><span class="w"> </span>jammy1
+</code></pre></div>
+<p>You should see the the details of the newly created cloud instance.</p>
+<p>Run the following command to view all defined instances:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>list
+</code></pre></div>
+<p>You should see the IDs, names, status and networks of defined cloud instances.</p>
+<p>Rerun the command periodically until the Status shows ACTIVE or use the following command:</p>
+<div class="highlight"><pre><span></span><code>watch<span class="w"> </span>openstack<span class="w"> </span>server<span class="w"> </span>list
+</code></pre></div>
+<h2 id="95-expose-a-cloud-workload-to-the-external-network">9.5 Expose a Cloud Workload to the External Network<a class="headerlink" href="#95-expose-a-cloud-workload-to-the-external-network" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you assign a floating IP address to an instance and edit its
+security groups to expose it to the external network.</p>
+<h3 id="task-1-assign-a-floating-ip-to-an-instance">Task 1: Assign a Floating IP to an Instance<a class="headerlink" href="#task-1-assign-a-floating-ip-to-an-instance" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, perform the following steps to assign a
+floating IP address to a cloud instance:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<p>Retrieve a list of currently defined floating IP addresses:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">INSTANCE_FLOATING_IP</span><span class="o">=</span><span class="k">$(</span>openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">192</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print $4 }&#39;</span><span class="k">)</span>
+</code></pre></div>
+<p>Associate the floating IP address with your cloud instance:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>jammy1<span class="w"> </span><span class="nv">$INSTANCE_FLOATING_IP</span>
+</code></pre></div>
+<p>Retrieve a list of currently defined floating IP addresses again:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>list
+</code></pre></div>
+<p>You should now see the floating IP address you used associated with a fixed IP address.</p>
+<h3 id="task-2-ping-the-floating-ip">Task 2: Ping the floating IP<a class="headerlink" href="#task-2-ping-the-floating-ip" title="Permanent link">&para;</a></h3>
+<p>In a terminal on the MAAS server, enter the following command to ping the workload
+instance:</p>
+<div class="highlight"><pre><span></span><code>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">$INSTANCE_FLOATING_IP</span>
+</code></pre></div>
+<p>You should see that the destination host is unreachable. Although the IP is assigned
+to the instance, you will not see a response because it is not a member of a security
+group that allows ICMP. In the next task you will add the instance to the correct
+security group to allow ICMP.</p>
+<h3 id="task-3-edit-instance-security-groups">Task 3: Edit Instance Security Groups<a class="headerlink" href="#task-3-edit-instance-security-groups" title="Permanent link">&para;</a></h3>
+<p>At the terminal of the MAAS server, perform the following steps to add the cloud
+instance to the security group allowing ICMP traffic:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># check the current security groups</span>
+openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>jammy1<span class="w"> </span>StudentProject_Allow_ICMP
+</code></pre></div>
+<p>Verify the <code>StudentProject_Allow_ICMP</code> security group was added with the following:</p>
+<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1
+</code></pre></div>
+<p>You should see both <strong>StudentProject_Allow_ICMP</strong> and <strong>StudentProject_Allow_SSH</strong> listed.</p>
+<h3 id="task-4-ping-the-floating-ip-again">Task 4: Ping the floating IP again<a class="headerlink" href="#task-4-ping-the-floating-ip-again" title="Permanent link">&para;</a></h3>
+<p>In a terminal on the MAAS server, enter the following command to ping the
+workload instance:</p>
+<div class="highlight"><pre><span></span><code>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">$INSTANCE_FLOATING_IP</span>
+</code></pre></div>
+<p>You should see a response form the instance.</p>
+<hr />
+<h2 id="96-web-ui">9.6 WEB UI<a class="headerlink" href="#96-web-ui" title="Permanent link">&para;</a></h2>
+<h2 id="961-define-custom-instance-sizing-flavors">9.6.1 Define Custom Instance Sizing Flavors<a class="headerlink" href="#961-define-custom-instance-sizing-flavors" title="Permanent link">&para;</a></h2>
+<p><strong>To define a new instance sizing flavor via the WebUI perform the following:</strong></p>
+<ol>
+<li>In a web browser, point to the OpenStack Dashboard and log in as the  <code>admin</code> user.</li>
+<li>From the panels on the left select <code>Admin &gt; Compute &gt; Flavors</code>.<blockquote>
+<p>You should see the currently defined sizing flavors.</p>
+</blockquote>
+</li>
+<li>Click <code>Create Flavor</code>.</li>
+<li>In the <code>Create Flavor</code> window, under the <code>Flavor Information</code> tab, enter/selec the following:<blockquote>
+<p><code>Name</code>: <strong>m1.smaller</strong><br/>
+<code>ID</code>: <strong>auto</strong><br/>
+<code>VCPUs</code>: <strong>1</strong><br/>
+<code>RAM MB</code>: <strong>512</strong><br/>
+<code>Root Disk GB</code>: <strong>5</strong><br/>
+<code>Ephemeral Disk GB</code>: <strong>0</strong><br/>
+<code>Swap Disk MB</code>: <strong>0</strong><br/>
+<code>RX/TX Factor</code>: <strong>1</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Flavor</code>. You should see your new flavor in the list.</li>
+</ol>
+<h2 id="962-define-host-aggregates">9.6.2 Define Host Aggregates<a class="headerlink" href="#962-define-host-aggregates" title="Permanent link">&para;</a></h2>
+<h5 id="task-1-define-a-host-aggregate_1">Task 1: Define a Host Aggregate<a class="headerlink" href="#task-1-define-a-host-aggregate_1" title="Permanent link">&para;</a></h5>
+<p><strong>To define a host aggregate via the WebUI perform the following:</strong></p>
+<ol>
+<li>In a web browser, point to the OpenStack Dashboard and log in as the  <code>admin</code> user.</li>
+<li>From the panels on the left select <code>Admin &gt; Compute &gt; Host Aggregates</code>. You should see the currently defined host aggregates and availability zones.</li>
+<li>Click <code>Create Host Aggregate</code>.</li>
+<li>In the <code>Create Host Aggregate</code> window, on the <code>Host Aggregate Information</code> tab, enter/select the following:<blockquote>
+<p><code>Name</code>: <strong>KVM</strong><br/>
+<code>Availability Zone</code>: <strong>nova</strong></p>
+</blockquote>
+</li>
+<li>On the <code>Manage Hosts Within Aggregate</code> tab, in the <code>All available hosts</code> column,
+click on the <code>Plus sign</code> next to <code>os-compute02</code> and <code>os-compute03</code> to move
+them under the <code>Selected hosts</code> column.</li>
+<li>Click <code>Create Host Aggregate</code>.</li>
+</ol>
+<h3 id="task-2-define-a-key-value-property-for-a-host-aggregate_1">Task 2: Define a Key-Value property for a Host Aggregate<a class="headerlink" href="#task-2-define-a-key-value-property-for-a-host-aggregate_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In a web browser, point to the OpenStack Dashboard and log in as the <code>admin</code> user.</li>
+<li>From the panels on the left select <code>Admin &gt; Compute &gt; Host Aggregates</code>. You should see the currently defined host aggregates and availability zones.</li>
+<li>In the <code>Host Aggregates</code> window, in the <code>Host Aggregates</code> section select the dropdown menu under <code>Edit Host Aggregate</code> for the <code>KVM</code> host aggregate.</li>
+<li>Select <code>Update Metadata</code>.</li>
+<li>In the <code>Available Metadata</code> column, type <code>kvm</code> in the <code>Custom</code> input box and click on the <code>plus sign</code>.</li>
+<li>In the <code>Existing Metadata</code> column, type <code>true</code> in the input box next to <code>kvm</code>.</li>
+<li>Click <code>Save</code>. You should see <code>kvm = true</code> in the <code>Metadata</code> column for the <code>kvm</code> host aggregate.</li>
+</ol>
+<h2 id="963-define-a-custom-instance-sizing-flavor-for-a-host-aggregate">9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate<a class="headerlink" href="#963-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-define-a-new-instance-sizing-flavor_2">Task 1: Define a New Instance Sizing Flavor<a class="headerlink" href="#task-1-define-a-new-instance-sizing-flavor_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In a web browser, point to the OpenStack Dashboard and log in as the  <code>admin</code> user.</li>
+<li>From the panels on the left select <code>Admin &gt; Compute &gt; Flavors</code>. You should see the currently defined sizing flavors.</li>
+<li>Click <code>Create Flavor</code>.</li>
+<li>In the <code>Create Flavor</code> window, enter/select the following:<blockquote>
+<p><code>Name</code>: <strong>kvm.smaller</strong><br/>
+<code>ID</code>: <strong>auto</strong><br/>
+<code>VCPUs</code>: <strong>1</strong><br/>
+<code>RAM MB</code>: <strong>512</strong><br/>
+<code>Root Disk GB</code>: <strong>5</strong><br/>
+<code>Ephemeral Disk GB</code>: <strong>0</strong><br/>
+<code>Swap Disk MB</code>: <strong>0</strong><br/>
+<code>RX/TX Factor</code>: <strong>1</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Flavor</code>. You should see your new flavor in the list.</li>
+<li>From <code>Actions</code> for the <code>kvm.smaller</code> flavor.</li>
+<li>Select <code>Update Metadata</code>.</li>
+<li>In the <code>Available Metadata</code> column, type <code>aggregate_instance_extra_specs:kvm</code> in the <code>Custom</code> input box and click on the <code>plus sign</code>.</li>
+<li>In the <code>Existing Metadata</code> column, type true in the input box next to <code>aggregate_instance_extra_specs:kvm</code>.</li>
+<li>Click <code>Save</code>. You should see <code>Yes</code> in the <code>Metadata</code> column for the <code>kvm.smaller</code> flavor.</li>
+</ol>
+<h2 id="964-create-a-cloud-instance">9.6.4 Create a cloud Instance<a class="headerlink" href="#964-create-a-cloud-instance" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-create-an-instance_1">Task 1: Create an Instance<a class="headerlink" href="#task-1-create-an-instance_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Log into the OpenStack Dashboard as <code>student</code>.</li>
+<li>From the panels on the left, select: <code>Project &gt; Compute &gt; Instances</code>.</li>
+<li>Click <code>Launch Instance</code>.</li>
+<li>In the <code>Launch Instance</code> window in the <code>Details</code> pane enter/select the following:<blockquote>
+<p><code>Instance Name</code>:<strong>jammy1</strong><br/>
+<code>Availability Zone</code>: <strong>nova</strong><br/>
+<code>Count</code>: <strong>1</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Next</code>.</li>
+<li>In the <code>Launch Instance</code> window in the <code>Source</code> pane enter/select the following:<blockquote>
+<p><code>Select Boot Source</code>: <strong>Image</strong><br/>
+<code>Create New Volume</code>: <strong>No</strong></p>
+</blockquote>
+</li>
+<li>Scroll down to the <code>Available</code> images and click on the up arrow to the right of the <code>jammy</code> image.</li>
+<li>The <code>jammy</code> image will move up to the <code>Allocated</code> section.</li>
+<li>Click <code>Next</code>.</li>
+<li>In the <code>Launch Instance</code> window in the Flavor pane scroll down to the Available flavors and click on the up arrow to the right of the <code>m1.smaller</code> flavor.</li>
+<li>The <code>m1.smaller</code> flavor will move up to the Allocated section.</li>
+<li>Click <code>Next</code>.</li>
+<li>In the <code>Launch Instance</code> window in the <code>Networks</code> pane scroll down to the
+<code>Available</code> networks and click on the + to the right of the <code>StudentProject_Network</code> network.</li>
+<li>The <code>StudentProject_Network</code> network will move up to the <code>Allocated</code> section.</li>
+<li>Click <code>Next</code> twice.</li>
+<li>In the <code>Launch Instance</code> window in the <code>Security Groups</code> pane scroll down to
+the <code>Available</code> security groups and click on the up arrow to the right of the <code>StudentProject_Allow_SSH</code> security group.</li>
+<li>The <code>StudentProject_Allow_SSH</code> security group will move up to the <code>Allocated</code> section.</li>
+<li>Click <code>Next</code>.</li>
+<li>In the <code>Launch Instance</code> window in the <code>Key Pair</code> pane scroll down to the
+    <code>Available</code> key pairs and click on the up arrow to the right of the <code>student-keypair</code> key pair.</li>
+<li>The <code>student-keypair</code> key pair will move up to the Allocated section.</li>
+<li>Click <code>Launch Instance</code>.</li>
+</ol>
+<blockquote>
+<p>You should see your new instance in the list. Initially its status should be <code>Build</code>
+and its task should be <code>Block Device Build</code> and then <code>Spawning</code>. This should
+transition to <code>Active</code> status with a power state of <code>Running</code> when it finishes
+deploying.</p>
+</blockquote>
+<h2 id="965-expose-a-cloud-workload-to-the-external-network">9.6.5 Expose a Cloud Workload to the External Network<a class="headerlink" href="#965-expose-a-cloud-workload-to-the-external-network" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-assign-a-floating-ip-to-an-instance_1">Task 1: Assign a Floating IP to an Instance<a class="headerlink" href="#task-1-assign-a-floating-ip-to-an-instance_1" title="Permanent link">&para;</a></h3>
+<p><strong>To assign a floating IP via the WebUI perform the following:</strong></p>
+<ol>
+<li>Log into the OpenStack Dashboard as <code>student</code>.</li>
+<li>From the panels on the left, select: <code>Project &gt; Compute &gt; Instances</code>.</li>
+<li>Next to the running instance in the Actions column select <code>Associate Floating IP</code>. from the <code>Create Snapshot</code> drop-down list.</li>
+<li>On the manage <code>Floating IP Associations</code> screen, select the following:<blockquote>
+<p><code>IP Address</code>: <strong>(select the first address in the list)</strong><br/>
+<code>Port to be associated</code>:<strong>(accept the default)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Associate</code>.</li>
+<li>In the IP Address column next to the running instance, you should see the floating IP address listed.</li>
+</ol>
+<h3 id="task-3-edit-instance-security-groups_1">Task 3: Edit Instance Security Groups<a class="headerlink" href="#task-3-edit-instance-security-groups_1" title="Permanent link">&para;</a></h3>
+<p><strong>To edit an instance security group via the WebUI perform the following:</strong></p>
+<ol>
+<li>Log into the OpenStack Dashboard as <code>student</code>.</li>
+<li>Next to the running instance, in the <code>Actions</code> column, select <code>Edit Security Groups</code> from the <code>Create Snapshot</code> drop-down list.</li>
+<li>In the <code>Edit Instance</code> window, in the <code>Security Groups</code> pane, click the <code>+</code> next to the <code>StudentProject_Allow_ICMP</code> security group. The security
+group should move to the <code>Instance Security Groups</code> pane.</li>
+<li>Click <code>Save</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

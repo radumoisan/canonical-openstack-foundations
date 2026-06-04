@@ -1,0 +1,1185 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation site for the OpenStack Foundations training">
+      
+      
+      
+      
+        <link rel="prev" href="../juju-openstack-provider/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Appendices - OpenStack Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#13-appendices" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenStack Foundations" class="md-header__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenStack Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Appendices
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenStack Foundations" class="md-nav__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OpenStack Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect-to-canonical-openstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Connect to Canonical OpenStack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-juju/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure Juju
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-charms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju Charms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-openstack-with-juju-and-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy OpenStack with Juju and MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-defined-networks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Defined Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure-openstack-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure an OpenStack Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-workload-instances/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Workload Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openstack-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenStack Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-openstack-provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju OpenStack Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Appendices
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Appendices
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#131-appendix-a-recover-from-total-outage-heading" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Appendix A: Recover from total outage !heading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.1 Appendix A: Recover from total outage !heading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1311-recovering-the-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.1 Recovering the DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1312-unseal-vault" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.2 Unseal Vault
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#132-appendix-b-openstack-bundle-file-heading" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 Appendix B: OpenStack Bundle File !heading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#131-appendix-a-recover-from-total-outage-heading" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Appendix A: Recover from total outage !heading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.1 Appendix A: Recover from total outage !heading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1311-recovering-the-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.1 Recovering the DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1312-unseal-vault" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.2 Unseal Vault
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#132-appendix-b-openstack-bundle-file-heading" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 Appendix B: OpenStack Bundle File !heading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="13-appendices">13. Appendices<a class="headerlink" href="#13-appendices" title="Permanent link">&para;</a></h1>
+<h2 id="131-appendix-a-recover-from-total-outage-heading">13.1 Appendix A: Recover from total outage !heading<a class="headerlink" href="#131-appendix-a-recover-from-total-outage-heading" title="Permanent link">&para;</a></h2>
+<p>In cases of complete cluster failure, all nodes are down, when the
+cluster comes us again, some services will be degraded. User input
+is necessary.</p>
+<p>Two services need manual intervention, the <code>mysql-innodb-cluster</code> charm
+and the <code>vault</code> charm.</p>
+<h3 id="1311-recovering-the-db">13.1.1 Recovering the DB<a class="headerlink" href="#1311-recovering-the-db" title="Permanent link">&para;</a></h3>
+<p>Check the the status of the DB charm. It should be in unhealthy state.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
+<span class="c1"># output</span>
+Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.5.2<span class="w">    </span>unsupported<span class="w">  </span><span class="m">06</span>:08:29-05:00
+
+App<span class="w">                   </span>Version<span class="w">  </span>Status<span class="w">   </span>Scale<span class="w">  </span>Charm<span class="w">                 </span>Channel<span class="w">       </span>Exposed<span class="w">  </span>Rev<span class="w">  </span>OS<span class="w">      </span>Notes
+mysql-innodb-cluster<span class="w">  </span><span class="m">8</span>.0.37<span class="w">   </span>blocked<span class="w">      </span><span class="m">3</span><span class="w">  </span>mysql-innodb-cluster<span class="w">  </span><span class="m">8</span>.0/stable<span class="w">    </span>no<span class="w">       </span><span class="m">133</span><span class="w">  </span>ubuntu
+
+Unit<span class="w">                     </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">  </span>Message
+mysql-innodb-cluster/0<span class="w">   </span>blocked<span class="w">   </span>idle<span class="w">   </span><span class="m">0</span>/lxd/3<span class="w">  </span><span class="m">192</span>.168.100.54<span class="w">         </span>MySQL<span class="w"> </span>InnoDB<span class="w"> </span>Cluster<span class="w"> </span>not<span class="w"> </span>healthy:<span class="w"> </span>None
+mysql-innodb-cluster/1*<span class="w">  </span>blocked<span class="w">   </span>idle<span class="w">   </span><span class="m">1</span>/lxd/2<span class="w">  </span><span class="m">192</span>.168.100.46<span class="w">         </span>MySQL<span class="w"> </span>InnoDB<span class="w"> </span>Cluster<span class="w"> </span>not<span class="w"> </span>healthy:<span class="w"> </span>None
+mysql-innodb-cluster/2<span class="w">   </span>blocked<span class="w">   </span>idle<span class="w">   </span><span class="m">2</span>/lxd/2<span class="w">  </span><span class="m">192</span>.168.100.52<span class="w">         </span>MySQL<span class="w"> </span>InnoDB<span class="w"> </span>Cluster<span class="w"> </span>not<span class="w"> </span>healthy:<span class="w"> </span>None
+
+Machine<span class="w">  </span>State<span class="w">    </span>DNS<span class="w">             </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">           </span>AZ<span class="w">       </span>Message
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.37<span class="w">  </span>os-compute01<span class="w">         </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Deployed
+<span class="m">0</span>/lxd/3<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.54<span class="w">  </span>juju-3da275-0-lxd-3<span class="w">  </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Container<span class="w"> </span>started
+<span class="m">1</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.38<span class="w">  </span>os-compute02<span class="w">         </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Deployed
+<span class="m">1</span>/lxd/2<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.46<span class="w">  </span>juju-3da275-1-lxd-2<span class="w">  </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Container<span class="w"> </span>started
+<span class="m">2</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.39<span class="w">  </span>os-compute03<span class="w">         </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Deployed
+<span class="m">2</span>/lxd/2<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.52<span class="w">  </span>juju-3da275-2-lxd-2<span class="w">  </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Container<span class="w"> </span>started
+</code></pre></div>
+<p>List the juju actions available for <code>mysql-innodb-cluster</code>. The action that
+interests us is the <code>reboot-cluster-from-complete-outage</code> action.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>actions<span class="w"> </span>mysql-innodb-cluster
+</code></pre></div>
+<p><code>reboot-cluster-from-complete-outage</code> - In the case of a complete outage, reboot the cluster
+from this instance's GTID superset.</p>
+<p>Run this action on the leader unit of the charm.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run<span class="w"> </span>mysql-innodb-cluster/leader<span class="w"> </span>reboot-cluster-from-complete-outage<span class="w"> </span>--wait<span class="w"> </span>15m
+</code></pre></div>
+<p>Wait a few minutes for this process to finish and check the cluster status again.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
+</code></pre></div>
+<h3 id="1312-unseal-vault">13.1.2 Unseal Vault<a class="headerlink" href="#1312-unseal-vault" title="Permanent link">&para;</a></h3>
+<p>The Vault charm needs to be unsealed after a complete cluster restart. Usually, Vault needs to be unsealed even after install,
+but because we deployed Vault with the <code>totally-unsecure-auto-unlock</code> option, the charm unsealed itself automatically. This is
+only done for testing purposes and not recommended in production.</p>
+<p>Check the status of the Vault charm.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>vault
+</code></pre></div>
+<p>The Vault process inside the LXD container needs to be restarted in order to connect to the DB. Please note that the DB needs to be
+active and running before doing this.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>vault
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>vault
+</code></pre></div>
+<p>Install the Vault client.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>vault
+</code></pre></div>
+<p>Now it's time to get the unseal key. Usually, Vault requires at least 3 unseal keys, but because we used the 
+<code>totally-unsecure-auto-unlock</code> (only for testing purposes), we only need one key. To get the key run the following command,
+and look for <code>keys</code>:</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>leader-get
+<span class="c1"># output</span>
+keys:<span class="w"> </span><span class="s1">&#39;[&quot;3291e16bcbfe08958043ae7963f9f1d12b0307819262c779600a72499dc80c65&quot;]&#39;</span>
+</code></pre></div>
+<p>Unseal Vault using the keys from the file.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_ADDR</span><span class="o">=</span><span class="s2">&quot;http://</span><span class="k">$(</span>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/leader<span class="w"> </span>unit-get<span class="w"> </span>private-address<span class="k">)</span><span class="s2">:8200&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>vault<span class="w"> </span>operator<span class="w"> </span>unseal<span class="w"> </span>&lt;unseal<span class="w"> </span>key<span class="w"> </span><span class="m">1</span>&gt;
+</code></pre></div>
+<p>Authorize the vault charm.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_TOKEN</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/home/ubuntu/vault-state.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Initial Root Token&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">CHARM_TOKEN</span><span class="o">=</span><span class="k">$(</span>vault<span class="w"> </span>token<span class="w"> </span>create<span class="w"> </span>-ttl<span class="o">=</span>10m<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span><span class="s2">&quot;^token\s+&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run<span class="w"> </span>--wait<span class="w"> </span>5m<span class="w"> </span>vault/leader<span class="w"> </span>authorize-charm<span class="w"> </span><span class="nv">token</span><span class="o">=</span><span class="nv">$CHARM_TOKEN</span>
+</code></pre></div>
+<p>Resolve the Vault charm if it is in error state.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>resolved<span class="w"> </span>vault/0
+</code></pre></div>
+<p>Wait a few minutes for the charm to become active again.</p>
+<p>Check the status of the charm.</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status
+<span class="c1"># output</span>
+Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.5.2<span class="w">    </span>unsupported<span class="w">  </span><span class="m">13</span>:43:39Z
+
+App<span class="w">                 </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">         </span>Channel<span class="w">     </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+vault<span class="w">               </span><span class="m">1</span>.7.9<span class="w">    </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>vault<span class="w">         </span><span class="m">1</span>.7/stable<span class="w">  </span><span class="m">349</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready<span class="w"> </span><span class="o">(</span>active:<span class="w"> </span>true,<span class="w"> </span>mlock:<span class="w"> </span>disabled<span class="o">)</span>
+vault-mysql-router<span class="w">  </span><span class="m">8</span>.0.37<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>mysql-router<span class="w">  </span><span class="m">8</span>.0/stable<span class="w">  </span><span class="m">200</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+
+Unit<span class="w">                     </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">     </span>Message
+vault/0*<span class="w">                 </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">3</span>/lxd/3<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span><span class="m">8200</span>/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready<span class="w"> </span><span class="o">(</span>active:<span class="w"> </span>true,<span class="w"> </span>mlock:<span class="w"> </span>disabled<span class="o">)</span>
+<span class="w">  </span>vault-mysql-router/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">            </span><span class="m">192</span>.168.100.26<span class="w">            </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
+<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.24<span class="w">  </span>os-compute04<span class="w">         </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">3</span>/lxd/3<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span>juju-c06005-3-lxd-3<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Container<span class="w"> </span>started
+</code></pre></div>
+<h2 id="132-appendix-b-openstack-bundle-file-heading">13.2 Appendix B: OpenStack Bundle File !heading<a class="headerlink" href="#132-appendix-b-openstack-bundle-file-heading" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>This is the OpenStack deploy bundle used in this course.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu@22.04</span>
+<span class="c1"># *** Please refer to the OpenStack Charms Deployment Guide for more        ***</span>
+<span class="c1"># *** information.</span>
+<span class="c1"># *** https://docs.openstack.org/project-deploy-guide/charm-deployment-guide **</span>
+<span class="nt">variables</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;openstack-origin</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">distro</span>
+<span class="w">  </span><span class="nt">data-port</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;data-port</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">br-ex:eth1</span>
+<span class="w">  </span><span class="nt">worker-multiplier</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;worker-multiplier</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.25</span>
+<span class="w">  </span><span class="nt">osd-devices</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;osd-devices</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/vdb</span>
+<span class="w">  </span><span class="nt">expected-osd-count</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;expected-osd-count</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">expected-mon-count</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;expected-mon-count</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="nt">machines</span><span class="p">:</span>
+<span class="w">  </span><span class="s">&#39;0&#39;</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu@22.04</span>
+<span class="w">  </span><span class="s">&#39;1&#39;</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu@22.04</span>
+<span class="w">  </span><span class="s">&#39;2&#39;</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu@22.04</span>
+<span class="w">  </span><span class="s">&#39;3&#39;</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu@22.04</span>
+<span class="nt">relations</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-compute:amqp</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbitmq-server:amqp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller:identity-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone:identity-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance:identity-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone:identity-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api:identity-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone:identity-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api:amqp</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbitmq-server:amqp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance:amqp</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbitmq-server:amqp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller:image-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance:image-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-compute:image-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance:image-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller:cloud-compute</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-compute:cloud-compute</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller:amqp</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbitmq-server:amqp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openstack-dashboard:identity-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone:identity-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller:neutron-api</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api:neutron-api</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder:image-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance:image-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder:amqp</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbitmq-server:amqp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder:identity-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone:identity-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder:cinder-volume-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller:cinder-volume-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder-ceph:storage-backend</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder:storage-backend</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-mon:client</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-compute:ceph</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-compute:ceph-access</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder-ceph:ceph-access</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-mon:client</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder-ceph:ceph</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-mon:client</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance:ceph</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-osd:mon</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-mon:osd</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntp:juju-info</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-compute:juju-info</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-radosgw:mon</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-mon:radosgw</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-radosgw:identity-service</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone:identity-service</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">placement</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">placement</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone:shared-db</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone-mysql-router:shared-db</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder:shared-db</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder-mysql-router:shared-db</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance:shared-db</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance-mysql-router:shared-db</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller:shared-db</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-mysql-router:shared-db</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api:shared-db</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-mysql-router:shared-db</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openstack-dashboard:shared-db</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dashboard-mysql-router:shared-db</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">placement:shared-db</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">placement-mysql-router:shared-db</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:shared-db</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault-mysql-router:shared-db</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone-mysql-router:db-router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-innodb-cluster:db-router</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder-mysql-router:db-router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-innodb-cluster:db-router</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-mysql-router:db-router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-innodb-cluster:db-router</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance-mysql-router:db-router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-innodb-cluster:db-router</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-mysql-router:db-router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-innodb-cluster:db-router</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dashboard-mysql-router:db-router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-innodb-cluster:db-router</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">placement-mysql-router:db-router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-innodb-cluster:db-router</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault-mysql-router:db-router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-innodb-cluster:db-router</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api-plugin-ovn:neutron-plugin</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api:neutron-plugin-api-subordinate</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovn-central:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovn-central:ovsdb-cms</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api-plugin-ovn:ovsdb-cms</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovn-chassis:nova-compute</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-compute:neutron-plugin</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovn-chassis:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovn-chassis:ovsdb</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovn-central:ovsdb</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neutron-api-plugin-ovn:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cinder:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glance:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystone:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nova-cloud-controller:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openstack-dashboard:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">placement:certificates</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault:certificates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph-radosgw:certificates</span>
+<span class="nt">applications</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ceph-mon</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;790&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1540&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:ceph-mon</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">squid/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">expected-osd-count</span><span class="p">:</span><span class="w"> </span><span class="nv">*expected-osd-count</span>
+<span class="w">      </span><span class="nt">monitor-count</span><span class="p">:</span><span class="w"> </span><span class="nv">*expected-mon-count</span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:0</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:2</span>
+<span class="w">  </span><span class="nt">ceph-osd</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1065&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1540&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:ceph-osd</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">squid/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">osd-devices</span><span class="p">:</span><span class="w"> </span><span class="nv">*osd-devices</span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;0&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;1&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;2&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;3&#39;</span>
+<span class="w">  </span><span class="nt">ceph-radosgw</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;850&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;900&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:ceph-radosgw</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">squid/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:0</span>
+<span class="w">  </span><span class="nt">cinder-mysql-router</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;900&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1400&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-router</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">  </span><span class="nt">cinder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;980&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1270&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:cinder</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">block-device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="w">      </span><span class="nt">glance-api-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="nt">worker-multiplier</span><span class="p">:</span><span class="w"> </span><span class="nv">*worker-multiplier</span>
+<span class="w">      </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:1</span>
+<span class="w">  </span><span class="nt">cinder-ceph</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1120&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1400&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:cinder-ceph</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">glance-mysql-router</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;-290&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1400&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-router</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">  </span><span class="nt">glance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;-230&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1270&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:glance</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">worker-multiplier</span><span class="p">:</span><span class="w"> </span><span class="nv">*worker-multiplier</span>
+<span class="w">      </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">      </span><span class="nt">image-conversion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:2</span>
+<span class="w">  </span><span class="nt">keystone-mysql-router</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;230&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1400&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-router</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">  </span><span class="nt">keystone</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;300&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1270&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:keystone</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">worker-multiplier</span><span class="p">:</span><span class="w"> </span><span class="nv">*worker-multiplier</span>
+<span class="w">      </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">      </span><span class="nt">admin-password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;openstack&quot;</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:0</span>
+<span class="w">  </span><span class="nt">neutron-mysql-router</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;505&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1385&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-router</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">  </span><span class="nt">neutron-api-plugin-ovn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;690&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1385&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:neutron-api-plugin-ovn</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">  </span><span class="nt">neutron-api</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;580&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1270&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:neutron-api</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">neutron-security-groups</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">enable-ml2-port-security</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">flat-network-providers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">physnet1</span>
+<span class="w">      </span><span class="nt">worker-multiplier</span><span class="p">:</span><span class="w"> </span><span class="nv">*worker-multiplier</span>
+<span class="w">      </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:1</span>
+<span class="w">  </span><span class="nt">placement-mysql-router</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1320&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1385&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-router</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">  </span><span class="nt">placement</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1320&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1270&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:placement</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">worker-multiplier</span><span class="p">:</span><span class="w"> </span><span class="nv">*worker-multiplier</span>
+<span class="w">      </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:2</span>
+<span class="w">  </span><span class="nt">nova-mysql-router</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;-30&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1385&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-router</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">  </span><span class="nt">nova-cloud-controller</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;35&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1270&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:nova-cloud-controller</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">network-manager</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Neutron</span>
+<span class="w">      </span><span class="nt">worker-multiplier</span><span class="p">:</span><span class="w"> </span><span class="nv">*worker-multiplier</span>
+<span class="w">      </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">      </span><span class="nt">console-access-protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">novnc</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:3</span>
+<span class="w">  </span><span class="nt">nova-compute</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;190&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;890&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:nova-compute</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">config-flags</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default_ephemeral_format=ext4</span>
+<span class="w">      </span><span class="nt">enable-live-migration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">enable-resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">migration-auth-type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
+<span class="w">      </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">      </span><span class="nt">virt-type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kvm</span>
+<span class="w">      </span><span class="nt">cpu-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host-passthrough</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;0&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;1&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;2&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;3&#39;</span>
+<span class="w">  </span><span class="nt">ntp</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;315&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1030&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:ntp</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">dashboard-mysql-router</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;510&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1030&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-router</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">  </span><span class="nt">openstack-dashboard</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;585&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;900&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:openstack-dashboard</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024.1/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">openstack-origin</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:3</span>
+<span class="w">  </span><span class="nt">rabbitmq-server</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;300&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1550&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:rabbitmq-server</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.9/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:3</span>
+<span class="w">  </span><span class="nt">mysql-innodb-cluster</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;535&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1550&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-innodb-cluster</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:0</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:2</span>
+<span class="w">  </span><span class="nt">ovn-central</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;70&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1550&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:ovn-central</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24.03/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="nv">*openstack-origin</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:0</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:2</span>
+<span class="w">  </span><span class="nt">ovn-chassis</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;120&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1030&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:ovn-chassis</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24.03/stable</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ovn-bridge-mappings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">physnet1:br-ex</span>
+<span class="w">      </span><span class="nt">bridge-interface-mappings</span><span class="p">:</span><span class="w"> </span><span class="nv">*data-port</span>
+<span class="w">  </span><span class="nt">vault-mysql-router</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1535&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1560&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:mysql-router</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0/stable</span>
+<span class="w">  </span><span class="nt">vault</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gui-x</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1610&#39;</span>
+<span class="w">      </span><span class="nt">gui-y</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1430&#39;</span>
+<span class="w">    </span><span class="nt">charm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch:vault</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.7/stable</span>
+<span class="w">    </span><span class="nt">num_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">auto-generate-root-ca-cert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">totally-unsecure-auto-unlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">to</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd:3</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
