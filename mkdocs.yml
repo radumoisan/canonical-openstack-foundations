@@ -1,0 +1,49 @@
+site_name: OpenStack Foundations
+site_description: Documentation site for the OpenStack Foundations training
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Connect to Canonical OpenStack: connect-to-canonical-openstack.md
+  - Install and Configure MAAS: install-and-configure-maas.md
+  - Install and Configure Juju: install-and-configure-juju.md
+  - Juju Charms: juju-charms.md
+  - Deploy OpenStack with Juju and MAAS: deploy-openstack-with-juju-and-maas.md
+  - Software Defined Networks: software-defined-networks.md
+  - Cloud Images: cloud-images.md
+  - Configure an OpenStack Project: configure-openstack-project.md
+  - Cloud Workload Instances: cloud-workload-instances.md
+  - OpenStack Storage: openstack-storage.md
+  - Juju OpenStack Provider: juju-openstack-provider.md
+  - Appendices: appendices.md
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - codehilite
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - toc:
+      permalink: true
+      title: On this page
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - search
