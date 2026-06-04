@@ -567,16 +567,16 @@ the MAAS server and any nodes it deploys.
 2. Select the `Subnets` menu on the left.
 3. On the `Subnets` page, select the `untagged` link under the `VLAN` header.
 > You should see the `Default VLAN in Fabric-0` configuration page displayed.
-1. In the `DHCP` section, click on `Enable DHCP`.
-2. Configure the subnet, `192.168.100.200` and `192.168.100.254` values.
-3. Click the `Configure DHCP` button.
-4. On the `Subnets` page, scroll down to the `Reserved` section.
-5. Click on the `Reserve range` button, `Reserve range` section.
-6. Enter the following values in their corresponding fields with `192.168.100.1`, `192.168.100.9` and `Purpose: static` values.
-7. Click on the `Reserve` button.
-8. Click on the `Reserve Range` button again.
-9. Enter the following values in their corresponding fields with `192.168.100.150`, `192.168.100.199` and `Purpose: floating` values.
+4. In the `DHCP` section, click on `Enable DHCP`.
+5. Configure the subnet, `192.168.100.200` and `192.168.100.254` values.
+6. Click the `Configure DHCP` button.
+7. On the `Subnets` page, scroll down to the `Reserved` section.
+8. Click on the `Reserve range` button, `Reserve range` section.
+9. Enter the following values in their corresponding fields with `192.168.100.1`, `192.168.100.9` and `Purpose: static` values.
 10. Click on the `Reserve` button.
+11. Click on the `Reserve Range` button again.
+12. Enter the following values in their corresponding fields with `192.168.100.150`, `192.168.100.199` and `Purpose: floating` values.
+13. Click on the `Reserve` button.
 
 
 ### Task 2: Configure Upstream DNS
@@ -651,7 +651,7 @@ In this exercise, you view and define tags in the MAAS system.
 1. Open a web browser and point to: `http://192.168.100.3:5240/MAAS` and log in as `admin`.
 2. From the tabs at the top of the screen, click on the  `Machines` tab.
 3. In the `Filter` drop down box on the left side of the browser window click on the `Tags` link to expand the view. A listing of tags should be displayed.
-5. Click on the tag `virtual` to display the systems (in the right pane of the browser window) assigned to the tag `virtual`.
+4. Click on the tag `virtual` to display the systems (in the right pane of the browser window) assigned to the tag `virtual`.
 
 
 ### Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them

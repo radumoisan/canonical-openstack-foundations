@@ -155,7 +155,7 @@ My IP is `192.168.100.12`, so the URL will be `https://192.168.100.12`.
 Use Firefox to access that IP. You can configure the initial user of Landscape and gain access to its management console.
 
 
-### Task 3: Remove the landscape model
+### Task 4: Remove the landscape model
 
 Remove the `landscape` juju model. This will remove any charms/applications that are contained in it.
 

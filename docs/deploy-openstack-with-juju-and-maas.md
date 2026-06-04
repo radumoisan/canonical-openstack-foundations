@@ -183,8 +183,6 @@ visit:
 
 https://docs.openstack.org/charm-guide/latest/admin/security/tls.html
 
-The env diagram looks like this:
-
 ### Task 2: Disable automatic updates
 
 Use `juju ssh` to disable automatic updates on all nodes
@@ -255,10 +253,6 @@ Log in using the following credentials:
 
 ### Task 2: Interacting with OpenStack CLI
 
-At the terminal of the MAAS server, enter the following command to retrieve the
-IP address of the Keystone Server:
-
-
 Install the OpenStack CLI tools.
 
 ```bash
@@ -298,7 +292,6 @@ openstack catalog list
 ```bash
 openstack endpoint list
 ```
-
 
 
 

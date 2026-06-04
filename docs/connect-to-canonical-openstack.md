@@ -1,6 +1,6 @@
 # 1. Connect to your Canonical OpenStack
 
-The Canonical Openstack will be provided in the cloud. Here it 
+The Canonical OpenStack will be provided in the cloud. Here it 
 is explained how to connect to it.
 
 
@@ -45,7 +45,5 @@ Because it's a `SOCKS` proxy, we need to set it in the browser.
 3) Select `Manual proxy configuration`, use `localhost` or
 `127.0.0.1` for the `SOCKS host` with port `9999`. Click `OK` when done.
 
-For `Chrome`, the proxy settings can be configured from the Operating System 
-networking configurations,, the proxy settings can be configured from the Operating System 
-networking configurations, e.g. LAN Settings on Windows. 
-
+For `Chrome`, the proxy settings can be configured from the operating system
+network settings, for example via LAN Settings on Windows.

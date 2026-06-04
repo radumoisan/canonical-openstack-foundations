@@ -1,6 +1,6 @@
 # 13. Appendices
 
-## 13.1 Appendix A: Recover from total outage !heading
+## 13.1 Appendix A: Recover from total outage
 
 In cases of complete cluster failure, all nodes are down, when the
 cluster comes us again, some services will be degraded. User input
@@ -153,7 +153,7 @@ Machine  State    Address         Inst id              Base          AZ       Me
 ```
 
 
-## 13.2 Appendix B: OpenStack Bundle File !heading
+## 13.2 Appendix B: OpenStack Bundle File
 
 **Description:**
 
@@ -574,5 +574,4 @@ applications:
     to:
     - lxd:3
 ```
-
 

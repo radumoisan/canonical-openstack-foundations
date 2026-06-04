@@ -130,4 +130,3 @@ into Glance.
 5. Click the `+` next to the input block. The metadata key should populate the `Existing Metadata` section.
 6. In the Existing Metadata section, locate the newly added metadata key and enter the following in the input block to the right of it: `virtio`.
 7. Click `Save`.
-8. In the Existing Metadata section, locate the newly added metadata key and enter the following in the input block to the right of it: `virtio`.

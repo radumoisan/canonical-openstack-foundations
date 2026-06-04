@@ -369,7 +369,7 @@ You should see a response form the instance.
 
 ## 9.6.2 Define Host Aggregates
 
-##### Task 1: Define a Host Aggregate
+### Task 1: Define a Host Aggregate
 
 **To define a host aggregate via the WebUI perform the following:**
 

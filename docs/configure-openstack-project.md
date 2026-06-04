@@ -2,7 +2,7 @@
 
 **Description:**
 
-In this section you create and configuration a project in OpenStack.
+In this section you create and configure a project in OpenStack.
 
 ## 8.1 Create an OpenStack Project
 
@@ -195,7 +195,7 @@ In this exercise, you define a security group that allows both incoming and
 outgoing SSH traffic.
 
 
-##### Task 1: Define a Rule to Allow Incoming and Outgoing SSH
+### Task 1: Define a Rule to Allow Incoming and Outgoing SSH
 
 
 To define a rule allowing incoming SSH via the CLI perform the following:
@@ -244,7 +244,7 @@ openstack security group rule list StudentProject_Allow_SSH
 
 In this exercise, you will modify the quotas for a project.
 
-##### Task 1: Modify a Project's Quotas
+### Task 1: Modify a Project's Quotas
 
 At the terminal of the MAAS server, enter the following command to view the
 quotas for the project StudentProject:
@@ -530,7 +530,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 
 ## 8.9.5 Define a Security Group for SSH Traffic
 
-##### Task 1: Define a Rule to Allow Incoming and Outgoing SSH
+### Task 1: Define a Rule to Allow Incoming and Outgoing SSH
 
 **To define a rule allowing incoming SSH via the WebUI perform the following:**
 
@@ -565,7 +565,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 
 ## 8.9.6 Define Quotas for a Project
 
-##### Task 1: Modify a Project's Quotas
+### Task 1: Modify a Project's Quotas
 
 **To define quotas for a project via the WebUI perform the following:**
 
@@ -640,7 +640,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 
 ## 8.9.8 Assign Public IP Addresses to a Project
 
-##### Task 1: Allocate a Floating IP to a Project
+### Task 1: Allocate a Floating IP to a Project
 
 **To allocate a floating IP to a project via the WebUI perform the following:**
 
