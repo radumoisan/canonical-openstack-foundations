@@ -7,7 +7,6 @@ image:
   repository: cr.virtomat.io/virtomat/canonical-openstack-foundations
   tag: 0.0.2
   pullPolicy: IfNotPresent
-  pullSecrets: [regcred]
 service:
   port: 80
   targetPort: 80
