@@ -1,7 +1,7 @@
 apiVersion: v2
 name: canonical-openstack-foundations
 version: 0.0.0
-description: A Helm chart for MkDocs support for Canonical Openstack Foundations training
+description: A Helm chart for the Canonical OpenStack Foundations training site
 appVersion: 0.0.0
 dependencies:
   - name: redis
