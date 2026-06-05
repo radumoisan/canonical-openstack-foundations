@@ -50,9 +50,11 @@ Planned work:
 
 ### 1. Connect to your Canonical OpenStack
 
-- Status: `Migrated`
+- Status: `In review`
 - Source range: `openstack_foundation_lab.md` chapter 1
 - Target page: `docs/connect-to-canonical-openstack.md`
+- Validation note: `1.1 SSH connection` has been started on student host `34.159.9.11`.
+- Validation note: Firefox SOCKS proxy setup is verified locally; internal UI validation is deferred until Chapter 2 makes MAAS available.
 
 ### 2. Install and Configure MAAS
 

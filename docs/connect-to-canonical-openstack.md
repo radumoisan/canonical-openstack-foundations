@@ -15,8 +15,9 @@ Use the terminal:
 ssh -D 9999 ubuntu@<your public IP>
 ```
 
-Please note the `-D 9999`. This is a socks proxy. It is used
-to access internal UI services of the cloud for, like MAAS and JUJU.
+Please note the `-D 9999`. This creates a local SOCKS proxy on port `9999`.
+It is used to access internal UI services of the lab environment, such as
+MAAS and Juju.
 
 
 On `Windows` open `Putty`:
@@ -34,16 +35,27 @@ and click `Add`.
 
 ### Task 2: Set the proxy in browser
 
-Because it's a `SOCKS` proxy, we need to set it in the browser.
-`Firefox` will be demonstrated here.
+Because this is a `SOCKS` proxy, configure it in the browser.
+`Firefox` is used here.
 
 
-1) Go to `Preferences` or `Options` icon.
+1) Open `Settings` in Firefox.
 
-2) Navigate to `Network Settings`.
+2) Search for `network` and open `Network Settings`.
 
-3) Select `Manual proxy configuration`, use `localhost` or
-`127.0.0.1` for the `SOCKS host` with port `9999`. Click `OK` when done.
+3) Select `Manual proxy configuration`.
+
+4) Set `SOCKS Host` to `127.0.0.1` and port `9999`.
+
+5) Keep `SOCKS v5` selected.
+
+6) Click `OK`.
+
+This browser configuration is used later to access services running on the
+target environment through the SSH tunnel. Do not expect MAAS or other
+internal web interfaces to be reachable yet. The first concrete validation of
+this proxy path happens after the MAAS server is installed and initialized in
+Chapter 2.
 
 For `Chrome`, the proxy settings can be configured from the operating system
 network settings, for example via LAN Settings on Windows.
