@@ -1,4 +1,4 @@
-# 1. Connect to your Canonical OpenStack
+# 1. Prerequisites
 
 The Canonical OpenStack will be provided in the cloud. Here it 
 is explained how to connect to it.

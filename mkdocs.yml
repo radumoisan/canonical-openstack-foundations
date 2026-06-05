@@ -10,7 +10,7 @@ theme:
 
 nav:
   - Home: index.md
-  - Connect to Canonical OpenStack: connect-to-canonical-openstack.md
+  - Prerequisites: connect-to-canonical-openstack.md
   - Install and Configure MAAS: install-and-configure-maas.md
   - Install and Configure Juju: install-and-configure-juju.md
   - Juju Charms: juju-charms.md

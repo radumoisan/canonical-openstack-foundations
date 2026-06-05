@@ -48,7 +48,7 @@ Planned work:
 
 ## Stage 1 Chapter Targets
 
-### 1. Connect to your Canonical OpenStack
+### 1. Prerequisites
 
 - Status: `In review`
 - Source range: `openstack_foundation_lab.md` chapter 1
@@ -144,7 +144,7 @@ Validation workflow:
 ## MkDocs Target Navigation
 
 - Home: `index.md`
-- Connect to Canonical OpenStack: `connect-to-canonical-openstack.md`
+- Prerequisites: `connect-to-canonical-openstack.md`
 - Install and Configure MAAS: `install-and-configure-maas.md`
 - Install and Configure Juju: `install-and-configure-juju.md`
 - Juju Charms: `juju-charms.md`
