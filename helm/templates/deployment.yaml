@@ -56,7 +56,6 @@ spec:
             value: 'openid,profile,email'
           - name: OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER
             value: 'true'
-          {{- if .Values.redis.enabled }}
           - name: OAUTH2_PROXY_SESSION_STORE_TYPE
             value: redis
           - name: OAUTH2_PROXY_REDIS_CONNECTION_URL
@@ -66,10 +65,6 @@ spec:
               secretKeyRef:
                 name: {{ .Values.redis.auth.existingSecret }}
                 key: {{ .Values.redis.auth.existingSecretPasswordKey }}
-          {{- else }}
-          - name: OAUTH2_PROXY_SESSION_STORE_TYPE
-            value: cookie
-          {{- end }}
           - name: OAUTH2_PROXY_INSECURE_OIDC_ALLOW_UNVERIFIED_EMAIL
             value: '{{.Values.proxy.INSECURE_OIDC_ALLOW_UNVERIFIED_EMAIL}}'
   {{- end}}
