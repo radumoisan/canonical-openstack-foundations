@@ -485,30 +485,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="13.1 Appendix A: Recover from total outage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1311-recovering-the-db" class="md-nav__link">
-    <span class="md-ellipsis">
-       13.1.1 Recovering the DB
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#1312-unseal-vault" class="md-nav__link">
-    <span class="md-ellipsis">
-       13.1.2 Unseal Vault
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -563,30 +539,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="13.1 Appendix A: Recover from total outage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1311-recovering-the-db" class="md-nav__link">
-    <span class="md-ellipsis">
-       13.1.1 Recovering the DB
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#1312-unseal-vault" class="md-nav__link">
-    <span class="md-ellipsis">
-       13.1.2 Unseal Vault
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -620,7 +572,7 @@ cluster comes us again, some services will be degraded. User input
 is necessary.</p>
 <p>Two services need manual intervention, the <code>mysql-innodb-cluster</code> charm
 and the <code>vault</code> charm.</p>
-<h3 id="1311-recovering-the-db"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 13.1.1 Recovering the DB<a class="headerlink" href="#1311-recovering-the-db" title="Permanent link">&para;</a></h3>
+<p><strong>13.1.1 Recovering the DB</strong></p>
 <p>Check the the status of the DB charm. It should be in unhealthy state.</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
 <span class="c1"># output</span>
@@ -655,7 +607,7 @@ from this instance's GTID superset.</p>
 <p>Wait a few minutes for this process to finish and check the cluster status again.</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
 </code></pre></div>
-<h3 id="1312-unseal-vault"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 13.1.2 Unseal Vault<a class="headerlink" href="#1312-unseal-vault" title="Permanent link">&para;</a></h3>
+<p><strong>13.1.2 Unseal Vault</strong></p>
 <p>The Vault charm needs to be unsealed after a complete cluster restart. Usually, Vault needs to be unsealed even after install,
 but because we deployed Vault with the <code>totally-unsecure-auto-unlock</code> option, the charm unsealed itself automatically. This is
 only done for testing purposes and not recommended in production.</p>

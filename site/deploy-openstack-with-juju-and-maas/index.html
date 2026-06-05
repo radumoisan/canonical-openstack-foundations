@@ -347,39 +347,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5.1 Deploy an OpenStack Cloud from a Bundle">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#task-1-deploy-openstack-cloud-from-a-bundle" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 1: Deploy OpenStack Cloud from a Bundle
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#task-2-disable-automatic-updates" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 2: Disable automatic updates
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#task-3-check-ceph-cluster-health" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 3: Check Ceph Cluster health
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -388,30 +355,6 @@
        5.2 Configure Access to OpenStack
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="5.2 Configure Access to OpenStack">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#task-1-interact-with-the-openstack-dashboard" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 1: Interact with the OpenStack Dashboard
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#task-2-interacting-with-openstack-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 2: Interacting with OpenStack CLI
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -598,39 +541,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5.1 Deploy an OpenStack Cloud from a Bundle">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#task-1-deploy-openstack-cloud-from-a-bundle" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 1: Deploy OpenStack Cloud from a Bundle
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#task-2-disable-automatic-updates" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 2: Disable automatic updates
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#task-3-check-ceph-cluster-health" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 3: Check Ceph Cluster health
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -639,30 +549,6 @@
        5.2 Configure Access to OpenStack
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="5.2 Configure Access to OpenStack">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#task-1-interact-with-the-openstack-dashboard" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 1: Interact with the OpenStack Dashboard
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#task-2-interacting-with-openstack-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-       Task 2: Interacting with OpenStack CLI
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -689,7 +575,7 @@
 <p>In this exercise, you will use Juju to deploy an OpenStack cloud as defined
 in the bundle YAML file.</p>
 <p>We destroyed our previous controller, so we need to bootstrap a new one.</p>
-<h3 id="task-1-deploy-openstack-cloud-from-a-bundle"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 1: Deploy OpenStack Cloud from a Bundle<a class="headerlink" href="#task-1-deploy-openstack-cloud-from-a-bundle" title="Permanent link">&para;</a></h3>
+<p><strong>5.1.1 Deploy OpenStack Cloud from a Bundle</strong></p>
 <p>Enter the following command to bootstrap the environment:</p>
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>bootstrap<span class="w"> </span>--config<span class="w"> </span>default-base<span class="o">=</span><span class="s2">&quot;ubuntu@22.04&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--bootstrap-constraints<span class="o">=</span><span class="s2">&quot;mem=2G cores=1&quot;</span><span class="w"> </span><span class="se">\</span>
@@ -828,7 +714,7 @@ Machine<span class="w">  </span>State<span class="w">    </span>Address<span cla
 <p>For more information on Vault and Certificate management in OpenStack, please
 visit:</p>
 <p>https://docs.openstack.org/charm-guide/latest/admin/security/tls.html</p>
-<h3 id="task-2-disable-automatic-updates"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 2: Disable automatic updates<a class="headerlink" href="#task-2-disable-automatic-updates" title="Permanent link">&para;</a></h3>
+<p><strong>5.1.2 Disable automatic updates</strong></p>
 <p>Use <code>juju ssh</code> to disable automatic updates on all nodes</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">4</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span>
@@ -847,7 +733,7 @@ visit:</p>
 <p>Disabling automatic updates is not recommended in your production environment
 unless you have an alternative means of keeping your nodes up to date or you need
 to follow a very strict patching policy.</p>
-<h3 id="task-3-check-ceph-cluster-health"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 3: Check Ceph Cluster health<a class="headerlink" href="#task-3-check-ceph-cluster-health" title="Permanent link">&para;</a></h3>
+<p><strong>5.1.3 Check Ceph Cluster health</strong></p>
 <p>Monitor the status of juju and wait for all application relations to be completed.</p>
 <p>In a terminal on the <code>MAAS server</code>, enter the following commands to view the health
 status of the Ceph cluster:</p>
@@ -858,7 +744,7 @@ status of the Ceph cluster:</p>
 <h2 id="52-configure-access-to-openstack"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 5.2 Configure Access to OpenStack<a class="headerlink" href="#52-configure-access-to-openstack" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you use interact with the OpenStack Dashboard and CLI.</p>
-<h3 id="task-1-interact-with-the-openstack-dashboard"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 1: Interact with the OpenStack Dashboard<a class="headerlink" href="#task-1-interact-with-the-openstack-dashboard" title="Permanent link">&para;</a></h3>
+<p><strong>5.2.1 Interact with the OpenStack Dashboard</strong></p>
 <p>On the MAAS server, enter the following command to discover the address of the
 OpenStack Dashboard server. This is the IP address you will use to access 
 the OpenStack Dashboard:</p>
@@ -870,7 +756,7 @@ the OpenStack Dashboard:</p>
 - <code>Domain</code>: admin_domain
 - <code>Username</code>: admin
 - <code>Password</code>: openstack</p>
-<h3 id="task-2-interacting-with-openstack-cli"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 2: Interacting with OpenStack CLI<a class="headerlink" href="#task-2-interacting-with-openstack-cli" title="Permanent link">&para;</a></h3>
+<p><strong>5.2.2 Interacting with OpenStack CLI</strong></p>
 <p>Install the OpenStack CLI tools.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>openstackclients<span class="w"> </span>--channel<span class="o">=</span><span class="m">2024</span>.1/stable<span class="w"> </span>--devmode
 </code></pre></div>
