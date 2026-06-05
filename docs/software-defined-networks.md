@@ -13,7 +13,7 @@ using Neutron.
 In this exercise, you create the external network for the OpenStack cloud.
 
 
-### :material-book-open-page-variant-outline: Task 1: Define the OpenStack External Network
+**6.1.1 Define the OpenStack External Network**
 
 Source the `admin_openrc` file and create the Neutron external network.
 

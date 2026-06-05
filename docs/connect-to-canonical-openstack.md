@@ -6,7 +6,7 @@ is explained how to connect to it.
 
 ## :material-book-open-page-variant-outline: 1.1 SSH connection
 
-### :material-book-open-page-variant-outline: Task 1: Create the SSH Tunnel
+**1.1.1 Create the SSH Tunnel**
 
 On `Linux`:
 
@@ -34,7 +34,7 @@ and click `Add`.
 4) Go back to `Session` section, add a name in `Saved Sessions` and click `Save`.
 
 
-### :material-book-open-page-variant-outline: Task 2: Set the proxy in browser
+**1.1.2 Set the proxy in browser**
 
 Because this is a `SOCKS` proxy, configure it in the browser.
 `Firefox` is used here.

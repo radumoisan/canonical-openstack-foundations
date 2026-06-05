@@ -10,7 +10,7 @@ Two services need manual intervention, the `mysql-innodb-cluster` charm
 and the `vault` charm.
 
 
-### :material-book-open-page-variant-outline: 13.1.1 Recovering the DB
+**13.1.1 Recovering the DB**
 
 Check the the status of the DB charm. It should be in unhealthy state.
 
@@ -60,7 +60,7 @@ Wait a few minutes for this process to finish and check the cluster status again
 juju status mysql-innodb-cluster
 ```
 
-### :material-book-open-page-variant-outline: 13.1.2 Unseal Vault
+**13.1.2 Unseal Vault**
 
 The Vault charm needs to be unsealed after a complete cluster restart. Usually, Vault needs to be unsealed even after install,
 but because we deployed Vault with the `totally-unsecure-auto-unlock` option, the charm unsealed itself automatically. This is
@@ -574,4 +574,3 @@ applications:
     to:
     - lxd:3
 ```
-

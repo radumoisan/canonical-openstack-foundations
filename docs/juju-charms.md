@@ -6,7 +6,7 @@ In this section, we will deploy `Landscape Server` application together with all
 
 ## :material-book-open-page-variant-outline: 4.1 Create Model for application deployment
 
-### :material-book-open-page-variant-outline: Task 1: List the existing models associated with the MAAS controller
+**4.1.1 List the existing models associated with the MAAS controller**
 
 In a terminal on the MAAS server, as the `ubuntu`, enter the
 following to list the current models available to the Juju controller:
@@ -24,7 +24,7 @@ controller*  maas/default  maas  available         2      2  2      admin   just
 > The model name with the asterisk is the active model for the current (active) controller.
 
 
-### :material-book-open-page-variant-outline: Task 2: Create a model named landscape
+**4.1.2 Create a model named landscape**
 
 In a terminal on the MAAS server, as the `ubuntu`, enter the following to create the model landscape:
 
@@ -35,7 +35,7 @@ juju add-model landscape
 Added 'landscape' model on maas/default with credential 'admin' for user 'admin'
 ```
 
-### :material-book-open-page-variant-outline: Task 3: Set the default series for the new model
+**4.1.3 Set the default series for the new model**
 
 In a terminal on the MAAS server, as the `ubuntu`,enter the following to set the default base for the model `landscape`:
 
@@ -43,7 +43,7 @@ In a terminal on the MAAS server, as the `ubuntu`,enter the following to set the
 juju model-config -m landscape default-base=ubuntu@22.04
 ```
 
-### :material-book-open-page-variant-outline: Task 4: Verify the new model
+**4.1.4 Verify the new model**
 
 In a terminal on the MAAS server, as the `ubuntu`, enter the following to verify the model `landscape` has been created:
 
@@ -70,7 +70,7 @@ ubuntu@22.04
 
 ## :material-book-open-page-variant-outline: 4.2 Deploy applications
 
-### :material-book-open-page-variant-outline: Task 1: Deploy Landscape Scalable bundle
+**4.2.1 Deploy Landscape Scalable bundle**
 
 Check the existing juju model, there should be one called `landscape`:
 
@@ -89,7 +89,7 @@ Watch for the completion of the bundle deployment:
 watch -c juju status --color
 ```
 
-### :material-book-open-page-variant-outline: Task 2: Verify the deployment
+**4.2.2 Verify the deployment**
 
 Run the following command that will also reaveal relations between applications:
 
@@ -129,7 +129,7 @@ rabbitmq-server:amqp       landscape-server:amqp      rabbitmq           regular
 rabbitmq-server:cluster    rabbitmq-server:cluster    rabbitmq-ha        peer
 ```
 
-### :material-book-open-page-variant-outline: Task 3: Log in to Landscape Web interface
+**4.2.3 Log in to Landscape Web interface**
 
 Get the IP address of the HAProxy unit:
 
@@ -155,7 +155,7 @@ My IP is `192.168.100.12`, so the URL will be `https://192.168.100.12`.
 Use Firefox to access that IP. You can configure the initial user of Landscape and gain access to its management console.
 
 
-### :material-book-open-page-variant-outline: Task 4: Remove the landscape model
+**4.2.4 Remove the landscape model**
 
 Remove the `landscape` juju model. This will remove any charms/applications that are contained in it.
 

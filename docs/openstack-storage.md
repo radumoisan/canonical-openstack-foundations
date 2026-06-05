@@ -10,7 +10,7 @@ In this section, you work with Block storage and Object storage.
 
 In this exercise, you create a volume and attach it to an instance.
 
-### :material-book-open-page-variant-outline: Task 1: Create a Storage Volume
+**10.1.1 Create a Storage Volume**
 
 At the terminal of the MAAS server, perform the following steps to create a
 storage volume:
@@ -34,7 +34,7 @@ openstack volume list
 openstack volume show volume1
 ```
 
-### :material-book-open-page-variant-outline: Task 2: Attach a Volume to an Instance
+**10.1.2 Attach a Volume to an Instance**
 
 At the terminal of the MAAS server, perform the following steps to retrieve
 the volume ID of the storage volume:
@@ -83,7 +83,7 @@ floating IP.
 
 
 
-### :material-book-open-page-variant-outline: Task 3: Check the Volume
+**10.1.3 Check the Volume**
 
 At the terminal of the MAAS server, enter the following command to ssh
 to the instance:
@@ -125,7 +125,7 @@ There is a `sleep` between commands to allow the volume to become `available` ag
 
 In this exercise, you upload files as objects into Swift.
 
-### :material-book-open-page-variant-outline: Task 1: Upload a File to Swift
+**10.2.1 Upload a File to Swift**
 
 At the terminal of the MAAS server, enter the following command to source
 in the `admin_openrc` file:
@@ -206,7 +206,7 @@ You should see the files listed.
 
 
 
-### :material-book-open-page-variant-outline: Task 2: Set ACLs on a Container
+**10.2.2 Set ACLs on a Container**
 
 Since all swift client command features have not yet been implemented in the
 common client openstack we're going to use `python3-swiftclient` instead which 
@@ -249,7 +249,7 @@ In this exercise, you download an object that was previously uploaded into Swift
 Object Store container `mydata` before performing this exercise.
 
 
-### :material-book-open-page-variant-outline: Task 1: Download an Object from the Object Store with the openstack client
+**10.3.1 Download an Object from the Object Store with the openstack client**
 
 At the terminal of the `MAAS server`, enter the following command to source in the
 `admin_openrc` file:
@@ -279,7 +279,7 @@ ls -l ~/myfile01.txt
 ```
 
 
-### :material-book-open-page-variant-outline: Task 2: Download an Object from the Object Store with wget
+**10.3.2 Download an Object from the Object Store with wget**
 
 At the terminal of the `MAAS server`, enter the following command source in the
 `admin_openrc` file:
@@ -327,7 +327,7 @@ You should see the contents that you wrote to the file.
 
 ## :material-book-open-page-variant-outline: 10.4.1 Attach Volume Storage to a Cloud Workload Instance
 
-### :material-book-open-page-variant-outline: Task 1: Create a Storage Volume
+**10.4.1.1 Create a Storage Volume**
 
 **To create a storage volume via the WebUI perform the following:**
 
@@ -344,7 +344,7 @@ You should see the contents that you wrote to the file.
 1. Click `Create Volume`. You should see the new volume listed.
 
 
-### :material-book-open-page-variant-outline: Task 2: Attach a Volume to an Instance
+**10.4.1.2 Attach a Volume to an Instance**
 
 **To attach a volume to an instance via the WebUI perform the following:**
 
@@ -367,7 +367,7 @@ You should see the contents that you wrote to the file.
 
 **Description:**
 
-### :material-book-open-page-variant-outline: Task 1: Upload a File to Swift
+**10.4.2.1 Upload a File to Swift**
 
 **To upload files to swift via the WebUI perform the following:**
 
@@ -386,7 +386,7 @@ You should see the contents that you wrote to the file.
 10.  Click `Upload File`. You should see the file listed.
 
 
-### :material-book-open-page-variant-outline: Task 2: Set ACLs on a Container
+**10.4.2.2 Set ACLs on a Container**
 
 **To set ACLs on a container via the WebUI perform the following:**
 
@@ -398,7 +398,7 @@ You should see the contents that you wrote to the file.
 > `Public Access`: **(checked)**
 6. You should see a link named `link` next to the checked `Public Access` box.
 
-### :material-book-open-page-variant-outline: Task 3: Download an Object from the Object Store via the WebUI
+**10.4.2.3 Download an Object from the Object Store via the WebUI**
 
 1. Log into the OpenStack Dashboard as `admin`.
 2. From the panels on the left, select: `Project > Object Store > Containers`.

@@ -12,7 +12,7 @@ manage cloud images.
 In this exercise, you upload a cloud image to Glance. You then update the image by
 adding custom properties to the image.
 
-### :material-book-open-page-variant-outline: Task 1: Download the Cloud Image
+**7.1.1 Download the Cloud Image**
 
 Use the following commands to create a directory for the cloud images:
 
@@ -57,7 +57,7 @@ qemu-img info ubuntu-jammy.img
 a root disk smaller than this.
 
 
-### :material-book-open-page-variant-outline: Task 2: Upload the Cloud Image into Glance
+**7.1.2 Upload the Cloud Image into Glance**
 
 Enter the following command to source in the openrc config file:
 

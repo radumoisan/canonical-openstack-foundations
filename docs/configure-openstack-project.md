@@ -11,7 +11,7 @@ In this section you create and configure a project in OpenStack.
 In this exercise, you create a new OpenStack project and then create and assign
 a new user to it.
 
-### :material-book-open-page-variant-outline: Task 1: Create a New Project
+**8.1.1 Create a New Project**
 
 At the terminal of the MAAS server, enter the following commands to create
 a new project:
@@ -24,7 +24,7 @@ cd ~ && source ~/admin_openrc
 openstack project create --enable --description 'Student Project' StudentProject --domain admin_domain
 ```
 
-### :material-book-open-page-variant-outline: Task 2: Create and Assign a User to a Project
+**8.1.2 Create and Assign a User to a Project**
 
 At the terminal of the MAAS server, enter the following command to create a 
 new user and assign that user to a project:
@@ -49,7 +49,7 @@ openstack role add --project-domain admin_domain --user-domain admin_domain \
 
 In this exercise, you use Juju to configure access to a project in OpenStack.
 
-### :material-book-open-page-variant-outline: Task 1: Use the student resource file
+**8.2.1 Use the student resource file**
 
 At the terminal of the MAAS server, copy the student openrc file to the home directory:
 
@@ -70,7 +70,7 @@ In this exercise, you generate a new key pair for workload instance access and
 then import an existing public key
 
 
-### :material-book-open-page-variant-outline: Task 1: Generate a New Key Pair
+**8.3.1 Generate a New Key Pair**
 
 At the terminal of the MAAS server, enter the following command to generate
 the key pair:
@@ -104,7 +104,7 @@ chmod 600 ~/.ssh/student-keypair.pem
 ```
 
 
-### :material-book-open-page-variant-outline: Task 2: Import a Public Key
+**8.3.2 Import a Public Key**
 
 At the terminal of the MAAS server, enter the following command to import an
 existing key pair:
@@ -146,7 +146,7 @@ If you ever do need to restrict egress traffic make sure to remove all default e
 rules from the security groups you apply to an instance or a port.
 
 
-### :material-book-open-page-variant-outline: Task 1: Define a Rule to Allow Incoming ICMP
+**8.4.1 Define a Rule to Allow Incoming ICMP**
 
 At the terminal of the MAAS server, enter the following command to create a
 security group for ICMP traffic:
@@ -195,7 +195,7 @@ In this exercise, you define a security group that allows both incoming and
 outgoing SSH traffic.
 
 
-### :material-book-open-page-variant-outline: Task 1: Define a Rule to Allow Incoming and Outgoing SSH
+**8.5.1 Define a Rule to Allow Incoming and Outgoing SSH**
 
 
 To define a rule allowing incoming SSH via the CLI perform the following:
@@ -244,7 +244,7 @@ openstack security group rule list StudentProject_Allow_SSH
 
 In this exercise, you will modify the quotas for a project.
 
-### :material-book-open-page-variant-outline: Task 1: Modify a Project's Quotas
+**8.6.1 Modify a Project's Quotas**
 
 At the terminal of the MAAS server, enter the following command to view the
 quotas for the project StudentProject:
@@ -284,7 +284,7 @@ You should see all quotas for project StudentProject.
 In this exercise, you create a private network, subnet and router for a project.
 
 
-### :material-book-open-page-variant-outline: Task 1: Create the Tenant Private Network
+**8.7.1 Create the Tenant Private Network**
 
 At the terminal of the `MAAS server`, enter the following command to read in
 the environment for the StudentProject project.
@@ -338,7 +338,7 @@ openstack subnet show StudentProject_Subnet
 You should see details of the private network and subnet listed.
 
 
-### :material-book-open-page-variant-outline: Task 2: Create a Router to Connect the Networks
+**8.7.2 Create a Router to Connect the Networks**
 
 At the terminal of the MAAS server, enter the following command to read in
 the environment for the StudentProject project.
@@ -386,7 +386,7 @@ You should see details on the newly created router.
 In this exercise, you allocate a floating IP to a project.
 
 
-### :material-book-open-page-variant-outline: Task 1: Allocate a Floating IP to a Project
+**8.8.1 Allocate a Floating IP to a Project**
 
 At the terminal of the MAAS server, enter the following command to allocate a
 floating IP:
@@ -408,7 +408,7 @@ You should see details on the allocated floating IP.
 
 ## :material-book-open-page-variant-outline: 8.9.1 Create a project in OpenStack
 
-### :material-book-open-page-variant-outline: Task 1: Create a New Project
+**8.9.1.1 Create a New Project**
 
 **To create a new project via the WebUI perform the following:**
 
@@ -423,7 +423,7 @@ You should see details on the allocated floating IP.
 > You should see the new project listed.
 
 
-### :material-book-open-page-variant-outline: Task 2: Create and Assign a User to a Project
+**8.9.1.2 Create and Assign a User to a Project**
 
 **To create a user and assign them to a project via the WebUI perform the following:**
 
@@ -469,7 +469,7 @@ openstack catalog list
 
 ## :material-book-open-page-variant-outline: 8.9.3 Generate Key Pairs for Workload Instance Access
 
-### :material-book-open-page-variant-outline: Task 1: Generate a New Key Pair
+**8.9.3.1 Generate a New Key Pair**
 
 **To generate a new keypair via the WebUI perform the following:**
 
@@ -499,7 +499,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 
 ## :material-book-open-page-variant-outline: 8.9.4 Define a Security Group for ICMP Traffic
 
-### :material-book-open-page-variant-outline: Task 1: Define a Rule to Allow Incoming ICMP
+**8.9.4.1 Define a Rule to Allow Incoming ICMP**
 
 **To define a rule allowing incoming ICMP via the WebUI perform the following:**
 
@@ -530,7 +530,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 
 ## :material-book-open-page-variant-outline: 8.9.5 Define a Security Group for SSH Traffic
 
-### :material-book-open-page-variant-outline: Task 1: Define a Rule to Allow Incoming and Outgoing SSH
+**8.9.5.1 Define a Rule to Allow Incoming and Outgoing SSH**
 
 **To define a rule allowing incoming SSH via the WebUI perform the following:**
 
@@ -565,7 +565,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 
 ## :material-book-open-page-variant-outline: 8.9.6 Define Quotas for a Project
 
-### :material-book-open-page-variant-outline: Task 1: Modify a Project's Quotas
+**8.9.6.1 Modify a Project's Quotas**
 
 **To define quotas for a project via the WebUI perform the following:**
 
@@ -590,7 +590,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 
 ## :material-book-open-page-variant-outline: 8.9.7 Configure Virtual Networks for a Project
 
-### :material-book-open-page-variant-outline: Task 1: Create the Tenant Private Network
+**8.9.7.1 Create the Tenant Private Network**
 
 **To create a tenant private network via the WebUI perform the following:**
 
@@ -617,7 +617,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 9. Click ``Create``
 
 
-### :material-book-open-page-variant-outline: Task 2: Create a Router to Connect the Networks
+**8.9.7.2 Create a Router to Connect the Networks**
 
 **To create the router via the WebUI perform the following:**
 
@@ -640,7 +640,7 @@ scp ~/.ssh/student-keypair.pem SHELL_USER@MAAS_IP:~/.ssh
 
 ## :material-book-open-page-variant-outline: 8.9.8 Assign Public IP Addresses to a Project
 
-### :material-book-open-page-variant-outline: Task 1: Allocate a Floating IP to a Project
+**8.9.8.1 Allocate a Floating IP to a Project**
 
 **To allocate a floating IP to a project via the WebUI perform the following:**
 

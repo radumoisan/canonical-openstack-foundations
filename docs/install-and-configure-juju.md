@@ -17,7 +17,7 @@ the snap store which will always give you the latest stable version
 independent of the underlying operating system version.
 
 
-### :material-book-open-page-variant-outline: Task 1: Install the Juju Client on the MAAS Server
+**3.1.1 Install the Juju Client on the MAAS Server**
 
 On the `MAAS server`, open a terminal window and enter the following commands:
 
@@ -34,7 +34,7 @@ sudo snap install juju --channel=3.6/stable --devmode
 In this exercise, you will deploy (bootstrap) the Juju state service utilizing MAAS.
 
 
-### :material-book-open-page-variant-outline: Task 1: Configure Juju for MAAS
+**3.2.1 Configure Juju for MAAS**
 
 **Important:**
 
@@ -97,7 +97,7 @@ List all credentials currently configured for Juju:
 juju list-credentials
 ```
 
-### :material-book-open-page-variant-outline: Task 2: Bootstrap the Juju System
+**3.2.2 Bootstrap the Juju System**
 
 Enter the following command to view the status of Juju:
 
@@ -176,7 +176,7 @@ Machine  State    Address         Inst id    Base          AZ       Message
 In this exercise you will use the juju command to deploy the dashboard and then access it.
 
 
-### :material-book-open-page-variant-outline: Task 1: Deploy Juju Dashboard
+**3.3.1 Deploy Juju Dashboard**
 
 1. On the MAAS server, enter the following commands to install and expose Juju Dashboard:
 
@@ -229,7 +229,7 @@ In this exercise, you use the `juju ssh` and `juju scp` commands to connect to
 and copy files to a Juju deployed machine.
 
 
-### :material-book-open-page-variant-outline: Task 1: List the existing Juju models
+**3.4.1 List the existing Juju models**
 
 In a terminal on the MAAS server enter the following to list the current
 models available to the Juju controller:
@@ -243,7 +243,7 @@ Model        Cloud/Region  Type  Status     Machines  Cores  Units  Access  Last
 controller*  maas/default  maas  available         2      2  2      admin   just now
 ```
 
-### :material-book-open-page-variant-outline: Task 2: Use juju ssh
+**3.4.2 Use juju ssh**
 
 In a terminal on the MAAS server enter the following command to connect via
 SSH to the Juju controller node:
@@ -262,7 +262,7 @@ exit
 
 > You should be back on the MAAS server.
 
-### :material-book-open-page-variant-outline: Task 3: Use juju scp
+**3.4.3 Use juju scp**
 
 Enter the following command to copy a file via scp to the Juju controller node:
 

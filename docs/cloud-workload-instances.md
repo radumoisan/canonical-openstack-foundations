@@ -10,7 +10,7 @@ In this section, you use the OpenStack Nova service to launch and work with clou
 
 In this exercise, you create a new instance-sizing flavor.
 
-### :material-book-open-page-variant-outline: Task 1: Define a New Instance Sizing Flavor
+**9.1.1 Define a New Instance Sizing Flavor**
 
 At the terminal of the MAAS server, enter the following commands to create
 a new instance flavor:
@@ -34,7 +34,7 @@ You should see the details on the newly created flavor listed.
 
 In this exercise, you create two host aggregates for the compute nodes.
 
-### :material-book-open-page-variant-outline: Task 1: Define a Host Aggregate
+**9.2.1 Define a Host Aggregate**
 
 At the terminal of the MAAS server, enter the following commands to define
 a host aggregate called `kvm`:
@@ -102,7 +102,7 @@ openstack aggregate show kvm
 You should see the host listed as the value for the hosts field.
 
 
-### :material-book-open-page-variant-outline: Task 2: Define a Key-Value property for a Host Aggregate
+**9.2.2 Define a Key-Value property for a Host Aggregate**
 
 At the terminal of the MAAS server, enter the following to add a key-value property
 to the `KVM` host aggregate:
@@ -132,7 +132,7 @@ In this exercise, you create a new instance-sizing flavor that corresponds to
 a host aggregate.
 
 
-### :material-book-open-page-variant-outline: Task 1: Define a New Instance Sizing Flavor
+**9.3.1 Define a New Instance Sizing Flavor**
 
 
 At the terminal of the MAAS server, enter the following command to create
@@ -165,7 +165,7 @@ openstack flavor show kvm.smaller
 You should see the property listed as the value for the  `properties` field.
 
 
-### :material-book-open-page-variant-outline: Task 2: Enable the Scheduler Filter
+**9.3.2 Enable the Scheduler Filter**
 
 By default, the Controller node does not have the scheduling filter required to do
 filtering based on the extra_specs you added to the flavor.
@@ -214,7 +214,7 @@ juju status nova-cloud-controller
 
 In this exercise, you will launch a cloud instance.
 
-### :material-book-open-page-variant-outline: Task 1: Create an Instance
+**9.4.1 Create an Instance**
 
 At the terminal of the MAAS server, perform the following steps to
 create a new cloud instance:
@@ -258,7 +258,7 @@ In this exercise, you assign a floating IP address to an instance and edit its
 security groups to expose it to the external network.
 
 
-### :material-book-open-page-variant-outline: Task 1: Assign a Floating IP to an Instance
+**9.5.1 Assign a Floating IP to an Instance**
 
 At the terminal of the MAAS server, perform the following steps to assign a
 floating IP address to a cloud instance:
@@ -288,7 +288,7 @@ openstack floating ip list
 You should now see the floating IP address you used associated with a fixed IP address.
 
 
-### :material-book-open-page-variant-outline: Task 2: Ping the floating IP
+**9.5.2 Ping the floating IP**
 
 In a terminal on the MAAS server, enter the following command to ping the workload
 instance:
@@ -303,7 +303,7 @@ group that allows ICMP. In the next task you will add the instance to the correc
 security group to allow ICMP.
 
 
-### :material-book-open-page-variant-outline: Task 3: Edit Instance Security Groups
+**9.5.3 Edit Instance Security Groups**
 
 At the terminal of the MAAS server, perform the following steps to add the cloud
 instance to the security group allowing ICMP traffic:
@@ -330,7 +330,7 @@ openstack server show jammy1
 You should see both **StudentProject_Allow_ICMP** and **StudentProject_Allow_SSH** listed.
 
 
-### :material-book-open-page-variant-outline: Task 4: Ping the floating IP again
+**9.5.4 Ping the floating IP again**
 
 In a terminal on the MAAS server, enter the following command to ping the
 workload instance:
@@ -369,7 +369,7 @@ You should see a response form the instance.
 
 ## :material-book-open-page-variant-outline: 9.6.2 Define Host Aggregates
 
-### :material-book-open-page-variant-outline: Task 1: Define a Host Aggregate
+**9.6.2.1 Define a Host Aggregate**
 
 **To define a host aggregate via the WebUI perform the following:**
 
@@ -385,7 +385,7 @@ them under the `Selected hosts` column.
 6. Click `Create Host Aggregate`.
 
 
-### :material-book-open-page-variant-outline: Task 2: Define a Key-Value property for a Host Aggregate
+**9.6.2.2 Define a Key-Value property for a Host Aggregate**
 
 1. In a web browser, point to the OpenStack Dashboard and log in as the `admin` user.
 2. From the panels on the left select `Admin > Compute > Host Aggregates`. You should see the currently defined host aggregates and availability zones.
@@ -398,7 +398,7 @@ them under the `Selected hosts` column.
 
 ## :material-book-open-page-variant-outline: 9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate
 
-### :material-book-open-page-variant-outline: Task 1: Define a New Instance Sizing Flavor
+**9.6.3.1 Define a New Instance Sizing Flavor**
 
 1. In a web browser, point to the OpenStack Dashboard and log in as the  `admin` user.
 2. From the panels on the left select `Admin > Compute > Flavors`. You should see the currently defined sizing flavors.
@@ -422,7 +422,7 @@ them under the `Selected hosts` column.
 
 ## :material-book-open-page-variant-outline: 9.6.4 Create a cloud Instance
 
-### :material-book-open-page-variant-outline: Task 1: Create an Instance
+**9.6.4.1 Create an Instance**
 
 1. Log into the OpenStack Dashboard as `student`.
 2. From the panels on the left, select: `Project > Compute > Instances`.
@@ -462,7 +462,7 @@ the `Available` security groups and click on the up arrow to the right of the `S
 
 ## :material-book-open-page-variant-outline: 9.6.5 Expose a Cloud Workload to the External Network
 
-### :material-book-open-page-variant-outline: Task 1: Assign a Floating IP to an Instance
+**9.6.5.1 Assign a Floating IP to an Instance**
 
 **To assign a floating IP via the WebUI perform the following:**
 
@@ -476,7 +476,7 @@ the `Available` security groups and click on the up arrow to the right of the `S
 6. In the IP Address column next to the running instance, you should see the floating IP address listed.
 
 
-### :material-book-open-page-variant-outline: Task 3: Edit Instance Security Groups
+**9.6.5.3 Edit Instance Security Groups**
 
 **To edit an instance security group via the WebUI perform the following:**
 

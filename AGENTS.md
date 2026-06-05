@@ -32,7 +32,9 @@ This repository is for the Ubuntu Server Advanced documentation site.
 - Keep command examples close to the original intent, but rewrite for clarity when needed.
 - Use `!!! note` admonitions for standalone explanatory notes such as proxy behavior, prerequisites, or deferred validation details.
 - Prefix every second-level heading (`##`) with `:material-book-open-page-variant-outline:`.
-- Prefix every third-level heading (`###`) with `:material-book-open-page-variant-outline:`.
+- Avoid third-level headings (`###`) in the training content.
+- For task-level subsections, prefer bold numbered labels such as `**2.2.1 Create the Administrator User**` instead of third-level headings.
+- For finer subsection labels that are not tasks, prefer bold text instead of third-level headings.
 
 ## Command Formatting
 

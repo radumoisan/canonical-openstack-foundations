@@ -14,7 +14,7 @@ in the bundle YAML file.
 
 We destroyed our previous controller, so we need to bootstrap a new one.
 
-### :material-book-open-page-variant-outline: Task 1: Deploy OpenStack Cloud from a Bundle
+**5.1.1 Deploy OpenStack Cloud from a Bundle**
 
 Enter the following command to bootstrap the environment:
 
@@ -183,7 +183,7 @@ visit:
 
 https://docs.openstack.org/charm-guide/latest/admin/security/tls.html
 
-### :material-book-open-page-variant-outline: Task 2: Disable automatic updates
+**5.1.2 Disable automatic updates**
 
 Use `juju ssh` to disable automatic updates on all nodes
 
@@ -208,7 +208,7 @@ Disabling automatic updates is not recommended in your production environment
 unless you have an alternative means of keeping your nodes up to date or you need
 to follow a very strict patching policy.
 
-### :material-book-open-page-variant-outline: Task 3: Check Ceph Cluster health
+**5.1.3 Check Ceph Cluster health**
 
 Monitor the status of juju and wait for all application relations to be completed.
 
@@ -229,7 +229,7 @@ juju ssh ceph-mon/0 -- sudo ceph -s
 
 In this exercise, you use interact with the OpenStack Dashboard and CLI.
 
-### :material-book-open-page-variant-outline: Task 1: Interact with the OpenStack Dashboard
+**5.2.1 Interact with the OpenStack Dashboard**
 
 On the MAAS server, enter the following command to discover the address of the
 OpenStack Dashboard server. This is the IP address you will use to access 
@@ -251,7 +251,7 @@ Log in using the following credentials:
 
 
 
-### :material-book-open-page-variant-outline: Task 2: Interacting with OpenStack CLI
+**5.2.2 Interacting with OpenStack CLI**
 
 Install the OpenStack CLI tools.
 
