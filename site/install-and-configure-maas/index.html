@@ -1375,7 +1375,7 @@
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>No output.</p>
 </details>
 <p>Copy the SSH key to the MAAS server. Use <code>ubuntu</code> as the password:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># password is ubuntu</span>
@@ -1383,35 +1383,37 @@ ssh-copy-id<span class="w"> </span><span class="m">192</span>.168.100.3
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>1 file(s) remaining to be installed.
+Now try logging into the machine, with: <code>ssh '192.168.100.3'</code></p>
+<p>Number of key(s) added: 1</p>
 </details>
 <p>Copy the configuration files and bundles that you use later:</p>
 <div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>/home/ubuntu/os_files<span class="w"> </span><span class="m">192</span>.168.100.3:~
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>No output.</p>
 </details>
 <p>Log in to the MAAS VM:</p>
 <div class="highlight"><pre><span></span><code>ssh<span class="w"> </span><span class="m">192</span>.168.100.3
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>ubuntu@maas:~$</p>
 </details>
 <p>Install the MAAS snap:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>maas<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.4
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>maas (3.4/stable) 3.4.9-14399-g.48cea136e from Canonical** installed</p>
 </details>
 <p>Install the MAAS test database snap:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>maas-test-db<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.4
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>maas-test-db (3.4/stable) 14.2-29-g.ed8d7f2 from Canonical** installed</p>
 </details>
 <p>Initialize MAAS as a region and rack controller:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>maas<span class="w"> </span>init<span class="w"> </span>region+rack<span class="w"> </span>--database-uri<span class="w"> </span>maas-test-db:///
@@ -1442,7 +1444,7 @@ such as creating the administrator user and downloading the boot images, both fo
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>No output.</p>
 </details>
 <h3 id="task-2-log-into-the-maas-server-api-via-the-command-line-interface"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 2: Log into the MAAS server API via the Command Line Interface<a class="headerlink" href="#task-2-log-into-the-maas-server-api-via-the-command-line-interface" title="Permanent link">&para;</a></h3>
 <p>In a terminal on the MAAS server, while logged in as the <code>ubuntu</code>, enter
@@ -1452,14 +1454,16 @@ it to the file <code>~/maas-apikey</code>:</p>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>You are now logged in to the MAAS server at
+http://192.168.100.3:5240/MAAS/api/2.0/ with the profile name
+'myprofile'.</p>
 </details>
 <p>Enter the following command to log into MAAS and create a profile:</p>
 <div class="highlight"><pre><span></span><code>maas<span class="w"> </span>login<span class="w"> </span>myprofile<span class="w"> </span>http://192.168.100.3:5240/MAAS<span class="w"> </span>-<span class="w"> </span>&lt;<span class="w"> </span>~/maas-apikey
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<p>myprofile http://192.168.100.3:5240/MAAS/api/2.0/ [redacted-api-key]</p>
 </details>
 <p>Verify that you are logged into the MAAS with the profile name of <code>myprofile</code></p>
 <div class="highlight"><pre><span></span><code>maas<span class="w"> </span>list
