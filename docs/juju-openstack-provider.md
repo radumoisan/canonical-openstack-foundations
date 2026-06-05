@@ -6,7 +6,7 @@ In this section, you configure Juju to use OpenStack as a provider. You then use
 Juju to deploy services onto the OpenStack cloud.
 
 
-## 11.1 Generate Simplestreams Metadata for a Private Cloud
+## :material-book-open-page-variant-outline: 11.1 Generate Simplestreams Metadata for a Private Cloud
 
 **Description:**
 
@@ -14,7 +14,7 @@ In this exercise, you use Juju to deploy `glance-simplestreams-sync` charm to pr
 the cloud images to be used in a private OpenStack cloud.
 
 
-### Task 1: Inspect the YAML file for Glance Simplestreams Sync
+### :material-book-open-page-variant-outline: Task 1: Inspect the YAML file for Glance Simplestreams Sync
 
 In a terminal on the MAAS server the `~/os_files/glance-simplestreams-sync.yaml` file
 already exists, just inspect the file:
@@ -33,7 +33,7 @@ glance-simplestreams-sync:
 ```
 
 
-### Task 2: Deploy Glance Simplestreams Sync
+### :material-book-open-page-variant-outline: Task 2: Deploy Glance Simplestreams Sync
 
 Enter the following command to deploy `Glance Simplestreams Sync`:
 
@@ -60,14 +60,14 @@ watch -c juju status glance-simplestreams-sync --color
 ```
 
 
-## 11.2 Configure Juju to Use OpenStack as a Provider
+## :material-book-open-page-variant-outline: 11.2 Configure Juju to Use OpenStack as a Provider
 
 **Description:**
 
 In this exercise, you configure Juju to manage a project in a private OpenStack
 cloud.
 
-### Task 1: Create the cloud my-openstack
+### :material-book-open-page-variant-outline: Task 1: Create the cloud my-openstack
 
 On the MAAS server run the following to have environment variables set:
 
@@ -118,7 +118,7 @@ When prompted enter the following values:
 > ```
 
 
-### Task 2: Create the configuration file used for bootstrapping
+### :material-book-open-page-variant-outline: Task 2: Create the configuration file used for bootstrapping
 
 Retrieve the product-streams public URL with the following:
 
@@ -154,7 +154,7 @@ vim ~/os_files/my-config.yaml
 
 
 
-### Task 3: Bootstrap Juju on OpenStack
+### :material-book-open-page-variant-outline: Task 3: Bootstrap Juju on OpenStack
 
 Enter the following commands to allocate four floating IPs to the project:
 
@@ -207,14 +207,14 @@ You should see that the environment is bootstrapped.
 
 
 
-## 11.3 Deploy a Landscape Bundle on OpenStack with Juju
+## :material-book-open-page-variant-outline: 11.3 Deploy a Landscape Bundle on OpenStack with Juju
 
 **Description:**
 
 In this exercise, you deploy an application bundle using Juju.
 
 
-### Task 1: Setup the cloud environment
+### :material-book-open-page-variant-outline: Task 1: Setup the cloud environment
 
 At the terminal of the MAAS server, enter the following command to list the
 available controllers:
@@ -240,7 +240,7 @@ juju status -m controller
 ```
 
 
-### Task 2: Deploy the Landscape Application Bundle
+### :material-book-open-page-variant-outline: Task 2: Deploy the Landscape Application Bundle
 
 On the MAAS server you should have the file
 `~/os_files/landscape_bundle.yaml` file:
@@ -335,7 +335,7 @@ To find out the IP address of your HAProxy unit, run the following command:
 juju status haproxy --format line | grep -v ^$ | awk '{print $3}' | head -1
 ```
 
-### Task 3: Remove the Landscape Application Bundle together with the controller
+### :material-book-open-page-variant-outline: Task 3: Remove the Landscape Application Bundle together with the controller
 
 Remove the Juju controller managing OpenStack resources:
 

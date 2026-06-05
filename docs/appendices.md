@@ -1,6 +1,6 @@
 # 13. Appendices
 
-## 13.1 Appendix A: Recover from total outage
+## :material-book-open-page-variant-outline: 13.1 Appendix A: Recover from total outage
 
 In cases of complete cluster failure, all nodes are down, when the
 cluster comes us again, some services will be degraded. User input
@@ -10,7 +10,7 @@ Two services need manual intervention, the `mysql-innodb-cluster` charm
 and the `vault` charm.
 
 
-### 13.1.1 Recovering the DB
+### :material-book-open-page-variant-outline: 13.1.1 Recovering the DB
 
 Check the the status of the DB charm. It should be in unhealthy state.
 
@@ -60,7 +60,7 @@ Wait a few minutes for this process to finish and check the cluster status again
 juju status mysql-innodb-cluster
 ```
 
-### 13.1.2 Unseal Vault
+### :material-book-open-page-variant-outline: 13.1.2 Unseal Vault
 
 The Vault charm needs to be unsealed after a complete cluster restart. Usually, Vault needs to be unsealed even after install,
 but because we deployed Vault with the `totally-unsecure-auto-unlock` option, the charm unsealed itself automatically. This is
@@ -153,7 +153,7 @@ Machine  State    Address         Inst id              Base          AZ       Me
 ```
 
 
-## 13.2 Appendix B: OpenStack Bundle File
+## :material-book-open-page-variant-outline: 13.2 Appendix B: OpenStack Bundle File
 
 **Description:**
 

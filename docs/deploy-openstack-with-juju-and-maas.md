@@ -4,7 +4,7 @@
 
 In this section, you use Juju and MAAS to deploy an OpenStack cloud.
 
-## 5.1 Deploy an OpenStack Cloud from a Bundle
+## :material-book-open-page-variant-outline: 5.1 Deploy an OpenStack Cloud from a Bundle
 
 
 **Description:**
@@ -14,7 +14,7 @@ in the bundle YAML file.
 
 We destroyed our previous controller, so we need to bootstrap a new one.
 
-### Task 1: Deploy OpenStack Cloud from a Bundle
+### :material-book-open-page-variant-outline: Task 1: Deploy OpenStack Cloud from a Bundle
 
 Enter the following command to bootstrap the environment:
 
@@ -183,7 +183,7 @@ visit:
 
 https://docs.openstack.org/charm-guide/latest/admin/security/tls.html
 
-### Task 2: Disable automatic updates
+### :material-book-open-page-variant-outline: Task 2: Disable automatic updates
 
 Use `juju ssh` to disable automatic updates on all nodes
 
@@ -208,7 +208,7 @@ Disabling automatic updates is not recommended in your production environment
 unless you have an alternative means of keeping your nodes up to date or you need
 to follow a very strict patching policy.
 
-### Task 3: Check Ceph Cluster health
+### :material-book-open-page-variant-outline: Task 3: Check Ceph Cluster health
 
 Monitor the status of juju and wait for all application relations to be completed.
 
@@ -223,13 +223,13 @@ juju ssh ceph-mon/0 -- sudo ceph health detail
 juju ssh ceph-mon/0 -- sudo ceph -s
 ```
 
-## 5.2 Configure Access to OpenStack
+## :material-book-open-page-variant-outline: 5.2 Configure Access to OpenStack
 
 **Description:**
 
 In this exercise, you use interact with the OpenStack Dashboard and CLI.
 
-### Task 1: Interact with the OpenStack Dashboard
+### :material-book-open-page-variant-outline: Task 1: Interact with the OpenStack Dashboard
 
 On the MAAS server, enter the following command to discover the address of the
 OpenStack Dashboard server. This is the IP address you will use to access 
@@ -251,7 +251,7 @@ Log in using the following credentials:
 
 
 
-### Task 2: Interacting with OpenStack CLI
+### :material-book-open-page-variant-outline: Task 2: Interacting with OpenStack CLI
 
 Install the OpenStack CLI tools.
 

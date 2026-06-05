@@ -30,6 +30,9 @@ This repository is for the Ubuntu Server Advanced documentation site.
 - Prefer direct, task-focused wording.
 - Normalize inconsistent formatting from the source.
 - Keep command examples close to the original intent, but rewrite for clarity when needed.
+- Use `!!! note` admonitions for standalone explanatory notes such as proxy behavior, prerequisites, or deferred validation details.
+- Prefix every second-level heading (`##`) with `:material-book-open-page-variant-outline:`.
+- Prefix every third-level heading (`###`) with `:material-book-open-page-variant-outline:`.
 
 ## Command Formatting
 

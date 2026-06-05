@@ -4,7 +4,7 @@
 
 In this section, you install and configure Juju and integrate it with MAAS.
 
-## 3.1 Install the Juju Client
+## :material-book-open-page-variant-outline: 3.1 Install the Juju Client
 
 
 **Description:**
@@ -17,7 +17,7 @@ the snap store which will always give you the latest stable version
 independent of the underlying operating system version.
 
 
-### Task 1: Install the Juju Client on the MAAS Server
+### :material-book-open-page-variant-outline: Task 1: Install the Juju Client on the MAAS Server
 
 On the `MAAS server`, open a terminal window and enter the following commands:
 
@@ -26,7 +26,7 @@ sudo snap install juju --channel=3.6/stable --devmode
 ```
 
 
-## 3.2 Bootstrap Juju for MAAS
+## :material-book-open-page-variant-outline: 3.2 Bootstrap Juju for MAAS
 
 
 **Description:**
@@ -34,7 +34,7 @@ sudo snap install juju --channel=3.6/stable --devmode
 In this exercise, you will deploy (bootstrap) the Juju state service utilizing MAAS.
 
 
-### Task 1: Configure Juju for MAAS
+### :material-book-open-page-variant-outline: Task 1: Configure Juju for MAAS
 
 **Important:**
 
@@ -97,7 +97,7 @@ List all credentials currently configured for Juju:
 juju list-credentials
 ```
 
-### Task 2: Bootstrap the Juju System
+### :material-book-open-page-variant-outline: Task 2: Bootstrap the Juju System
 
 Enter the following command to view the status of Juju:
 
@@ -168,7 +168,7 @@ Machine  State    Address         Inst id    Base          AZ       Message
 0        started  192.168.100.10  os-juju01  ubuntu@22.04  default  Deployed
 ```
 
-## 3.3 Access Juju GUI
+## :material-book-open-page-variant-outline: 3.3 Access Juju GUI
 
 
 **Description:**
@@ -176,7 +176,7 @@ Machine  State    Address         Inst id    Base          AZ       Message
 In this exercise you will use the juju command to deploy the dashboard and then access it.
 
 
-### Task 1: Deploy Juju Dashboard
+### :material-book-open-page-variant-outline: Task 1: Deploy Juju Dashboard
 
 1. On the MAAS server, enter the following commands to install and expose Juju Dashboard:
 
@@ -220,7 +220,7 @@ juju show-unit dashboard/0 --format yaml | grep public-address| cut -f 2 -d ":" 
    the Juju Dashboard unit with port 8080. E.g. http://192.168.100.11:8080 and use the information provided in the output of the `juju dashboard` command above to log in.
 
 
-## 3.4 Use juju ssh to Connect to a Node
+## :material-book-open-page-variant-outline: 3.4 Use juju ssh to Connect to a Node
 
 
 **Description:**
@@ -229,7 +229,7 @@ In this exercise, you use the `juju ssh` and `juju scp` commands to connect to
 and copy files to a Juju deployed machine.
 
 
-### Task 1: List the existing Juju models
+### :material-book-open-page-variant-outline: Task 1: List the existing Juju models
 
 In a terminal on the MAAS server enter the following to list the current
 models available to the Juju controller:
@@ -243,7 +243,7 @@ Model        Cloud/Region  Type  Status     Machines  Cores  Units  Access  Last
 controller*  maas/default  maas  available         2      2  2      admin   just now
 ```
 
-### Task 2: Use juju ssh
+### :material-book-open-page-variant-outline: Task 2: Use juju ssh
 
 In a terminal on the MAAS server enter the following command to connect via
 SSH to the Juju controller node:
@@ -262,7 +262,7 @@ exit
 
 > You should be back on the MAAS server.
 
-### Task 3: Use juju scp
+### :material-book-open-page-variant-outline: Task 3: Use juju scp
 
 Enter the following command to copy a file via scp to the Juju controller node:
 

@@ -6,10 +6,10 @@ In this section, you install and configure a MAAS environment.
 
 
 
-## 2.1 Install a MAAS Server
+## :material-book-open-page-variant-outline: 2.1 Install a MAAS Server
 
 
-### Task 1: Install MAAS Packages
+### :material-book-open-page-variant-outline: Task 1: Install MAAS Packages
 
 Generate an ssh key:
 
@@ -63,7 +63,7 @@ To enable TLS for secured communication, please run
 ```
 
 
-## 2.2 Perform Initial Configuration of a MAAS Server
+## :material-book-open-page-variant-outline: 2.2 Perform Initial Configuration of a MAAS Server
 
 
 **Description:**
@@ -72,7 +72,7 @@ In this exercise, you perform the initial configuration steps of a MAAS server
 such as creating the administrator user and downloading the boot images, both focal (20.04) and jammy (22.04).
 
 
-### Task 1: Create the Administrator User
+### :material-book-open-page-variant-outline: Task 1: Create the Administrator User
 
 Enter the following command to create the administrator account, `ubuntu` is the password:
 
@@ -81,7 +81,7 @@ sudo maas createadmin --username=admin --password=ubuntu --email=admin@example.c
 ```
 
 
-### Task 2: Log into the MAAS server API via the Command Line Interface
+### :material-book-open-page-variant-outline: Task 2: Log into the MAAS server API via the Command Line Interface
 
 In a terminal on the MAAS server, while logged in as the `ubuntu`, enter
 the following command to retrieve the API key for the MAAS admin user and save
@@ -104,7 +104,7 @@ maas list
 ```
 
 
-### Task 3: Download the Boot Images
+### :material-book-open-page-variant-outline: Task 3: Download the Boot Images
 
 By default, the "focal" (20.04) Ubuntu LTS is marked for download and we need to also download "jammy" (22.04) release, as well. Download the selected boot images:
 
@@ -118,7 +118,7 @@ maas myprofile boot-resources import
 ```
 
 
-### Task 4: Generate SSH Keys for the MAAS Shell Admin User
+### :material-book-open-page-variant-outline: Task 4: Generate SSH Keys for the MAAS Shell Admin User
 
 In the terminal on the MAAS server, while logged in as the `ubuntu`,
 enter the following command to generate a new SSH key pair:
@@ -128,7 +128,7 @@ ssh-keygen -t rsa -N "" -q -f ~/.ssh/id_rsa
 ```
 
 
-### Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
+### :material-book-open-page-variant-outline: Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
 
 
 In the terminal of the MAAS server, while logged in as the `ubuntu`,
@@ -139,7 +139,7 @@ maas myprofile sshkeys create key="`cat ~/.ssh/id_rsa.pub`"
 ```
 
 
-## 2.3 Configure a MAAS Rack Controller to Manage DHCP
+## :material-book-open-page-variant-outline: 2.3 Configure a MAAS Rack Controller to Manage DHCP
 
 
 **Description**
@@ -150,7 +150,7 @@ Finally, you will configure the DNS servers and kernel parameters to be used by
 the MAAS server and any nodes it deploys.
 
 
-### Task 1: Enable DHCP and Reserve IP Ranges
+### :material-book-open-page-variant-outline: Task 1: Enable DHCP and Reserve IP Ranges
 
 Enabling DHCP and reserving IP ranges can be accomplished via the CLI or the WebUI.
 
@@ -204,7 +204,7 @@ maas myprofile ipranges create type=reserved \
 ```
 
 
-### Task 2: Configure Upstream DNS
+### :material-book-open-page-variant-outline: Task 2: Configure Upstream DNS
 
 Configuring the upstream DNS can be accomplished via the CLI or the WebUI.
 
@@ -215,7 +215,7 @@ Set the Upstream DNS server with the following command:
 maas myprofile maas set-config name=upstream_dns value="8.8.8.8"
 ```
 
-### Task 3: Configure Kernel options for nodes
+### :material-book-open-page-variant-outline: Task 3: Configure Kernel options for nodes
 
 Configuring the kernel options that will be supplied to nodes can be accomplished
 via the CLI or the WebUI.
@@ -227,7 +227,7 @@ maas myprofile maas set-config name=kernel_opts value="net.ifnames=0"
 ```
 
 
-### Task 4: Configure Local DNS Resolution
+### :material-book-open-page-variant-outline: Task 4: Configure Local DNS Resolution
 
 In the terminal of the MAAS server, while logged in as the `ubuntu`, set the DNS and search domain to point to the MAAS server.
 
@@ -272,7 +272,7 @@ resolvectl status
 ```
 
 
-## 2.4 Enable MAAS to Manage Libvirt Virtual Machines
+## :material-book-open-page-variant-outline: 2.4 Enable MAAS to Manage Libvirt Virtual Machines
 
 **Description:**
 
@@ -280,7 +280,7 @@ In this exercise, you enable MAAS to manage VMs on the Libvirt vhosts by generat
 an ssh key for the maas user and uploading it to the vhosts.
 
 
-### Task 1: Enable MAAS to Manage Libvirt Virtual Machines
+### :material-book-open-page-variant-outline: Task 1: Enable MAAS to Manage Libvirt Virtual Machines
 
 Enter the following commands to create a SSH key pair that will be used to authenticate 
 `MAAS` to `libvirt` running on your host machine:
@@ -303,13 +303,13 @@ exit
 
 
 
-## 2.5 Create the Cloud Infrastructure Virtual Machines
+## :material-book-open-page-variant-outline: 2.5 Create the Cloud Infrastructure Virtual Machines
 
 **Description:**
 
 In this exercise, you create the infrastructure VMs for the lab environment.
 
-### Task 1: Create the virtual machine infrastructure
+### :material-book-open-page-variant-outline: Task 1: Create the virtual machine infrastructure
 
 
 On your `HOST MACHINE` (NOT the MAAS server) you have the script `~/deploy/create-vms.sh` that automate the VM creation process. Execute the command as follows:
@@ -319,7 +319,7 @@ sudo bash ~/deploy/create-vms.sh
 ```
 
 
-## 2.6 Enlist and Commission Virtual Machines with MAAS
+## :material-book-open-page-variant-outline: 2.6 Enlist and Commission Virtual Machines with MAAS
 
 
 **Description:**
@@ -328,7 +328,7 @@ In this exercise, you enlist and commission the virtual machines in the lab
 environment with MAAS.
 
 
-### Task 1: Disable running smartctl tests
+### :material-book-open-page-variant-outline: Task 1: Disable running smartctl tests
 
 You need to disable running `smartctl` tests upon provisioning of the LAB environment.
 
@@ -360,7 +360,7 @@ sudo snap refresh core22 --channel=latest/stable --revision=1033
 sudo snap restart maas.supervisor
 ```
 
-### Task 2: Enlist the Virtual Machines
+### :material-book-open-page-variant-outline: Task 2: Enlist the Virtual Machines
 
 In the terminal of the MAAS server, while logged in as the `ubuntu` user,
 enter the following command to enlist all virtual machines starting with a
@@ -380,7 +380,7 @@ Machine-readable output follows:
 Asking maas to add machines from chassis qemu+ssh://ubuntu@192.168.100.1/system
 ```
 
-### Task 3: Commission the Virtual Machines
+### :material-book-open-page-variant-outline: Task 3: Commission the Virtual Machines
 
 In the terminal of the MAAS server, while logged in as the `ubuntu`, enter the following command to commission all virtual machines that are in the ``New`` state:
 
@@ -392,7 +392,7 @@ Machine-readable output follows...
 ```
 
 
-### Task 4: Performance tune the LAB environment
+### :material-book-open-page-variant-outline: Task 4: Performance tune the LAB environment
 
 In this task you will perform some LAB specific tasks to allow you to successfully
 complete the rest of the tasks.
@@ -430,7 +430,7 @@ maas myprofile maas set-config name=enable_disk_erasing_on_release value=true
 ```
 
 
-## 2.7 Define Tags for the Cloud Nodes
+## :material-book-open-page-variant-outline: 2.7 Define Tags for the Cloud Nodes
 
 
 **Description:**
@@ -438,7 +438,7 @@ maas myprofile maas set-config name=enable_disk_erasing_on_release value=true
 In this exercise, you view and define tags in the MAAS system.
 
 
-### Task 1: List Tags and Systems by Tag
+### :material-book-open-page-variant-outline: Task 1: List Tags and Systems by Tag
 
 The listing of existing tags and systems associated with each tag can be accomplished
 via the CLI or the WebUI.
@@ -462,7 +462,7 @@ You should see the hostname of all of the nodes that match the tag `virtual`.
 
 
 
-### Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them
+### :material-book-open-page-variant-outline: Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them
 
 Defining new tags and assigning systems to them can be accomplished via the CLI or the WebUI.
 
@@ -524,11 +524,11 @@ maas myprofile tag nodes storage | grep hostname
 ```
 
 
-## 2.8 WEB UI
+## :material-book-open-page-variant-outline: 2.8 WEB UI
 
-## 2.8.2 Perform Initial Configuration of a MAAS Server
+## :material-book-open-page-variant-outline: 2.8.2 Perform Initial Configuration of a MAAS Server
 
-### Task 3: Download the Boot Images
+### :material-book-open-page-variant-outline: Task 3: Download the Boot Images
 
 **To download the boot images via the WebUI perform the following:**
 
@@ -539,7 +539,7 @@ maas myprofile tag nodes storage | grep hostname
 5. Under `Architecture` select `amd64`.
 6. Click `Update selection`.
 
-### Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
+### :material-book-open-page-variant-outline: Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
 
 **To Upload the SSH keys into MAAS via the WebUI perform the following:**
 
@@ -549,7 +549,7 @@ maas myprofile tag nodes storage | grep hostname
 4. Copy and paste the contents of the `~/.ssh/id_rsa.pub` file into the `Public key`.
    field and then click  `Import SSH key`.
 
-## 2.8.3 Configure a MAAS Rack Controller to Manage DHCP
+## :material-book-open-page-variant-outline: 2.8.3 Configure a MAAS Rack Controller to Manage DHCP
 
 **Description**
 
@@ -558,7 +558,7 @@ network. You will also reserve two IP address ranges for use external to MAAS.
 Finally, you will configure the DNS servers and kernel parameters to be used by
 the MAAS server and any nodes it deploys.
 
-### Task 1: Enable DHCP and Reserve IP Ranges
+### :material-book-open-page-variant-outline: Task 1: Enable DHCP and Reserve IP Ranges
 
 **To enable DHCP and reserve IP ranges via the WebUI perform the following:**
 
@@ -579,7 +579,7 @@ the MAAS server and any nodes it deploys.
 13. Click on the `Reserve` button.
 
 
-### Task 2: Configure Upstream DNS
+### :material-book-open-page-variant-outline: Task 2: Configure Upstream DNS
 
 Configuring the upstream DNS can be accomplished via the CLI or the WebUI.
 
@@ -592,7 +592,7 @@ Configuring the upstream DNS can be accomplished via the CLI or the WebUI.
 5. Click the `Save` button below the `DNS` section.
 
 
-### Task 3: Configure Kernel options for nodes
+### :material-book-open-page-variant-outline: Task 3: Configure Kernel options for nodes
 
 Configuring the kernel options that will be supplied to nodes can be accomplished
 via the CLI or the WebUI.
@@ -606,9 +606,9 @@ via the CLI or the WebUI.
 5. Click the `Save` button below.
 
 
-## 2.8.4 Enlist and Commission Virtual Machines with MAAS
+## :material-book-open-page-variant-outline: 2.8.4 Enlist and Commission Virtual Machines with MAAS
 
-### Task 2: Enlist the Virtual Machines
+### :material-book-open-page-variant-outline: Task 2: Enlist the Virtual Machines
 
 **To enlist virtual machines via the WebUI perform the following:**
 
@@ -622,7 +622,7 @@ via the CLI or the WebUI.
 > After saving the chassis, you will see all of the VMs you previously created appear in the nodes list.
 
 
-### Task 3: Commission the Virtual Machines
+### :material-book-open-page-variant-outline: Task 3: Commission the Virtual Machines
 
 **To commission virtual machines via the WebUI perform the following:**
 
@@ -636,7 +636,7 @@ via the CLI or the WebUI.
 > `Commissioning` to `Ready`.
 
 
-## 2.8.5 Define Tags for the Cloud Nodes
+## :material-book-open-page-variant-outline: 2.8.5 Define Tags for the Cloud Nodes
 
 
 **Description:**
@@ -644,7 +644,7 @@ via the CLI or the WebUI.
 In this exercise, you view and define tags in the MAAS system.
 
 
-### Task 1: List Tags and Systems by Tag
+### :material-book-open-page-variant-outline: Task 1: List Tags and Systems by Tag
 
 **To list the tags and systems via the WebUI perform the following:**
 
@@ -654,7 +654,7 @@ In this exercise, you view and define tags in the MAAS system.
 4. Click on the tag `virtual` to display the systems (in the right pane of the browser window) assigned to the tag `virtual`.
 
 
-### Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them
+### :material-book-open-page-variant-outline: Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them
 
 **To define tags and assign systems via the WebUI perform the following:**
 

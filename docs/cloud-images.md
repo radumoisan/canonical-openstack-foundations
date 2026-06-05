@@ -5,14 +5,14 @@
 In this section, you work with the OpenStack Glance service, using it to store and
 manage cloud images.
 
-## 7.1 Upload Images into Glance
+## :material-book-open-page-variant-outline: 7.1 Upload Images into Glance
 
 **Description:**
 
 In this exercise, you upload a cloud image to Glance. You then update the image by
 adding custom properties to the image.
 
-### Task 1: Download the Cloud Image
+### :material-book-open-page-variant-outline: Task 1: Download the Cloud Image
 
 Use the following commands to create a directory for the cloud images:
 
@@ -57,7 +57,7 @@ qemu-img info ubuntu-jammy.img
 a root disk smaller than this.
 
 
-### Task 2: Upload the Cloud Image into Glance
+### :material-book-open-page-variant-outline: Task 2: Upload the Cloud Image into Glance
 
 Enter the following command to source in the openrc config file:
 
@@ -104,9 +104,9 @@ into Glance.
 
 ------
 
-## 7.2 WEB UI
+## :material-book-open-page-variant-outline: 7.2 WEB UI
 
-## 7.2.1 Upload the Cloud Image into Glance via WebUI
+## :material-book-open-page-variant-outline: 7.2.1 Upload the Cloud Image into Glance via WebUI
 
 **To upload the cloud image via the WebUI perform the following:**
 

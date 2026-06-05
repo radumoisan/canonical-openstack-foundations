@@ -4,9 +4,9 @@ The Canonical OpenStack will be provided in the cloud. Here it
 is explained how to connect to it.
 
 
-## 1.1 SSH connection
+## :material-book-open-page-variant-outline: 1.1 SSH connection
 
-### Task 1: Create the SSH Tunnel
+### :material-book-open-page-variant-outline: Task 1: Create the SSH Tunnel
 
 On `Linux`:
 
@@ -15,9 +15,10 @@ Use the terminal:
 ssh -D 9999 ubuntu@<your public IP>
 ```
 
-Please note the `-D 9999`. This creates a local SOCKS proxy on port `9999`.
-It is used to access internal UI services of the lab environment, such as
-MAAS and Juju.
+!!! note
+    `-D 9999` creates a local SOCKS proxy on port `9999`.
+    Use it to access internal UI services of the lab environment, such as
+    MAAS and Juju.
 
 
 On `Windows` open `Putty`:
@@ -33,7 +34,7 @@ and click `Add`.
 4) Go back to `Session` section, add a name in `Saved Sessions` and click `Save`.
 
 
-### Task 2: Set the proxy in browser
+### :material-book-open-page-variant-outline: Task 2: Set the proxy in browser
 
 Because this is a `SOCKS` proxy, configure it in the browser.
 `Firefox` is used here.
