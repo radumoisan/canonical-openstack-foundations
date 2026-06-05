@@ -1326,16 +1326,48 @@ sudo<span class="w"> </span>ssh-copy-id<span class="w"> </span>-i<span class="w"
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>/usr/bin/ssh-copy-id:<span class="w"> </span>INFO:<span class="w"> </span>Source<span class="w"> </span>of<span class="w"> </span>key<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>installed:<span class="w"> </span><span class="s2">&quot;/var/snap/maas/current/root/.ssh/id_rsa.pub&quot;</span>
+/usr/bin/ssh-copy-id:<span class="w"> </span>INFO:<span class="w"> </span>attempting<span class="w"> </span>to<span class="w"> </span>log<span class="w"> </span><span class="k">in</span><span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>key<span class="o">(</span>s<span class="o">)</span>,<span class="w"> </span>to<span class="w"> </span>filter<span class="w"> </span>out<span class="w"> </span>any<span class="w"> </span>that<span class="w"> </span>are<span class="w"> </span>already<span class="w"> </span>installed
+/usr/bin/ssh-copy-id:<span class="w"> </span>INFO:<span class="w"> </span><span class="m">1</span><span class="w"> </span>key<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>remain<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>installed<span class="w"> </span>--<span class="w"> </span><span class="k">if</span><span class="w"> </span>you<span class="w"> </span>are<span class="w"> </span>prompted<span class="w"> </span>now<span class="w"> </span>it<span class="w"> </span>is<span class="w"> </span>to<span class="w"> </span>install<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>keys
+ubuntu@192.168.100.1<span class="s1">&#39;s password:</span>
+
+<span class="s1">Number of key(s) added: 1</span>
+
+<span class="s1">Now try logging into the machine, with:   &quot;ssh &#39;</span>ubuntu@192.168.100.1<span class="err">&#39;</span><span class="s2">&quot;</span>
+<span class="s2">and check to make sure that only the key(s) you wanted were added.</span>
 </code></pre></div>
 </details>
-<p>Exit the host machine session:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Exit the host machine session</span>
-<span class="nb">exit</span>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step installs the MAAS root key, not the <code>ubuntu</code> user's own key on the
+MAAS VM. A plain <code>ssh ubuntu@192.168.100.1</code> from the <code>ubuntu</code> shell on the MAAS
+VM can still prompt for a password. The validated non-interactive path is the
+MAAS/root context, for example <code>sudo ssh -i /var/snap/maas/current/root/.ssh/id_rsa ubuntu@192.168.100.1</code>.</p>
+</div>
+<p>If host key verification fails, add the host machine to the MAAS root <code>known_hosts</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the host machine SSH key to known_hosts</span>
+sudo<span class="w"> </span>ssh-keyscan<span class="w"> </span>-H<span class="w"> </span><span class="m">192</span>.168.100.1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/var/snap/maas/current/root/.ssh/known_hosts<span class="w"> </span>&gt;/dev/null
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+<span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+<span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+<span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+<span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+</code></pre></div>
+</details>
+<p>If <code>sudo ssh-copy-id</code> still reports host key verification failures, add the host machine to root's <code>known_hosts</code> file as well:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the host machine SSH key to root known_hosts</span>
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/root/.ssh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>ssh-keyscan<span class="w"> </span>-H<span class="w"> </span><span class="m">192</span>.168.100.1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/root/.ssh/known_hosts<span class="w"> </span>&gt;/dev/null
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+<span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+<span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+<span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
+<span class="c1"># 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15</span>
 </code></pre></div>
 </details>
 <div class="admonition note">
@@ -1352,7 +1384,34 @@ sudo<span class="w"> </span>bash<span class="w"> </span>~/deploy/create-vms.sh
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/juju01/juju01d1.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">42949672960</span>
+Domain<span class="w"> </span><span class="s1">&#39;os-juju01&#39;</span><span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>/root/os-juju01.xml
+
+Domain<span class="w"> </span><span class="s1">&#39;os-juju01&#39;</span><span class="w"> </span>marked<span class="w"> </span>as<span class="w"> </span>autostarted
+
+Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/compute01/compute01d1.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">64424509440</span>
+Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/compute01/compute01d2.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">21474836480</span>
+Domain<span class="w"> </span><span class="s1">&#39;os-compute01&#39;</span><span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>/root/os-compute01.xml
+
+Domain<span class="w"> </span><span class="s1">&#39;os-compute01&#39;</span><span class="w"> </span>marked<span class="w"> </span>as<span class="w"> </span>autostarted
+
+Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/compute02/compute02d1.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">64424509440</span>
+Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/compute02/compute02d2.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">21474836480</span>
+Domain<span class="w"> </span><span class="s1">&#39;os-compute02&#39;</span><span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>/root/os-compute02.xml
+
+Domain<span class="w"> </span><span class="s1">&#39;os-compute02&#39;</span><span class="w"> </span>marked<span class="w"> </span>as<span class="w"> </span>autostarted
+
+Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/compute03/compute03d1.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">64424509440</span>
+Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/compute03/compute03d2.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">21474836480</span>
+Domain<span class="w"> </span><span class="s1">&#39;os-compute03&#39;</span><span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>/root/os-compute03.xml
+
+Domain<span class="w"> </span><span class="s1">&#39;os-compute03&#39;</span><span class="w"> </span>marked<span class="w"> </span>as<span class="w"> </span>autostarted
+
+Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/compute04/compute04d1.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">64424509440</span>
+Formatting<span class="w"> </span><span class="s1">&#39;/home/VMs/compute04/compute04d2.img&#39;</span>,<span class="w"> </span><span class="nv">fmt</span><span class="o">=</span>raw<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">21474836480</span>
+Domain<span class="w"> </span><span class="s1">&#39;os-compute04&#39;</span><span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>/root/os-compute04.xml
+
+Domain<span class="w"> </span><span class="s1">&#39;os-compute04&#39;</span><span class="w"> </span>marked<span class="w"> </span>as<span class="w"> </span>autostarted
 </code></pre></div>
 </details>
 <h2 id="26-enlist-and-commission-virtual-machines-with-maas"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.6 Enlist and Commission Virtual Machines with MAAS<a class="headerlink" href="#26-enlist-and-commission-virtual-machines-with-maas" title="Permanent link">&para;</a></h2>
@@ -1369,7 +1428,7 @@ ssh<span class="w"> </span><span class="m">192</span>.168.100.3
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>ubuntu@maas:~$
 </code></pre></div>
 </details>
 <p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code> user,
@@ -1380,7 +1439,7 @@ enter the following commands:</p>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
 <p>Retag the script so it runs only for storage nodes:</p>
@@ -1389,17 +1448,62 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>node-script<span cl
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;smartctl-validate&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;title&quot;</span>:<span class="w"> </span><span class="s2">&quot;Storage status&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;Validate SMART health for all drives in parallel.&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;storage&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;hardware_type&quot;</span>:<span class="w"> </span><span class="m">3</span>,
+<span class="w">    </span><span class="s2">&quot;parallel&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;results&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">    </span><span class="s2">&quot;parameters&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;storage&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;storage&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;argument_format&quot;</span>:<span class="w"> </span><span class="s2">&quot;{path}&quot;</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;packages&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;apt&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="s2">&quot;smartmontools&quot;</span>
+<span class="w">        </span><span class="o">]</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;timeout&quot;</span>:<span class="w"> </span><span class="s2">&quot;0:05:00&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;destructive&quot;</span>:<span class="w"> </span>false,
+<span class="w">    </span><span class="s2">&quot;default&quot;</span>:<span class="w"> </span>true,
+<span class="w">    </span><span class="s2">&quot;for_hardware&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;may_reboot&quot;</span>:<span class="w"> </span>false,
+<span class="w">    </span><span class="s2">&quot;recommission&quot;</span>:<span class="w"> </span>false,
+<span class="w">    </span><span class="s2">&quot;apply_configured_networking&quot;</span>:<span class="w"> </span>false,
+<span class="w">    </span><span class="s2">&quot;hardware_type_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Storage&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;history&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">14</span>,
+<span class="w">            </span><span class="s2">&quot;comment&quot;</span>:<span class="w"> </span><span class="s2">&quot;Created by maas-None&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;created&quot;</span>:<span class="w"> </span><span class="s2">&quot;Fri, 05 Jun 2026 08:34:23 -0000&quot;</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">14</span>,
+<span class="w">    </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">    </span><span class="s2">&quot;type_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Testing script&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;parallel_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Run along other instances of this script&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/scripts/smartctl-validate&quot;</span>
+<span class="o">}</span>
 </code></pre></div>
 </details>
-<p>Before adding the chassis, we need to downgrade core22 snap to fix a bug described here: https://bugs.launchpad.net/maas/+bug/2053033</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Before adding the chassis, downgrade the <code>core22</code> snap to work around
+<a href="https://bugs.launchpad.net/maas/+bug/2053033">LP #2053033</a>.</p>
+</div>
 <p>Refresh the <code>core22</code> snap to the required revision:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Refresh the core22 snap to the required revision</span>
 sudo<span class="w"> </span>snap<span class="w"> </span>refresh<span class="w"> </span>core22<span class="w"> </span>--channel<span class="o">=</span>latest/stable<span class="w"> </span>--revision<span class="o">=</span><span class="m">1033</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>core22<span class="w"> </span><span class="m">20231123</span><span class="w"> </span>from<span class="w"> </span>Canonical**<span class="w"> </span>refreshed
 </code></pre></div>
 </details>
 <p>Restart the MAAS supervisor:</p>
@@ -1408,7 +1512,8 @@ sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> 
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="m">2026</span>-06-05T11:26:08Z<span class="w"> </span>INFO<span class="w"> </span>Waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s2">&quot;snap.maas.supervisor.service&quot;</span><span class="w"> </span>to<span class="w"> </span>stop.
+Restarted.
 </code></pre></div>
 </details>
 <p><strong>2.6.2 Enlist the Virtual Machines</strong></p>
@@ -1422,19 +1527,1059 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Success.
-Machine-readable output follows:
-Asking maas to add machines from chassis qemu+ssh://ubuntu@192.168.100.1/system</p>
+<div class="highlight"><pre><span></span><code>Asking<span class="w"> </span>maas<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>machines<span class="w"> </span>from<span class="w"> </span>chassis<span class="w"> </span>qemu+ssh://ubuntu@192.168.100.1/system
+</code></pre></div>
 </details>
 <p><strong>2.6.3 Commission the Virtual Machines</strong></p>
 <p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>, enter the following command to commission all virtual machines that are in the <code>New</code> state:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># </span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Commission all newly enlisted machines</span>
 maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span>accept-all
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Success.
-Machine-readable output follows...</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;architecture&quot;</span>:<span class="w"> </span><span class="s2">&quot;amd64/generic&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;status_action&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;address_ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cpu_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;workload_annotations&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;owner&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;locked&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;node_type_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Machine&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;storage&quot;</span>:<span class="w"> </span><span class="m">0</span>.0,
+<span class="w">        </span><span class="s2">&quot;fqdn&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute02.maas&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;boot_interface&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:ae:ac&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;8dgry3&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">            </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">            </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">4</span>,
+<span class="w">            </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/8dgry3/interfaces/4/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;tag_names&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;next_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;ip_addresses&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;testing_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;pool&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;Default pool&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/resourcepool/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;osystem&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;raids&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;boot_disk&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;enable_hw_sync&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;current_testing_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;status_message&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;volume_groups&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;current_commissioning_result_id&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">        </span><span class="s2">&quot;sync_interval&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;zone&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/zones/default/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;network_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;disable_ipv4&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;numanode_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;index&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;cores&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;hugepages_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;swap_size&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;network_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;blockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;owner_data&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;8dgry3&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;node_type&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;current_installation_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hardware_info&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;system_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_family&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_sku&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;cpu_model&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_date&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;parent&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;testing_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;storage_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;netboot&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;bios_boot_method&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;storage_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;special_filesystems&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Pending&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;last_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cache_sets&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;other_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;min_hwe_kernel&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hardware_uuid&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute02&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;virsh&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;domain&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;authoritative&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;is_default&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;resource_record_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;maas&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/domains/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;hwe_kernel&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;physicalblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;virtualmachine_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;other_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_state&quot;</span>:<span class="w"> </span><span class="s2">&quot;off&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:ae:ac&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;8dgry3&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">4</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/8dgry3/interfaces/4/&quot;</span>
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:ae:ad&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth1&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;8dgry3&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">5</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/8dgry3/interfaces/5/&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ephemeral_deploy&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;bcaches&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;pod&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;default_gateways&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;ipv4&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="s2">&quot;ipv6&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;virtualblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;distro_series&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/machines/8dgry3/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;architecture&quot;</span>:<span class="w"> </span><span class="s2">&quot;amd64/generic&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;status_action&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;address_ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cpu_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;workload_annotations&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;owner&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;locked&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;node_type_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Machine&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;storage&quot;</span>:<span class="w"> </span><span class="m">0</span>.0,
+<span class="w">        </span><span class="s2">&quot;fqdn&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute01.maas&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;boot_interface&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:0e:0c&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;gedepf&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">            </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">            </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">            </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/gedepf/interfaces/2/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;tag_names&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;next_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;ip_addresses&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;testing_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;pool&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;Default pool&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/resourcepool/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;osystem&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;raids&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;boot_disk&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;enable_hw_sync&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;current_testing_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;status_message&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;volume_groups&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;current_commissioning_result_id&quot;</span>:<span class="w"> </span><span class="m">4</span>,
+<span class="w">        </span><span class="s2">&quot;sync_interval&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;zone&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/zones/default/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;network_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;disable_ipv4&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;numanode_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;index&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;cores&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;hugepages_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;swap_size&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;network_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;blockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;owner_data&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;gedepf&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;node_type&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;current_installation_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hardware_info&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;system_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_family&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_sku&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;cpu_model&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_date&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;parent&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;testing_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;storage_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;netboot&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;bios_boot_method&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;storage_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;special_filesystems&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Pending&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;last_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cache_sets&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;other_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;min_hwe_kernel&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hardware_uuid&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute01&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;virsh&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;domain&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;authoritative&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;is_default&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;resource_record_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;maas&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/domains/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;hwe_kernel&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;physicalblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;virtualmachine_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;other_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_state&quot;</span>:<span class="w"> </span><span class="s2">&quot;off&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:0e:0c&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;gedepf&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/gedepf/interfaces/2/&quot;</span>
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:0e:0d&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth1&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;gedepf&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">3</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/gedepf/interfaces/3/&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ephemeral_deploy&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;bcaches&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;pod&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;default_gateways&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;ipv4&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="s2">&quot;ipv6&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;virtualblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;distro_series&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/machines/gedepf/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;architecture&quot;</span>:<span class="w"> </span><span class="s2">&quot;amd64/generic&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;status_action&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;address_ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cpu_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;workload_annotations&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;owner&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;locked&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;node_type_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Machine&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;storage&quot;</span>:<span class="w"> </span><span class="m">0</span>.0,
+<span class="w">        </span><span class="s2">&quot;fqdn&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-juju01.maas&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;boot_interface&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:6e:6a&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;hyedet&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">            </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">            </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">10</span>,
+<span class="w">            </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/hyedet/interfaces/10/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;tag_names&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;next_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;ip_addresses&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;testing_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;pool&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;Default pool&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/resourcepool/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;osystem&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;raids&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;boot_disk&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;enable_hw_sync&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;current_testing_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;status_message&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;volume_groups&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;current_commissioning_result_id&quot;</span>:<span class="w"> </span><span class="m">6</span>,
+<span class="w">        </span><span class="s2">&quot;sync_interval&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;zone&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/zones/default/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;network_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;disable_ipv4&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;numanode_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;index&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;cores&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;hugepages_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;swap_size&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;network_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;blockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;owner_data&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;hyedet&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;node_type&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;current_installation_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hardware_info&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;system_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_family&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_sku&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;cpu_model&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_date&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;parent&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;testing_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;storage_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;netboot&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;bios_boot_method&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;storage_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;special_filesystems&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Pending&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;last_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cache_sets&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;other_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;min_hwe_kernel&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hardware_uuid&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-juju01&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;virsh&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;domain&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;authoritative&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;is_default&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;resource_record_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;maas&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/domains/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;hwe_kernel&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;physicalblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;virtualmachine_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;other_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_state&quot;</span>:<span class="w"> </span><span class="s2">&quot;off&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:6e:6a&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;hyedet&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">10</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/hyedet/interfaces/10/&quot;</span>
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:6e:6b&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth1&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;hyedet&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">11</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/hyedet/interfaces/11/&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ephemeral_deploy&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;bcaches&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;pod&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;default_gateways&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;ipv4&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="s2">&quot;ipv6&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;virtualblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;distro_series&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/machines/hyedet/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;architecture&quot;</span>:<span class="w"> </span><span class="s2">&quot;amd64/generic&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;status_action&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;address_ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cpu_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;workload_annotations&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;owner&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;locked&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;node_type_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Machine&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;storage&quot;</span>:<span class="w"> </span><span class="m">0</span>.0,
+<span class="w">        </span><span class="s2">&quot;fqdn&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute04.maas&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;boot_interface&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:ce:cc&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;yasrn7&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">            </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">            </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">8</span>,
+<span class="w">            </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/yasrn7/interfaces/8/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;tag_names&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;next_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;ip_addresses&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;testing_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;pool&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;Default pool&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/resourcepool/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;osystem&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;raids&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;boot_disk&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;enable_hw_sync&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;current_testing_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;status_message&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;volume_groups&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;current_commissioning_result_id&quot;</span>:<span class="w"> </span><span class="m">8</span>,
+<span class="w">        </span><span class="s2">&quot;sync_interval&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;zone&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/zones/default/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;network_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;disable_ipv4&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;numanode_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;index&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;cores&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;hugepages_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;swap_size&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;network_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;blockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;owner_data&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;yasrn7&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;node_type&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;current_installation_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hardware_info&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;system_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_family&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_sku&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;cpu_model&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_date&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;parent&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;testing_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;storage_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;netboot&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;bios_boot_method&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;storage_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;special_filesystems&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Pending&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;last_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cache_sets&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;other_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;min_hwe_kernel&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hardware_uuid&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute04&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;virsh&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;domain&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;authoritative&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;is_default&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;resource_record_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;maas&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/domains/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;hwe_kernel&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;physicalblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;virtualmachine_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;other_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_state&quot;</span>:<span class="w"> </span><span class="s2">&quot;off&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:ce:cc&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;yasrn7&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">8</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/yasrn7/interfaces/8/&quot;</span>
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:ce:cd&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth1&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;yasrn7&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">9</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/yasrn7/interfaces/9/&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ephemeral_deploy&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;bcaches&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;pod&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;default_gateways&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;ipv4&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="s2">&quot;ipv6&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;virtualblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;distro_series&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/machines/yasrn7/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;architecture&quot;</span>:<span class="w"> </span><span class="s2">&quot;amd64/generic&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;status_action&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;address_ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cpu_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;workload_annotations&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;owner&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;locked&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;node_type_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Machine&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;storage&quot;</span>:<span class="w"> </span><span class="m">0</span>.0,
+<span class="w">        </span><span class="s2">&quot;fqdn&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute03.maas&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;boot_interface&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:be:bc&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;achkf6&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">            </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">            </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">6</span>,
+<span class="w">            </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">            </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/achkf6/interfaces/6/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;tag_names&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;next_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;ip_addresses&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;testing_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;pool&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;Default pool&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/resourcepool/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;osystem&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;raids&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;boot_disk&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;enable_hw_sync&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;current_testing_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;status_message&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;volume_groups&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;current_commissioning_result_id&quot;</span>:<span class="w"> </span><span class="m">10</span>,
+<span class="w">        </span><span class="s2">&quot;sync_interval&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;zone&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/zones/default/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;network_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;disable_ipv4&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;numanode_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;index&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;cores&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;hugepages_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;swap_size&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;network_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;blockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;memory_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;owner_data&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">        </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;achkf6&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;node_type&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;current_installation_result_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hardware_info&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;system_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_family&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_sku&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;system_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;cpu_model&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_product&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_date&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;mainboard_firmware_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_vendor&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_serial&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;chassis_version&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Commissioning&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;parent&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;testing_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;storage_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;netboot&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;bios_boot_method&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;storage_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;special_filesystems&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;commissioning_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Pending&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;last_sync&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;cache_sets&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;status&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;other_test_status&quot;</span>:<span class="w"> </span>-1,
+<span class="w">        </span><span class="s2">&quot;min_hwe_kernel&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hardware_uuid&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute03&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_type&quot;</span>:<span class="w"> </span><span class="s2">&quot;virsh&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;domain&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;authoritative&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;ttl&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;is_default&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;resource_record_count&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;maas&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/domains/0/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;hwe_kernel&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;physicalblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;cpu_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;virtualmachine_id&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;other_test_status_name&quot;</span>:<span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;power_state&quot;</span>:<span class="w"> </span><span class="s2">&quot;off&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;interface_set&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:be:bc&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth0&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;achkf6&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">6</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/achkf6/interfaces/6/&quot;</span>
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;mac_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;52:54:00:63:be:bd&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;eth1&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;system_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;achkf6&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_connected&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;children&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;links&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;numa_node&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;sriov_max_vf&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;firmware_version&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;parents&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;effective_mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">                </span><span class="s2">&quot;params&quot;</span>:<span class="w"> </span><span class="o">{}</span>,
+<span class="w">                </span><span class="s2">&quot;link_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">7</span>,
+<span class="w">                </span><span class="s2">&quot;product&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;discovered&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;vendor&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;physical&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;enabled&quot;</span>:<span class="w"> </span>true,
+<span class="w">                </span><span class="s2">&quot;tags&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">                </span><span class="s2">&quot;interface_speed&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">                </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/nodes/achkf6/interfaces/7/&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ephemeral_deploy&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;bcaches&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;pod&quot;</span>:<span class="w"> </span>null,
+<span class="w">        </span><span class="s2">&quot;default_gateways&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;ipv4&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>,
+<span class="w">            </span><span class="s2">&quot;ipv6&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span>null,
+<span class="w">                </span><span class="s2">&quot;link_id&quot;</span>:<span class="w"> </span>null
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;virtualblockdevice_set&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;distro_series&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;memory&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/machines/achkf6/&quot;</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">]</span>
+</code></pre></div>
 </details>
 <p><strong>2.6.4 Performance tune the LAB environment</strong></p>
 <p>In this task you will perform some LAB specific tasks to allow you to successfully
@@ -1452,7 +2597,8 @@ sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>swap:
+<span class="w">  </span>size:<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
 </details>
 <p>Edit the curtin userdata sample and add two spaces before <code>size</code>:</p>
@@ -1461,7 +2607,19 @@ sudo<span class="w"> </span>vim<span class="w"> </span>/var/snap/maas/current/pr
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}</span>
 </code></pre></div>
 </details>
 <p>Configure quick disk erasing. Otherwise, redeploying nodes takes longer
@@ -1473,7 +2631,7 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>OK
 </code></pre></div>
 </details>
 <p>Enable quick erase:</p>
@@ -1482,7 +2640,7 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>OK
 </code></pre></div>
 </details>
 <p>Enable disk erasing on release:</p>
@@ -1491,7 +2649,7 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>OK
 </code></pre></div>
 </details>
 <h2 id="27-define-tags-for-the-cloud-nodes"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.7 Define Tags for the Cloud Nodes<a class="headerlink" href="#27-define-tags-for-the-cloud-nodes" title="Permanent link">&para;</a></h2>
@@ -1507,7 +2665,15 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="o">[</span>
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;virtual&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;definition&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;comment&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;kernel_opts&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/tags/virtual/&quot;</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">]</span>
 </code></pre></div>
 </details>
 <p>You should see a list of the existing tags.</p>
@@ -1517,7 +2683,12 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w">
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;maas&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute01&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute02&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute03&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute04&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-juju01&quot;</span>,
 </code></pre></div>
 </details>
 <p>You should see the hostname of all of the nodes that match the tag <code>virtual</code>.</p>
@@ -1529,7 +2700,19 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}</span>
 </code></pre></div>
 </details>
 <p>Enter the following command to list details for the Juju bootstrap node:</p>
@@ -1538,7 +2721,19 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}</span>
 </code></pre></div>
 </details>
 <p>Retrieve the system ID for the Juju bootstrap node:</p>
@@ -1547,7 +2742,7 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code>hyedet
 </code></pre></div>
 </details>
 <p>Associate the system with the <code>juju</code> tag:</p>
@@ -1556,7 +2751,10 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w">
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}</span>
 </code></pre></div>
 </details>
 <p>Enter the following command to view the system associated the juju tag:</p>
@@ -1565,7 +2763,7 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w">
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-juju01&quot;</span>,
 </code></pre></div>
 </details>
 <p>You should see the system you just added the tag to listed.</p>
@@ -1575,7 +2773,13 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;storage&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;definition&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;comment&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;kernel_opts&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/tags/storage/&quot;</span>
+<span class="o">}</span>
 </code></pre></div>
 </details>
 <p>Run the following command to associate the <code>storage</code> tag to the rest of the VMs:</p>
@@ -1588,7 +2792,19 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}{</span>
+<span class="w">    </span><span class="s2">&quot;added&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;removed&quot;</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}</span>
 </code></pre></div>
 </details>
 <p>Enter the following command to view the systems associated with the storage tag:</p>
@@ -1597,10 +2813,11 @@ maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w">
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>"hostname": "os-compute01",
-"hostname": "os-compute02",
-"hostname": "os-compute03",
-"hostname": "os-compute04",</p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute01&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute02&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute03&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;hostname&quot;</span>:<span class="w"> </span><span class="s2">&quot;os-compute04&quot;</span>,
+</code></pre></div>
 </details>
 <h2 id="28-web-ui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.8 WEB UI<a class="headerlink" href="#28-web-ui" title="Permanent link">&para;</a></h2>
 <h2 id="282-perform-initial-configuration-of-a-maas-server"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.8.2 Perform Initial Configuration of a MAAS Server<a class="headerlink" href="#282-perform-initial-configuration-of-a-maas-server" title="Permanent link">&para;</a></h2>
