@@ -330,7 +330,7 @@
         <li class="md-nav__item">
   <a href="#34-use-juju-ssh-to-connect-to-a-node" class="md-nav__link">
     <span class="md-ellipsis">
-       3.4 Use juju ssh to Connect to a Node
+       3.4 Use Juju SSH to Connect to a Node
     </span>
   </a>
   
@@ -582,7 +582,7 @@
         <li class="md-nav__item">
   <a href="#34-use-juju-ssh-to-connect-to-a-node" class="md-nav__link">
     <span class="md-ellipsis">
-       3.4 Use juju ssh to Connect to a Node
+       3.4 Use Juju SSH to Connect to a Node
     </span>
   </a>
   
@@ -608,81 +608,149 @@
 <p>In this section, you install and configure Juju and integrate it with MAAS.</p>
 <h2 id="31-install-the-juju-client"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 3.1 Install the Juju Client<a class="headerlink" href="#31-install-the-juju-client" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
-<p>In this exercise, you install Juju on the MAAS server using the recommended way with snaps.</p>
-<p><strong>Note:</strong> You can also use the distribution package of juju, but going forward,
-the recommended way to deploy juju is using the <code>juju snap</code> from 
-the snap store which will always give you the latest stable version 
-independent of the underlying operating system version.</p>
+<p>In this exercise, you install Juju on the MAAS server using the recommended way
+with snaps.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also use the distribution package of Juju, but the recommended way
+to deploy Juju is using the <code>juju</code> snap from the snap store. This keeps the
+Juju client aligned with the current stable release stream.</p>
+</div>
 <p><strong>3.1.1 Install the Juju Client on the MAAS Server</strong></p>
-<p>On the <code>MAAS server</code>, open a terminal window and enter the following commands:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>juju<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.6/stable<span class="w"> </span>--devmode
+<p>On the <code>MAAS server</code>, install the Juju snap:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># install the Juju snap</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>juju<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.6/stable<span class="w"> </span>--devmode
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span><span class="o">(</span><span class="m">3</span>.6/stable<span class="o">)</span><span class="w"> </span><span class="m">3</span>.6.23<span class="w"> </span>from<span class="w"> </span>Canonical**<span class="w"> </span>installed
+</code></pre></div>
+</details>
 <h2 id="32-bootstrap-juju-for-maas"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 3.2 Bootstrap Juju for MAAS<a class="headerlink" href="#32-bootstrap-juju-for-maas" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
-<p>In this exercise, you will deploy (bootstrap) the Juju state service utilizing MAAS.</p>
+<p>In this exercise, you bootstrap the Juju state service using MAAS.</p>
 <p><strong>3.2.1 Configure Juju for MAAS</strong></p>
-<p><strong>Important:</strong></p>
-<p>When editing a <code>.yaml</code> file, spacing and indentation is important. Make sure you use spaces instead of tabs and that you indent new entries to match the other entries in the section you are adding to.</p>
-<p>On the MAAS server, enter the following to see the MAAS cloud configuration file for Juju. The <code>~/os_files/maas.yaml</code> already exists.</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/os_files/maas.yaml
-<span class="c1"># output</span>
-clouds:
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When editing a <code>.yaml</code> file, spacing and indentation matter. Use spaces
+instead of tabs and keep new entries aligned with the existing structure.</p>
+</div>
+<p>On the MAAS server, view the MAAS cloud definition that Juju will use. The file
+<code>~/os_files/maas.yaml</code> already exists.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># show the MAAS cloud definition for Juju</span>
+cat<span class="w"> </span>~/os_files/maas.yaml
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>clouds:
 <span class="w">  </span>maas:
 <span class="w">    </span>type:<span class="w"> </span>maas
 <span class="w">    </span>auth-types:<span class="w"> </span><span class="o">[</span>oauth1<span class="o">]</span>
 <span class="w">    </span>endpoint:<span class="w"> </span>http://192.168.100.3:5240/MAAS/
 </code></pre></div>
-<p>Run the following command to load the MAAS cloud configuration file into Juju:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>add-cloud<span class="w"> </span>maas<span class="w"> </span>~/os_files/maas.yaml
+</details>
+<p>Load the MAAS cloud configuration into the local Juju client:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># add the MAAS cloud to the local Juju client</span>
+juju<span class="w"> </span>add-cloud<span class="w"> </span>maas<span class="w"> </span>~/os_files/maas.yaml<span class="w"> </span>--client
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Cloud<span class="w"> </span><span class="s2">&quot;maas&quot;</span><span class="w"> </span>successfully<span class="w"> </span>added<span class="w"> </span>to<span class="w"> </span>your<span class="w"> </span><span class="nb">local</span><span class="w"> </span>client.
+</code></pre></div>
+</details>
 <p>List the clouds available to Juju:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>list-clouds
+<div class="highlight"><pre><span></span><code><span class="c1"># list the Juju clouds</span>
+juju<span class="w"> </span>list-clouds
 </code></pre></div>
-<p>Display the contents of the file <code>~/maas-apikey</code>:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/maas-apikey
-</code></pre></div>
-<p>Create the credentials file Juju will use to authenticate with MAAS:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>add-credential<span class="w"> </span>maas
-</code></pre></div>
-<p>When prompted by the previous command, enter the following values:</p>
-<blockquote>
-<p><code>credential name</code>: <strong>admin</strong>
-<code>Select region</code>: <strong>Leave blank</strong>
-<code>maas-oauth</code>: <strong>MAAS API key (from step 4)</strong></p>
-</blockquote>
-<p>Verify the maas-oauth value in <code>~/.local/share/juju/credentials.yaml</code> matches the contents of the <code>~/maas-apikey</code> file you created earlier. We will call this key <strong>MAAS_API_KEY</strong>.</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/.local/share/juju/credentials.yaml
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Clouds<span class="w"> </span>available<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>controller:
+Cloud<span class="w">  </span>Regions<span class="w">  </span>Default<span class="w">  </span>Type
+maas<span class="w">   </span><span class="m">1</span><span class="w">        </span>default<span class="w">  </span>maas
 
+Clouds<span class="w"> </span>available<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>client:
+Cloud<span class="w">      </span>Regions<span class="w">  </span>Default<span class="w">    </span>Type<span class="w">  </span>Credentials<span class="w">  </span>Source<span class="w">    </span>Description
+localhost<span class="w">  </span><span class="m">1</span><span class="w">        </span>localhost<span class="w">  </span>lxd<span class="w">   </span><span class="m">0</span><span class="w">            </span>built-in<span class="w">  </span>LXD<span class="w"> </span>Container<span class="w"> </span>Hypervisor
+maas<span class="w">       </span><span class="m">1</span><span class="w">        </span>default<span class="w">    </span>maas<span class="w">  </span><span class="m">1</span><span class="w">            </span><span class="nb">local</span><span class="w">     </span>Metal<span class="w"> </span>As<span class="w"> </span>A<span class="w"> </span>Service
+Only<span class="w"> </span>clouds<span class="w"> </span>with<span class="w"> </span>registered<span class="w"> </span>credentials<span class="w"> </span>are<span class="w"> </span>shown.
+There<span class="w"> </span>are<span class="w"> </span>more<span class="w"> </span>clouds,<span class="w"> </span>use<span class="w"> </span>--all<span class="w"> </span>to<span class="w"> </span>see<span class="w"> </span>them.
+</code></pre></div>
+</details>
+<p>Display the contents of the file <code>~/maas-apikey</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># show the MAAS API key</span>
 cat<span class="w"> </span>~/maas-apikey
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>redacted-maas-api-key<span class="o">]</span>
+</code></pre></div>
+</details>
+<p>Create the credentials file Juju will use to authenticate with MAAS:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># create the Juju MAAS credentials file</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>~/.local/share/juju/credentials.yaml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">credentials:</span>
+<span class="s">  maas:</span>
+<span class="s">    admin:</span>
+<span class="s">      auth-type: oauth1</span>
+<span class="s">      maas-oauth: $(cat ~/maas-apikey)</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<p>Verify the contents of the credentials file:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># show the Juju credentials file</span>
+cat<span class="w"> </span>~/.local/share/juju/credentials.yaml
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>credentials:
+<span class="w">  </span>maas:
+<span class="w">    </span>admin:
+<span class="w">      </span>auth-type:<span class="w"> </span>oauth1
+<span class="w">      </span>maas-oauth:<span class="w"> </span><span class="o">[</span>redacted-maas-api-key<span class="o">]</span>
+</code></pre></div>
+</details>
 <p>List all credentials currently configured for Juju:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>list-credentials
+<div class="highlight"><pre><span></span><code><span class="c1"># list the Juju credentials</span>
+juju<span class="w"> </span>list-credentials
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Controller<span class="w"> </span>Credentials:
+Cloud<span class="w">  </span>Credentials
+maas<span class="w">   </span>admin
+
+Client<span class="w"> </span>Credentials:
+Cloud<span class="w">  </span>Credentials
+maas<span class="w">   </span>admin
+</code></pre></div>
+</details>
 <p><strong>3.2.2 Bootstrap the Juju System</strong></p>
-<p>Enter the following command to view the status of Juju:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status
+<p>View the status of Juju before bootstrapping:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># check the Juju status before bootstrap</span>
+juju<span class="w"> </span>status
 </code></pre></div>
-<blockquote>
-<p>You should get an error because the Juju system has not been bootstrapped.</p>
-</blockquote>
-<p>Enter the following commands to bootstrap Juju:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>bootstrap<span class="w"> </span>--config<span class="w"> </span>default-base<span class="o">=</span><span class="s2">&quot;ubuntu@22.04&quot;</span><span class="w"> </span><span class="se">\</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>ERROR<span class="w"> </span>No<span class="w"> </span>controllers<span class="w"> </span>registered.
+</code></pre></div>
+</details>
+<p>Bootstrap Juju on MAAS:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># bootstrap the Juju controller on the Juju-tagged MAAS machine</span>
+juju<span class="w"> </span>bootstrap<span class="w"> </span>--config<span class="w"> </span>default-base<span class="o">=</span><span class="s2">&quot;ubuntu@22.04&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--bootstrap-constraints<span class="o">=</span><span class="s2">&quot;mem=2G cores=1&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--constraints<span class="o">=</span><span class="s2">&quot;mem=2G tags=juju&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>maas<span class="w"> </span>maas-controller
 </code></pre></div>
-<blockquote>
-<p>(this command will take a while to complete because it is installing the OS
-and Juju service on the VM os-juju01)</p>
-</blockquote>
-<p><strong>Note:</strong> For this command to work, you must have previously created the <code>juju</code> tag 
-and added the node os-juju01 to the tag. When the command completes, you should 
-see an output similar to:</p>
+<details class="example">
+<summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>Creating<span class="w"> </span>Juju<span class="w"> </span>controller<span class="w"> </span><span class="s2">&quot;maas-controller&quot;</span><span class="w"> </span>on<span class="w"> </span>maas/default
-Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>packaged<span class="w"> </span>Juju<span class="w"> </span>agent<span class="w"> </span>version<span class="w"> </span><span class="m">3</span>.6.2<span class="w"> </span><span class="k">for</span><span class="w"> </span>amd64
-Located<span class="w"> </span>Juju<span class="w"> </span>agent<span class="w"> </span>version<span class="w"> </span><span class="m">3</span>.6.2-ubuntu-amd64<span class="w"> </span>at<span class="w"> </span>https://streams.canonical.com/juju/tools/agent/3.6.2/juju-3.6.2-linux-amd64.tgz
+Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>packaged<span class="w"> </span>Juju<span class="w"> </span>agent<span class="w"> </span>version<span class="w"> </span><span class="m">3</span>.6.23<span class="w"> </span><span class="k">for</span><span class="w"> </span>amd64
 Launching<span class="w"> </span>controller<span class="w"> </span>instance<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>on<span class="w"> </span>maas/default...
-<span class="w"> </span>-<span class="w"> </span>fspqar<span class="w"> </span><span class="o">(</span><span class="nv">arch</span><span class="o">=</span>amd64<span class="w"> </span><span class="nv">mem</span><span class="o">=</span>2G<span class="w"> </span><span class="nv">cores</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>
+<span class="w"> </span>-<span class="w"> </span>hyedet<span class="w"> </span><span class="o">(</span><span class="nv">arch</span><span class="o">=</span>amd64<span class="w"> </span><span class="nv">mem</span><span class="o">=</span>2G<span class="w"> </span><span class="nv">cores</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>
 Installing<span class="w"> </span>Juju<span class="w"> </span>agent<span class="w"> </span>on<span class="w"> </span>bootstrap<span class="w"> </span>instance
 Waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>address
 Attempting<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.100.10:22
@@ -693,110 +761,206 @@ Contacting<span class="w"> </span>Juju<span class="w"> </span>controller<span cl
 
 Bootstrap<span class="w"> </span>complete,<span class="w"> </span>controller<span class="w"> </span><span class="s2">&quot;maas-controller&quot;</span><span class="w"> </span>is<span class="w"> </span>now<span class="w"> </span>available
 Controller<span class="w"> </span>machines<span class="w"> </span>are<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span><span class="s2">&quot;controller&quot;</span><span class="w"> </span>model
-
-Now<span class="w"> </span>you<span class="w"> </span>can<span class="w"> </span>run
-<span class="w">    </span>juju<span class="w"> </span>add-model<span class="w"> </span>&lt;model-name&gt;
-to<span class="w"> </span>create<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>model<span class="w"> </span>to<span class="w"> </span>deploy<span class="w"> </span>workloads.
 </code></pre></div>
-<p>Enter the following command again to view the status of the default model for the MAAS cloud in Juju:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This command takes a while to complete because it installs the operating
+system and Juju controller service on <code>os-juju01</code>.</p>
+</div>
+<p>View the status of the controller model after bootstrap:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># show the Juju controller model status</span>
+juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller
 </code></pre></div>
-<blockquote>
-<p>You should see output showing that the default model for the MAAS cloud is ready. It will look similar to:</p>
-</blockquote>
+<details class="example">
+<summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>Model<span class="w">       </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
-controller<span class="w">  </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.2<span class="w">    </span>unsupported<span class="w">  </span><span class="m">13</span>:16:11Z
+controller<span class="w">  </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">13</span>:32:49Z
 
 App<span class="w">         </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">            </span>Channel<span class="w">     </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
-controller<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>juju-controller<span class="w">  </span><span class="m">3</span>.6/stable<span class="w">  </span><span class="m">116</span><span class="w">  </span>no
+controller<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>juju-controller<span class="w">  </span><span class="m">3</span>.6/stable<span class="w">  </span><span class="m">230</span><span class="w">  </span>yes
 
-Unit<span class="w">           </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">  </span>Message
-controller/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">192</span>.168.100.10
+Unit<span class="w">           </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">            </span>Message
+controller/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">192</span>.168.100.10<span class="w">  </span><span class="m">17022</span>,17070/tcp
 
 Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">    </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
-<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.10<span class="w">  </span>os-juju01<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.10<span class="w">  </span>os-juju01<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default
 </code></pre></div>
+</details>
 <h2 id="33-access-juju-gui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 3.3 Access Juju GUI<a class="headerlink" href="#33-access-juju-gui" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
-<p>In this exercise you will use the juju command to deploy the dashboard and then access it.</p>
+<p>In this exercise, you deploy the Juju dashboard and collect the access details.</p>
 <p><strong>3.3.1 Deploy Juju Dashboard</strong></p>
-<ol>
-<li>On the MAAS server, enter the following commands to install and expose Juju Dashboard:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>switch<span class="w"> </span>controller
+<p>Switch to the controller model:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># switch to the Juju controller model</span>
+juju<span class="w"> </span>switch<span class="w"> </span>controller
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>maas-controller<span class="w"> </span><span class="o">(</span>controller<span class="o">)</span><span class="w"> </span>-&gt;<span class="w"> </span>maas-controller:admin/controller
+</code></pre></div>
+</details>
+<p>Deploy the Juju dashboard:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># deploy the Juju dashboard charm</span>
 juju<span class="w"> </span>deploy<span class="w"> </span>juju-dashboard<span class="w"> </span>dashboard<span class="w"> </span>--to<span class="o">=</span>lxd:0
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Deployed<span class="w"> </span><span class="s2">&quot;dashboard&quot;</span><span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;juju-dashboard&quot;</span>,<span class="w"> </span>revision<span class="w"> </span><span class="m">61</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>channel<span class="w"> </span><span class="m">0</span>.15/stable<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable
+</code></pre></div>
+</details>
+<p>Integrate the dashboard with the controller:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># integrate the dashboard with the controller</span>
 juju<span class="w"> </span>integrate<span class="w"> </span>dashboard<span class="w"> </span>controller
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<p>Expose the dashboard service:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># expose the dashboard service</span>
 juju<span class="w"> </span>expose<span class="w"> </span>dashboard
 </code></pre></div>
-<ol>
-<li>Wait for the dashboard to be deployed:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>watch<span class="w"> </span>-c<span class="w"> </span>juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span>--color
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
-<ol>
-<li>Once dashboard is installed, On MAAS server, run the following command to get the Juju authentication credentials:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>dashboard<span class="w"> </span>--browser<span class="o">=</span><span class="nb">false</span>
+</details>
+<p>Check the dashboard status until it becomes <code>active</code> and <code>idle</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># check the dashboard status</span>
+juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span>dashboard
 </code></pre></div>
-<p>Output will be like:</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">       </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+controller<span class="w">  </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">13</span>:41:53Z
+
+App<span class="w">        </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">           </span>Channel<span class="w">      </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+dashboard<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>juju-dashboard<span class="w">  </span><span class="m">0</span>.15/stable<span class="w">   </span><span class="m">61</span><span class="w">  </span>yes
+
+Unit<span class="w">          </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">     </span>Message
+dashboard/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span>/lxd/0<span class="w">  </span><span class="m">192</span>.168.100.11<span class="w">  </span><span class="m">8080</span>/tcp
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.10<span class="w">  </span>os-juju01<span class="w">            </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">0</span>/lxd/0<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.11<span class="w">  </span>juju-f46aea-0-lxd-0<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Container<span class="w"> </span>started
+</code></pre></div>
+</details>
+<p>Display the Juju dashboard login details:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># print the Juju dashboard login details</span>
+juju<span class="w"> </span>dashboard<span class="w"> </span>--browser<span class="o">=</span><span class="nb">false</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>Dashboard<span class="w"> </span><span class="k">for</span><span class="w"> </span>controller<span class="w"> </span><span class="s2">&quot;maas-controller&quot;</span><span class="w"> </span>is<span class="w"> </span>enabled<span class="w"> </span>at:
 <span class="w">  </span>http://localhost:31666
 Your<span class="w"> </span>login<span class="w"> </span>credential<span class="w"> </span>is:
 <span class="w">  </span>username:<span class="w"> </span>admin
-<span class="w">  </span>password:<span class="w"> </span>26c3e05096d30b2eff652b1fad5a27a3
+<span class="w">  </span>password:<span class="w"> </span><span class="o">[</span>redacted-dashboard-password<span class="o">]</span>
 </code></pre></div>
-<p>This command will open a tunnel to your dashboard, but we're not going to use it. Instead, username and password will be useful in this case. 
-To get the IP address of your dashboard unit, either Ctrl+C in your current terminal or in a new terminal connected to your MAAS server, run:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>show-unit<span class="w"> </span>dashboard/0<span class="w"> </span>--format<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>public-address<span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;:&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This command keeps a local tunnel open. If you only need the credentials,
+copy them and then press <code>Ctrl+C</code>.</p>
+</div>
+<p>Retrieve the dashboard unit IP address:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># get the Juju dashboard unit IP address</span>
+juju<span class="w"> </span>show-unit<span class="w"> </span>dashboard/0<span class="w"> </span>--format<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>public-address<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;:&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span>
 </code></pre></div>
-<ol>
-<li>Open a web browser on the student workstation and point to the address of
-   the Juju Dashboard unit with port 8080. E.g. http://192.168.100.11:8080 and use the information provided in the output of the <code>juju dashboard</code> command above to log in.</li>
-</ol>
-<h2 id="34-use-juju-ssh-to-connect-to-a-node"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 3.4 Use juju ssh to Connect to a Node<a class="headerlink" href="#34-use-juju-ssh-to-connect-to-a-node" title="Permanent link">&para;</a></h2>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code><span class="m">192</span>.168.100.11
+</code></pre></div>
+</details>
+<p>Open a web browser on the student workstation and point to the dashboard unit
+address on port <code>8080</code>, for example <code>http://192.168.100.11:8080</code>. Use the
+credentials returned by <code>juju dashboard --browser=false</code> to log in.</p>
+<h2 id="34-use-juju-ssh-to-connect-to-a-node"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 3.4 Use Juju SSH to Connect to a Node<a class="headerlink" href="#34-use-juju-ssh-to-connect-to-a-node" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you use the <code>juju ssh</code> and <code>juju scp</code> commands to connect to
-and copy files to a Juju deployed machine.</p>
-<p><strong>3.4.1 List the existing Juju models</strong></p>
-<p>In a terminal on the MAAS server enter the following to list the current
-models available to the Juju controller:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>models
-<span class="c1"># output</span>
-Controller:<span class="w"> </span>maas-controller
+and copy files to a Juju-managed machine.</p>
+<p><strong>3.4.1 List the Existing Juju Models</strong></p>
+<p>List the models available to the Juju controller:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># list the Juju models</span>
+juju<span class="w"> </span>models
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Controller:<span class="w"> </span>maas-controller
 
 Model<span class="w">        </span>Cloud/Region<span class="w">  </span>Type<span class="w">  </span>Status<span class="w">     </span>Machines<span class="w">  </span>Cores<span class="w">  </span>Units<span class="w">  </span>Access<span class="w">  </span>Last<span class="w"> </span>connection
 controller*<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">2</span><span class="w">      </span><span class="m">2</span><span class="w">  </span><span class="m">2</span><span class="w">      </span>admin<span class="w">   </span>just<span class="w"> </span>now
 </code></pre></div>
-<p><strong>3.4.2 Use juju ssh</strong></p>
-<p>In a terminal on the MAAS server enter the following command to connect via
-SSH to the Juju controller node:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>ssh<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span><span class="m">0</span>
+</details>
+<p><strong>3.4.2 Verify Juju SSH Access</strong></p>
+<p>Confirm you can reach the Juju controller node over <code>juju ssh</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm Juju SSH access to the controller node</span>
+juju<span class="w"> </span>ssh<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span><span class="m">0</span><span class="w"> </span>--<span class="w"> </span>hostname
 </code></pre></div>
-<blockquote>
-<p>You should be logged into the node os-juju01.</p>
-</blockquote>
-<p>Enter the following command to disconnect:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>os-juju01
 </code></pre></div>
-<blockquote>
-<p>You should be back on the MAAS server.</p>
-</blockquote>
-<p><strong>3.4.3 Use juju scp</strong></p>
-<p>Enter the following command to copy a file via scp to the Juju controller node:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>scp<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span>/etc/services<span class="w"> </span><span class="m">0</span>:/tmp
+</details>
+<p><strong>3.4.3 Use Juju SCP</strong></p>
+<p>Copy a file to the Juju controller node:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># copy /etc/services to the controller node</span>
+juju<span class="w"> </span>scp<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span>/etc/services<span class="w"> </span><span class="m">0</span>:/tmp
 </code></pre></div>
-<p>Enter the following command to connect via ssh to the Juju controller node:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>ssh<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span><span class="m">0</span><span class="w"> </span>--<span class="w"> </span>ls<span class="w"> </span>-al<span class="w"> </span>/tmp
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
-<blockquote>
-<p>You should be logged into the node os-juju01 and getting file listing of remote /tmp folder.</p>
-<p>You should see the services file. You can also verify its contents remotely:</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>ssh<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span><span class="m">0</span><span class="w"> </span>--<span class="w"> </span>cat<span class="w"> </span>/tmp/services
+</details>
+<p>Verify that the file exists on the remote node:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># list the remote /tmp directory on the controller node</span>
+juju<span class="w"> </span>ssh<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span><span class="m">0</span><span class="w"> </span>--<span class="w"> </span>ls<span class="w"> </span>-al<span class="w"> </span>/tmp
 </code></pre></div>
-<blockquote>
-<p>You should see the contents of the services file.</p>
-</blockquote>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>total<span class="w"> </span><span class="m">64</span>
+drwxrwxrwt<span class="w"> </span><span class="m">12</span><span class="w"> </span>root<span class="w">   </span>root<span class="w">    </span><span class="m">4096</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:42<span class="w"> </span>.
+drwxr-xr-x<span class="w"> </span><span class="m">19</span><span class="w"> </span>root<span class="w">   </span>root<span class="w">    </span><span class="m">4096</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:31<span class="w"> </span>..
+drwxrwxrwt<span class="w">  </span><span class="m">2</span><span class="w"> </span>root<span class="w">   </span>root<span class="w">    </span><span class="m">4096</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:31<span class="w"> </span>.ICE-unix
+drwxrwxrwt<span class="w">  </span><span class="m">2</span><span class="w"> </span>root<span class="w">   </span>root<span class="w">    </span><span class="m">4096</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:31<span class="w"> </span>.Test-unix
+drwxrwxrwt<span class="w">  </span><span class="m">2</span><span class="w"> </span>root<span class="w">   </span>root<span class="w">    </span><span class="m">4096</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:31<span class="w"> </span>.X11-unix
+drwxrwxrwt<span class="w">  </span><span class="m">2</span><span class="w"> </span>root<span class="w">   </span>root<span class="w">    </span><span class="m">4096</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:31<span class="w"> </span>.XIM-unix
+drwxrwxrwt<span class="w">  </span><span class="m">2</span><span class="w"> </span>root<span class="w">   </span>root<span class="w">    </span><span class="m">4096</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:31<span class="w"> </span>.font-unix
+-rw-------<span class="w">  </span><span class="m">1</span><span class="w"> </span>root<span class="w">   </span>root<span class="w">       </span><span class="m">0</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:32<span class="w"> </span>juju-machine-lock
+-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w"> </span><span class="m">12813</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:40<span class="w"> </span>services
+</code></pre></div>
+</details>
+<p>Show the copied file contents on the remote node:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># show the copied /tmp/services file on the controller node</span>
+juju<span class="w"> </span>ssh<span class="w"> </span>-m<span class="w"> </span>controller<span class="w"> </span><span class="m">0</span><span class="w"> </span>--<span class="w"> </span>cat<span class="w"> </span>/tmp/services
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Network services, Internet style</span>
+<span class="c1">#</span>
+<span class="c1"># Updated from https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml .</span>
+<span class="c1">#</span>
+<span class="c1"># New ports will be added on request if they have been officially assigned</span>
+<span class="c1"># by IANA and used in the real-world or are needed by a debian package.</span>
+<span class="c1"># If you need a huge list of used numbers please install the nmap package.</span>
+
+tcpmux<span class="w">         </span><span class="m">1</span>/tcp<span class="w">                 </span><span class="c1"># TCP port service multiplexer</span>
+<span class="nb">echo</span><span class="w">           </span><span class="m">7</span>/tcp
+<span class="nb">echo</span><span class="w">           </span><span class="m">7</span>/udp
+discard<span class="w">        </span><span class="m">9</span>/tcp<span class="w">         </span>sink<span class="w"> </span>null
+discard<span class="w">        </span><span class="m">9</span>/udp<span class="w">         </span>sink<span class="w"> </span>null
+systat<span class="w">         </span><span class="m">11</span>/tcp<span class="w">        </span>users
+daytime<span class="w">        </span><span class="m">13</span>/tcp
+daytime<span class="w">        </span><span class="m">13</span>/udp
+netstat<span class="w">        </span><span class="m">15</span>/tcp
+qotd<span class="w">           </span><span class="m">17</span>/tcp<span class="w">        </span>quote
+chargen<span class="w">        </span><span class="m">19</span>/tcp<span class="w">        </span>ttytst<span class="w"> </span><span class="nb">source</span>
+chargen<span class="w">        </span><span class="m">19</span>/udp<span class="w">        </span>ttytst<span class="w"> </span><span class="nb">source</span>
+...
+</code></pre></div>
+</details>
 
 
 
