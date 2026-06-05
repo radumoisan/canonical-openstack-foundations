@@ -66,9 +66,12 @@ Planned work:
 
 ### 3. Install and Configure Juju
 
-- Status: `Migrated`
+- Status: `In review`
 - Source range: `openstack_foundation_lab.md` chapter 3
 - Target page: `docs/install-and-configure-juju.md`
+- Validation note: Chapter 3 validation started on student host `34.159.9.11`.
+- Validation note: Juju `3.6.23` was installed on the MAAS VM and controller `maas-controller` was bootstrapped on `os-juju01`.
+- Validation note: Juju dashboard deployment, `juju ssh`, and `juju scp` were validated against the controller model.
 
 ### 4. Juju Charms
 

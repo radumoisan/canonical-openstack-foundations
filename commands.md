@@ -140,3 +140,97 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "sudo netplan apply"'
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "resolvectl status"'
 ```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "sudo snap install juju --channel=3.6/stable --devmode"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat ~/os_files/maas.yaml"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju add-cloud maas ~/os_files/maas.yaml --client"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju list-clouds"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat ~/maas-apikey"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat > ~/.local/share/juju/credentials.yaml <<EOF
+credentials:
+  maas:
+    admin:
+      auth-type: oauth1
+      maas-oauth: \$(cat ~/maas-apikey)
+EOF"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat ~/.local/share/juju/credentials.yaml"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju list-credentials"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju bootstrap --config default-base=\"ubuntu@22.04\" --bootstrap-constraints=\"mem=2G cores=1\" --constraints=\"mem=2G tags=juju\" maas maas-controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju switch controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju deploy juju-dashboard dashboard --to=lxd:0"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju integrate dashboard controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju expose dashboard"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m controller dashboard"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju show-unit dashboard/0 --format yaml | grep public-address | cut -f 2 -d \":\" | awk '\''{print $1}'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju models"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju ssh -m controller 0 -- hostname"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju scp -m controller /etc/services 0:/tmp"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju ssh -m controller 0 -- ls -al /tmp"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju ssh -m controller 0 -- cat /tmp/services"'
+```
