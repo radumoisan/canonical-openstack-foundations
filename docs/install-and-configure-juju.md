@@ -336,8 +336,10 @@ juju show-unit dashboard/0 --format yaml | grep public-address | cut -f 2 -d ":"
     ```
 
 Open a web browser on the student workstation and point to the dashboard unit
-address on port `8080`, for example `http://192.168.100.11:8080`. Use the
-credentials returned by `juju dashboard --browser=false` to log in.
+address on port `8080`, for example `http://192.168.100.11:8080`. In this
+validated lab environment, `http://192.168.100.11:8080` was the working Juju
+dashboard URL. Use the credentials returned by `juju dashboard --browser=false`
+to log in.
 
 ## :material-book-open-page-variant-outline: 3.4 Use Juju SSH to Connect to a Node
 
