@@ -2329,11 +2329,15 @@ maas myprofile tag nodes storage | grep hostname
     ```
 
 
-## :material-book-open-page-variant-outline: 2.8 WEB UI
+## :material-book-open-page-variant-outline: 2.8 Web UI Equivalents
 
-## :material-book-open-page-variant-outline: 2.8.2 Perform Initial Configuration of a MAAS Server
+This section provides Web UI equivalents for selected CLI tasks from earlier in
+the chapter. If you already completed those tasks via the CLI, treat this
+section as optional verification or an alternate workflow.
 
-**2.8.2.3 Download the Boot Images**
+### :material-book-open-page-variant-outline: 2.8.1 Perform Initial Configuration of a MAAS Server
+
+**2.8.1.1 Download the Boot Images**
 
 **To download the boot images via the WebUI perform the following:**
 
@@ -2344,26 +2348,25 @@ maas myprofile tag nodes storage | grep hostname
 5. Under `Architecture` select `amd64`.
 6. Click `Update selection`.
 
-**2.8.2.5 Upload SSH Keys for the MAAS Shell Admin User into MAAS**
+**2.8.1.2 Upload SSH Keys for the MAAS Shell Admin User into MAAS**
 
-**To Upload the SSH keys into MAAS via the WebUI perform the following:**
+**To upload the SSH keys into MAAS via the WebUI perform the following:**
 
-1. In the MAAS WebUI, click on  `admin` user in the bottom left sidebar.
-2. In the  `SSH Keys` section, click on `Import SSH Key`.
+1. In the MAAS WebUI, click on `admin` in the bottom left sidebar.
+2. In the `SSH Keys` section, click on `Import SSH Key`.
 3. As `Source`, select `Upload`.
-4. Copy and paste the contents of the `~/.ssh/id_rsa.pub` file into the `Public key`.
-   field and then click  `Import SSH key`.
+4. Copy and paste the contents of the `~/.ssh/id_rsa.pub` file into the `Public key` field and then click `Import SSH key`.
 
-## :material-book-open-page-variant-outline: 2.8.3 Configure a MAAS Rack Controller to Manage DHCP
+### :material-book-open-page-variant-outline: 2.8.2 Configure a MAAS Rack Controller to Manage DHCP
 
 **Description**
 
-In this exercise, you configure a MAAS rack controller to manage DHCP on it's
+In this exercise, you configure a MAAS rack controller to manage DHCP on its
 network. You will also reserve two IP address ranges for use external to MAAS.
 Finally, you will configure the DNS servers and kernel parameters to be used by
 the MAAS server and any nodes it deploys.
 
-**2.8.3.1 Enable DHCP and Reserve IP Ranges**
+**2.8.2.1 Enable DHCP and Reserve IP Ranges**
 
 **To enable DHCP and reserve IP ranges via the WebUI perform the following:**
 
@@ -2373,18 +2376,18 @@ the MAAS server and any nodes it deploys.
 3. On the `Subnets` page, select the `untagged` link under the `VLAN` header.
 > You should see the `Default VLAN in Fabric-0` configuration page displayed.
 4. In the `DHCP` section, click on `Enable DHCP`.
-5. Configure the subnet, `192.168.100.200` and `192.168.100.254` values.
+5. Configure the DHCP range with `192.168.100.200` as the start address and `192.168.100.254` as the end address.
 6. Click the `Configure DHCP` button.
 7. On the `Subnets` page, scroll down to the `Reserved` section.
-8. Click on the `Reserve range` button, `Reserve range` section.
-9. Enter the following values in their corresponding fields with `192.168.100.1`, `192.168.100.9` and `Purpose: static` values.
+8. Click on the `Reserve range` button in the `Reserved` section.
+9. Enter `192.168.100.1`, `192.168.100.9`, and `Purpose: static` in their corresponding fields.
 10. Click on the `Reserve` button.
 11. Click on the `Reserve Range` button again.
-12. Enter the following values in their corresponding fields with `192.168.100.150`, `192.168.100.199` and `Purpose: floating` values.
+12. Enter `192.168.100.150`, `192.168.100.199`, and `Purpose: floating` in their corresponding fields.
 13. Click on the `Reserve` button.
 
 
-**2.8.3.2 Configure Upstream DNS**
+**2.8.2.2 Configure Upstream DNS**
 
 Configuring the upstream DNS can be accomplished via the CLI or the WebUI.
 
@@ -2393,11 +2396,11 @@ Configuring the upstream DNS can be accomplished via the CLI or the WebUI.
 1. If not already logged into the MAAS web UI, open a web browser and point to `http://192.168.100.3:5240/MAAS`.
 2. Log in using the MAAS administrator credentials.
 3. Go on `Settings` menu on the left sidebar, then `DNS` under the `Network` menu.
-4. Under the `DNS`section, in the `Upstream DNS used to resolve domains not managed by this MAAS` fields, enter the following value: `8.8.8.8`.
+4. Under the `DNS` section, in the `Upstream DNS used to resolve domains not managed by this MAAS` field, enter the following value: `8.8.8.8`.
 5. Click the `Save` button below the `DNS` section.
 
 
-**2.8.3.3 Configure Kernel options for nodes**
+**2.8.2.3 Configure Kernel options for nodes**
 
 Configuring the kernel options that will be supplied to nodes can be accomplished
 via the CLI or the WebUI.
@@ -2411,9 +2414,9 @@ via the CLI or the WebUI.
 5. Click the `Save` button below.
 
 
-## :material-book-open-page-variant-outline: 2.8.4 Enlist and Commission Virtual Machines with MAAS
+### :material-book-open-page-variant-outline: 2.8.3 Enlist and Commission Virtual Machines with MAAS
 
-**2.8.4.2 Enlist the Virtual Machines**
+**2.8.3.1 Enlist the Virtual Machines**
 
 **To enlist virtual machines via the WebUI perform the following:**
 
@@ -2427,21 +2430,21 @@ via the CLI or the WebUI.
 > After saving the chassis, you will see all of the VMs you previously created appear in the nodes list.
 
 
-**2.8.4.3 Commission the Virtual Machines**
+**2.8.3.2 Commission the Virtual Machines**
 
 **To commission virtual machines via the WebUI perform the following:**
 
 1. In the MAAS server web interface, select the `Machines` tab.
 2. Tick the `check-box` next to `FQDN` to select all of the nodes.
 3. From the `Actions` drop-down list, select `Commission`.
-4. Click `Commision nodes`.
+4. Click `Commission nodes`.
 > All of the nodes should start powering on. While the nodes are commissioning
 > their status should go from  `New` to `Commissioning` Once the commissioning
 > is complete, they should power off and their status should change from
 > `Commissioning` to `Ready`.
 
 
-## :material-book-open-page-variant-outline: 2.8.5 Define Tags for the Cloud Nodes
+### :material-book-open-page-variant-outline: 2.8.4 Define Tags for the Cloud Nodes
 
 
 **Description:**
@@ -2449,17 +2452,17 @@ via the CLI or the WebUI.
 In this exercise, you view and define tags in the MAAS system.
 
 
-**2.8.5.1 List Tags and Systems by Tag**
+**2.8.4.1 List Tags and Systems by Tag**
 
 **To list the tags and systems via the WebUI perform the following:**
 
 1. Open a web browser and point to: `http://192.168.100.3:5240/MAAS` and log in as `admin`.
-2. From the tabs at the top of the screen, click on the  `Machines` tab.
+2. From the tabs at the top of the screen, click on the `Machines` tab.
 3. In the `Filter` drop down box on the left side of the browser window click on the `Tags` link to expand the view. A listing of tags should be displayed.
 4. Click on the tag `virtual` to display the systems (in the right pane of the browser window) assigned to the tag `virtual`.
 
 
-**2.8.5.2 Define New Tags for the Cloud Nodes and Assign Systems to Them**
+**2.8.4.2 Define New Tags for the Cloud Nodes and Assign Systems to Them**
 
 **To define tags and assign systems via the WebUI perform the following:**
 
@@ -2469,7 +2472,7 @@ In this exercise, you view and define tags in the MAAS system.
 4. In the `Tags` section, type `juju` and press `Enter`.
 5. Click on `Save changes`.
 > You should see the `juju` tag listed in the `Tags` section.
-7. For each of the compute nodes click on the node name and repeat steps 3 though 6 entering  `storage` instead of `juju`.
-> You should see the  `storage` tag listed for each node in the `Machine summary`.
-8. Return to the Machines page by clicking the `Machines` tab.
-9. Click on the `Tags` link in the `Filter by` pane. You should see the `juju` and `storage` tags in the list.
+6. For each of the compute nodes, click on the node name and repeat steps 3 through 6, entering `storage` instead of `juju`.
+> You should see the `storage` tag listed in the `Machine summary` for each node.
+7. Return to the Machines page by clicking the `Machines` tab.
+8. Click on the `Tags` link in the `Filter by` pane. You should see the `juju` and `storage` tags in the list.
