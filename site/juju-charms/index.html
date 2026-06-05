@@ -569,125 +569,227 @@
 
 <h1 id="4-juju-charms">4. Juju Charms<a class="headerlink" href="#4-juju-charms" title="Permanent link">&para;</a></h1>
 <p><strong>Description:</strong></p>
-<p>In this section, we will deploy <code>Landscape Server</code> application together with all of its dependencies.</p>
+<p>In this section, you deploy <code>Landscape Server</code> and its supporting applications.</p>
 <h2 id="41-create-model-for-application-deployment"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 4.1 Create Model for application deployment<a class="headerlink" href="#41-create-model-for-application-deployment" title="Permanent link">&para;</a></h2>
 <p><strong>4.1.1 List the existing models associated with the MAAS controller</strong></p>
-<p>In a terminal on the MAAS server, as the <code>ubuntu</code>, enter the
-following to list the current models available to the Juju controller:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>models
-
-<span class="c1"># output</span>
-Controller:<span class="w"> </span>maas-controller
-
-Model<span class="w">        </span>Cloud/Region<span class="w">  </span>Type<span class="w">  </span>Status<span class="w">     </span>Machines<span class="w">  </span>Cores<span class="w">  </span>Units<span class="w">  </span>Access<span class="w">  </span>Last<span class="w"> </span>connection
-controller*<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">2</span><span class="w">      </span><span class="m">2</span><span class="w">  </span><span class="m">2</span><span class="w">      </span>admin<span class="w">   </span>just<span class="w"> </span>now
+<div class="highlight"><pre><span></span><code><span class="c1"># List the models currently available on the controller</span>
+juju<span class="w"> </span>models
 </code></pre></div>
-<blockquote>
-<p>The model name with the asterisk is the active model for the current (active) controller.</p>
-</blockquote>
-<p><strong>4.1.2 Create a model named landscape</strong></p>
-<p>In a terminal on the MAAS server, as the <code>ubuntu</code>, enter the following to create the model landscape:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>add-model<span class="w"> </span>landscape
-
-<span class="c1"># output</span>
-Added<span class="w"> </span><span class="s1">&#39;landscape&#39;</span><span class="w"> </span>model<span class="w"> </span>on<span class="w"> </span>maas/default<span class="w"> </span>with<span class="w"> </span>credential<span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>user<span class="w"> </span><span class="s1">&#39;admin&#39;</span>
-</code></pre></div>
-<p><strong>4.1.3 Set the default series for the new model</strong></p>
-<p>In a terminal on the MAAS server, as the <code>ubuntu</code>,enter the following to set the default base for the model <code>landscape</code>:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>model-config<span class="w"> </span>-m<span class="w"> </span>landscape<span class="w"> </span>default-base<span class="o">=</span>ubuntu@22.04
-</code></pre></div>
-<p><strong>4.1.4 Verify the new model</strong></p>
-<p>In a terminal on the MAAS server, as the <code>ubuntu</code>, enter the following to verify the model <code>landscape</code> has been created:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>models
-
-<span class="c1"># output</span>
-Controller:<span class="w"> </span>maas-controller
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Controller:<span class="w"> </span>maas-controller
 
 Model<span class="w">       </span>Cloud/Region<span class="w">  </span>Type<span class="w">  </span>Status<span class="w">     </span>Machines<span class="w">  </span>Cores<span class="w">  </span>Units<span class="w">  </span>Access<span class="w">  </span>Last<span class="w"> </span>connection
-controller<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">2</span><span class="w">      </span><span class="m">2</span><span class="w">  </span><span class="m">2</span><span class="w">      </span>admin<span class="w">   </span>just<span class="w"> </span>now
-landscape*<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">0</span><span class="w">      </span>-<span class="w">  </span>-<span class="w">      </span>admin<span class="w">   </span><span class="m">8</span><span class="w"> </span>seconds<span class="w"> </span>ago
+controller<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">1</span><span class="w">      </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w">      </span>admin<span class="w">   </span>just<span class="w"> </span>now
 </code></pre></div>
-<p>Enter to following to verify the default-series value for the model <code>landscape</code>:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>model-config<span class="w"> </span>default-base
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When more than one model is present, the active model is marked with an asterisk.</p>
+</div>
+<p><strong>4.1.2 Create a model named <code>landscape</code></strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new model for the Landscape deployment</span>
+juju<span class="w"> </span>add-model<span class="w"> </span>landscape
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Added<span class="w"> </span><span class="s1">&#39;landscape&#39;</span><span class="w"> </span>model<span class="w"> </span>on<span class="w"> </span>maas/default<span class="w"> </span>with<span class="w"> </span>credential<span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>user<span class="w"> </span><span class="s1">&#39;admin&#39;</span>
+</code></pre></div>
+</details>
+<p><strong>4.1.3 Set the default base for the new model</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the default base for the landscape model</span>
+juju<span class="w"> </span>model-config<span class="w"> </span>-m<span class="w"> </span>landscape<span class="w"> </span>default-base<span class="o">=</span>ubuntu@22.04
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<p><strong>4.1.4 Verify the new model exists</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Confirm that the landscape model was created and is active</span>
+juju<span class="w"> </span>models
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Controller:<span class="w"> </span>maas-controller
 
-<span class="c1"># output</span>
-ubuntu@22.04
+Model<span class="w">       </span>Cloud/Region<span class="w">  </span>Type<span class="w">  </span>Status<span class="w">     </span>Machines<span class="w">  </span>Cores<span class="w">  </span>Units<span class="w">  </span>Access<span class="w">  </span>Last<span class="w"> </span>connection
+controller<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">1</span><span class="w">      </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w">      </span>admin<span class="w">   </span>just<span class="w"> </span>now
+landscape*<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">0</span><span class="w">      </span>-<span class="w">  </span>-<span class="w">      </span>admin<span class="w">   </span><span class="m">5</span><span class="w"> </span>seconds<span class="w"> </span>ago
 </code></pre></div>
+</details>
+<p><strong>4.1.5 Verify the default base</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the default base for the active model</span>
+juju<span class="w"> </span>model-config<span class="w"> </span>default-base
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>ubuntu@22.04
+</code></pre></div>
+</details>
 <h2 id="42-deploy-applications"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 4.2 Deploy applications<a class="headerlink" href="#42-deploy-applications" title="Permanent link">&para;</a></h2>
-<p><strong>4.2.1 Deploy Landscape Scalable bundle</strong></p>
-<p>Check the existing juju model, there should be one called <code>landscape</code>:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>models
+<p><strong>4.2.1 Deploy the <code>landscape-scalable</code> bundle</strong></p>
+<p>Run the following commands in order to confirm the active model, start the deployment, and monitor it until all units are active.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Confirm that the landscape model is available before deployment</span>
+juju<span class="w"> </span>models
 </code></pre></div>
-<p>In this model, deploy the <code>landscape-scalable</code> bundle:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>deploy<span class="w"> </span>landscape-scalable
-</code></pre></div>
-<p>Watch for the completion of the bundle deployment:
-<div class="highlight"><pre><span></span><code>watch<span class="w"> </span>-c<span class="w"> </span>juju<span class="w"> </span>status<span class="w"> </span>--color
-</code></pre></div></p>
-<p><strong>4.2.2 Verify the deployment</strong></p>
-<p>Run the following command that will also reaveal relations between applications:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>--relations
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Controller:<span class="w"> </span>maas-controller
 
-<span class="c1"># output</span>
-Model<span class="w">      </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
-landscape<span class="w">  </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.5.1<span class="w">    </span>unsupported<span class="w">  </span><span class="m">12</span>:38:52Z
+Model<span class="w">       </span>Cloud/Region<span class="w">  </span>Type<span class="w">  </span>Status<span class="w">     </span>Machines<span class="w">  </span>Cores<span class="w">  </span>Units<span class="w">  </span>Access<span class="w">  </span>Last<span class="w"> </span>connection
+controller<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">1</span><span class="w">      </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w">      </span>admin<span class="w">   </span>just<span class="w"> </span>now
+landscape*<span class="w">  </span>maas/default<span class="w">  </span>maas<span class="w">  </span>available<span class="w">         </span><span class="m">0</span><span class="w">      </span>-<span class="w">  </span>-<span class="w">      </span>admin<span class="w">   </span><span class="m">4</span><span class="w"> </span>seconds<span class="w"> </span>ago
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Deploy the Landscape scalable bundle into the active model</span>
+juju<span class="w"> </span>deploy<span class="w"> </span>landscape-scalable
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Located<span class="w"> </span>bundle<span class="w"> </span><span class="s2">&quot;landscape-scalable&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>revision<span class="w"> </span><span class="m">37</span>
+Located<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;haproxy&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>channel<span class="w"> </span>latest/stable
+Located<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;landscape-server&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>channel<span class="w"> </span>latest/stable
+Located<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;postgresql&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>channel<span class="w"> </span><span class="m">14</span>/stable
+Located<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;rabbitmq-server&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>channel<span class="w"> </span><span class="m">3</span>.9/stable
+Executing<span class="w"> </span>changes:
+-<span class="w"> </span>upload<span class="w"> </span>charm<span class="w"> </span>haproxy<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span><span class="k">for</span><span class="w"> </span>base<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>revision<span class="w"> </span><span class="m">75</span><span class="w"> </span>with<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>amd64
+-<span class="w"> </span>deploy<span class="w"> </span>application<span class="w"> </span>haproxy<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>stable
+-<span class="w"> </span>expose<span class="w"> </span>all<span class="w"> </span>endpoints<span class="w"> </span>of<span class="w"> </span>haproxy<span class="w"> </span>and<span class="w"> </span>allow<span class="w"> </span>access<span class="w"> </span>from<span class="w"> </span>CIDRs<span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w"> </span>and<span class="w"> </span>::/0
+-<span class="w"> </span>upload<span class="w"> </span>charm<span class="w"> </span>landscape-server<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span><span class="k">for</span><span class="w"> </span>base<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>revision<span class="w"> </span><span class="m">124</span><span class="w"> </span>with<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>amd64
+-<span class="w"> </span>deploy<span class="w"> </span>application<span class="w"> </span>landscape-server<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>stable
+-<span class="w"> </span>upload<span class="w"> </span>charm<span class="w"> </span>postgresql<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span><span class="k">for</span><span class="w"> </span>base<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>revision<span class="w"> </span><span class="m">468</span><span class="w"> </span>with<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>amd64
+-<span class="w"> </span>deploy<span class="w"> </span>application<span class="w"> </span>postgresql<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span><span class="m">14</span>/stable
+-<span class="w"> </span>upload<span class="w"> </span>charm<span class="w"> </span>rabbitmq-server<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span><span class="k">for</span><span class="w"> </span>base<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>revision<span class="w"> </span><span class="m">188</span><span class="w"> </span>with<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>amd64
+-<span class="w"> </span>deploy<span class="w"> </span>application<span class="w"> </span>rabbitmq-server<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span><span class="m">3</span>.9/stable
+-<span class="w"> </span>add<span class="w"> </span>relation<span class="w"> </span>landscape-server<span class="w"> </span>-<span class="w"> </span>rabbitmq-server
+-<span class="w"> </span>add<span class="w"> </span>relation<span class="w"> </span>landscape-server<span class="w"> </span>-<span class="w"> </span>haproxy
+-<span class="w"> </span>add<span class="w"> </span>relation<span class="w"> </span>landscape-server:db<span class="w"> </span>-<span class="w"> </span>postgresql:db-admin
+-<span class="w"> </span>add<span class="w"> </span>unit<span class="w"> </span>haproxy/0<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">0</span>
+-<span class="w"> </span>add<span class="w"> </span>unit<span class="w"> </span>landscape-server/0<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">1</span>
+-<span class="w"> </span>add<span class="w"> </span>unit<span class="w"> </span>postgresql/0<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">2</span>
+-<span class="w"> </span>add<span class="w"> </span>unit<span class="w"> </span>rabbitmq-server/0<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">3</span>
+Deploy<span class="w"> </span>of<span class="w"> </span>bundle<span class="w"> </span>completed.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Watch the deployment until all units become active</span>
+watch<span class="w"> </span>-c<span class="w"> </span>juju<span class="w"> </span>status<span class="w"> </span>--color
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>-<span class="w"> </span>haproxy/0:<span class="w"> </span><span class="m">192</span>.168.100.18<span class="w"> </span><span class="o">(</span>agent:idle,<span class="w"> </span>workload:active<span class="o">)</span><span class="w"> </span><span class="m">80</span>,443/tcp
+-<span class="w"> </span>landscape-server/0:<span class="w"> </span><span class="m">192</span>.168.100.17<span class="w"> </span><span class="o">(</span>agent:idle,<span class="w"> </span>workload:active<span class="o">)</span>
+-<span class="w"> </span>postgresql/0:<span class="w"> </span><span class="m">192</span>.168.100.20<span class="w"> </span><span class="o">(</span>agent:idle,<span class="w"> </span>workload:active<span class="o">)</span><span class="w"> </span><span class="m">5432</span>/tcp
+-<span class="w"> </span>rabbitmq-server/0:<span class="w"> </span><span class="m">192</span>.168.100.19<span class="w"> </span><span class="o">(</span>agent:idle,<span class="w"> </span>workload:active<span class="o">)</span><span class="w"> </span><span class="m">5672</span>,15672/tcp
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Press <code>Ctrl+C</code> to exit <code>watch</code> once all units show <code>active</code> status. During validation, the success signal was the condensed per-unit status shown above.</p>
+</div>
+<p><strong>4.2.2 Verify the deployment</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show application status together with charm relations</span>
+juju<span class="w"> </span>status<span class="w"> </span>--relations
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">      </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+landscape<span class="w">  </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">15</span>:22:09Z
 
 App<span class="w">               </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">             </span>Channel<span class="w">        </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
 haproxy<span class="w">                    </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>haproxy<span class="w">           </span>latest/stable<span class="w">   </span><span class="m">75</span><span class="w">  </span>yes<span class="w">      </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
-landscape-server<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>landscape-server<span class="w">  </span>latest/stable<span class="w">  </span><span class="m">107</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
-postgresql<span class="w">        </span><span class="m">14</span>.12<span class="w">    </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>postgresql<span class="w">        </span>latest/stable<span class="w">  </span><span class="m">345</span><span class="w">  </span>no<span class="w">       </span>Live<span class="w"> </span>master<span class="w"> </span><span class="o">(</span><span class="m">14</span>.12<span class="o">)</span>
-rabbitmq-server<span class="w">   </span><span class="m">3</span>.9.13<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>rabbitmq-server<span class="w">   </span><span class="m">3</span>.9/stable<span class="w">     </span><span class="m">188</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+landscape-server<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>landscape-server<span class="w">  </span>latest/stable<span class="w">  </span><span class="m">124</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+postgresql<span class="w">        </span><span class="m">14</span>.12<span class="w">    </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>postgresql<span class="w">        </span><span class="m">14</span>/stable<span class="w">      </span><span class="m">468</span><span class="w">  </span>no
+rabbitmq-server<span class="w">   </span><span class="m">3</span>.9.27<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>rabbitmq-server<span class="w">   </span><span class="m">3</span>.9/stable<span class="w">     </span><span class="m">188</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
 
 Unit<span class="w">                 </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">           </span>Message
-haproxy/0*<span class="w">           </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">192</span>.168.100.12<span class="w">  </span><span class="m">80</span>,443/tcp<span class="w">      </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
-landscape-server/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">1</span><span class="w">        </span><span class="m">192</span>.168.100.13<span class="w">                  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
-postgresql/0*<span class="w">        </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">2</span><span class="w">        </span><span class="m">192</span>.168.100.15<span class="w">  </span><span class="m">5432</span>/tcp<span class="w">        </span>Live<span class="w"> </span>master<span class="w"> </span><span class="o">(</span><span class="m">14</span>.12<span class="o">)</span>
-rabbitmq-server/0*<span class="w">   </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">3</span><span class="w">        </span><span class="m">192</span>.168.100.14<span class="w">  </span><span class="m">5672</span>,15672/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+haproxy/0*<span class="w">           </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">192</span>.168.100.18<span class="w">  </span><span class="m">80</span>,443/tcp<span class="w">      </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+landscape-server/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">1</span><span class="w">        </span><span class="m">192</span>.168.100.17<span class="w">                  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+postgresql/0*<span class="w">        </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">2</span><span class="w">        </span><span class="m">192</span>.168.100.20<span class="w">  </span><span class="m">5432</span>/tcp<span class="w">        </span>Primary
+rabbitmq-server/0*<span class="w">   </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">3</span><span class="w">        </span><span class="m">192</span>.168.100.19<span class="w">  </span><span class="m">5672</span>,15672/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
 
 Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">       </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
-<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.12<span class="w">  </span>os-compute01<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
-<span class="m">1</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.13<span class="w">  </span>os-compute02<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
-<span class="m">2</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.15<span class="w">  </span>os-compute03<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
-<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.14<span class="w">  </span>os-compute04<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.18<span class="w">  </span>os-compute01<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">1</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.17<span class="w">  </span>os-compute02<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">2</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.20<span class="w">  </span>os-compute03<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.19<span class="w">  </span>os-compute04<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
 
 Integration<span class="w"> </span>provider<span class="w">       </span>Requirer<span class="w">                   </span>Interface<span class="w">          </span>Type<span class="w">     </span>Message
 haproxy:peer<span class="w">               </span>haproxy:peer<span class="w">               </span>haproxy-peer<span class="w">       </span>peer
 landscape-server:replicas<span class="w">  </span>landscape-server:replicas<span class="w">  </span>landscape-replica<span class="w">  </span>peer
 landscape-server:website<span class="w">   </span>haproxy:reverseproxy<span class="w">       </span>http<span class="w">               </span>regular
-postgresql:coordinator<span class="w">     </span>postgresql:coordinator<span class="w">     </span>coordinator<span class="w">        </span>peer
+postgresql:database-peers<span class="w">  </span>postgresql:database-peers<span class="w">  </span>postgresql_peers<span class="w">   </span>peer
 postgresql:db-admin<span class="w">        </span>landscape-server:db<span class="w">        </span>pgsql<span class="w">              </span>regular
-postgresql:replication<span class="w">     </span>postgresql:replication<span class="w">     </span>pgpeer<span class="w">             </span>peer
+postgresql:restart<span class="w">         </span>postgresql:restart<span class="w">         </span>rolling_op<span class="w">         </span>peer
+postgresql:upgrade<span class="w">         </span>postgresql:upgrade<span class="w">         </span>upgrade<span class="w">            </span>peer
 rabbitmq-server:amqp<span class="w">       </span>landscape-server:amqp<span class="w">      </span>rabbitmq<span class="w">           </span>regular
 rabbitmq-server:cluster<span class="w">    </span>rabbitmq-server:cluster<span class="w">    </span>rabbitmq-ha<span class="w">        </span>peer
 </code></pre></div>
-<p><strong>4.2.3 Log in to Landscape Web interface</strong></p>
-<p>Get the IP address of the HAProxy unit:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>haproxy
-
-<span class="c1"># output</span>
-Model<span class="w">      </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
-landscape<span class="w">  </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.5.1<span class="w">    </span>unsupported<span class="w">  </span><span class="m">12</span>:39:53Z
+</details>
+<p><strong>4.2.3 Log in to the Landscape web interface</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the HAProxy unit address for the Landscape web entry point</span>
+juju<span class="w"> </span>status<span class="w"> </span>haproxy
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">      </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+landscape<span class="w">  </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">15</span>:22:16Z
 
 App<span class="w">      </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">    </span>Channel<span class="w">        </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
 haproxy<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>haproxy<span class="w">  </span>latest/stable<span class="w">   </span><span class="m">75</span><span class="w">  </span>yes<span class="w">      </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
 
 Unit<span class="w">        </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">       </span>Message
-haproxy/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span><span class="w">        </span>**192.168.100.12**<span class="w">  </span><span class="m">80</span>,443/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+haproxy/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">192</span>.168.100.18<span class="w">  </span><span class="m">80</span>,443/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
 
 Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">       </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
-<span class="m">0</span><span class="w">        </span>started<span class="w">  </span>**192.168.100.12**<span class="w">  </span>os-compute01<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.18<span class="w">  </span>os-compute01<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
 </code></pre></div>
-<p>My IP is <code>192.168.100.12</code>, so the URL will be <code>https://192.168.100.12</code>.</p>
-<p>Use Firefox to access that IP. You can configure the initial user of Landscape and gain access to its management console.</p>
-<p><strong>4.2.4 Remove the landscape model</strong></p>
-<p>Remove the <code>landscape</code> juju model. This will remove any charms/applications that are contained in it.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>destroy-model<span class="w"> </span>--no-prompt<span class="w"> </span>landscape
+</details>
+<p>Use the <code>Public address</code> value from the command output to reach Landscape. In this validation run, the URL was <code>http://192.168.100.18/</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Firefox access to internal lab web interfaces was already validated through the SOCKS proxy path in earlier chapters.</p>
+</div>
+<p><strong>4.2.4 Remove the <code>landscape</code> model</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Skip this cleanup if you need to preserve the Landscape deployment for a demo. Chapter 5 re-bootstraps the controller after this teardown.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Destroy the landscape model and all applications deployed into it</span>
+juju<span class="w"> </span>destroy-model<span class="w"> </span>--no-prompt<span class="w"> </span>landscape
 </code></pre></div>
-<p>List and destroy the juju controller.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>controllers
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w"> </span>destroyed.
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>destroy-controller<span class="w"> </span>maas-controller<span class="w"> </span>--no-prompt
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the registered Juju controllers before removing the controller</span>
+juju<span class="w"> </span>controllers
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Use<span class="w"> </span>--refresh<span class="w"> </span>option<span class="w"> </span>with<span class="w"> </span>this<span class="w"> </span><span class="nb">command</span><span class="w"> </span>to<span class="w"> </span>see<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>information.
+
+Controller<span class="w">        </span>Model<span class="w">       </span>User<span class="w">   </span>Access<span class="w">     </span>Cloud/Region<span class="w">  </span>Models<span class="w">  </span>Nodes<span class="w">    </span>HA<span class="w">  </span>Version
+maas-controller*<span class="w">  </span>controller<span class="w">  </span>admin<span class="w">  </span>superuser<span class="w">  </span>maas/default<span class="w">       </span><span class="m">1</span><span class="w">      </span><span class="m">1</span><span class="w">  </span>none<span class="w">  </span><span class="m">3</span>.6.23
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Destroy the MAAS-backed Juju controller</span>
+juju<span class="w"> </span>destroy-controller<span class="w"> </span>maas-controller<span class="w"> </span>--no-prompt
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>All<span class="w"> </span>models<span class="w"> </span>reclaimed,<span class="w"> </span>cleaning<span class="w"> </span>up<span class="w"> </span>controller<span class="w"> </span>machines
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify that no Juju controllers remain registered locally</span>
+juju<span class="w"> </span>controllers
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>ERROR<span class="w"> </span>No<span class="w"> </span>controllers<span class="w"> </span>registered.
+</code></pre></div>
+</details>
 
 
 
