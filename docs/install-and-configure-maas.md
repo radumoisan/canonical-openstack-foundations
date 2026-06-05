@@ -14,69 +14,89 @@ In this section, you install and configure a MAAS environment.
 Generate an SSH key pair:
 
 ```bash
+# Generate an SSH key pair
 ssh-keygen -t rsa -N "" -q -f ~/.ssh/id_rsa
 ```
 
 ??? example "Expected result"
+    ```bash
     No output.
+    ```
 
 Copy the SSH key to the MAAS server. Use `ubuntu` as the password:
 
 ```bash
+# Copy the SSH key to the MAAS server
 # password is ubuntu
 ssh-copy-id 192.168.100.3
 ```
 
 ??? example "Expected result"
+    ```bash
     1 file(s) remaining to be installed.
-    Now try logging into the machine, with: `ssh '192.168.100.3'`
+    Now try logging into the machine, with: ssh '192.168.100.3'
 
     Number of key(s) added: 1
+    ```
 
 Copy the configuration files and bundles that you use later:
 
 ```bash
+# Copy the configuration files and bundles that you use later
 scp -r /home/ubuntu/os_files 192.168.100.3:~
 ```
 
 ??? example "Expected result"
+    ```bash
     No output.
+    ```
 
 
 Log in to the MAAS VM:
 
 ```bash
+# Log in to the MAAS VM
 ssh 192.168.100.3
 ```
 
 ??? example "Expected result"
+    ```bash
     ubuntu@maas:~$
+    ```
 
 Install the MAAS snap:
 
 ```bash
+# Install the MAAS snap
 sudo snap install maas --channel=3.4
 ```
 
 ??? example "Expected result"
+    ```bash
     maas (3.4/stable) 3.4.9-14399-g.48cea136e from Canonical** installed
+    ```
 
 Install the MAAS test database snap:
 
 ```bash
+# Install the MAAS test database snap
 sudo snap install maas-test-db --channel=3.4
 ```
 
 ??? example "Expected result"
+    ```bash
     maas-test-db (3.4/stable) 14.2-29-g.ed8d7f2 from Canonical** installed
+    ```
 
 Initialize MAAS as a region and rack controller:
 
 ```bash
+# Initialize MAAS as a region and rack controller
 sudo maas init region+rack --database-uri maas-test-db:///
 ```
 
 ??? example "Expected result"
+    ```bash
     MAAS URL [default=http://192.168.100.3:5240/MAAS]:
     MAAS has been set up.
 
@@ -92,6 +112,7 @@ sudo maas init region+rack --database-uri maas-test-db:///
     To enable TLS for secured communication, please run
 
       sudo maas config-tls enable
+    ```
 
 !!! note
     Press `Enter` when asked about the MAAS URL.
@@ -111,11 +132,14 @@ such as creating the administrator user and downloading the boot images, both fo
 Enter the following command to create the administrator account, `ubuntu` is the password:
 
 ```bash
+# create the administrator account, ubuntu is the password
 sudo maas createadmin --username=admin --password=ubuntu --email=admin@example.com
 ```
 
 ??? example "Expected result"
+    ```bash
     No output.
+    ```
 
 
 ### :material-book-open-page-variant-outline: Task 2: Log into the MAAS server API via the Command Line Interface
@@ -125,31 +149,40 @@ the following command to retrieve the API key for the MAAS admin user and save
 it to the file ```~/maas-apikey```:
 
 ```bash
+# it to the file ~/maas-apikey
 sudo maas apikey --username=admin > ~/maas-apikey
 ```
 
 ??? example "Expected result"
-    You are now logged in to the MAAS server at
-    http://192.168.100.3:5240/MAAS/api/2.0/ with the profile name
-    'myprofile'.
+    ```bash
+    No output.
+    ```
 
 Enter the following command to log into MAAS and create a profile:
 
 ```bash
+# log into MAAS and create a profile
 maas login myprofile http://192.168.100.3:5240/MAAS - < ~/maas-apikey
 ```
 
 ??? example "Expected result"
-    myprofile http://192.168.100.3:5240/MAAS/api/2.0/ [redacted-api-key]
+    ```bash
+    You are now logged in to the MAAS server at
+    http://192.168.100.3:5240/MAAS/api/2.0/ with the profile name
+    'myprofile'.
+    ```
 
 Verify that you are logged into the MAAS with the profile name of `myprofile`
 
 ```bash
+# Verify that you are logged into the MAAS with the profile name of myprofile
 maas list
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    myprofile http://192.168.100.3:5240/MAAS/api/2.0/ [redacted-api-key]
+    ```
 
 
 ### :material-book-open-page-variant-outline: Task 3: Download the Boot Images
@@ -157,21 +190,42 @@ maas list
 By default, the "focal" (20.04) Ubuntu LTS is marked for download and we need to also download "jammy" (22.04) release, as well. Download the selected boot images:
 
 ```bash
+# Add the jammy boot image selection
 maas myprofile boot-source-selections create 1 os="ubuntu" release="jammy" arches="amd64" \
   subarches="*" labels="*"
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    {
+        "os": "ubuntu",
+        "release": "jammy",
+        "arches": [
+            "amd64"
+        ],
+        "subarches": [
+            "*"
+        ],
+        "labels": [
+            "*"
+        ],
+        "boot_source_id": 1,
+        "id": 2,
+        "resource_uri": "/MAAS/api/2.0/boot-sources/1/selections/2/"
+    }
+    ```
 
 Start the boot resource import:
 
 ```bash
+# Start the boot resource import
 maas myprofile boot-resources import
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    Import of boot resources started
+    ```
 
 
 ### :material-book-open-page-variant-outline: Task 4: Generate SSH Keys for the MAAS Shell Admin User
@@ -180,11 +234,14 @@ In the terminal on the MAAS server, while logged in as the `ubuntu`,
 enter the following command to generate a new SSH key pair:
 
 ```bash
+# generate a new SSH key pair
 ssh-keygen -t rsa -N "" -q -f ~/.ssh/id_rsa
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    No output.
+    ```
 
 
 ### :material-book-open-page-variant-outline: Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS
@@ -194,11 +251,18 @@ In the terminal of the MAAS server, while logged in as the `ubuntu`,
 enter the following command to upload the SSH key generated in Task 4:
 
 ```bash
+# upload the SSH key generated in Task 4
 maas myprofile sshkeys create key="`cat ~/.ssh/id_rsa.pub`"
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    {
+        "key": "[redacted-public-key]",
+        "keysource": null,
+        "id": 1
+    }
+    ```
 
 
 ## :material-book-open-page-variant-outline: 2.3 Configure a MAAS Rack Controller to Manage DHCP
@@ -222,69 +286,282 @@ In the terminal of the MAAS server, while logged in as `ubuntu`:
 Retrieve the fabric ID of the first fabric:
 
 ```bash
+# Retrieve the fabric ID of the first fabric
 FABRIC_ID=`maas myprofile fabrics read | jq ".[0].id"`
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    No output.
+    ```
 
 Retrieve the VLAN ID of the first VLAN associated with the fabric ID:
 
 ```bash
+# Retrieve the VLAN ID of the first VLAN associated with the fabric ID
 VLAN_ID=`maas myprofile vlans read $FABRIC_ID | jq ".[0].vid"`
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    No output.
+    ```
 
 Retrieve the system ID for the primary rack controller:
 
 ```bash
+# Retrieve the system ID for the primary rack controller
 RACK_ID=`maas myprofile rack-controllers read | jq -r ".[0].system_id"`
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    {
+        "subnet": {
+            "name": "192.168.100.0/24",
+            "description": "",
+            "vlan": {
+                "vid": 0,
+                "mtu": 1500,
+                "dhcp_on": false,
+                "external_dhcp": null,
+                "relay_vlan": null,
+                "space": "undefined",
+                "id": 1,
+                "fabric": "fabric-0",
+                "secondary_rack": null,
+                "primary_rack": null,
+                "fabric_id": 0,
+                "name": "untagged",
+                "resource_uri": "/MAAS/api/2.0/vlans/1/"
+            },
+            "cidr": "192.168.100.0/24",
+            "rdns_mode": 2,
+            "gateway_ip": "192.168.100.1",
+            "dns_servers": [],
+            "allow_dns": true,
+            "allow_proxy": true,
+            "active_discovery": false,
+            "managed": true,
+            "disabled_boot_architectures": [],
+            "id": 1,
+            "space": "undefined",
+            "resource_uri": "/MAAS/api/2.0/subnets/1/"
+        },
+        "type": "dynamic",
+        "start_ip": "192.168.100.200",
+        "end_ip": "192.168.100.254",
+        "user": {
+            "is_superuser": true,
+            "username": "admin",
+            "email": "admin@example.com",
+            "is_local": true,
+            "resource_uri": "/MAAS/api/2.0/users/admin/"
+        },
+        "comment": "",
+        "id": 1,
+        "resource_uri": "/MAAS/api/2.0/ipranges/1/"
+    }
+    ```
 
 Add the Dynamic IP address range that will be used by MAAS for enlistment and commissioning and enable DHCP:
 
 ```bash
+# Create the dynamic DHCP range
 maas myprofile ipranges create type=dynamic \
   start_ip=192.168.100.200 end_ip=192.168.100.254
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    {
+        "vid": 0,
+        "mtu": 1400,
+        "dhcp_on": true,
+        "external_dhcp": null,
+        "relay_vlan": null,
+        "space": "undefined",
+        "id": 1,
+        "fabric": "fabric-0",
+        "secondary_rack": null,
+        "primary_rack": "cf83c4",
+        "fabric_id": 0,
+        "name": "untagged",
+        "resource_uri": "/MAAS/api/2.0/vlans/1/"
+    }
+    ```
 
 Enable DHCP:
 
 ```bash
+# Enable DHCP
 maas myprofile vlan update $FABRIC_ID $VLAN_ID \
   primary_rack=$RACK_ID dhcp_on=true mtu=1400
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    {
+        "subnet": {
+            "name": "192.168.100.0/24",
+            "description": "",
+            "vlan": {
+                "vid": 0,
+                "mtu": 1400,
+                "dhcp_on": true,
+                "external_dhcp": null,
+                "relay_vlan": null,
+                "fabric_id": 0,
+                "primary_rack": "cf83c4",
+                "name": "untagged",
+                "secondary_rack": null,
+                "space": "undefined",
+                "fabric": "fabric-0",
+                "id": 1,
+                "resource_uri": "/MAAS/api/2.0/vlans/1/"
+            },
+            "cidr": "192.168.100.0/24",
+            "rdns_mode": 2,
+            "gateway_ip": "192.168.100.1",
+            "dns_servers": [],
+            "allow_dns": true,
+            "allow_proxy": true,
+            "active_discovery": false,
+            "managed": true,
+            "disabled_boot_architectures": [],
+            "space": "undefined",
+            "id": 1,
+            "resource_uri": "/MAAS/api/2.0/subnets/1/"
+        },
+        "type": "reserved",
+        "start_ip": "192.168.100.1",
+        "end_ip": "192.168.100.9",
+        "user": {
+            "is_superuser": true,
+            "username": "admin",
+            "email": "admin@example.com",
+            "is_local": true,
+            "resource_uri": "/MAAS/api/2.0/users/admin/"
+        },
+        "comment": "",
+        "id": 2,
+        "resource_uri": "/MAAS/api/2.0/ipranges/2/"
+    }
+    ```
 
 Add the static IP address range:
 
 ```bash
+# Add the static IP address range
 maas myprofile ipranges create type=reserved \
   start_ip=192.168.100.1 end_ip=192.168.100.9
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    {
+        "subnet": {
+            "name": "192.168.100.0/24",
+            "description": "",
+            "vlan": {
+                "vid": 0,
+                "mtu": 1400,
+                "dhcp_on": true,
+                "external_dhcp": null,
+                "relay_vlan": null,
+                "space": "undefined",
+                "name": "untagged",
+                "primary_rack": "cf83c4",
+                "fabric": "fabric-0",
+                "id": 1,
+                "fabric_id": 0,
+                "resource_uri": "/MAAS/api/2.0/vlans/1/"
+            },
+            "cidr": "192.168.100.0/24",
+            "rdns_mode": 2,
+            "gateway_ip": "192.168.100.1",
+            "dns_servers": [],
+            "allow_dns": true,
+            "allow_proxy": true,
+            "active_discovery": false,
+            "managed": true,
+            "disabled_boot_architectures": [],
+            "space": "undefined",
+            "id": 1,
+            "resource_uri": "/MAAS/api/2.0/subnets/1/"
+        },
+        "type": "reserved",
+        "start_ip": "192.168.100.150",
+        "end_ip": "192.168.100.199",
+        "user": {
+            "is_superuser": true,
+            "username": "admin",
+            "email": "admin@example.com",
+            "is_local": true,
+            "resource_uri": "/MAAS/api/2.0/users/admin/"
+        },
+        "comment": "",
+        "id": 3,
+        "resource_uri": "/MAAS/api/2.0/ipranges/3/"
+    }
+    ```
 
 Add the IP address range that will be used for Floating Ips:
 
 ```bash
+# Add the IP address range that will be used for Floating Ips
 maas myprofile ipranges create type=reserved \
   start_ip=192.168.100.150 end_ip=192.168.100.199
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    {
+        "subnet": {
+            "name": "192.168.100.0/24",
+            "description": "",
+            "vlan": {
+                "vid": 0,
+                "mtu": 1400,
+                "dhcp_on": true,
+                "external_dhcp": null,
+                "relay_vlan": null,
+                "space": "undefined",
+                "name": "untagged",
+                "primary_rack": "cf83c4",
+                "fabric": "fabric-0",
+                "id": 1,
+                "fabric_id": 0,
+                "resource_uri": "/MAAS/api/2.0/vlans/1/"
+            },
+            "cidr": "192.168.100.0/24",
+            "rdns_mode": 2,
+            "gateway_ip": "192.168.100.1",
+            "dns_servers": [],
+            "allow_dns": true,
+            "allow_proxy": true,
+            "active_discovery": false,
+            "managed": true,
+            "disabled_boot_architectures": [],
+            "space": "undefined",
+            "id": 1,
+            "resource_uri": "/MAAS/api/2.0/subnets/1/"
+        },
+        "type": "reserved",
+        "start_ip": "192.168.100.150",
+        "end_ip": "192.168.100.199",
+        "user": {
+            "is_superuser": true,
+            "username": "admin",
+            "email": "admin@example.com",
+            "is_local": true,
+            "resource_uri": "/MAAS/api/2.0/users/admin/"
+        },
+        "comment": "",
+        "id": 3,
+        "resource_uri": "/MAAS/api/2.0/ipranges/3/"
+    }
+    ```
 
 
 ### :material-book-open-page-variant-outline: Task 2: Configure Upstream DNS
@@ -295,11 +572,14 @@ Configuring the upstream DNS can be accomplished via the CLI or the WebUI.
 Set the Upstream DNS server with the following command:
 
 ```bash
+# Set the upstream DNS server
 maas myprofile maas set-config name=upstream_dns value="8.8.8.8"
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    OK
+    ```
 
 ### :material-book-open-page-variant-outline: Task 3: Configure Kernel options for nodes
 
@@ -309,11 +589,14 @@ via the CLI or the WebUI.
 Set the kernel options server with the following command:
 
 ```bash
+# Set the kernel boot options
 maas myprofile maas set-config name=kernel_opts value="net.ifnames=0"
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    OK
+    ```
 
 
 ### :material-book-open-page-variant-outline: Task 4: Configure Local DNS Resolution
@@ -323,53 +606,72 @@ In the terminal of the MAAS server, while logged in as the `ubuntu`, set the DNS
 Back up the cloud-init netplan file:
 
 ```bash
+# Back up the cloud-init netplan file
 sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/00-installer-config.yaml
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    No output.
+    ```
 
 Adjust the contents of the file to match this, be careful to double check the name of your network interface, it may vary:
 
 ```bash
+# Show the current netplan file
 sudo cat /etc/netplan/00-installer-config.yaml
 ```
 
 ??? example "Expected result"
+    ```bash
     network:
-        ethernets:
-            enp1s0:
-                addresses:
-                - 192.168.100.3/24
-                nameservers:
-                    addresses:
-                    - 192.168.100.3
-                    - 8.8.8.8
-                    search:
-                    - maas
-                renderer: networkd
-                routes:
-                -   to: default
-                    via: 192.168.100.1
-        version: 2
+      version: 2
+      ethernets:
+        enp1s0:
+          renderer: networkd
+          addresses:
+          - "192.168.100.3/24"
+          nameservers:
+            addresses:
+            - 8.8.8.8
+            - 1.1.1.1
+          routes:
+          - to: "default"
+            via: "192.168.100.1"
+    ```
 
 Apply the netplan changes:
 
 ```bash
+# Apply the netplan changes
 sudo netplan apply
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    No output.
+    ```
 
 Verify the DNS resolver configuration:
 
 ```bash
+# Verify the DNS resolver configuration
 resolvectl status
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ```bash
+    Global
+           Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+    resolv.conf mode: stub
+
+    Link 2 (enp1s0)
+        Current Scopes: DNS
+             Protocols: +DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+    Current DNS Server: 8.8.8.8
+           DNS Servers: 192.168.100.3 8.8.8.8 1.1.1.1
+            DNS Domain: maas
+    ```
 
 
 ## :material-book-open-page-variant-outline: 2.4 Enable MAAS to Manage Libvirt Virtual Machines
@@ -388,38 +690,50 @@ Enter the following commands to create an SSH key pair that is used to authentic
 Create the MAAS root SSH directory:
 
 ```bash
+# Create the MAAS root SSH directory
 sudo mkdir -p /var/snap/maas/current/root/.ssh
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Generate the MAAS root SSH key pair:
 
 ```bash
+# Generate the MAAS root SSH key pair
 sudo ssh-keygen -t rsa -N "" -q -f /var/snap/maas/current/root/.ssh/id_rsa
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Copy the MAAS root public key to the host machine:
 
 ```bash
+# Copy the MAAS root public key to the host machine
 sudo ssh-copy-id -i /var/snap/maas/current/root/.ssh/id_rsa ubuntu@192.168.100.1
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Exit the host machine session:
 
 ```bash
+# Exit the host machine session
 exit
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 !!! note
     Use the password received via email from the instructor.
@@ -438,11 +752,14 @@ In this exercise, you create the infrastructure VMs for the lab environment.
 On your `HOST MACHINE` (NOT the MAAS server) you have the script `~/deploy/create-vms.sh` that automate the VM creation process. Execute the command as follows:
 
 ```bash
+# Create the virtual machine infrastructure
 sudo bash ~/deploy/create-vms.sh
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 
 ## :material-book-open-page-variant-outline: 2.6 Enlist and Commission Virtual Machines with MAAS
@@ -465,11 +782,14 @@ In a real production environment it is advised to leave these tests enabled.
 Go back to the MAAS server:
 
 ```bash
+# Go back to the MAAS server
 ssh 192.168.100.3
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 In the terminal of the MAAS server, while logged in as the `ubuntu` user,
 enter the following commands:
@@ -477,40 +797,52 @@ enter the following commands:
 Retrieve the `smartctl-validate` script ID:
 
 ```bash
+# Retrieve the smartctl-validate script ID
 SCRIPT_ID=`maas myprofile node-scripts read | jq '.[] | select(.name=="smartctl-validate") | .id'`
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Retag the script so it runs only for storage nodes:
 
 ```bash
+# Retag the script so it runs only for storage nodes
 maas myprofile node-script update $SCRIPT_ID tags=storage
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Before adding the chassis, we need to downgrade core22 snap to fix a bug described here: https://bugs.launchpad.net/maas/+bug/2053033
 
 Refresh the `core22` snap to the required revision:
 
 ```bash
+# Refresh the core22 snap to the required revision
 sudo snap refresh core22 --channel=latest/stable --revision=1033
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Restart the MAAS supervisor:
 
 ```bash
+# Restart the MAAS supervisor
 sudo snap restart maas.supervisor
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 ### :material-book-open-page-variant-outline: Task 2: Enlist the Virtual Machines
 
@@ -519,6 +851,7 @@ enter the following command to enlist all virtual machines starting with a
 VM name of “os-”:
 
 ```bash
+# VM name of “os-”
 maas myprofile machines add-chassis chassis_type=virsh \
   hostname=qemu+ssh://ubuntu@192.168.100.1/system \
   prefix_filter="os-"
@@ -534,6 +867,7 @@ maas myprofile machines add-chassis chassis_type=virsh \
 In the terminal of the MAAS server, while logged in as the `ubuntu`, enter the following command to commission all virtual machines that are in the ``New`` state:
 
 ```bash
+# 
 maas myprofile machines accept-all
 ```
 
@@ -556,6 +890,7 @@ disable adding a swap file and generating excessive IO on the host.
 Append the swap override to the curtin userdata sample:
 
 ```bash
+# Append the swap override to the curtin userdata sample
 sudo tee -a /var/snap/maas/current/preseeds/curtin_userdata.sample <<EOF
 swap:
   size: 0
@@ -563,16 +898,21 @@ EOF
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Edit the curtin userdata sample and add two spaces before `size`:
 
 ```bash
+# Edit the curtin userdata sample and add two spaces before size
 sudo vim /var/snap/maas/current/preseeds/curtin_userdata.sample
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Configure quick disk erasing. Otherwise, redeploying nodes takes longer
 than 40 minutes and thus fail with a timeout. This needs to be done prior to
@@ -581,29 +921,38 @@ commissioning of the VMs.
 Disable secure erase:
 
 ```bash
+# Disable secure erase
 maas myprofile maas set-config name=disk_erase_with_secure_erase value=false
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Enable quick erase:
 
 ```bash
+# Enable quick erase
 maas myprofile maas set-config name=disk_erase_with_quick_erase value=true
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Enable disk erasing on release:
 
 ```bash
+# Enable disk erasing on release
 maas myprofile maas set-config name=enable_disk_erasing_on_release value=true
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 
 ## :material-book-open-page-variant-outline: 2.7 Define Tags for the Cloud Nodes
@@ -623,22 +972,28 @@ In the terminal of the MAAS server, while logged in as the `ubuntu`,
 enter the following command to list the existing tags:
 
 ```bash
+# list the existing tags
 maas myprofile tags read
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 You should see a list of the existing tags.
 
 Enter the following command to list all of the systems that match the tag `virtual`:
 
 ```bash
+# list all of the systems that match the tag virtual
 maas myprofile tag nodes virtual | grep hostname
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 You should see the hostname of all of the nodes that match the tag `virtual`.
 
@@ -652,47 +1007,62 @@ Defining new tags and assigning systems to them can be accomplished via the CLI 
 Enter the following command to create a tag without a definition for the Juju bootstrap node:
 
 ```bash
+# create a tag without a definition for the Juju bootstrap node
 maas myprofile tags create name=juju
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Enter the following command to list details for the Juju bootstrap node:
 
 ```bash
+# list details for the Juju bootstrap node
 maas myprofile machines read hostname=os-juju01
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Retrieve the system ID for the Juju bootstrap node:
 
 ```bash
+# Retrieve the system ID for the Juju bootstrap node
 JUJU01_ID=`maas myprofile machines read hostname=os-juju01 | jq -r ".[].system_id"`
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Associate the system with the `juju` tag:
 
 ```bash
+# Associate the system with the juju tag
 maas myprofile tag update-nodes juju add=$JUJU01_ID
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Enter the following command to view the system associated the juju tag:
 
 ```bash
+# view the system associated the juju tag
 maas myprofile tag nodes juju | grep hostname
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 You should see the system you just added the tag to listed.
 
@@ -700,15 +1070,19 @@ You should see the system you just added the tag to listed.
 Enter the following command to create the tag for the os-compute## nodes:
 
 ```bash
+# create the tag for the os-compute## nodes
 maas myprofile tags create name=storage
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Run the following command to associate the `storage` tag to the rest of the VMs:
 
 ```bash
+# associate the storage tag to the rest of the VMs
 for i in `seq 1 4` ; do
   NODE_NAME=os-compute0${i}
   NODE_ID=`maas myprofile machines read hostname=${NODE_NAME} | jq -r ".[].system_id"`
@@ -717,11 +1091,14 @@ done
 ```
 
 ??? example "Expected result"
+    ```bash
     Pending live validation.
+    ```
 
 Enter the following command to view the systems associated with the storage tag:
 
 ```bash
+# view the systems associated with the storage tag
 maas myprofile tag nodes storage | grep hostname
 ```
 

@@ -36,19 +36,23 @@ This repository is for the Ubuntu Server Advanced documentation site.
 
 ## Command Formatting
 
-- Add a short comment immediately above each command block.
+- Add a short shell comment immediately above each command inside the command block.
 - Use one command block per command.
 - Do not group multiple commands under one shared comment or one shared expected-result block.
 - Each command must be followed by an admonition in this form:
 
 ```md
 ??? example "Expected result"
+    ```bash
     Expected output or verification notes.
+    ```
 ```
 
 - Commands and expected results must remain in pairs.
 - Each command must have its own paired expected-result admonition.
 - Use expected results to show the actual command output or a close representative example of what the output looks like.
+- Format the contents of each `Expected result` admonition as fenced `bash` code.
+- Prefer the command comment as the primary step description and avoid repeating the same wording as regular prose when possible.
 - Prefer concrete output over description or interpretation.
 - If a command produces no output, use a placeholder such as `No output.`
 - If exact output may vary, keep the example realistic and focus on the visible success signals in the command output.
