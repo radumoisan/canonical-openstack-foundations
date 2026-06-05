@@ -720,19 +720,53 @@ sudo ssh-copy-id -i /var/snap/maas/current/root/.ssh/id_rsa ubuntu@192.168.100.1
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/var/snap/maas/current/root/.ssh/id_rsa.pub"
+    /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+    /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+    ubuntu@192.168.100.1's password:
+
+    Number of key(s) added: 1
+
+    Now try logging into the machine, with:   "ssh 'ubuntu@192.168.100.1'"
+    and check to make sure that only the key(s) you wanted were added.
     ```
 
-Exit the host machine session:
+!!! note
+    This step installs the MAAS root key, not the `ubuntu` user's own key on the
+    MAAS VM. A plain `ssh ubuntu@192.168.100.1` from the `ubuntu` shell on the MAAS
+    VM can still prompt for a password. The validated non-interactive path is the
+    MAAS/root context, for example `sudo ssh -i /var/snap/maas/current/root/.ssh/id_rsa ubuntu@192.168.100.1`.
+
+If host key verification fails, add the host machine to the MAAS root `known_hosts` file:
 
 ```bash
-# Exit the host machine session
-exit
+# Add the host machine SSH key to known_hosts
+sudo ssh-keyscan -H 192.168.100.1 | sudo tee -a /var/snap/maas/current/root/.ssh/known_hosts >/dev/null
 ```
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    ```
+
+If `sudo ssh-copy-id` still reports host key verification failures, add the host machine to root's `known_hosts` file as well:
+
+```bash
+# Add the host machine SSH key to root known_hosts
+sudo mkdir -p /root/.ssh && sudo ssh-keyscan -H 192.168.100.1 | sudo tee -a /root/.ssh/known_hosts >/dev/null
+```
+
+??? example "Expected result"
+    ```bash
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
+    # 192.168.100.1:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.15
     ```
 
 !!! note
@@ -758,7 +792,34 @@ sudo bash ~/deploy/create-vms.sh
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    Formatting '/home/VMs/juju01/juju01d1.img', fmt=raw size=42949672960
+    Domain 'os-juju01' defined from /root/os-juju01.xml
+
+    Domain 'os-juju01' marked as autostarted
+
+    Formatting '/home/VMs/compute01/compute01d1.img', fmt=raw size=64424509440
+    Formatting '/home/VMs/compute01/compute01d2.img', fmt=raw size=21474836480
+    Domain 'os-compute01' defined from /root/os-compute01.xml
+
+    Domain 'os-compute01' marked as autostarted
+
+    Formatting '/home/VMs/compute02/compute02d1.img', fmt=raw size=64424509440
+    Formatting '/home/VMs/compute02/compute02d2.img', fmt=raw size=21474836480
+    Domain 'os-compute02' defined from /root/os-compute02.xml
+
+    Domain 'os-compute02' marked as autostarted
+
+    Formatting '/home/VMs/compute03/compute03d1.img', fmt=raw size=64424509440
+    Formatting '/home/VMs/compute03/compute03d2.img', fmt=raw size=21474836480
+    Domain 'os-compute03' defined from /root/os-compute03.xml
+
+    Domain 'os-compute03' marked as autostarted
+
+    Formatting '/home/VMs/compute04/compute04d1.img', fmt=raw size=64424509440
+    Formatting '/home/VMs/compute04/compute04d2.img', fmt=raw size=21474836480
+    Domain 'os-compute04' defined from /root/os-compute04.xml
+
+    Domain 'os-compute04' marked as autostarted
     ```
 
 
@@ -788,7 +849,7 @@ ssh 192.168.100.3
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    ubuntu@maas:~$
     ```
 
 In the terminal of the MAAS server, while logged in as the `ubuntu` user,
@@ -803,7 +864,7 @@ SCRIPT_ID=`maas myprofile node-scripts read | jq '.[] | select(.name=="smartctl-
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    No output.
     ```
 
 Retag the script so it runs only for storage nodes:
@@ -815,10 +876,53 @@ maas myprofile node-script update $SCRIPT_ID tags=storage
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    {
+        "name": "smartctl-validate",
+        "title": "Storage status",
+        "description": "Validate SMART health for all drives in parallel.",
+        "tags": [
+            "storage"
+        ],
+        "hardware_type": 3,
+        "parallel": 1,
+        "results": {},
+        "parameters": {
+            "storage": {
+                "type": "storage",
+                "argument_format": "{path}"
+            }
+        },
+        "packages": {
+            "apt": [
+                "smartmontools"
+            ]
+        },
+        "timeout": "0:05:00",
+        "destructive": false,
+        "default": true,
+        "for_hardware": [],
+        "may_reboot": false,
+        "recommission": false,
+        "apply_configured_networking": false,
+        "hardware_type_name": "Storage",
+        "history": [
+            {
+                "id": 14,
+                "comment": "Created by maas-None",
+                "created": "Fri, 05 Jun 2026 08:34:23 -0000"
+            }
+        ],
+        "id": 14,
+        "type": 2,
+        "type_name": "Testing script",
+        "parallel_name": "Run along other instances of this script",
+        "resource_uri": "/MAAS/api/2.0/scripts/smartctl-validate"
+    }
     ```
 
-Before adding the chassis, we need to downgrade core22 snap to fix a bug described here: https://bugs.launchpad.net/maas/+bug/2053033
+!!! warning
+    Before adding the chassis, downgrade the `core22` snap to work around
+    [LP #2053033](https://bugs.launchpad.net/maas/+bug/2053033).
 
 Refresh the `core22` snap to the required revision:
 
@@ -829,7 +933,7 @@ sudo snap refresh core22 --channel=latest/stable --revision=1033
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    core22 20231123 from Canonical** refreshed
     ```
 
 Restart the MAAS supervisor:
@@ -841,7 +945,8 @@ sudo snap restart maas.supervisor
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    2026-06-05T11:26:08Z INFO Waiting for "snap.maas.supervisor.service" to stop.
+    Restarted.
     ```
 
 **2.6.2 Enlist the Virtual Machines**
@@ -858,22 +963,1064 @@ maas myprofile machines add-chassis chassis_type=virsh \
 ```
 
 ??? example "Expected result"
-    Success.
-    Machine-readable output follows:
+    ```bash
     Asking maas to add machines from chassis qemu+ssh://ubuntu@192.168.100.1/system
+    ```
 
 **2.6.3 Commission the Virtual Machines**
 
 In the terminal of the MAAS server, while logged in as the `ubuntu`, enter the following command to commission all virtual machines that are in the ``New`` state:
 
 ```bash
-# 
+# Commission all newly enlisted machines
 maas myprofile machines accept-all
 ```
 
 ??? example "Expected result"
-    Success.
-    Machine-readable output follows...
+    ```bash
+    [
+        {
+            "description": "",
+            "architecture": "amd64/generic",
+            "status_action": "",
+            "address_ttl": null,
+            "cpu_speed": 0,
+            "workload_annotations": {},
+            "owner": "admin",
+            "interface_test_status": -1,
+            "locked": false,
+            "node_type_name": "Machine",
+            "storage": 0.0,
+            "fqdn": "os-compute02.maas",
+            "boot_interface": {
+                "mac_address": "52:54:00:63:ae:ac",
+                "name": "eth0",
+                "system_id": "8dgry3",
+                "vlan": null,
+                "link_connected": true,
+                "children": [],
+                "links": [],
+                "numa_node": 0,
+                "sriov_max_vf": 0,
+                "firmware_version": null,
+                "parents": [],
+                "effective_mtu": 1500,
+                "params": {},
+                "link_speed": 0,
+                "id": 4,
+                "product": null,
+                "discovered": null,
+                "vendor": null,
+                "type": "physical",
+                "enabled": true,
+                "tags": [],
+                "interface_speed": 0,
+                "resource_uri": "/MAAS/api/2.0/nodes/8dgry3/interfaces/4/"
+            },
+            "tag_names": [],
+            "memory_test_status_name": "Unknown",
+            "next_sync": null,
+            "ip_addresses": [],
+            "testing_status_name": "Unknown",
+            "pool": {
+                "name": "default",
+                "description": "Default pool",
+                "id": 0,
+                "resource_uri": "/MAAS/api/2.0/resourcepool/0/"
+            },
+            "osystem": "",
+            "raids": [],
+            "boot_disk": null,
+            "enable_hw_sync": false,
+            "current_testing_result_id": null,
+            "status_message": "Commissioning",
+            "cpu_count": 0,
+            "volume_groups": [],
+            "current_commissioning_result_id": 2,
+            "sync_interval": null,
+            "zone": {
+                "name": "default",
+                "description": "",
+                "id": 1,
+                "resource_uri": "/MAAS/api/2.0/zones/default/"
+            },
+            "cpu_test_status": -1,
+            "network_test_status": -1,
+            "disable_ipv4": false,
+            "numanode_set": [
+                {
+                    "index": 0,
+                    "memory": 0,
+                    "cores": [],
+                    "hugepages_set": []
+                }
+            ],
+            "swap_size": null,
+            "network_test_status_name": "Unknown",
+            "commissioning_status": 0,
+            "blockdevice_set": [],
+            "memory_test_status": -1,
+            "owner_data": {},
+            "system_id": "8dgry3",
+            "node_type": 0,
+            "current_installation_result_id": null,
+            "hardware_info": {
+                "system_vendor": "Unknown",
+                "system_product": "Unknown",
+                "system_family": "Unknown",
+                "system_version": "Unknown",
+                "system_sku": "Unknown",
+                "system_serial": "Unknown",
+                "cpu_model": "Unknown",
+                "mainboard_vendor": "Unknown",
+                "mainboard_product": "Unknown",
+                "mainboard_serial": "Unknown",
+                "mainboard_version": "Unknown",
+                "mainboard_firmware_vendor": "Unknown",
+                "mainboard_firmware_date": "Unknown",
+                "mainboard_firmware_version": "Unknown",
+                "chassis_vendor": "Unknown",
+                "chassis_type": "Unknown",
+                "chassis_serial": "Unknown",
+                "chassis_version": "Unknown"
+            },
+            "status_name": "Commissioning",
+            "parent": null,
+            "testing_status": -1,
+            "storage_test_status": -1,
+            "netboot": true,
+            "bios_boot_method": null,
+            "storage_test_status_name": "Unknown",
+            "special_filesystems": [],
+            "commissioning_status_name": "Pending",
+            "interface_test_status_name": "Unknown",
+            "last_sync": null,
+            "cache_sets": [],
+            "status": 1,
+            "other_test_status": -1,
+            "min_hwe_kernel": "",
+            "hardware_uuid": null,
+            "hostname": "os-compute02",
+            "power_type": "virsh",
+            "domain": {
+                "authoritative": true,
+                "ttl": null,
+                "is_default": true,
+                "resource_record_count": 0,
+                "id": 0,
+                "name": "maas",
+                "resource_uri": "/MAAS/api/2.0/domains/0/"
+            },
+            "hwe_kernel": null,
+            "physicalblockdevice_set": [],
+            "cpu_test_status_name": "Unknown",
+            "virtualmachine_id": null,
+            "other_test_status_name": "Unknown",
+            "power_state": "off",
+            "interface_set": [
+                {
+                    "mac_address": "52:54:00:63:ae:ac",
+                    "name": "eth0",
+                    "system_id": "8dgry3",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 4,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/8dgry3/interfaces/4/"
+                },
+                {
+                    "mac_address": "52:54:00:63:ae:ad",
+                    "name": "eth1",
+                    "system_id": "8dgry3",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 5,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/8dgry3/interfaces/5/"
+                }
+            ],
+            "ephemeral_deploy": false,
+            "bcaches": [],
+            "pod": null,
+            "default_gateways": {
+                "ipv4": {
+                    "gateway_ip": null,
+                    "link_id": null
+                },
+                "ipv6": {
+                    "gateway_ip": null,
+                    "link_id": null
+                }
+            },
+            "virtualblockdevice_set": [],
+            "distro_series": "",
+            "memory": 0,
+            "resource_uri": "/MAAS/api/2.0/machines/8dgry3/"
+        },
+        {
+            "description": "",
+            "architecture": "amd64/generic",
+            "status_action": "",
+            "address_ttl": null,
+            "cpu_speed": 0,
+            "workload_annotations": {},
+            "owner": "admin",
+            "interface_test_status": -1,
+            "locked": false,
+            "node_type_name": "Machine",
+            "storage": 0.0,
+            "fqdn": "os-compute01.maas",
+            "boot_interface": {
+                "mac_address": "52:54:00:63:0e:0c",
+                "name": "eth0",
+                "system_id": "gedepf",
+                "vlan": null,
+                "link_connected": true,
+                "children": [],
+                "links": [],
+                "numa_node": 0,
+                "sriov_max_vf": 0,
+                "firmware_version": null,
+                "parents": [],
+                "effective_mtu": 1500,
+                "params": {},
+                "link_speed": 0,
+                "id": 2,
+                "product": null,
+                "discovered": null,
+                "vendor": null,
+                "type": "physical",
+                "enabled": true,
+                "tags": [],
+                "interface_speed": 0,
+                "resource_uri": "/MAAS/api/2.0/nodes/gedepf/interfaces/2/"
+            },
+            "tag_names": [],
+            "memory_test_status_name": "Unknown",
+            "next_sync": null,
+            "ip_addresses": [],
+            "testing_status_name": "Unknown",
+            "pool": {
+                "name": "default",
+                "description": "Default pool",
+                "id": 0,
+                "resource_uri": "/MAAS/api/2.0/resourcepool/0/"
+            },
+            "osystem": "",
+            "raids": [],
+            "boot_disk": null,
+            "enable_hw_sync": false,
+            "current_testing_result_id": null,
+            "status_message": "Commissioning",
+            "cpu_count": 0,
+            "volume_groups": [],
+            "current_commissioning_result_id": 4,
+            "sync_interval": null,
+            "zone": {
+                "name": "default",
+                "description": "",
+                "id": 1,
+                "resource_uri": "/MAAS/api/2.0/zones/default/"
+            },
+            "cpu_test_status": -1,
+            "network_test_status": -1,
+            "disable_ipv4": false,
+            "numanode_set": [
+                {
+                    "index": 0,
+                    "memory": 0,
+                    "cores": [],
+                    "hugepages_set": []
+                }
+            ],
+            "swap_size": null,
+            "network_test_status_name": "Unknown",
+            "commissioning_status": 0,
+            "blockdevice_set": [],
+            "memory_test_status": -1,
+            "owner_data": {},
+            "system_id": "gedepf",
+            "node_type": 0,
+            "current_installation_result_id": null,
+            "hardware_info": {
+                "system_vendor": "Unknown",
+                "system_product": "Unknown",
+                "system_family": "Unknown",
+                "system_version": "Unknown",
+                "system_sku": "Unknown",
+                "system_serial": "Unknown",
+                "cpu_model": "Unknown",
+                "mainboard_vendor": "Unknown",
+                "mainboard_product": "Unknown",
+                "mainboard_serial": "Unknown",
+                "mainboard_version": "Unknown",
+                "mainboard_firmware_vendor": "Unknown",
+                "mainboard_firmware_date": "Unknown",
+                "mainboard_firmware_version": "Unknown",
+                "chassis_vendor": "Unknown",
+                "chassis_type": "Unknown",
+                "chassis_serial": "Unknown",
+                "chassis_version": "Unknown"
+            },
+            "status_name": "Commissioning",
+            "parent": null,
+            "testing_status": -1,
+            "storage_test_status": -1,
+            "netboot": true,
+            "bios_boot_method": null,
+            "storage_test_status_name": "Unknown",
+            "special_filesystems": [],
+            "commissioning_status_name": "Pending",
+            "interface_test_status_name": "Unknown",
+            "last_sync": null,
+            "cache_sets": [],
+            "status": 1,
+            "other_test_status": -1,
+            "min_hwe_kernel": "",
+            "hardware_uuid": null,
+            "hostname": "os-compute01",
+            "power_type": "virsh",
+            "domain": {
+                "authoritative": true,
+                "ttl": null,
+                "is_default": true,
+                "resource_record_count": 0,
+                "id": 0,
+                "name": "maas",
+                "resource_uri": "/MAAS/api/2.0/domains/0/"
+            },
+            "hwe_kernel": null,
+            "physicalblockdevice_set": [],
+            "cpu_test_status_name": "Unknown",
+            "virtualmachine_id": null,
+            "other_test_status_name": "Unknown",
+            "power_state": "off",
+            "interface_set": [
+                {
+                    "mac_address": "52:54:00:63:0e:0c",
+                    "name": "eth0",
+                    "system_id": "gedepf",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 2,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/gedepf/interfaces/2/"
+                },
+                {
+                    "mac_address": "52:54:00:63:0e:0d",
+                    "name": "eth1",
+                    "system_id": "gedepf",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 3,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/gedepf/interfaces/3/"
+                }
+            ],
+            "ephemeral_deploy": false,
+            "bcaches": [],
+            "pod": null,
+            "default_gateways": {
+                "ipv4": {
+                    "gateway_ip": null,
+                    "link_id": null
+                },
+                "ipv6": {
+                    "gateway_ip": null,
+                    "link_id": null
+                }
+            },
+            "virtualblockdevice_set": [],
+            "distro_series": "",
+            "memory": 0,
+            "resource_uri": "/MAAS/api/2.0/machines/gedepf/"
+        },
+        {
+            "description": "",
+            "architecture": "amd64/generic",
+            "status_action": "",
+            "address_ttl": null,
+            "cpu_speed": 0,
+            "workload_annotations": {},
+            "owner": "admin",
+            "interface_test_status": -1,
+            "locked": false,
+            "node_type_name": "Machine",
+            "storage": 0.0,
+            "fqdn": "os-juju01.maas",
+            "boot_interface": {
+                "mac_address": "52:54:00:63:6e:6a",
+                "name": "eth0",
+                "system_id": "hyedet",
+                "vlan": null,
+                "link_connected": true,
+                "children": [],
+                "links": [],
+                "numa_node": 0,
+                "sriov_max_vf": 0,
+                "firmware_version": null,
+                "parents": [],
+                "effective_mtu": 1500,
+                "params": {},
+                "link_speed": 0,
+                "id": 10,
+                "product": null,
+                "discovered": null,
+                "vendor": null,
+                "type": "physical",
+                "enabled": true,
+                "tags": [],
+                "interface_speed": 0,
+                "resource_uri": "/MAAS/api/2.0/nodes/hyedet/interfaces/10/"
+            },
+            "tag_names": [],
+            "memory_test_status_name": "Unknown",
+            "next_sync": null,
+            "ip_addresses": [],
+            "testing_status_name": "Unknown",
+            "pool": {
+                "name": "default",
+                "description": "Default pool",
+                "id": 0,
+                "resource_uri": "/MAAS/api/2.0/resourcepool/0/"
+            },
+            "osystem": "",
+            "raids": [],
+            "boot_disk": null,
+            "enable_hw_sync": false,
+            "current_testing_result_id": null,
+            "status_message": "Commissioning",
+            "cpu_count": 0,
+            "volume_groups": [],
+            "current_commissioning_result_id": 6,
+            "sync_interval": null,
+            "zone": {
+                "name": "default",
+                "description": "",
+                "id": 1,
+                "resource_uri": "/MAAS/api/2.0/zones/default/"
+            },
+            "cpu_test_status": -1,
+            "network_test_status": -1,
+            "disable_ipv4": false,
+            "numanode_set": [
+                {
+                    "index": 0,
+                    "memory": 0,
+                    "cores": [],
+                    "hugepages_set": []
+                }
+            ],
+            "swap_size": null,
+            "network_test_status_name": "Unknown",
+            "commissioning_status": 0,
+            "blockdevice_set": [],
+            "memory_test_status": -1,
+            "owner_data": {},
+            "system_id": "hyedet",
+            "node_type": 0,
+            "current_installation_result_id": null,
+            "hardware_info": {
+                "system_vendor": "Unknown",
+                "system_product": "Unknown",
+                "system_family": "Unknown",
+                "system_version": "Unknown",
+                "system_sku": "Unknown",
+                "system_serial": "Unknown",
+                "cpu_model": "Unknown",
+                "mainboard_vendor": "Unknown",
+                "mainboard_product": "Unknown",
+                "mainboard_serial": "Unknown",
+                "mainboard_version": "Unknown",
+                "mainboard_firmware_vendor": "Unknown",
+                "mainboard_firmware_date": "Unknown",
+                "mainboard_firmware_version": "Unknown",
+                "chassis_vendor": "Unknown",
+                "chassis_type": "Unknown",
+                "chassis_serial": "Unknown",
+                "chassis_version": "Unknown"
+            },
+            "status_name": "Commissioning",
+            "parent": null,
+            "testing_status": -1,
+            "storage_test_status": -1,
+            "netboot": true,
+            "bios_boot_method": null,
+            "storage_test_status_name": "Unknown",
+            "special_filesystems": [],
+            "commissioning_status_name": "Pending",
+            "interface_test_status_name": "Unknown",
+            "last_sync": null,
+            "cache_sets": [],
+            "status": 1,
+            "other_test_status": -1,
+            "min_hwe_kernel": "",
+            "hardware_uuid": null,
+            "hostname": "os-juju01",
+            "power_type": "virsh",
+            "domain": {
+                "authoritative": true,
+                "ttl": null,
+                "is_default": true,
+                "resource_record_count": 0,
+                "id": 0,
+                "name": "maas",
+                "resource_uri": "/MAAS/api/2.0/domains/0/"
+            },
+            "hwe_kernel": null,
+            "physicalblockdevice_set": [],
+            "cpu_test_status_name": "Unknown",
+            "virtualmachine_id": null,
+            "other_test_status_name": "Unknown",
+            "power_state": "off",
+            "interface_set": [
+                {
+                    "mac_address": "52:54:00:63:6e:6a",
+                    "name": "eth0",
+                    "system_id": "hyedet",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 10,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/hyedet/interfaces/10/"
+                },
+                {
+                    "mac_address": "52:54:00:63:6e:6b",
+                    "name": "eth1",
+                    "system_id": "hyedet",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 11,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/hyedet/interfaces/11/"
+                }
+            ],
+            "ephemeral_deploy": false,
+            "bcaches": [],
+            "pod": null,
+            "default_gateways": {
+                "ipv4": {
+                    "gateway_ip": null,
+                    "link_id": null
+                },
+                "ipv6": {
+                    "gateway_ip": null,
+                    "link_id": null
+                }
+            },
+            "virtualblockdevice_set": [],
+            "distro_series": "",
+            "memory": 0,
+            "resource_uri": "/MAAS/api/2.0/machines/hyedet/"
+        },
+        {
+            "description": "",
+            "architecture": "amd64/generic",
+            "status_action": "",
+            "address_ttl": null,
+            "cpu_speed": 0,
+            "workload_annotations": {},
+            "owner": "admin",
+            "interface_test_status": -1,
+            "locked": false,
+            "node_type_name": "Machine",
+            "storage": 0.0,
+            "fqdn": "os-compute04.maas",
+            "boot_interface": {
+                "mac_address": "52:54:00:63:ce:cc",
+                "name": "eth0",
+                "system_id": "yasrn7",
+                "vlan": null,
+                "link_connected": true,
+                "children": [],
+                "links": [],
+                "numa_node": 0,
+                "sriov_max_vf": 0,
+                "firmware_version": null,
+                "parents": [],
+                "effective_mtu": 1500,
+                "params": {},
+                "link_speed": 0,
+                "id": 8,
+                "product": null,
+                "discovered": null,
+                "vendor": null,
+                "type": "physical",
+                "enabled": true,
+                "tags": [],
+                "interface_speed": 0,
+                "resource_uri": "/MAAS/api/2.0/nodes/yasrn7/interfaces/8/"
+            },
+            "tag_names": [],
+            "memory_test_status_name": "Unknown",
+            "next_sync": null,
+            "ip_addresses": [],
+            "testing_status_name": "Unknown",
+            "pool": {
+                "name": "default",
+                "description": "Default pool",
+                "id": 0,
+                "resource_uri": "/MAAS/api/2.0/resourcepool/0/"
+            },
+            "osystem": "",
+            "raids": [],
+            "boot_disk": null,
+            "enable_hw_sync": false,
+            "current_testing_result_id": null,
+            "status_message": "Commissioning",
+            "cpu_count": 0,
+            "volume_groups": [],
+            "current_commissioning_result_id": 8,
+            "sync_interval": null,
+            "zone": {
+                "name": "default",
+                "description": "",
+                "id": 1,
+                "resource_uri": "/MAAS/api/2.0/zones/default/"
+            },
+            "cpu_test_status": -1,
+            "network_test_status": -1,
+            "disable_ipv4": false,
+            "numanode_set": [
+                {
+                    "index": 0,
+                    "memory": 0,
+                    "cores": [],
+                    "hugepages_set": []
+                }
+            ],
+            "swap_size": null,
+            "network_test_status_name": "Unknown",
+            "commissioning_status": 0,
+            "blockdevice_set": [],
+            "memory_test_status": -1,
+            "owner_data": {},
+            "system_id": "yasrn7",
+            "node_type": 0,
+            "current_installation_result_id": null,
+            "hardware_info": {
+                "system_vendor": "Unknown",
+                "system_product": "Unknown",
+                "system_family": "Unknown",
+                "system_version": "Unknown",
+                "system_sku": "Unknown",
+                "system_serial": "Unknown",
+                "cpu_model": "Unknown",
+                "mainboard_vendor": "Unknown",
+                "mainboard_product": "Unknown",
+                "mainboard_serial": "Unknown",
+                "mainboard_version": "Unknown",
+                "mainboard_firmware_vendor": "Unknown",
+                "mainboard_firmware_date": "Unknown",
+                "mainboard_firmware_version": "Unknown",
+                "chassis_vendor": "Unknown",
+                "chassis_type": "Unknown",
+                "chassis_serial": "Unknown",
+                "chassis_version": "Unknown"
+            },
+            "status_name": "Commissioning",
+            "parent": null,
+            "testing_status": -1,
+            "storage_test_status": -1,
+            "netboot": true,
+            "bios_boot_method": null,
+            "storage_test_status_name": "Unknown",
+            "special_filesystems": [],
+            "commissioning_status_name": "Pending",
+            "interface_test_status_name": "Unknown",
+            "last_sync": null,
+            "cache_sets": [],
+            "status": 1,
+            "other_test_status": -1,
+            "min_hwe_kernel": "",
+            "hardware_uuid": null,
+            "hostname": "os-compute04",
+            "power_type": "virsh",
+            "domain": {
+                "authoritative": true,
+                "ttl": null,
+                "is_default": true,
+                "resource_record_count": 0,
+                "id": 0,
+                "name": "maas",
+                "resource_uri": "/MAAS/api/2.0/domains/0/"
+            },
+            "hwe_kernel": null,
+            "physicalblockdevice_set": [],
+            "cpu_test_status_name": "Unknown",
+            "virtualmachine_id": null,
+            "other_test_status_name": "Unknown",
+            "power_state": "off",
+            "interface_set": [
+                {
+                    "mac_address": "52:54:00:63:ce:cc",
+                    "name": "eth0",
+                    "system_id": "yasrn7",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 8,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/yasrn7/interfaces/8/"
+                },
+                {
+                    "mac_address": "52:54:00:63:ce:cd",
+                    "name": "eth1",
+                    "system_id": "yasrn7",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 9,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/yasrn7/interfaces/9/"
+                }
+            ],
+            "ephemeral_deploy": false,
+            "bcaches": [],
+            "pod": null,
+            "default_gateways": {
+                "ipv4": {
+                    "gateway_ip": null,
+                    "link_id": null
+                },
+                "ipv6": {
+                    "gateway_ip": null,
+                    "link_id": null
+                }
+            },
+            "virtualblockdevice_set": [],
+            "distro_series": "",
+            "memory": 0,
+            "resource_uri": "/MAAS/api/2.0/machines/yasrn7/"
+        },
+        {
+            "description": "",
+            "architecture": "amd64/generic",
+            "status_action": "",
+            "address_ttl": null,
+            "cpu_speed": 0,
+            "workload_annotations": {},
+            "owner": "admin",
+            "interface_test_status": -1,
+            "locked": false,
+            "node_type_name": "Machine",
+            "storage": 0.0,
+            "fqdn": "os-compute03.maas",
+            "boot_interface": {
+                "mac_address": "52:54:00:63:be:bc",
+                "name": "eth0",
+                "system_id": "achkf6",
+                "vlan": null,
+                "link_connected": true,
+                "children": [],
+                "links": [],
+                "numa_node": 0,
+                "sriov_max_vf": 0,
+                "firmware_version": null,
+                "parents": [],
+                "effective_mtu": 1500,
+                "params": {},
+                "link_speed": 0,
+                "id": 6,
+                "product": null,
+                "discovered": null,
+                "vendor": null,
+                "type": "physical",
+                "enabled": true,
+                "tags": [],
+                "interface_speed": 0,
+                "resource_uri": "/MAAS/api/2.0/nodes/achkf6/interfaces/6/"
+            },
+            "tag_names": [],
+            "memory_test_status_name": "Unknown",
+            "next_sync": null,
+            "ip_addresses": [],
+            "testing_status_name": "Unknown",
+            "pool": {
+                "name": "default",
+                "description": "Default pool",
+                "id": 0,
+                "resource_uri": "/MAAS/api/2.0/resourcepool/0/"
+            },
+            "osystem": "",
+            "raids": [],
+            "boot_disk": null,
+            "enable_hw_sync": false,
+            "current_testing_result_id": null,
+            "status_message": "Commissioning",
+            "cpu_count": 0,
+            "volume_groups": [],
+            "current_commissioning_result_id": 10,
+            "sync_interval": null,
+            "zone": {
+                "name": "default",
+                "description": "",
+                "id": 1,
+                "resource_uri": "/MAAS/api/2.0/zones/default/"
+            },
+            "cpu_test_status": -1,
+            "network_test_status": -1,
+            "disable_ipv4": false,
+            "numanode_set": [
+                {
+                    "index": 0,
+                    "memory": 0,
+                    "cores": [],
+                    "hugepages_set": []
+                }
+            ],
+            "swap_size": null,
+            "network_test_status_name": "Unknown",
+            "commissioning_status": 0,
+            "blockdevice_set": [],
+            "memory_test_status": -1,
+            "owner_data": {},
+            "system_id": "achkf6",
+            "node_type": 0,
+            "current_installation_result_id": null,
+            "hardware_info": {
+                "system_vendor": "Unknown",
+                "system_product": "Unknown",
+                "system_family": "Unknown",
+                "system_version": "Unknown",
+                "system_sku": "Unknown",
+                "system_serial": "Unknown",
+                "cpu_model": "Unknown",
+                "mainboard_vendor": "Unknown",
+                "mainboard_product": "Unknown",
+                "mainboard_serial": "Unknown",
+                "mainboard_version": "Unknown",
+                "mainboard_firmware_vendor": "Unknown",
+                "mainboard_firmware_date": "Unknown",
+                "mainboard_firmware_version": "Unknown",
+                "chassis_vendor": "Unknown",
+                "chassis_type": "Unknown",
+                "chassis_serial": "Unknown",
+                "chassis_version": "Unknown"
+            },
+            "status_name": "Commissioning",
+            "parent": null,
+            "testing_status": -1,
+            "storage_test_status": -1,
+            "netboot": true,
+            "bios_boot_method": null,
+            "storage_test_status_name": "Unknown",
+            "special_filesystems": [],
+            "commissioning_status_name": "Pending",
+            "interface_test_status_name": "Unknown",
+            "last_sync": null,
+            "cache_sets": [],
+            "status": 1,
+            "other_test_status": -1,
+            "min_hwe_kernel": "",
+            "hardware_uuid": null,
+            "hostname": "os-compute03",
+            "power_type": "virsh",
+            "domain": {
+                "authoritative": true,
+                "ttl": null,
+                "is_default": true,
+                "resource_record_count": 0,
+                "id": 0,
+                "name": "maas",
+                "resource_uri": "/MAAS/api/2.0/domains/0/"
+            },
+            "hwe_kernel": null,
+            "physicalblockdevice_set": [],
+            "cpu_test_status_name": "Unknown",
+            "virtualmachine_id": null,
+            "other_test_status_name": "Unknown",
+            "power_state": "off",
+            "interface_set": [
+                {
+                    "mac_address": "52:54:00:63:be:bc",
+                    "name": "eth0",
+                    "system_id": "achkf6",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 6,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/achkf6/interfaces/6/"
+                },
+                {
+                    "mac_address": "52:54:00:63:be:bd",
+                    "name": "eth1",
+                    "system_id": "achkf6",
+                    "vlan": null,
+                    "link_connected": true,
+                    "children": [],
+                    "links": [],
+                    "numa_node": 0,
+                    "sriov_max_vf": 0,
+                    "firmware_version": null,
+                    "parents": [],
+                    "effective_mtu": 1500,
+                    "params": {},
+                    "link_speed": 0,
+                    "id": 7,
+                    "product": null,
+                    "discovered": null,
+                    "vendor": null,
+                    "type": "physical",
+                    "enabled": true,
+                    "tags": [],
+                    "interface_speed": 0,
+                    "resource_uri": "/MAAS/api/2.0/nodes/achkf6/interfaces/7/"
+                }
+            ],
+            "ephemeral_deploy": false,
+            "bcaches": [],
+            "pod": null,
+            "default_gateways": {
+                "ipv4": {
+                    "gateway_ip": null,
+                    "link_id": null
+                },
+                "ipv6": {
+                    "gateway_ip": null,
+                    "link_id": null
+                }
+            },
+            "virtualblockdevice_set": [],
+            "distro_series": "",
+            "memory": 0,
+            "resource_uri": "/MAAS/api/2.0/machines/achkf6/"
+        }
+    ]
+    ```
 
 
 **2.6.4 Performance tune the LAB environment**
@@ -899,7 +2046,8 @@ EOF
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    swap:
+      size: 0
     ```
 
 Edit the curtin userdata sample and add two spaces before `size`:
@@ -911,7 +2059,19 @@ sudo vim /var/snap/maas/current/preseeds/curtin_userdata.sample
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    {
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }
     ```
 
 Configure quick disk erasing. Otherwise, redeploying nodes takes longer
@@ -927,7 +2087,7 @@ maas myprofile maas set-config name=disk_erase_with_secure_erase value=false
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    OK
     ```
 
 Enable quick erase:
@@ -939,7 +2099,7 @@ maas myprofile maas set-config name=disk_erase_with_quick_erase value=true
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    OK
     ```
 
 Enable disk erasing on release:
@@ -951,7 +2111,7 @@ maas myprofile maas set-config name=enable_disk_erasing_on_release value=true
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    OK
     ```
 
 
@@ -978,7 +2138,15 @@ maas myprofile tags read
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    [
+        {
+            "name": "virtual",
+            "definition": "",
+            "comment": "",
+            "kernel_opts": "",
+            "resource_uri": "/MAAS/api/2.0/tags/virtual/"
+        }
+    ]
     ```
 
 You should see a list of the existing tags.
@@ -992,7 +2160,12 @@ maas myprofile tag nodes virtual | grep hostname
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+            "hostname": "maas",
+            "hostname": "os-compute01",
+            "hostname": "os-compute02",
+            "hostname": "os-compute03",
+            "hostname": "os-compute04",
+            "hostname": "os-juju01",
     ```
 
 You should see the hostname of all of the nodes that match the tag `virtual`.
@@ -1013,7 +2186,19 @@ maas myprofile tags create name=juju
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    {
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }
     ```
 
 Enter the following command to list details for the Juju bootstrap node:
@@ -1025,7 +2210,19 @@ maas myprofile machines read hostname=os-juju01
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    {
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }
     ```
 
 Retrieve the system ID for the Juju bootstrap node:
@@ -1037,7 +2234,7 @@ JUJU01_ID=`maas myprofile machines read hostname=os-juju01 | jq -r ".[].system_i
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    hyedet
     ```
 
 Associate the system with the `juju` tag:
@@ -1049,7 +2246,10 @@ maas myprofile tag update-nodes juju add=$JUJU01_ID
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    {
+        "added": 1,
+        "removed": 0
+    }
     ```
 
 Enter the following command to view the system associated the juju tag:
@@ -1061,7 +2261,7 @@ maas myprofile tag nodes juju | grep hostname
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+            "hostname": "os-juju01",
     ```
 
 You should see the system you just added the tag to listed.
@@ -1076,7 +2276,13 @@ maas myprofile tags create name=storage
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    {
+        "name": "storage",
+        "definition": "",
+        "comment": "",
+        "kernel_opts": "",
+        "resource_uri": "/MAAS/api/2.0/tags/storage/"
+    }
     ```
 
 Run the following command to associate the `storage` tag to the rest of the VMs:
@@ -1092,7 +2298,19 @@ done
 
 ??? example "Expected result"
     ```bash
-    Pending live validation.
+    {
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }{
+        "added": 1,
+        "removed": 0
+    }
     ```
 
 Enter the following command to view the systems associated with the storage tag:
@@ -1103,10 +2321,12 @@ maas myprofile tag nodes storage | grep hostname
 ```
 
 ??? example "Expected result"
-    "hostname": "os-compute01",
-    "hostname": "os-compute02",
-    "hostname": "os-compute03",
-    "hostname": "os-compute04",
+    ```bash
+            "hostname": "os-compute01",
+            "hostname": "os-compute02",
+            "hostname": "os-compute03",
+            "hostname": "os-compute04",
+    ```
 
 
 ## :material-book-open-page-variant-outline: 2.8 WEB UI
