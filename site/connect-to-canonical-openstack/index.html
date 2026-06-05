@@ -606,8 +606,9 @@ is explained how to connect to it.</p>
 <p>Use the terminal:
 <div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-D<span class="w"> </span><span class="m">9999</span><span class="w"> </span>ubuntu@&lt;your<span class="w"> </span>public<span class="w"> </span>IP&gt;
 </code></pre></div></p>
-<p>Please note the <code>-D 9999</code>. This is a socks proxy. It is used
-to access internal UI services of the cloud for, like MAAS and JUJU.</p>
+<p>Please note the <code>-D 9999</code>. This creates a local SOCKS proxy on port <code>9999</code>.
+It is used to access internal UI services of the lab environment, such as
+MAAS and Juju.</p>
 <p>On <code>Windows</code> open <code>Putty</code>:</p>
 <p>1) In the <code>Session</code> section, add the <code>public IP address</code> you 
 received on mail from the trainer, port should be 22.</p>
@@ -616,12 +617,19 @@ received on mail from the trainer, port should be 22.</p>
 and click <code>Add</code>.</p>
 <p>4) Go back to <code>Session</code> section, add a name in <code>Saved Sessions</code> and click <code>Save</code>.</p>
 <h3 id="task-2-set-the-proxy-in-browser">Task 2: Set the proxy in browser<a class="headerlink" href="#task-2-set-the-proxy-in-browser" title="Permanent link">&para;</a></h3>
-<p>Because it's a <code>SOCKS</code> proxy, we need to set it in the browser.
-<code>Firefox</code> will be demonstrated here.</p>
-<p>1) Go to <code>Preferences</code> or <code>Options</code> icon.</p>
-<p>2) Navigate to <code>Network Settings</code>.</p>
-<p>3) Select <code>Manual proxy configuration</code>, use <code>localhost</code> or
-<code>127.0.0.1</code> for the <code>SOCKS host</code> with port <code>9999</code>. Click <code>OK</code> when done.</p>
+<p>Because this is a <code>SOCKS</code> proxy, configure it in the browser.
+<code>Firefox</code> is used here.</p>
+<p>1) Open <code>Settings</code> in Firefox.</p>
+<p>2) Search for <code>network</code> and open <code>Network Settings</code>.</p>
+<p>3) Select <code>Manual proxy configuration</code>.</p>
+<p>4) Set <code>SOCKS Host</code> to <code>127.0.0.1</code> and port <code>9999</code>.</p>
+<p>5) Keep <code>SOCKS v5</code> selected.</p>
+<p>6) Click <code>OK</code>.</p>
+<p>This browser configuration is used later to access services running on the
+target environment through the SSH tunnel. Do not expect MAAS or other
+internal web interfaces to be reachable yet. The first concrete validation of
+this proxy path happens after the MAAS server is installed and initialized in
+Chapter 2.</p>
 <p>For <code>Chrome</code>, the proxy settings can be configured from the operating system
 network settings, for example via LAN Settings on Windows.</p>
 
