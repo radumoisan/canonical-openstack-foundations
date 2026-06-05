@@ -1371,64 +1371,85 @@
 <h2 id="21-install-a-maas-server"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.1 Install a MAAS Server<a class="headerlink" href="#21-install-a-maas-server" title="Permanent link">&para;</a></h2>
 <h3 id="task-1-install-maas-packages"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 1: Install MAAS Packages<a class="headerlink" href="#task-1-install-maas-packages" title="Permanent link">&para;</a></h3>
 <p>Generate an SSH key pair:</p>
-<div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>~/.ssh/id_rsa
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate an SSH key pair</span>
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>~/.ssh/id_rsa
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>No output.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <p>Copy the SSH key to the MAAS server. Use <code>ubuntu</code> as the password:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># password is ubuntu</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Copy the SSH key to the MAAS server</span>
+<span class="c1"># password is ubuntu</span>
 ssh-copy-id<span class="w"> </span><span class="m">192</span>.168.100.3
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>1 file(s) remaining to be installed.
-Now try logging into the machine, with: <code>ssh '192.168.100.3'</code></p>
-<p>Number of key(s) added: 1</p>
+<div class="highlight"><pre><span></span><code><span class="m">1</span><span class="w"> </span>file<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>remaining<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>installed.
+Now<span class="w"> </span>try<span class="w"> </span>logging<span class="w"> </span>into<span class="w"> </span>the<span class="w"> </span>machine,<span class="w"> </span>with:<span class="w"> </span>ssh<span class="w"> </span><span class="s1">&#39;192.168.100.3&#39;</span>
+
+Number<span class="w"> </span>of<span class="w"> </span>key<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>added:<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
 </details>
 <p>Copy the configuration files and bundles that you use later:</p>
-<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>/home/ubuntu/os_files<span class="w"> </span><span class="m">192</span>.168.100.3:~
+<div class="highlight"><pre><span></span><code><span class="c1"># Copy the configuration files and bundles that you use later</span>
+scp<span class="w"> </span>-r<span class="w"> </span>/home/ubuntu/os_files<span class="w"> </span><span class="m">192</span>.168.100.3:~
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>No output.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <p>Log in to the MAAS VM:</p>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span><span class="m">192</span>.168.100.3
+<div class="highlight"><pre><span></span><code><span class="c1"># Log in to the MAAS VM</span>
+ssh<span class="w"> </span><span class="m">192</span>.168.100.3
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>ubuntu@maas:~$</p>
+<div class="highlight"><pre><span></span><code>ubuntu@maas:~$
+</code></pre></div>
 </details>
 <p>Install the MAAS snap:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>maas<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.4
+<div class="highlight"><pre><span></span><code><span class="c1"># Install the MAAS snap</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>maas<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.4
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>maas (3.4/stable) 3.4.9-14399-g.48cea136e from Canonical** installed</p>
+<div class="highlight"><pre><span></span><code>maas<span class="w"> </span><span class="o">(</span><span class="m">3</span>.4/stable<span class="o">)</span><span class="w"> </span><span class="m">3</span>.4.9-14399-g.48cea136e<span class="w"> </span>from<span class="w"> </span>Canonical**<span class="w"> </span>installed
+</code></pre></div>
 </details>
 <p>Install the MAAS test database snap:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>maas-test-db<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.4
+<div class="highlight"><pre><span></span><code><span class="c1"># Install the MAAS test database snap</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>maas-test-db<span class="w"> </span>--channel<span class="o">=</span><span class="m">3</span>.4
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>maas-test-db (3.4/stable) 14.2-29-g.ed8d7f2 from Canonical** installed</p>
+<div class="highlight"><pre><span></span><code>maas-test-db<span class="w"> </span><span class="o">(</span><span class="m">3</span>.4/stable<span class="o">)</span><span class="w"> </span><span class="m">14</span>.2-29-g.ed8d7f2<span class="w"> </span>from<span class="w"> </span>Canonical**<span class="w"> </span>installed
+</code></pre></div>
 </details>
 <p>Initialize MAAS as a region and rack controller:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>maas<span class="w"> </span>init<span class="w"> </span>region+rack<span class="w"> </span>--database-uri<span class="w"> </span>maas-test-db:///
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize MAAS as a region and rack controller</span>
+sudo<span class="w"> </span>maas<span class="w"> </span>init<span class="w"> </span>region+rack<span class="w"> </span>--database-uri<span class="w"> </span>maas-test-db:///
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>MAAS URL [default=http://192.168.100.3:5240/MAAS]:
-MAAS has been set up.</p>
-<p>If you want to configure external authentication or use
-MAAS with Canonical RBAC, please run</p>
-<p>sudo maas configauth</p>
-<p>To create admins when not using external authentication, run</p>
-<p>sudo maas createadmin</p>
-<p>To enable TLS for secured communication, please run</p>
-<p>sudo maas config-tls enable</p>
+<div class="highlight"><pre><span></span><code>MAAS<span class="w"> </span>URL<span class="w"> </span><span class="o">[</span><span class="nv">default</span><span class="o">=</span>http://192.168.100.3:5240/MAAS<span class="o">]</span>:
+MAAS<span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span><span class="nb">set</span><span class="w"> </span>up.
+
+If<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>configure<span class="w"> </span>external<span class="w"> </span>authentication<span class="w"> </span>or<span class="w"> </span>use
+MAAS<span class="w"> </span>with<span class="w"> </span>Canonical<span class="w"> </span>RBAC,<span class="w"> </span>please<span class="w"> </span>run
+
+<span class="w">  </span>sudo<span class="w"> </span>maas<span class="w"> </span>configauth
+
+To<span class="w"> </span>create<span class="w"> </span>admins<span class="w"> </span>when<span class="w"> </span>not<span class="w"> </span>using<span class="w"> </span>external<span class="w"> </span>authentication,<span class="w"> </span>run
+
+<span class="w">  </span>sudo<span class="w"> </span>maas<span class="w"> </span>createadmin
+
+To<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>TLS<span class="w"> </span><span class="k">for</span><span class="w"> </span>secured<span class="w"> </span>communication,<span class="w"> </span>please<span class="w"> </span>run
+
+<span class="w">  </span>sudo<span class="w"> </span>maas<span class="w"> </span>config-tls<span class="w"> </span><span class="nb">enable</span>
+</code></pre></div>
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1440,71 +1461,106 @@ MAAS with Canonical RBAC, please run</p>
 such as creating the administrator user and downloading the boot images, both focal (20.04) and jammy (22.04).</p>
 <h3 id="task-1-create-the-administrator-user"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 1: Create the Administrator User<a class="headerlink" href="#task-1-create-the-administrator-user" title="Permanent link">&para;</a></h3>
 <p>Enter the following command to create the administrator account, <code>ubuntu</code> is the password:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>maas<span class="w"> </span>createadmin<span class="w"> </span>--username<span class="o">=</span>admin<span class="w"> </span>--password<span class="o">=</span>ubuntu<span class="w"> </span>--email<span class="o">=</span>admin@example.com
+<div class="highlight"><pre><span></span><code><span class="c1"># create the administrator account, ubuntu is the password</span>
+sudo<span class="w"> </span>maas<span class="w"> </span>createadmin<span class="w"> </span>--username<span class="o">=</span>admin<span class="w"> </span>--password<span class="o">=</span>ubuntu<span class="w"> </span>--email<span class="o">=</span>admin@example.com
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>No output.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <h3 id="task-2-log-into-the-maas-server-api-via-the-command-line-interface"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 2: Log into the MAAS server API via the Command Line Interface<a class="headerlink" href="#task-2-log-into-the-maas-server-api-via-the-command-line-interface" title="Permanent link">&para;</a></h3>
 <p>In a terminal on the MAAS server, while logged in as the <code>ubuntu</code>, enter
 the following command to retrieve the API key for the MAAS admin user and save
 it to the file <code>~/maas-apikey</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>maas<span class="w"> </span>apikey<span class="w"> </span>--username<span class="o">=</span>admin<span class="w"> </span>&gt;<span class="w"> </span>~/maas-apikey
+<div class="highlight"><pre><span></span><code><span class="c1"># it to the file ~/maas-apikey</span>
+sudo<span class="w"> </span>maas<span class="w"> </span>apikey<span class="w"> </span>--username<span class="o">=</span>admin<span class="w"> </span>&gt;<span class="w"> </span>~/maas-apikey
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>You are now logged in to the MAAS server at
-http://192.168.100.3:5240/MAAS/api/2.0/ with the profile name
-'myprofile'.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <p>Enter the following command to log into MAAS and create a profile:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>login<span class="w"> </span>myprofile<span class="w"> </span>http://192.168.100.3:5240/MAAS<span class="w"> </span>-<span class="w"> </span>&lt;<span class="w"> </span>~/maas-apikey
+<div class="highlight"><pre><span></span><code><span class="c1"># log into MAAS and create a profile</span>
+maas<span class="w"> </span>login<span class="w"> </span>myprofile<span class="w"> </span>http://192.168.100.3:5240/MAAS<span class="w"> </span>-<span class="w"> </span>&lt;<span class="w"> </span>~/maas-apikey
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>myprofile http://192.168.100.3:5240/MAAS/api/2.0/ [redacted-api-key]</p>
+<div class="highlight"><pre><span></span><code>You<span class="w"> </span>are<span class="w"> </span>now<span class="w"> </span>logged<span class="w"> </span><span class="k">in</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>MAAS<span class="w"> </span>server<span class="w"> </span>at
+http://192.168.100.3:5240/MAAS/api/2.0/<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>profile<span class="w"> </span>name
+<span class="s1">&#39;myprofile&#39;</span>.
+</code></pre></div>
 </details>
 <p>Verify that you are logged into the MAAS with the profile name of <code>myprofile</code></p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>list
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify that you are logged into the MAAS with the profile name of myprofile</span>
+maas<span class="w"> </span>list
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>myprofile<span class="w"> </span>http://192.168.100.3:5240/MAAS/api/2.0/<span class="w"> </span><span class="o">[</span>redacted-api-key<span class="o">]</span>
+</code></pre></div>
 </details>
 <h3 id="task-3-download-the-boot-images"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 3: Download the Boot Images<a class="headerlink" href="#task-3-download-the-boot-images" title="Permanent link">&para;</a></h3>
 <p>By default, the "focal" (20.04) Ubuntu LTS is marked for download and we need to also download "jammy" (22.04) release, as well. Download the selected boot images:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>boot-source-selections<span class="w"> </span>create<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;ubuntu&quot;</span><span class="w"> </span><span class="nv">release</span><span class="o">=</span><span class="s2">&quot;jammy&quot;</span><span class="w"> </span><span class="nv">arches</span><span class="o">=</span><span class="s2">&quot;amd64&quot;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the jammy boot image selection</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>boot-source-selections<span class="w"> </span>create<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;ubuntu&quot;</span><span class="w"> </span><span class="nv">release</span><span class="o">=</span><span class="s2">&quot;jammy&quot;</span><span class="w"> </span><span class="nv">arches</span><span class="o">=</span><span class="s2">&quot;amd64&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="nv">subarches</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="nv">labels</span><span class="o">=</span><span class="s2">&quot;*&quot;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;os&quot;</span>:<span class="w"> </span><span class="s2">&quot;ubuntu&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;release&quot;</span>:<span class="w"> </span><span class="s2">&quot;jammy&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;arches&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;amd64&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;subarches&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;*&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;labels&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;*&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;boot_source_id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">    </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/boot-sources/1/selections/2/&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
 </details>
 <p>Start the boot resource import:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>boot-resources<span class="w"> </span>import
+<div class="highlight"><pre><span></span><code><span class="c1"># Start the boot resource import</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>boot-resources<span class="w"> </span>import
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Import<span class="w"> </span>of<span class="w"> </span>boot<span class="w"> </span>resources<span class="w"> </span>started
+</code></pre></div>
 </details>
 <h3 id="task-4-generate-ssh-keys-for-the-maas-shell-admin-user"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 4: Generate SSH Keys for the MAAS Shell Admin User<a class="headerlink" href="#task-4-generate-ssh-keys-for-the-maas-shell-admin-user" title="Permanent link">&para;</a></h3>
 <p>In the terminal on the MAAS server, while logged in as the <code>ubuntu</code>,
 enter the following command to generate a new SSH key pair:</p>
-<div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>~/.ssh/id_rsa
+<div class="highlight"><pre><span></span><code><span class="c1"># generate a new SSH key pair</span>
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>~/.ssh/id_rsa
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <h3 id="task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 5: Upload SSH Keys for the MAAS Shell Admin User into MAAS<a class="headerlink" href="#task-5-upload-ssh-keys-for-the-maas-shell-admin-user-into-maas" title="Permanent link">&para;</a></h3>
 <p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>,
 enter the following command to upload the SSH key generated in Task 4:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>sshkeys<span class="w"> </span>create<span class="w"> </span><span class="nv">key</span><span class="o">=</span><span class="s2">&quot;`cat ~/.ssh/id_rsa.pub`&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># upload the SSH key generated in Task 4</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>sshkeys<span class="w"> </span>create<span class="w"> </span><span class="nv">key</span><span class="o">=</span><span class="s2">&quot;`cat ~/.ssh/id_rsa.pub`&quot;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;key&quot;</span>:<span class="w"> </span><span class="s2">&quot;[redacted-public-key]&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;keysource&quot;</span>:<span class="w"> </span>null,
+<span class="w">    </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>
+<span class="o">}</span>
+</code></pre></div>
 </details>
 <h2 id="23-configure-a-maas-rack-controller-to-manage-dhcp"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.3 Configure a MAAS Rack Controller to Manage DHCP<a class="headerlink" href="#23-configure-a-maas-rack-controller-to-manage-dhcp" title="Permanent link">&para;</a></h2>
 <p><strong>Description</strong></p>
@@ -1516,121 +1572,346 @@ the MAAS server and any nodes it deploys.</p>
 <p>Enabling DHCP and reserving IP ranges can be accomplished via the CLI or the WebUI.</p>
 <p>In the terminal of the MAAS server, while logged in as <code>ubuntu</code>:</p>
 <p>Retrieve the fabric ID of the first fabric:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">FABRIC_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>fabrics<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">&quot;.[0].id&quot;</span><span class="sb">`</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the fabric ID of the first fabric</span>
+<span class="nv">FABRIC_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>fabrics<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">&quot;.[0].id&quot;</span><span class="sb">`</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <p>Retrieve the VLAN ID of the first VLAN associated with the fabric ID:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">VLAN_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>vlans<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">$FABRIC_ID</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">&quot;.[0].vid&quot;</span><span class="sb">`</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the VLAN ID of the first VLAN associated with the fabric ID</span>
+<span class="nv">VLAN_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>vlans<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">$FABRIC_ID</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">&quot;.[0].vid&quot;</span><span class="sb">`</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <p>Retrieve the system ID for the primary rack controller:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">RACK_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>rack-controllers<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.[0].system_id&quot;</span><span class="sb">`</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the system ID for the primary rack controller</span>
+<span class="nv">RACK_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>rack-controllers<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.[0].system_id&quot;</span><span class="sb">`</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;subnet&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;vid&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;mtu&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">            </span><span class="s2">&quot;dhcp_on&quot;</span>:<span class="w"> </span>false,
+<span class="w">            </span><span class="s2">&quot;external_dhcp&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;relay_vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;fabric&quot;</span>:<span class="w"> </span><span class="s2">&quot;fabric-0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;secondary_rack&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;primary_rack&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;fabric_id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;untagged&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/vlans/1/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cidr&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;rdns_mode&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">        </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.1&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;dns_servers&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;allow_dns&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;allow_proxy&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;active_discovery&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;managed&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;disabled_boot_architectures&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/subnets/1/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;dynamic&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;start_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.200&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;end_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.254&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;user&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;is_superuser&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;username&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;email&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin@example.com&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;is_local&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/users/admin/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;comment&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/ipranges/1/&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
 </details>
 <p>Add the Dynamic IP address range that will be used by MAAS for enlistment and commissioning and enable DHCP:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>dynamic<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the dynamic DHCP range</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>dynamic<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="nv">start_ip</span><span class="o">=</span><span class="m">192</span>.168.100.200<span class="w"> </span><span class="nv">end_ip</span><span class="o">=</span><span class="m">192</span>.168.100.254
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;vid&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">    </span><span class="s2">&quot;mtu&quot;</span>:<span class="w"> </span><span class="m">1400</span>,
+<span class="w">    </span><span class="s2">&quot;dhcp_on&quot;</span>:<span class="w"> </span>true,
+<span class="w">    </span><span class="s2">&quot;external_dhcp&quot;</span>:<span class="w"> </span>null,
+<span class="w">    </span><span class="s2">&quot;relay_vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">    </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;fabric&quot;</span>:<span class="w"> </span><span class="s2">&quot;fabric-0&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;secondary_rack&quot;</span>:<span class="w"> </span>null,
+<span class="w">    </span><span class="s2">&quot;primary_rack&quot;</span>:<span class="w"> </span><span class="s2">&quot;cf83c4&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;fabric_id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">    </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;untagged&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/vlans/1/&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
 </details>
 <p>Enable DHCP:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>vlan<span class="w"> </span>update<span class="w"> </span><span class="nv">$FABRIC_ID</span><span class="w"> </span><span class="nv">$VLAN_ID</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable DHCP</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>vlan<span class="w"> </span>update<span class="w"> </span><span class="nv">$FABRIC_ID</span><span class="w"> </span><span class="nv">$VLAN_ID</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="nv">primary_rack</span><span class="o">=</span><span class="nv">$RACK_ID</span><span class="w"> </span><span class="nv">dhcp_on</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">mtu</span><span class="o">=</span><span class="m">1400</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;subnet&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;vid&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;mtu&quot;</span>:<span class="w"> </span><span class="m">1400</span>,
+<span class="w">            </span><span class="s2">&quot;dhcp_on&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;external_dhcp&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;relay_vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;fabric_id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;primary_rack&quot;</span>:<span class="w"> </span><span class="s2">&quot;cf83c4&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;untagged&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;secondary_rack&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;fabric&quot;</span>:<span class="w"> </span><span class="s2">&quot;fabric-0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/vlans/1/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cidr&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;rdns_mode&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">        </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.1&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;dns_servers&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;allow_dns&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;allow_proxy&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;active_discovery&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;managed&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;disabled_boot_architectures&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/subnets/1/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;reserved&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;start_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.1&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;end_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.9&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;user&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;is_superuser&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;username&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;email&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin@example.com&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;is_local&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/users/admin/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;comment&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">    </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/ipranges/2/&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
 </details>
 <p>Add the static IP address range:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>reserved<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the static IP address range</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>reserved<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="nv">start_ip</span><span class="o">=</span><span class="m">192</span>.168.100.1<span class="w"> </span><span class="nv">end_ip</span><span class="o">=</span><span class="m">192</span>.168.100.9
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;subnet&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;vid&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;mtu&quot;</span>:<span class="w"> </span><span class="m">1400</span>,
+<span class="w">            </span><span class="s2">&quot;dhcp_on&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;external_dhcp&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;relay_vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;untagged&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;primary_rack&quot;</span>:<span class="w"> </span><span class="s2">&quot;cf83c4&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;fabric&quot;</span>:<span class="w"> </span><span class="s2">&quot;fabric-0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;fabric_id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/vlans/1/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cidr&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;rdns_mode&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">        </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.1&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;dns_servers&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;allow_dns&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;allow_proxy&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;active_discovery&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;managed&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;disabled_boot_architectures&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/subnets/1/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;reserved&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;start_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.150&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;end_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.199&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;user&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;is_superuser&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;username&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;email&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin@example.com&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;is_local&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/users/admin/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;comment&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">3</span>,
+<span class="w">    </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/ipranges/3/&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
 </details>
 <p>Add the IP address range that will be used for Floating Ips:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>reserved<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the IP address range that will be used for Floating Ips</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>ipranges<span class="w"> </span>create<span class="w"> </span><span class="nv">type</span><span class="o">=</span>reserved<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="nv">start_ip</span><span class="o">=</span><span class="m">192</span>.168.100.150<span class="w"> </span><span class="nv">end_ip</span><span class="o">=</span><span class="m">192</span>.168.100.199
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;subnet&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;vlan&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;vid&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;mtu&quot;</span>:<span class="w"> </span><span class="m">1400</span>,
+<span class="w">            </span><span class="s2">&quot;dhcp_on&quot;</span>:<span class="w"> </span>true,
+<span class="w">            </span><span class="s2">&quot;external_dhcp&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;relay_vlan&quot;</span>:<span class="w"> </span>null,
+<span class="w">            </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;untagged&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;primary_rack&quot;</span>:<span class="w"> </span><span class="s2">&quot;cf83c4&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;fabric&quot;</span>:<span class="w"> </span><span class="s2">&quot;fabric-0&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">&quot;fabric_id&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">            </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/vlans/1/&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">&quot;cidr&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;rdns_mode&quot;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">        </span><span class="s2">&quot;gateway_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.1&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;dns_servers&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;allow_dns&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;allow_proxy&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;active_discovery&quot;</span>:<span class="w"> </span>false,
+<span class="w">        </span><span class="s2">&quot;managed&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;disabled_boot_architectures&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">        </span><span class="s2">&quot;space&quot;</span>:<span class="w"> </span><span class="s2">&quot;undefined&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/subnets/1/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;reserved&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;start_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.150&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;end_ip&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.199&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;user&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;is_superuser&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;username&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;email&quot;</span>:<span class="w"> </span><span class="s2">&quot;admin@example.com&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;is_local&quot;</span>:<span class="w"> </span>true,
+<span class="w">        </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/users/admin/&quot;</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;comment&quot;</span>:<span class="w"> </span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;id&quot;</span>:<span class="w"> </span><span class="m">3</span>,
+<span class="w">    </span><span class="s2">&quot;resource_uri&quot;</span>:<span class="w"> </span><span class="s2">&quot;/MAAS/api/2.0/ipranges/3/&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
 </details>
 <h3 id="task-2-configure-upstream-dns"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 2: Configure Upstream DNS<a class="headerlink" href="#task-2-configure-upstream-dns" title="Permanent link">&para;</a></h3>
 <p>Configuring the upstream DNS can be accomplished via the CLI or the WebUI.</p>
 <p>Set the Upstream DNS server with the following command:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>upstream_dns<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s2">&quot;8.8.8.8&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the upstream DNS server</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>upstream_dns<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s2">&quot;8.8.8.8&quot;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>OK
+</code></pre></div>
 </details>
 <h3 id="task-3-configure-kernel-options-for-nodes"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 3: Configure Kernel options for nodes<a class="headerlink" href="#task-3-configure-kernel-options-for-nodes" title="Permanent link">&para;</a></h3>
 <p>Configuring the kernel options that will be supplied to nodes can be accomplished
 via the CLI or the WebUI.</p>
 <p>Set the kernel options server with the following command:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>kernel_opts<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s2">&quot;net.ifnames=0&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the kernel boot options</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>kernel_opts<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s2">&quot;net.ifnames=0&quot;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>OK
+</code></pre></div>
 </details>
 <h3 id="task-4-configure-local-dns-resolution"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 4: Configure Local DNS Resolution<a class="headerlink" href="#task-4-configure-local-dns-resolution" title="Permanent link">&para;</a></h3>
 <p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>, set the DNS and search domain to point to the MAAS server.</p>
 <p>Back up the cloud-init netplan file:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/netplan/50-cloud-init.yaml<span class="w"> </span>/etc/netplan/00-installer-config.yaml
+<div class="highlight"><pre><span></span><code><span class="c1"># Back up the cloud-init netplan file</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/netplan/50-cloud-init.yaml<span class="w"> </span>/etc/netplan/00-installer-config.yaml
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <p>Adjust the contents of the file to match this, be careful to double check the name of your network interface, it may vary:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cat<span class="w"> </span>/etc/netplan/00-installer-config.yaml
+<div class="highlight"><pre><span></span><code><span class="c1"># Show the current netplan file</span>
+sudo<span class="w"> </span>cat<span class="w"> </span>/etc/netplan/00-installer-config.yaml
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>network:
-    ethernets:
-        enp1s0:
-            addresses:
-            - 192.168.100.3/24
-            nameservers:
-                addresses:
-                - 192.168.100.3
-                - 8.8.8.8
-                search:
-                - maas
-            renderer: networkd
-            routes:
-            -   to: default
-                via: 192.168.100.1
-    version: 2</p>
+<div class="highlight"><pre><span></span><code>network:
+<span class="w">  </span>version:<span class="w"> </span><span class="m">2</span>
+<span class="w">  </span>ethernets:
+<span class="w">    </span>enp1s0:
+<span class="w">      </span>renderer:<span class="w"> </span>networkd
+<span class="w">      </span>addresses:
+<span class="w">      </span>-<span class="w"> </span><span class="s2">&quot;192.168.100.3/24&quot;</span>
+<span class="w">      </span>nameservers:
+<span class="w">        </span>addresses:
+<span class="w">        </span>-<span class="w"> </span><span class="m">8</span>.8.8.8
+<span class="w">        </span>-<span class="w"> </span><span class="m">1</span>.1.1.1
+<span class="w">      </span>routes:
+<span class="w">      </span>-<span class="w"> </span>to:<span class="w"> </span><span class="s2">&quot;default&quot;</span>
+<span class="w">        </span>via:<span class="w"> </span><span class="s2">&quot;192.168.100.1&quot;</span>
+</code></pre></div>
 </details>
 <p>Apply the netplan changes:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+<div class="highlight"><pre><span></span><code><span class="c1"># Apply the netplan changes</span>
+sudo<span class="w"> </span>netplan<span class="w"> </span>apply
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
 </details>
 <p>Verify the DNS resolver configuration:</p>
-<div class="highlight"><pre><span></span><code>resolvectl<span class="w"> </span>status
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the DNS resolver configuration</span>
+resolvectl<span class="w"> </span>status
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Global
+<span class="w">       </span>Protocols:<span class="w"> </span>-LLMNR<span class="w"> </span>-mDNS<span class="w"> </span>-DNSOverTLS<span class="w"> </span><span class="nv">DNSSEC</span><span class="o">=</span>no/unsupported
+resolv.conf<span class="w"> </span>mode:<span class="w"> </span>stub
+
+Link<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span>enp1s0<span class="o">)</span>
+<span class="w">    </span>Current<span class="w"> </span>Scopes:<span class="w"> </span>DNS
+<span class="w">         </span>Protocols:<span class="w"> </span>+DefaultRoute<span class="w"> </span>+LLMNR<span class="w"> </span>-mDNS<span class="w"> </span>-DNSOverTLS<span class="w"> </span><span class="nv">DNSSEC</span><span class="o">=</span>no/unsupported
+Current<span class="w"> </span>DNS<span class="w"> </span>Server:<span class="w"> </span><span class="m">8</span>.8.8.8
+<span class="w">       </span>DNS<span class="w"> </span>Servers:<span class="w"> </span><span class="m">192</span>.168.100.3<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span><span class="m">1</span>.1.1.1
+<span class="w">        </span>DNS<span class="w"> </span>Domain:<span class="w"> </span>maas
+</code></pre></div>
 </details>
 <h2 id="24-enable-maas-to-manage-libvirt-virtual-machines"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.4 Enable MAAS to Manage Libvirt Virtual Machines<a class="headerlink" href="#24-enable-maas-to-manage-libvirt-virtual-machines" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
@@ -1640,32 +1921,40 @@ an ssh key for the maas user and uploading it to the vhosts.</p>
 <p>Enter the following commands to create an SSH key pair that is used to authenticate 
 <code>MAAS</code> to <code>libvirt</code> running on your host machine:</p>
 <p>Create the MAAS root SSH directory:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/snap/maas/current/root/.ssh
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the MAAS root SSH directory</span>
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/snap/maas/current/root/.ssh
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Generate the MAAS root SSH key pair:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>/var/snap/maas/current/root/.ssh/id_rsa
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate the MAAS root SSH key pair</span>
+sudo<span class="w"> </span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-N<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>/var/snap/maas/current/root/.ssh/id_rsa
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Copy the MAAS root public key to the host machine:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>/var/snap/maas/current/root/.ssh/id_rsa<span class="w"> </span>ubuntu@192.168.100.1
+<div class="highlight"><pre><span></span><code><span class="c1"># Copy the MAAS root public key to the host machine</span>
+sudo<span class="w"> </span>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>/var/snap/maas/current/root/.ssh/id_rsa<span class="w"> </span>ubuntu@192.168.100.1
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Exit the host machine session:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Exit the host machine session</span>
+<span class="nb">exit</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1676,11 +1965,13 @@ an ssh key for the maas user and uploading it to the vhosts.</p>
 <p>In this exercise, you create the infrastructure VMs for the lab environment.</p>
 <h3 id="task-1-create-the-virtual-machine-infrastructure"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 1: Create the virtual machine infrastructure<a class="headerlink" href="#task-1-create-the-virtual-machine-infrastructure" title="Permanent link">&para;</a></h3>
 <p>On your <code>HOST MACHINE</code> (NOT the MAAS server) you have the script <code>~/deploy/create-vms.sh</code> that automate the VM creation process. Execute the command as follows:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>bash<span class="w"> </span>~/deploy/create-vms.sh
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the virtual machine infrastructure</span>
+sudo<span class="w"> </span>bash<span class="w"> </span>~/deploy/create-vms.sh
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <h2 id="26-enlist-and-commission-virtual-machines-with-maas"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.6 Enlist and Commission Virtual Machines with MAAS<a class="headerlink" href="#26-enlist-and-commission-virtual-machines-with-maas" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
@@ -1691,48 +1982,59 @@ environment with MAAS.</p>
 <p><strong>Note:</strong> This is only needed in the lab environment due to running it in virtual machines.
 In a real production environment it is advised to leave these tests enabled.</p>
 <p>Go back to the MAAS server:</p>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span><span class="m">192</span>.168.100.3
+<div class="highlight"><pre><span></span><code><span class="c1"># Go back to the MAAS server</span>
+ssh<span class="w"> </span><span class="m">192</span>.168.100.3
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code> user,
 enter the following commands:</p>
 <p>Retrieve the <code>smartctl-validate</code> script ID:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">SCRIPT_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>node-scripts<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;smartctl-validate&quot;) | .id&#39;</span><span class="sb">`</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the smartctl-validate script ID</span>
+<span class="nv">SCRIPT_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>node-scripts<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;smartctl-validate&quot;) | .id&#39;</span><span class="sb">`</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Retag the script so it runs only for storage nodes:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>node-script<span class="w"> </span>update<span class="w"> </span><span class="nv">$SCRIPT_ID</span><span class="w"> </span><span class="nv">tags</span><span class="o">=</span>storage
+<div class="highlight"><pre><span></span><code><span class="c1"># Retag the script so it runs only for storage nodes</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>node-script<span class="w"> </span>update<span class="w"> </span><span class="nv">$SCRIPT_ID</span><span class="w"> </span><span class="nv">tags</span><span class="o">=</span>storage
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Before adding the chassis, we need to downgrade core22 snap to fix a bug described here: https://bugs.launchpad.net/maas/+bug/2053033</p>
 <p>Refresh the <code>core22</code> snap to the required revision:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>refresh<span class="w"> </span>core22<span class="w"> </span>--channel<span class="o">=</span>latest/stable<span class="w"> </span>--revision<span class="o">=</span><span class="m">1033</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Refresh the core22 snap to the required revision</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>refresh<span class="w"> </span>core22<span class="w"> </span>--channel<span class="o">=</span>latest/stable<span class="w"> </span>--revision<span class="o">=</span><span class="m">1033</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Restart the MAAS supervisor:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>maas.supervisor
+<div class="highlight"><pre><span></span><code><span class="c1"># Restart the MAAS supervisor</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>maas.supervisor
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <h3 id="task-2-enlist-the-virtual-machines"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 2: Enlist the Virtual Machines<a class="headerlink" href="#task-2-enlist-the-virtual-machines" title="Permanent link">&para;</a></h3>
 <p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code> user,
 enter the following command to enlist all virtual machines starting with a
 VM name of “os-”:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span>add-chassis<span class="w"> </span><span class="nv">chassis_type</span><span class="o">=</span>virsh<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># VM name of “os-”</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span>add-chassis<span class="w"> </span><span class="nv">chassis_type</span><span class="o">=</span>virsh<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="nv">hostname</span><span class="o">=</span>qemu+ssh://ubuntu@192.168.100.1/system<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="nv">prefix_filter</span><span class="o">=</span><span class="s2">&quot;os-&quot;</span>
 </code></pre></div>
@@ -1744,7 +2046,8 @@ Asking maas to add machines from chassis qemu+ssh://ubuntu@192.168.100.1/system<
 </details>
 <h3 id="task-3-commission-the-virtual-machines"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 3: Commission the Virtual Machines<a class="headerlink" href="#task-3-commission-the-virtual-machines" title="Permanent link">&para;</a></h3>
 <p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>, enter the following command to commission all virtual machines that are in the <code>New</code> state:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span>accept-all
+<div class="highlight"><pre><span></span><code><span class="c1"># </span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span>accept-all
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1759,45 +2062,55 @@ as doing so might lead to undesired results.</p>
 <p>While logged into the MAAS machine as <code>ubuntu</code>, execute the following to
 disable adding a swap file and generating excessive IO on the host.</p>
 <p>Append the swap override to the curtin userdata sample:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/var/snap/maas/current/preseeds/curtin_userdata.sample<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Append the swap override to the curtin userdata sample</span>
+sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/var/snap/maas/current/preseeds/curtin_userdata.sample<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 <span class="s">swap:</span>
 <span class="s">  size: 0</span>
 <span class="s">EOF</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Edit the curtin userdata sample and add two spaces before <code>size</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vim<span class="w"> </span>/var/snap/maas/current/preseeds/curtin_userdata.sample
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit the curtin userdata sample and add two spaces before size</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/var/snap/maas/current/preseeds/curtin_userdata.sample
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Configure quick disk erasing. Otherwise, redeploying nodes takes longer
 than 40 minutes and thus fail with a timeout. This needs to be done prior to
 commissioning of the VMs.</p>
 <p>Disable secure erase:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>disk_erase_with_secure_erase<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">false</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Disable secure erase</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>disk_erase_with_secure_erase<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">false</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Enable quick erase:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>disk_erase_with_quick_erase<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable quick erase</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>disk_erase_with_quick_erase<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Enable disk erasing on release:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>enable_disk_erasing_on_release<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable disk erasing on release</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>maas<span class="w"> </span>set-config<span class="w"> </span><span class="nv">name</span><span class="o">=</span>enable_disk_erasing_on_release<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <h2 id="27-define-tags-for-the-cloud-nodes"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 2.7 Define Tags for the Cloud Nodes<a class="headerlink" href="#27-define-tags-for-the-cloud-nodes" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
@@ -1807,68 +2120,85 @@ commissioning of the VMs.</p>
 via the CLI or the WebUI.</p>
 <p>In the terminal of the MAAS server, while logged in as the <code>ubuntu</code>,
 enter the following command to list the existing tags:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span><span class="nb">read</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># list the existing tags</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span><span class="nb">read</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>You should see a list of the existing tags.</p>
 <p>Enter the following command to list all of the systems that match the tag <code>virtual</code>:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>virtual<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
+<div class="highlight"><pre><span></span><code><span class="c1"># list all of the systems that match the tag virtual</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>virtual<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>You should see the hostname of all of the nodes that match the tag <code>virtual</code>.</p>
 <h3 id="task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> Task 2: Define New Tags for the Cloud Nodes and Assign Systems to Them<a class="headerlink" href="#task-2-define-new-tags-for-the-cloud-nodes-and-assign-systems-to-them" title="Permanent link">&para;</a></h3>
 <p>Defining new tags and assigning systems to them can be accomplished via the CLI or the WebUI.</p>
 <p>Enter the following command to create a tag without a definition for the Juju bootstrap node:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span>create<span class="w"> </span><span class="nv">name</span><span class="o">=</span>juju
+<div class="highlight"><pre><span></span><code><span class="c1"># create a tag without a definition for the Juju bootstrap node</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span>create<span class="w"> </span><span class="nv">name</span><span class="o">=</span>juju
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Enter the following command to list details for the Juju bootstrap node:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">hostname</span><span class="o">=</span>os-juju01
+<div class="highlight"><pre><span></span><code><span class="c1"># list details for the Juju bootstrap node</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">hostname</span><span class="o">=</span>os-juju01
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Retrieve the system ID for the Juju bootstrap node:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">JUJU01_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">hostname</span><span class="o">=</span>os-juju01<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.[].system_id&quot;</span><span class="sb">`</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the system ID for the Juju bootstrap node</span>
+<span class="nv">JUJU01_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">hostname</span><span class="o">=</span>os-juju01<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.[].system_id&quot;</span><span class="sb">`</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Associate the system with the <code>juju</code> tag:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>update-nodes<span class="w"> </span>juju<span class="w"> </span><span class="nv">add</span><span class="o">=</span><span class="nv">$JUJU01_ID</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Associate the system with the juju tag</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>update-nodes<span class="w"> </span>juju<span class="w"> </span><span class="nv">add</span><span class="o">=</span><span class="nv">$JUJU01_ID</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Enter the following command to view the system associated the juju tag:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>juju<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
+<div class="highlight"><pre><span></span><code><span class="c1"># view the system associated the juju tag</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>juju<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>You should see the system you just added the tag to listed.</p>
 <p>Enter the following command to create the tag for the os-compute## nodes:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span>create<span class="w"> </span><span class="nv">name</span><span class="o">=</span>storage
+<div class="highlight"><pre><span></span><code><span class="c1"># create the tag for the os-compute## nodes</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>tags<span class="w"> </span>create<span class="w"> </span><span class="nv">name</span><span class="o">=</span>storage
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Run the following command to associate the <code>storage</code> tag to the rest of the VMs:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="sb">`</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># associate the storage tag to the rest of the VMs</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="sb">`</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="nv">NODE_NAME</span><span class="o">=</span>os-compute0<span class="si">${</span><span class="nv">i</span><span class="si">}</span>
 <span class="w">  </span><span class="nv">NODE_ID</span><span class="o">=</span><span class="sb">`</span>maas<span class="w"> </span>myprofile<span class="w"> </span>machines<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">hostname</span><span class="o">=</span><span class="si">${</span><span class="nv">NODE_NAME</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.[].system_id&quot;</span><span class="sb">`</span>
 <span class="w">  </span>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>update-nodes<span class="w"> </span>storage<span class="w"> </span><span class="nv">add</span><span class="o">=</span><span class="si">${</span><span class="nv">NODE_ID</span><span class="si">}</span>
@@ -1876,10 +2206,12 @@ enter the following command to list the existing tags:</p>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<p>Pending live validation.</p>
+<div class="highlight"><pre><span></span><code>Pending<span class="w"> </span>live<span class="w"> </span>validation.
+</code></pre></div>
 </details>
 <p>Enter the following command to view the systems associated with the storage tag:</p>
-<div class="highlight"><pre><span></span><code>maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>storage<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
+<div class="highlight"><pre><span></span><code><span class="c1"># view the systems associated with the storage tag</span>
+maas<span class="w"> </span>myprofile<span class="w"> </span>tag<span class="w"> </span>nodes<span class="w"> </span>storage<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hostname
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
