@@ -18,7 +18,7 @@ ssh-keygen -t rsa -N "" -q -f ~/.ssh/id_rsa
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    No output.
 
 Copy the SSH key to the MAAS server. Use `ubuntu` as the password:
 
@@ -28,7 +28,10 @@ ssh-copy-id 192.168.100.3
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    1 file(s) remaining to be installed.
+    Now try logging into the machine, with: `ssh '192.168.100.3'`
+
+    Number of key(s) added: 1
 
 Copy the configuration files and bundles that you use later:
 
@@ -37,7 +40,7 @@ scp -r /home/ubuntu/os_files 192.168.100.3:~
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    No output.
 
 
 Log in to the MAAS VM:
@@ -47,7 +50,7 @@ ssh 192.168.100.3
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    ubuntu@maas:~$
 
 Install the MAAS snap:
 
@@ -56,7 +59,7 @@ sudo snap install maas --channel=3.4
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    maas (3.4/stable) 3.4.9-14399-g.48cea136e from Canonical** installed
 
 Install the MAAS test database snap:
 
@@ -65,7 +68,7 @@ sudo snap install maas-test-db --channel=3.4
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    maas-test-db (3.4/stable) 14.2-29-g.ed8d7f2 from Canonical** installed
 
 Initialize MAAS as a region and rack controller:
 
@@ -112,7 +115,7 @@ sudo maas createadmin --username=admin --password=ubuntu --email=admin@example.c
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    No output.
 
 
 ### :material-book-open-page-variant-outline: Task 2: Log into the MAAS server API via the Command Line Interface
@@ -126,7 +129,9 @@ sudo maas apikey --username=admin > ~/maas-apikey
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    You are now logged in to the MAAS server at
+    http://192.168.100.3:5240/MAAS/api/2.0/ with the profile name
+    'myprofile'.
 
 Enter the following command to log into MAAS and create a profile:
 
@@ -135,7 +140,7 @@ maas login myprofile http://192.168.100.3:5240/MAAS - < ~/maas-apikey
 ```
 
 ??? example "Expected result"
-    Pending live validation.
+    myprofile http://192.168.100.3:5240/MAAS/api/2.0/ [redacted-api-key]
 
 Verify that you are logged into the MAAS with the profile name of `myprofile`
 

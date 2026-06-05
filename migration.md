@@ -58,9 +58,11 @@ Planned work:
 
 ### 2. Install and Configure MAAS
 
-- Status: `Migrated`
+- Status: `In review`
 - Source range: `openstack_foundation_lab.md` chapter 2
 - Target page: `docs/install-and-configure-maas.md`
+- Validation note: Chapter 2 validation started on student host `34.159.9.11`.
+- Validation note: The MAAS VM image was recovered by replacing a corrupted guest image with a clean reprovisioned VM before continuing command validation.
 
 ### 3. Install and Configure Juju
 

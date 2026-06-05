@@ -52,6 +52,11 @@ This repository is for the Ubuntu Server Advanced documentation site.
 - Prefer concrete output over description or interpretation.
 - If a command produces no output, use a placeholder such as `No output.`
 - If exact output may vary, keep the example realistic and focus on the visible success signals in the command output.
+- If a command succeeds but prints unrelated warnings that do not affect the lab flow, omit those warnings from `Expected result` and keep the expected result focused on the relevant success signal.
+- If command output includes secrets such as passwords, tokens, API keys, or private keys, redact those values in `Expected result` while preserving the rest of the visible success signal.
+- During live validation, capture the exact visible stdout/stderr for each successful command before moving on.
+- Do not replace a validated command result with a prose summary such as "the command succeeds"; `Expected result` blocks must contain actual or clearly representative terminal output only.
+- Do not leave `Pending live validation` on a step that has already been validated successfully. If the exact output was not captured, stop and recover it before documenting the step.
 
 ## Lab Flow
 
@@ -59,11 +64,17 @@ This repository is for the Ubuntu Server Advanced documentation site.
 - Present one lab step at a time when running the lab with the user.
 - Before every lab command in an interactive session, state the exact command you recommend next and explain its intent in one short sentence.
 - Show the student-facing command exactly as the student should see and run it, even if the actual executed command uses SSH wrappers or other environment-specific prefixes.
+- Unless the user explicitly says otherwise, treat the remote student machine as the default execution context for lab commands, not the local workstation running this agent.
+- When validating a lab command, reason about file paths, users, network reachability, and side effects from the perspective of the intended remote machine named in the lab step, such as the student host, the MAAS VM, or another internal VM.
+- Do not reinterpret a student-facing lab command as local-only just because the same path or binary might exist on the local workstation.
+- When a lab command is executed through SSH wrappers or other environment-specific prefixes, preserve the exact successful command string that was actually used.
+- Use `commands.md` as the reference for proven command invocations, especially working SSH hops, user names, and remote execution patterns.
+- When a simple command form is already known to work, do not let sub-agents invent alternate SSH identities, key files, or extra SSH options without a verified need.
 - Do not skip the intent explanation, even for obvious or repetitive commands.
 - In an interactive session, run one command at a time only.
 - In an interactive session, wait for explicit user approval before running each command.
 - In an interactive session, after the user runs a command that completes without further input, double-check the result before moving on.
-- In an interactive session, do not update `commands.md`; the live session already covers the command flow and duplicating it adds no value.
+- In an interactive session, update `commands.md` when exact successful command strings need to be preserved as an execution reference for later steps or future agents.
 - In an interactive session, after each command, report the result and explain what it means before moving on.
 - In an interactive session, if the user says `go`, treat that as approval to proceed with the recommended next step.
 
@@ -81,7 +92,7 @@ This repository is for the Ubuntu Server Advanced documentation site.
 - Mark a chapter as `Complete` only after all commands in that chapter have been run and their results have been documented.
 - Update `playground.md` whenever a lab machine is added, changed, or reassigned.
 - Use `playground.md` for internal execution context only; it is not part of the training content.
-- Update `commands.md` only outside live interactive training sessions.
+- Update `commands.md` whenever an exact successful command string should be preserved for reuse, including during live interactive training when the user wants that record kept.
 - Record only commands from the training material that actually succeeded.
 - Record the exact command string that was actually executed successfully, including any required SSH wrappers or environment-specific prefixes.
 - Do not replace the executed command with a simplified or student-facing form in `commands.md`.
