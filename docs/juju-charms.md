@@ -2,173 +2,261 @@
 
 **Description:**
 
-In this section, we will deploy `Landscape Server` application together with all of its dependencies.
+In this section, you deploy `Landscape Server` and its supporting applications.
 
 ## :material-book-open-page-variant-outline: 4.1 Create Model for application deployment
 
 **4.1.1 List the existing models associated with the MAAS controller**
 
-In a terminal on the MAAS server, as the `ubuntu`, enter the
-following to list the current models available to the Juju controller:
-
 ```bash
+# List the models currently available on the controller
 juju models
-
-# output
-Controller: maas-controller
-
-Model        Cloud/Region  Type  Status     Machines  Cores  Units  Access  Last connection
-controller*  maas/default  maas  available         2      2  2      admin   just now
 ```
 
-> The model name with the asterisk is the active model for the current (active) controller.
+??? example "Expected result"
+    ```bash
+    Controller: maas-controller
 
+    Model       Cloud/Region  Type  Status     Machines  Cores  Units  Access  Last connection
+    controller  maas/default  maas  available         1      2  1      admin   just now
+    ```
 
-**4.1.2 Create a model named landscape**
+!!! note
+    When more than one model is present, the active model is marked with an asterisk.
 
-In a terminal on the MAAS server, as the `ubuntu`, enter the following to create the model landscape:
+**4.1.2 Create a model named `landscape`**
 
 ```bash
+# Create a new model for the Landscape deployment
 juju add-model landscape
-
-# output
-Added 'landscape' model on maas/default with credential 'admin' for user 'admin'
 ```
 
-**4.1.3 Set the default series for the new model**
+??? example "Expected result"
+    ```bash
+    Added 'landscape' model on maas/default with credential 'admin' for user 'admin'
+    ```
 
-In a terminal on the MAAS server, as the `ubuntu`,enter the following to set the default base for the model `landscape`:
+**4.1.3 Set the default base for the new model**
 
 ```bash
+# Set the default base for the landscape model
 juju model-config -m landscape default-base=ubuntu@22.04
 ```
 
-**4.1.4 Verify the new model**
+??? example "Expected result"
+    ```bash
+    No output.
+    ```
 
-In a terminal on the MAAS server, as the `ubuntu`, enter the following to verify the model `landscape` has been created:
+**4.1.4 Verify the new model exists**
 
 ```bash
+# Confirm that the landscape model was created and is active
 juju models
-
-# output
-Controller: maas-controller
-
-Model       Cloud/Region  Type  Status     Machines  Cores  Units  Access  Last connection
-controller  maas/default  maas  available         2      2  2      admin   just now
-landscape*  maas/default  maas  available         0      -  -      admin   8 seconds ago
 ```
 
-Enter to following to verify the default-series value for the model `landscape`:
+??? example "Expected result"
+    ```bash
+    Controller: maas-controller
+
+    Model       Cloud/Region  Type  Status     Machines  Cores  Units  Access  Last connection
+    controller  maas/default  maas  available         1      2  1      admin   just now
+    landscape*  maas/default  maas  available         0      -  -      admin   5 seconds ago
+    ```
+
+**4.1.5 Verify the default base**
 
 ```bash
+# Verify the default base for the active model
 juju model-config default-base
-
-# output
-ubuntu@22.04
 ```
 
+??? example "Expected result"
+    ```bash
+    ubuntu@22.04
+    ```
 
 ## :material-book-open-page-variant-outline: 4.2 Deploy applications
 
-**4.2.1 Deploy Landscape Scalable bundle**
+**4.2.1 Deploy the `landscape-scalable` bundle**
 
-Check the existing juju model, there should be one called `landscape`:
+Run the following commands in order to confirm the active model, start the deployment, and monitor it until all units are active.
 
 ```bash
+# Confirm that the landscape model is available before deployment
 juju models
 ```
 
-In this model, deploy the `landscape-scalable` bundle:
+??? example "Expected result"
+    ```bash
+    Controller: maas-controller
+
+    Model       Cloud/Region  Type  Status     Machines  Cores  Units  Access  Last connection
+    controller  maas/default  maas  available         1      2  1      admin   just now
+    landscape*  maas/default  maas  available         0      -  -      admin   4 seconds ago
+    ```
 
 ```bash
+# Deploy the Landscape scalable bundle into the active model
 juju deploy landscape-scalable
 ```
 
-Watch for the completion of the bundle deployment:
+??? example "Expected result"
+    ```bash
+    Located bundle "landscape-scalable" in charm-hub, revision 37
+    Located charm "haproxy" in charm-hub, channel latest/stable
+    Located charm "landscape-server" in charm-hub, channel latest/stable
+    Located charm "postgresql" in charm-hub, channel 14/stable
+    Located charm "rabbitmq-server" in charm-hub, channel 3.9/stable
+    Executing changes:
+    - upload charm haproxy from charm-hub for base ubuntu@22.04/stable with revision 75 with architecture=amd64
+    - deploy application haproxy from charm-hub on ubuntu@22.04/stable with stable
+    - expose all endpoints of haproxy and allow access from CIDRs 0.0.0.0/0 and ::/0
+    - upload charm landscape-server from charm-hub for base ubuntu@22.04/stable with revision 124 with architecture=amd64
+    - deploy application landscape-server from charm-hub on ubuntu@22.04/stable with stable
+    - upload charm postgresql from charm-hub for base ubuntu@22.04/stable with revision 468 with architecture=amd64
+    - deploy application postgresql from charm-hub on ubuntu@22.04/stable with 14/stable
+    - upload charm rabbitmq-server from charm-hub for base ubuntu@22.04/stable with revision 188 with architecture=amd64
+    - deploy application rabbitmq-server from charm-hub on ubuntu@22.04/stable with 3.9/stable
+    - add relation landscape-server - rabbitmq-server
+    - add relation landscape-server - haproxy
+    - add relation landscape-server:db - postgresql:db-admin
+    - add unit haproxy/0 to new machine 0
+    - add unit landscape-server/0 to new machine 1
+    - add unit postgresql/0 to new machine 2
+    - add unit rabbitmq-server/0 to new machine 3
+    Deploy of bundle completed.
+    ```
+
 ```bash
+# Watch the deployment until all units become active
 watch -c juju status --color
 ```
 
+??? example "Expected result"
+    ```bash
+    - haproxy/0: 192.168.100.18 (agent:idle, workload:active) 80,443/tcp
+    - landscape-server/0: 192.168.100.17 (agent:idle, workload:active)
+    - postgresql/0: 192.168.100.20 (agent:idle, workload:active) 5432/tcp
+    - rabbitmq-server/0: 192.168.100.19 (agent:idle, workload:active) 5672,15672/tcp
+    ```
+
+!!! note
+    Press `Ctrl+C` to exit `watch` once all units show `active` status. During validation, the success signal was the condensed per-unit status shown above.
+
 **4.2.2 Verify the deployment**
 
-Run the following command that will also reaveal relations between applications:
-
 ```bash
+# Show application status together with charm relations
 juju status --relations
-
-# output
-Model      Controller       Cloud/Region  Version  SLA          Timestamp
-landscape  maas-controller  maas/default  3.5.1    unsupported  12:38:52Z
-
-App               Version  Status  Scale  Charm             Channel        Rev  Exposed  Message
-haproxy                    active      1  haproxy           latest/stable   75  yes      Unit is ready
-landscape-server           active      1  landscape-server  latest/stable  107  no       Unit is ready
-postgresql        14.12    active      1  postgresql        latest/stable  345  no       Live master (14.12)
-rabbitmq-server   3.9.13   active      1  rabbitmq-server   3.9/stable     188  no       Unit is ready
-
-Unit                 Workload  Agent  Machine  Public address  Ports           Message
-haproxy/0*           active    idle   0        192.168.100.12  80,443/tcp      Unit is ready
-landscape-server/0*  active    idle   1        192.168.100.13                  Unit is ready
-postgresql/0*        active    idle   2        192.168.100.15  5432/tcp        Live master (14.12)
-rabbitmq-server/0*   active    idle   3        192.168.100.14  5672,15672/tcp  Unit is ready
-
-Machine  State    Address         Inst id       Base          AZ       Message
-0        started  192.168.100.12  os-compute01  ubuntu@22.04  default  Deployed
-1        started  192.168.100.13  os-compute02  ubuntu@22.04  default  Deployed
-2        started  192.168.100.15  os-compute03  ubuntu@22.04  default  Deployed
-3        started  192.168.100.14  os-compute04  ubuntu@22.04  default  Deployed
-
-Integration provider       Requirer                   Interface          Type     Message
-haproxy:peer               haproxy:peer               haproxy-peer       peer
-landscape-server:replicas  landscape-server:replicas  landscape-replica  peer
-landscape-server:website   haproxy:reverseproxy       http               regular
-postgresql:coordinator     postgresql:coordinator     coordinator        peer
-postgresql:db-admin        landscape-server:db        pgsql              regular
-postgresql:replication     postgresql:replication     pgpeer             peer
-rabbitmq-server:amqp       landscape-server:amqp      rabbitmq           regular
-rabbitmq-server:cluster    rabbitmq-server:cluster    rabbitmq-ha        peer
 ```
 
-**4.2.3 Log in to Landscape Web interface**
+??? example "Expected result"
+    ```bash
+    Model      Controller       Cloud/Region  Version  SLA          Timestamp
+    landscape  maas-controller  maas/default  3.6.23   unsupported  15:22:09Z
 
-Get the IP address of the HAProxy unit:
+    App               Version  Status  Scale  Charm             Channel        Rev  Exposed  Message
+    haproxy                    active      1  haproxy           latest/stable   75  yes      Unit is ready
+    landscape-server           active      1  landscape-server  latest/stable  124  no       Unit is ready
+    postgresql        14.12    active      1  postgresql        14/stable      468  no
+    rabbitmq-server   3.9.27   active      1  rabbitmq-server   3.9/stable     188  no       Unit is ready
+
+    Unit                 Workload  Agent  Machine  Public address  Ports           Message
+    haproxy/0*           active    idle   0        192.168.100.18  80,443/tcp      Unit is ready
+    landscape-server/0*  active    idle   1        192.168.100.17                  Unit is ready
+    postgresql/0*        active    idle   2        192.168.100.20  5432/tcp        Primary
+    rabbitmq-server/0*   active    idle   3        192.168.100.19  5672,15672/tcp  Unit is ready
+
+    Machine  State    Address         Inst id       Base          AZ       Message
+    0        started  192.168.100.18  os-compute01  ubuntu@22.04  default  Deployed
+    1        started  192.168.100.17  os-compute02  ubuntu@22.04  default  Deployed
+    2        started  192.168.100.20  os-compute03  ubuntu@22.04  default  Deployed
+    3        started  192.168.100.19  os-compute04  ubuntu@22.04  default  Deployed
+
+    Integration provider       Requirer                   Interface          Type     Message
+    haproxy:peer               haproxy:peer               haproxy-peer       peer
+    landscape-server:replicas  landscape-server:replicas  landscape-replica  peer
+    landscape-server:website   haproxy:reverseproxy       http               regular
+    postgresql:database-peers  postgresql:database-peers  postgresql_peers   peer
+    postgresql:db-admin        landscape-server:db        pgsql              regular
+    postgresql:restart         postgresql:restart         rolling_op         peer
+    postgresql:upgrade         postgresql:upgrade         upgrade            peer
+    rabbitmq-server:amqp       landscape-server:amqp      rabbitmq           regular
+    rabbitmq-server:cluster    rabbitmq-server:cluster    rabbitmq-ha        peer
+    ```
+
+**4.2.3 Log in to the Landscape web interface**
 
 ```bash
+# Get the HAProxy unit address for the Landscape web entry point
 juju status haproxy
-
-# output
-Model      Controller       Cloud/Region  Version  SLA          Timestamp
-landscape  maas-controller  maas/default  3.5.1    unsupported  12:39:53Z
-
-App      Version  Status  Scale  Charm    Channel        Rev  Exposed  Message
-haproxy           active      1  haproxy  latest/stable   75  yes      Unit is ready
-
-Unit        Workload  Agent  Machine  Public address  Ports       Message
-haproxy/0*  active    idle   0        **192.168.100.12**  80,443/tcp  Unit is ready
-
-Machine  State    Address         Inst id       Base          AZ       Message
-0        started  **192.168.100.12**  os-compute01  ubuntu@22.04  default  Deployed
 ```
 
-My IP is `192.168.100.12`, so the URL will be `https://192.168.100.12`.
+??? example "Expected result"
+    ```bash
+    Model      Controller       Cloud/Region  Version  SLA          Timestamp
+    landscape  maas-controller  maas/default  3.6.23   unsupported  15:22:16Z
 
-Use Firefox to access that IP. You can configure the initial user of Landscape and gain access to its management console.
+    App      Version  Status  Scale  Charm    Channel        Rev  Exposed  Message
+    haproxy           active      1  haproxy  latest/stable   75  yes      Unit is ready
 
+    Unit        Workload  Agent  Machine  Public address  Ports       Message
+    haproxy/0*  active    idle   0        192.168.100.18  80,443/tcp  Unit is ready
 
-**4.2.4 Remove the landscape model**
+    Machine  State    Address         Inst id       Base          AZ       Message
+    0        started  192.168.100.18  os-compute01  ubuntu@22.04  default  Deployed
+    ```
 
-Remove the `landscape` juju model. This will remove any charms/applications that are contained in it.
+Use the `Public address` value from the command output to reach Landscape. In this validation run, the URL was `http://192.168.100.18/`.
+
+!!! note
+    Firefox access to internal lab web interfaces was already validated through the SOCKS proxy path in earlier chapters.
+
+**4.2.4 Remove the `landscape` model**
+
+!!! note
+    Skip this cleanup if you need to preserve the Landscape deployment for a demo. Chapter 5 re-bootstraps the controller after this teardown.
 
 ```bash
+# Destroy the landscape model and all applications deployed into it
 juju destroy-model --no-prompt landscape
 ```
 
-List and destroy the juju controller.
+??? example "Expected result"
+    ```bash
+    Model destroyed.
+    ```
 
 ```bash
+# List the registered Juju controllers before removing the controller
 juju controllers
 ```
 
+??? example "Expected result"
+    ```bash
+    Use --refresh option with this command to see the latest information.
+
+    Controller        Model       User   Access     Cloud/Region  Models  Nodes    HA  Version
+    maas-controller*  controller  admin  superuser  maas/default       1      1  none  3.6.23
+    ```
+
 ```bash
+# Destroy the MAAS-backed Juju controller
 juju destroy-controller maas-controller --no-prompt
 ```
+
+??? example "Expected result"
+    ```bash
+    All models reclaimed, cleaning up controller machines
+    ```
+
+```bash
+# Verify that no Juju controllers remain registered locally
+juju controllers
+```
+
+??? example "Expected result"
+    ```bash
+    ERROR No controllers registered.
+    ```

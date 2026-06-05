@@ -234,3 +234,75 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju ssh -m controller 0 -- ls
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju ssh -m controller 0 -- cat /tmp/services"'
 ```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju controllers"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju bootstrap --config default-base=\"ubuntu@22.04\" --bootstrap-constraints=\"mem=2G cores=1\" --constraints=\"mem=2G tags=juju\" maas maas-controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju models"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju add-model landscape"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju model-config -m landscape default-base=ubuntu@22.04"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju model-config default-base"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju deploy landscape-scalable"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status --relations"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status haproxy"'
+```
+
+```bash
+for i in $(seq 1 30); do echo "=== Poll $i ==="; ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status --format short 2>&1"'; sleep 30; done
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju destroy-model --no-prompt landscape"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju destroy-controller maas-controller --no-prompt"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju switch controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju deploy juju-dashboard dashboard --to=lxd:0"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju integrate dashboard controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju expose dashboard"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m controller dashboard"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju dashboard --browser=false"'
+```

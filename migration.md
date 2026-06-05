@@ -50,34 +50,40 @@ Planned work:
 
 ### 1. Prerequisites
 
-- Status: `In review`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 1
 - Target page: `docs/connect-to-canonical-openstack.md`
 - Validation note: `1.1 SSH connection` has been started on student host `34.159.9.11`.
-- Validation note: Firefox SOCKS proxy setup is verified locally; internal UI validation is deferred until Chapter 2 makes MAAS available.
+- Validation note: Firefox SOCKS proxy setup is verified locally and was later used successfully to access internal lab web interfaces.
 
 ### 2. Install and Configure MAAS
 
-- Status: `In review`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 2
 - Target page: `docs/install-and-configure-maas.md`
 - Validation note: Chapter 2 validation started on student host `34.159.9.11`.
 - Validation note: The MAAS VM image was recovered by replacing a corrupted guest image with a clean reprovisioned VM before continuing command validation.
+- Validation note: The Chapter 2 Web UI section was reviewed and reorganized as an alternative path to the validated CLI workflow.
 
 ### 3. Install and Configure Juju
 
-- Status: `In review`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 3
 - Target page: `docs/install-and-configure-juju.md`
 - Validation note: Chapter 3 validation started on student host `34.159.9.11`.
 - Validation note: Juju `3.6.23` was installed on the MAAS VM and controller `maas-controller` was bootstrapped on `os-juju01`.
 - Validation note: Juju dashboard deployment, `juju ssh`, and `juju scp` were validated against the controller model.
+- Validation note: The Juju dashboard browser login was validated at `http://192.168.100.11:8080` through the SOCKS proxy path.
 
 ### 4. Juju Charms
 
-- Status: `Migrated`
+- Status: `In review`
 - Source range: `openstack_foundation_lab.md` chapter 4
 - Target page: `docs/juju-charms.md`
+- Validation note: Chapter 4 model creation and Landscape deployment were validated on the MAAS VM from student host `34.159.9.11`.
+- Validation note: The Landscape bundle reached `active` status with HAProxy exposed on `192.168.100.18` during the latest validation run.
+- Validation note: The cleanup flow to destroy the `landscape` model and `maas-controller` was validated in an earlier pass, but the current environment is intentionally preserved for a live demo.
+- Validation note: After the controller rebuild, the Juju dashboard was redeployed on the controller model and validated at `http://192.168.100.21:8080` while preserving the Landscape deployment.
 
 ### 5. Deploy an OpenStack Cloud with Juju and MAAS
 
