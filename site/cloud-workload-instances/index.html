@@ -466,54 +466,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#96-web-ui" class="md-nav__link">
+  <a href="#96-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       9.6 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#961-define-custom-instance-sizing-flavors" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.1 Define Custom Instance Sizing Flavors
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#962-define-host-aggregates" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.2 Define Host Aggregates
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#963-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#964-create-a-cloud-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.4 Create a cloud Instance
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#965-expose-a-cloud-workload-to-the-external-network" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.5 Expose a Cloud Workload to the External Network
+       9.6 Web UI Equivalents
     </span>
   </a>
   
@@ -661,54 +616,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#96-web-ui" class="md-nav__link">
+  <a href="#96-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       9.6 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#961-define-custom-instance-sizing-flavors" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.1 Define Custom Instance Sizing Flavors
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#962-define-host-aggregates" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.2 Define Host Aggregates
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#963-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#964-create-a-cloud-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.4 Create a cloud Instance
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#965-expose-a-cloud-workload-to-the-external-network" class="md-nav__link">
-    <span class="md-ellipsis">
-       9.6.5 Expose a Cloud Workload to the External Network
+       9.6 Web UI Equivalents
     </span>
   </a>
   
@@ -736,54 +646,201 @@
 <p><strong>Description:</strong></p>
 <p>In this exercise, you create a new instance-sizing flavor.</p>
 <p><strong>9.1.1 Define a New Instance Sizing Flavor</strong></p>
-<p>At the terminal of the MAAS server, enter the following commands to create
-a new instance flavor:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack administrator environment</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span>create<span class="w"> </span>--vcpus<span class="w"> </span><span class="m">2</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">1024</span><span class="w"> </span>--disk<span class="w"> </span><span class="m">5</span><span class="w"> </span>--ephemeral<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run the following <code>openstack</code> commands in the same shell session after sourcing <code>~/admin_openrc</code>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new instance flavor named m1.smaller</span>
+openstack<span class="w"> </span>flavor<span class="w"> </span>create<span class="w"> </span>--vcpus<span class="w"> </span><span class="m">2</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">1024</span><span class="w"> </span>--disk<span class="w"> </span><span class="m">5</span><span class="w"> </span>--ephemeral<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--swap<span class="w"> </span><span class="m">0</span><span class="w"> </span>--public<span class="w"> </span>m1.smaller
 </code></pre></div>
-<p>You should see the details on the newly created flavor listed.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                      </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++----------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>OS-FLV-DISABLED:disabled<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-FLV-EXT-DATA:ephemeral<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>disk<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">5</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                         </span><span class="p">|</span><span class="w"> </span>f845e849-2cb0-43a8-8906-0ab2f4946fbc<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                       </span><span class="p">|</span><span class="w"> </span>m1.smaller<span class="w">                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-flavor-access:is_public<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">                 </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ram<span class="w">                        </span><span class="p">|</span><span class="w"> </span><span class="m">1024</span><span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>rxtx_factor<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>.0<span class="w">                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>swap<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>vcpus<span class="w">                      </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w">                                    </span><span class="p">|</span>
++----------------------------+--------------------------------------+
+</code></pre></div>
+</details>
 <h2 id="92-define-host-aggregates"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.2 Define Host Aggregates<a class="headerlink" href="#92-define-host-aggregates" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you create two host aggregates for the compute nodes.</p>
 <p><strong>9.2.1 Define a Host Aggregate</strong></p>
-<p>At the terminal of the MAAS server, enter the following commands to define
-a host aggregate called <code>kvm</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack administrator environment</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span>create<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span>kvm
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see details on the newly created host aggregate with no hosts listed.</p>
-<p>Run the following command to list the available hosts:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova
-<span class="c1"># output</span>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a host aggregate called kvm in the nova availability zone</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>create<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span>kvm
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">             </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++-------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:23:49.295901<span class="w">           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>deleted_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>hosts<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_deleted<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">              </span><span class="p">|</span><span class="w"> </span>kvm<span class="w">                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>4aee07e5-b1b6-41f1-b52d-2fc8433e9b54<span class="w"> </span><span class="p">|</span>
++-------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the available compute hosts in the nova zone</span>
+openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+API<span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span>deprecated.<span class="w"> </span>Please<span class="w"> </span>consider<span class="w"> </span>using<span class="w"> </span><span class="s1">&#39;hypervisor list&#39;</span><span class="w"> </span>instead.
 +-------------------+---------+------+
 <span class="p">|</span><span class="w"> </span>Host<span class="w"> </span>Name<span class="w">         </span><span class="p">|</span><span class="w"> </span>Service<span class="w"> </span><span class="p">|</span><span class="w"> </span>Zone<span class="w"> </span><span class="p">|</span>
 +-------------------+---------+------+
-<span class="p">|</span><span class="w"> </span>os-compute03.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
-<span class="p">|</span><span class="w"> </span>os-compute04.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
 <span class="p">|</span><span class="w"> </span>os-compute01.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
 <span class="p">|</span><span class="w"> </span>os-compute02.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-compute03.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-compute04.maas<span class="w"> </span><span class="p">|</span><span class="w"> </span>compute<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w"> </span><span class="p">|</span>
 +-------------------+---------+------+
 </code></pre></div>
-<p>You should see a listing of available hosts.</p>
-<p>Add all of the <code>os-compute</code> compute hosts to the <code>kvm</code>  host aggregate:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;maas&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NR==1 {print $2}&#39;</span><span class="k">)</span>
-openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;maas&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NR==2 {print $2}&#39;</span><span class="k">)</span>
-openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;maas&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NR==3 {print $2}&#39;</span><span class="k">)</span>
-openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>openstack<span class="w"> </span>host<span class="w"> </span>list<span class="w"> </span>--zone<span class="w"> </span>nova<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;maas&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NR==4 {print $2}&#39;</span><span class="k">)</span>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>openstack host list</code> command is deprecated. Use <code>openstack hypervisor list</code> instead in newer OpenStack releases.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add os-compute01 to the kvm host aggregate</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span>os-compute01.maas
 </code></pre></div>
-<p>For each execution of the command you should see details of the host aggregate
-with the host you added being listed as a value of the hosts field.</p>
-<p>Verify your host have been added with:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span>show<span class="w"> </span>kvm
-<span class="c1"># output</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------+----------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">             </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                      </span><span class="p">|</span>
++-------------------+----------------------------+
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:23:49.000000<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>deleted_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>hosts<span class="w">             </span><span class="p">|</span><span class="w"> </span>os-compute01.maas<span class="w">          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_deleted<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">              </span><span class="p">|</span><span class="w"> </span>kvm<span class="w">                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="nv">availability_zone</span><span class="o">=</span><span class="s1">&#39;nova&#39;</span><span class="w">   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>None<span class="w">                       </span><span class="p">|</span>
++-------------------+----------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add os-compute02 to the kvm host aggregate</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span>os-compute02.maas
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">             </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++-------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:23:49.000000<span class="w">           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>deleted_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>hosts<span class="w">             </span><span class="p">|</span><span class="w"> </span>os-compute01.maas,<span class="w"> </span>os-compute02.maas<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_deleted<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">              </span><span class="p">|</span><span class="w"> </span>kvm<span class="w">                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="nv">availability_zone</span><span class="o">=</span><span class="s1">&#39;nova&#39;</span><span class="w">             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
++-------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add os-compute03 to the kvm host aggregate</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span>os-compute03.maas
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------+---------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">             </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                   </span><span class="p">|</span>
++-------------------+---------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:23:49.000000<span class="w">                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>deleted_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>hosts<span class="w">             </span><span class="p">|</span><span class="w"> </span>os-compute01.maas,<span class="w"> </span>os-compute02.maas,<span class="w"> </span>os-compute03.maas<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_deleted<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">              </span><span class="p">|</span><span class="w"> </span>kvm<span class="w">                                                     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="nv">availability_zone</span><span class="o">=</span><span class="s1">&#39;nova&#39;</span><span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                    </span><span class="p">|</span>
++-------------------+---------------------------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add os-compute04 to the kvm host aggregate</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>add<span class="w"> </span>host<span class="w"> </span>kvm<span class="w"> </span>os-compute04.maas
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 +-------------------+----------------------------------------------------------------------------+
 <span class="p">|</span><span class="w"> </span>Field<span class="w">             </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                      </span><span class="p">|</span>
 +-------------------+----------------------------------------------------------------------------+
 <span class="p">|</span><span class="w"> </span>availability_zone<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                                                       </span><span class="p">|</span>
-<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2024</span>-07-11T13:29:57.000000<span class="w">                                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:23:49.000000<span class="w">                                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>deleted_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>hosts<span class="w">             </span><span class="p">|</span><span class="w"> </span>os-compute01.maas,<span class="w"> </span>os-compute02.maas,<span class="w"> </span>os-compute03.maas,<span class="w"> </span>os-compute04.maas<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                                                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_deleted<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">              </span><span class="p">|</span><span class="w"> </span>kvm<span class="w">                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="nv">availability_zone</span><span class="o">=</span><span class="s1">&#39;nova&#39;</span><span class="w">                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
++-------------------+----------------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this environment, the subshell pattern <code>$(openstack host list ... | awk ...)</code> used in the source material does not work due to nested shell quoting. Add each compute host by name directly as shown above.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify all hosts were added to the kvm aggregate</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>show<span class="w"> </span>kvm
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------+----------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">             </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                      </span><span class="p">|</span>
++-------------------+----------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:23:49.000000<span class="w">                                                 </span><span class="p">|</span>
 <span class="p">|</span><span class="w"> </span>deleted_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
 <span class="p">|</span><span class="w"> </span>hosts<span class="w">             </span><span class="p">|</span><span class="w"> </span>os-compute01.maas,<span class="w"> </span>os-compute02.maas,<span class="w"> </span>os-compute03.maas,<span class="w"> </span>os-compute04.maas<span class="w"> </span><span class="p">|</span>
 <span class="p">|</span><span class="w"> </span>id<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                                                          </span><span class="p">|</span>
@@ -791,191 +848,436 @@ with the host you added being listed as a value of the hosts field.</p>
 <span class="p">|</span><span class="w"> </span>name<span class="w">              </span><span class="p">|</span><span class="w"> </span>kvm<span class="w">                                                                        </span><span class="p">|</span>
 <span class="p">|</span><span class="w"> </span>properties<span class="w">        </span><span class="p">|</span><span class="w">                                                                            </span><span class="p">|</span>
 <span class="p">|</span><span class="w"> </span>updated_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
-<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>80a7e52a-0a4e-4c5a-b66a-89156fef72ea<span class="w">                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>4aee07e5-b1b6-41f1-b52d-2fc8433e9b54<span class="w">                                       </span><span class="p">|</span>
 +-------------------+----------------------------------------------------------------------------+
 </code></pre></div>
-<p>You should see the host listed as the value for the hosts field.</p>
+</details>
 <p><strong>9.2.2 Define a Key-Value property for a Host Aggregate</strong></p>
-<p>At the terminal of the MAAS server, enter the following to add a key-value property
-to the <code>KVM</code> host aggregate:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack administrator environment</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="nv">kvm</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>kvm
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>aggregate<span class="w"> </span>show<span class="w"> </span>kvm
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the kvm=true property on the kvm host aggregate</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="nv">kvm</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>kvm
 </code></pre></div>
-<p>You should see the new key-value pair listed as the value for the properties field.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the property was set on the kvm aggregate</span>
+openstack<span class="w"> </span>aggregate<span class="w"> </span>show<span class="w"> </span>kvm
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------+----------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">             </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                      </span><span class="p">|</span>
++-------------------+----------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w"> </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:23:49.000000<span class="w">                                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>deleted_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>hosts<span class="w">             </span><span class="p">|</span><span class="w"> </span>os-compute01.maas,<span class="w"> </span>os-compute02.maas,<span class="w"> </span>os-compute03.maas,<span class="w"> </span>os-compute04.maas<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                                                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_deleted<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">              </span><span class="p">|</span><span class="w"> </span>kvm<span class="w">                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="nv">kvm</span><span class="o">=</span><span class="s1">&#39;true&#39;</span><span class="w">                                                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>uuid<span class="w">              </span><span class="p">|</span><span class="w"> </span>4aee07e5-b1b6-41f1-b52d-2fc8433e9b54<span class="w">                                       </span><span class="p">|</span>
++-------------------+----------------------------------------------------------------------------+
+</code></pre></div>
+</details>
 <h2 id="93-define-a-custom-instance-sizing-flavor-for-a-host-aggregate"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.3 Define a Custom Instance Sizing Flavor for a Host Aggregate<a class="headerlink" href="#93-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you create a new instance-sizing flavor that corresponds to
 a host aggregate.</p>
 <p><strong>9.3.1 Define a New Instance Sizing Flavor</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to create
-a two new flavors, one for each hypervisor:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack administrator environment</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span>create<span class="w"> </span>--vcpus<span class="w"> </span><span class="m">1</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">512</span><span class="w"> </span>--disk<span class="w"> </span><span class="m">5</span><span class="w"> </span>--public<span class="w"> </span>kvm.smaller
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see details on the newly created flavor listed.</p>
-<p>Enter the following command to define a key-value pair for the <code>KVM</code> flavor
-that matches the key-value pair in the host aggregate:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="se">\</span>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new flavor named kvm.smaller for KVM hypervisors</span>
+openstack<span class="w"> </span>flavor<span class="w"> </span>create<span class="w"> </span>--vcpus<span class="w"> </span><span class="m">1</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">512</span><span class="w"> </span>--disk<span class="w"> </span><span class="m">5</span><span class="w"> </span>--public<span class="w"> </span>kvm.smaller
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                      </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++----------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>OS-FLV-DISABLED:disabled<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-FLV-EXT-DATA:ephemeral<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>disk<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">5</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                         </span><span class="p">|</span><span class="w"> </span>a14c1407-6a49-4e01-974a-9a7168b1f0c8<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                       </span><span class="p">|</span><span class="w"> </span>kvm.smaller<span class="w">                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-flavor-access:is_public<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">                 </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ram<span class="w">                        </span><span class="p">|</span><span class="w"> </span><span class="m">512</span><span class="w">                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>rxtx_factor<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>.0<span class="w">                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>swap<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>vcpus<span class="w">                      </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                    </span><span class="p">|</span>
++----------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the aggregate_instance_extra_specs property on the kvm.smaller flavor</span>
+openstack<span class="w"> </span>flavor<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>aggregate_instance_extra_specs:kvm<span class="o">=</span><span class="nb">true</span><span class="w"> </span>kvm.smaller
 </code></pre></div>
-<p>Enter the following command to display the flavor:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span>show<span class="w"> </span>kvm.smaller
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see the property listed as the value for the  <code>properties</code> field.</p>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show the kvm.smaller flavor details to verify the property</span>
+openstack<span class="w"> </span>flavor<span class="w"> </span>show<span class="w"> </span>kvm.smaller
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------------------+-------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                      </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                     </span><span class="p">|</span>
++----------------------------+-------------------------------------------+
+<span class="p">|</span><span class="w"> </span>OS-FLV-DISABLED:disabled<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-FLV-EXT-DATA:ephemeral<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>access_project_ids<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>disk<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">5</span><span class="w">                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                         </span><span class="p">|</span><span class="w"> </span>a14c1407-6a49-4e01-974a-9a7168b1f0c8<span class="w">      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                       </span><span class="p">|</span><span class="w"> </span>kvm.smaller<span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-flavor-access:is_public<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">                 </span><span class="p">|</span><span class="w"> </span>aggregate_instance_extra_specs:kvm<span class="o">=</span><span class="s1">&#39;true&#39;</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ram<span class="w">                        </span><span class="p">|</span><span class="w"> </span><span class="m">512</span><span class="w">                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>rxtx_factor<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>.0<span class="w">                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>swap<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>vcpus<span class="w">                      </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                         </span><span class="p">|</span>
++----------------------------+-------------------------------------------+
+</code></pre></div>
+</details>
 <p><strong>9.3.2 Enable the Scheduler Filter</strong></p>
 <p>By default, the Controller node does not have the scheduling filter required to do
 filtering based on the extra_specs you added to the flavor.</p>
 <p>We need to add a special filter called <code>AggregateInstanceExtraSpecsFilter</code> to the default list already present
 on the <code>nova-cloud-controller</code> unit.</p>
-<p>To update the value for <code>scheduler-default-filters</code>, enter the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">DEFAULT_FILTERS</span><span class="o">=</span><span class="sb">`</span>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-u<span class="w"> </span>nova-cloud-controller/0<span class="w"> </span><span class="s2">&quot;grep enabled_filters /etc/nova/nova.conf&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot; &quot;</span><span class="w">  </span>-f<span class="w"> </span><span class="m">3</span>-<span class="sb">`</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the current scheduler filters from nova-cloud-controller</span>
+juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-u<span class="w"> </span>nova-cloud-controller/0<span class="w"> </span><span class="s2">&quot;grep enabled_filters /etc/nova/nova.conf&quot;</span>
 </code></pre></div>
-<p>Verify the value of DEFAULT_FILTERS:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="nv">$DEFAULT_FILTERS</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code><span class="nv">enabled_filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,DifferentHostFilter,SameHostFilter
 </code></pre></div>
-<p>If the value of DEFAULT_FILTERS is empty, then command did not work as expected and needs to be fixed.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>config<span class="w"> </span>nova-cloud-controller<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>scheduler-default-filters<span class="o">=</span><span class="nv">$DEFAULT_FILTERS</span>,AggregateInstanceExtraSpecsFilter
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this environment, run this command directly on the MAAS VM rather than inside a <code>bash -lc</code> subshell, since the <code>juju</code> command needs to be available in the current shell context.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the scheduler-default-filters to include AggregateInstanceExtraSpecsFilter</span>
+juju<span class="w"> </span>config<span class="w"> </span>nova-cloud-controller<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>scheduler-default-filters<span class="o">=</span>ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,DifferentHostFilter,SameHostFilter,AggregateInstanceExtraSpecsFilter
 </code></pre></div>
-<p>Enter the following command to display the updated <code>scheduler-default-filters</code>.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>config<span class="w"> </span>nova-cloud-controller<span class="w"> </span>scheduler-default-filters
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
-<p>Make sure that the nova charm finishes executing the "config-changed" hook.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>nova-cloud-controller
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replace the filter list above with the actual output from the previous <code>juju exec</code> command, appending <code>,AggregateInstanceExtraSpecsFilter</code> to the end.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the updated scheduler-default-filters configuration</span>
+juju<span class="w"> </span>config<span class="w"> </span>nova-cloud-controller<span class="w"> </span>scheduler-default-filters
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,DifferentHostFilter,SameHostFilter,AggregateInstanceExtraSpecsFilter
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Wait for the nova-cloud-controller config-changed hook to complete</span>
+juju<span class="w"> </span>status<span class="w"> </span>nova-cloud-controller
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">11</span>:27:30Z
+
+App<span class="w">                    </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">                  </span>Channel<span class="w">         </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+nova-cloud-controller<span class="w">  </span><span class="m">29</span>.2.0<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>nova-cloud-controller<span class="w">  </span><span class="m">2024</span>.1/stable<span class="w">   </span><span class="m">795</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+nova-mysql-router<span class="w">      </span><span class="m">8</span>.0.46<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>mysql-router<span class="w">           </span><span class="m">8</span>.0/stable<span class="w">     </span><span class="m">1136</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+
+Unit<span class="w">                      </span>Workload<span class="w">  </span>Agent<span class="w">      </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">          </span>Message
+nova-cloud-controller/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">       </span><span class="m">3</span>/lxd/0<span class="w">  </span><span class="m">192</span>.168.100.38<span class="w">  </span><span class="m">8774</span>-8775/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+<span class="w">  </span>nova-mysql-router/0*<span class="w">    </span>active<span class="w">    </span>idle<span class="w">                </span><span class="m">192</span>.168.100.38<span class="w">                 </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
+<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span>os-compute04<span class="w">         </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">3</span>/lxd/0<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.38<span class="w">  </span>juju-ed0023-3-lxd-0<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Container<span class="w"> </span>started
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The unit may briefly show <code>(config-changed)</code> in the Message field while the hook runs. Wait until the Agent status shows <code>idle</code> before proceeding.</p>
+</div>
 <h2 id="94-create-a-cloud-instance"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.4 Create a cloud Instance<a class="headerlink" href="#94-create-a-cloud-instance" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you will launch a cloud instance.</p>
 <p><strong>9.4.1 Create an Instance</strong></p>
-<p>At the terminal of the MAAS server, perform the following steps to
-create a new cloud instance:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<p>Create the cloud instance with the following command:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>create<span class="w"> </span>--availability-zone<span class="w"> </span>nova<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--image<span class="w"> </span><span class="s1">&#39;jammy&#39;</span><span class="w"> </span>--flavor<span class="w"> </span>m1.smaller<span class="w"> </span><span class="se">\</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run the following <code>openstack</code> commands in the same shell session after sourcing <code>~/student_openrc</code>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new cloud instance named jammy1</span>
+openstack<span class="w"> </span>server<span class="w"> </span>create<span class="w"> </span>--availability-zone<span class="w"> </span>nova<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--image<span class="w"> </span>jammy<span class="w"> </span>--flavor<span class="w"> </span>m1.smaller<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--key-name<span class="w"> </span>student-keypair<span class="w"> </span>--security-group<span class="w"> </span>StudentProject_Allow_SSH<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--nic<span class="w"> </span>net-id<span class="o">=</span><span class="k">$(</span>openstack<span class="w"> </span>network<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>StudentProject_Network<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print $2 }&#39;</span><span class="k">)</span><span class="w"> </span>jammy1
+<span class="w">  </span>--nic<span class="w"> </span>net-id<span class="o">=</span>1d6562cd-9027-43ae-a12e-23f767a3eb8c<span class="w"> </span>jammy1
 </code></pre></div>
-<p>You should see the the details of the newly created cloud instance.</p>
-<p>Run the following command to view all defined instances:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>list
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+---------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                                </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                             </span><span class="p">|</span>
++--------------------------------------+---------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>OS-DCF:diskConfig<span class="w">                    </span><span class="p">|</span><span class="w"> </span>MANUAL<span class="w">                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-EXT-AZ:availability_zone<span class="w">          </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-EXT-STS:power_state<span class="w">               </span><span class="p">|</span><span class="w"> </span>NOSTATE<span class="w">                                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-EXT-STS:task_state<span class="w">                </span><span class="p">|</span><span class="w"> </span>scheduling<span class="w">                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-EXT-STS:vm_state<span class="w">                  </span><span class="p">|</span><span class="w"> </span>building<span class="w">                                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-SRV-USG:launched_at<span class="w">               </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-SRV-USG:terminated_at<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>accessIPv4<span class="w">                           </span><span class="p">|</span><span class="w">                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>accessIPv6<span class="w">                           </span><span class="p">|</span><span class="w">                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>addresses<span class="w">                            </span><span class="p">|</span><span class="w">                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>adminPass<span class="w">                            </span><span class="p">|</span><span class="w"> </span>fYgtb5qRiJvq<span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>config_drive<span class="w">                         </span><span class="p">|</span><span class="w">                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created<span class="w">                              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:28:37Z<span class="w">                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>flavor<span class="w">                               </span><span class="p">|</span><span class="w"> </span>m1.smaller<span class="w"> </span><span class="o">(</span>f845e849-2cb0-43a8-8906-0ab2f4946fbc<span class="o">)</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>hostId<span class="w">                               </span><span class="p">|</span><span class="w">                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>e0bc4a2e-389d-4a46-9fe3-4d923903e0e8<span class="w">              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>image<span class="w">                                </span><span class="p">|</span><span class="w"> </span>jammy<span class="w"> </span><span class="o">(</span>0c483320-4a39-43e6-a11a-d7f39bef94e8<span class="o">)</span><span class="w">      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>key_name<span class="w">                             </span><span class="p">|</span><span class="w"> </span>student-keypair<span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                                 </span><span class="p">|</span><span class="w"> </span>jammy1<span class="w">                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-extended-volumes:volumes_attached<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>progress<span class="w">                             </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">                           </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">                           </span><span class="p">|</span><span class="w">                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>security_groups<span class="w">                      </span><span class="p">|</span><span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;909a3124-9e04-415d-9135-c6060a6a8c5c&#39;</span><span class="w">       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">                               </span><span class="p">|</span><span class="w"> </span>BUILD<span class="w">                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated<span class="w">                              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:28:36Z<span class="w">                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>user_id<span class="w">                              </span><span class="p">|</span><span class="w"> </span>89ed5796241e4dddb49afd47ed2d08f5<span class="w">                  </span><span class="p">|</span>
++--------------------------------------+---------------------------------------------------+
 </code></pre></div>
-<p>You should see the IDs, names, status and networks of defined cloud instances.</p>
-<p>Rerun the command periodically until the Status shows ACTIVE or use the following command:</p>
-<div class="highlight"><pre><span></span><code>watch<span class="w"> </span>openstack<span class="w"> </span>server<span class="w"> </span>list
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replace the <code>net-id</code> value above with the actual ID of <code>StudentProject_Network</code> from your environment. Get it with <code>openstack network list | grep StudentProject_Network</code>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all instances to check the status of jammy1</span>
+openstack<span class="w"> </span>server<span class="w"> </span>list
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+--------+--------+-------------------------------------+-------+------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Name<span class="w">   </span><span class="p">|</span><span class="w"> </span>Status<span class="w"> </span><span class="p">|</span><span class="w"> </span>Networks<span class="w">                            </span><span class="p">|</span><span class="w"> </span>Image<span class="w"> </span><span class="p">|</span><span class="w"> </span>Flavor<span class="w">     </span><span class="p">|</span>
++--------------------------------------+--------+--------+-------------------------------------+-------+------------+
+<span class="p">|</span><span class="w"> </span>e0bc4a2e-389d-4a46-9fe3-4d923903e0e8<span class="w"> </span><span class="p">|</span><span class="w"> </span>jammy1<span class="w"> </span><span class="p">|</span><span class="w"> </span>ACTIVE<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">StudentProject_Network</span><span class="o">=</span><span class="m">10</span>.20.30.162<span class="w"> </span><span class="p">|</span><span class="w"> </span>jammy<span class="w"> </span><span class="p">|</span><span class="w"> </span>m1.smaller<span class="w"> </span><span class="p">|</span>
++--------------------------------------+--------+--------+-------------------------------------+-------+------------+
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rerun the command periodically until the Status shows <code>ACTIVE</code>, or use <code>watch openstack server list</code> to monitor in real time.</p>
+</div>
 <h2 id="95-expose-a-cloud-workload-to-the-external-network"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.5 Expose a Cloud Workload to the External Network<a class="headerlink" href="#95-expose-a-cloud-workload-to-the-external-network" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you assign a floating IP address to an instance and edit its
 security groups to expose it to the external network.</p>
 <p><strong>9.5.1 Assign a Floating IP to an Instance</strong></p>
-<p>At the terminal of the MAAS server, perform the following steps to assign a
-floating IP address to a cloud instance:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<p>Retrieve a list of currently defined floating IP addresses:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">INSTANCE_FLOATING_IP</span><span class="o">=</span><span class="k">$(</span>openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">192</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print $4 }&#39;</span><span class="k">)</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>Associate the floating IP address with your cloud instance:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>jammy1<span class="w"> </span><span class="nv">$INSTANCE_FLOATING_IP</span>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the available floating IP address</span>
+openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>list
 </code></pre></div>
-<p>Retrieve a list of currently defined floating IP addresses again:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>list
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+---------------------+------------------+------+--------------------------------------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Floating<span class="w"> </span>IP<span class="w"> </span>Address<span class="w"> </span><span class="p">|</span><span class="w"> </span>Fixed<span class="w"> </span>IP<span class="w"> </span>Address<span class="w"> </span><span class="p">|</span><span class="w"> </span>Port<span class="w"> </span><span class="p">|</span><span class="w"> </span>Floating<span class="w"> </span>Network<span class="w">                     </span><span class="p">|</span><span class="w"> </span>Project<span class="w">                          </span><span class="p">|</span>
++--------------------------------------+---------------------+------------------+------+--------------------------------------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>0e04a08a-aa9b-44ed-b26e-f475d6afc9cb<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.180<span class="w">     </span><span class="p">|</span><span class="w"> </span>None<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w"> </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w"> </span><span class="p">|</span>
++--------------------------------------+---------------------+------------------+------+--------------------------------------+----------------------------------+
 </code></pre></div>
-<p>You should now see the floating IP address you used associated with a fixed IP address.</p>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Associate the floating IP with the jammy1 instance</span>
+openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>jammy1<span class="w"> </span><span class="m">192</span>.168.100.180
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the floating IP is now associated with a fixed IP</span>
+openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>list
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Floating<span class="w"> </span>IP<span class="w"> </span>Address<span class="w"> </span><span class="p">|</span><span class="w"> </span>Fixed<span class="w"> </span>IP<span class="w"> </span>Address<span class="w"> </span><span class="p">|</span><span class="w"> </span>Port<span class="w">                                 </span><span class="p">|</span><span class="w"> </span>Floating<span class="w"> </span>Network<span class="w">                     </span><span class="p">|</span><span class="w"> </span>Project<span class="w">                          </span><span class="p">|</span>
++--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>0e04a08a-aa9b-44ed-b26e-f475d6afc9cb<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.180<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">10</span>.20.30.162<span class="w">     </span><span class="p">|</span><span class="w"> </span>4f04aec4-5294-4626-afd7-89d03c06f80c<span class="w"> </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w"> </span><span class="p">|</span>
++--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+
+</code></pre></div>
+</details>
 <p><strong>9.5.2 Ping the floating IP</strong></p>
-<p>In a terminal on the MAAS server, enter the following command to ping the workload
-instance:</p>
-<div class="highlight"><pre><span></span><code>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">$INSTANCE_FLOATING_IP</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ping the floating IP address (expected to fail before ICMP is allowed)</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">192</span>.168.100.180
 </code></pre></div>
-<p>You should see that the destination host is unreachable. Although the IP is assigned
-to the instance, you will not see a response because it is not a member of a security
-group that allows ICMP. In the next task you will add the instance to the correct
-security group to allow ICMP.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>PING<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span><span class="o">(</span><span class="m">192</span>.168.100.180<span class="o">)</span><span class="w"> </span><span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span><span class="w"> </span>bytes<span class="w"> </span>of<span class="w"> </span>data.
+
+---<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">4</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">0</span><span class="w"> </span>received,<span class="w"> </span><span class="m">100</span>%<span class="w"> </span>packet<span class="w"> </span>loss,<span class="w"> </span><span class="nb">time</span><span class="w"> </span>3054ms
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ping fails because the instance is not yet a member of a security group that allows ICMP. The next task adds the instance to the correct security group.</p>
+</div>
 <p><strong>9.5.3 Edit Instance Security Groups</strong></p>
-<p>At the terminal of the MAAS server, perform the following steps to add the cloud
-instance to the security group allowing ICMP traffic:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># check the current security groups</span>
-openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>jammy1<span class="w"> </span>StudentProject_Allow_ICMP
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the current security groups on jammy1</span>
+openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span>-c<span class="w"> </span>security_groups<span class="w"> </span>-f<span class="w"> </span>value
 </code></pre></div>
-<p>Verify the <code>StudentProject_Allow_ICMP</code> security group was added with the following:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+<span class="o">[{</span><span class="s1">&#39;name&#39;</span>:<span class="w"> </span><span class="s1">&#39;StudentProject_Allow_SSH&#39;</span><span class="o">}]</span>
 </code></pre></div>
-<p>You should see both <strong>StudentProject_Allow_ICMP</strong> and <strong>StudentProject_Allow_SSH</strong> listed.</p>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the StudentProject_Allow_ICMP security group to jammy1</span>
+openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>jammy1<span class="w"> </span>StudentProject_Allow_ICMP
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify both security groups are now attached to jammy1</span>
+openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span>-c<span class="w"> </span>security_groups<span class="w"> </span>-f<span class="w"> </span>value
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+<span class="o">[{</span><span class="s1">&#39;name&#39;</span>:<span class="w"> </span><span class="s1">&#39;StudentProject_Allow_SSH&#39;</span><span class="o">}</span>,<span class="w"> </span><span class="o">{</span><span class="s1">&#39;name&#39;</span>:<span class="w"> </span><span class="s1">&#39;StudentProject_Allow_ICMP&#39;</span><span class="o">}]</span>
+</code></pre></div>
+</details>
 <p><strong>9.5.4 Ping the floating IP again</strong></p>
-<p>In a terminal on the MAAS server, enter the following command to ping the
-workload instance:</p>
-<div class="highlight"><pre><span></span><code>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">$INSTANCE_FLOATING_IP</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ping the floating IP again (expected to succeed after ICMP is allowed)</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">192</span>.168.100.180
 </code></pre></div>
-<p>You should see a response form the instance.</p>
-<hr />
-<h2 id="96-web-ui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.6 WEB UI<a class="headerlink" href="#96-web-ui" title="Permanent link">&para;</a></h2>
-<h2 id="961-define-custom-instance-sizing-flavors"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.6.1 Define Custom Instance Sizing Flavors<a class="headerlink" href="#961-define-custom-instance-sizing-flavors" title="Permanent link">&para;</a></h2>
-<p><strong>To define a new instance sizing flavor via the WebUI perform the following:</strong></p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>PING<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span><span class="o">(</span><span class="m">192</span>.168.100.180<span class="o">)</span><span class="w"> </span><span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span><span class="w"> </span>bytes<span class="w"> </span>of<span class="w"> </span>data.
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.100.180:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">63</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">4</span>.48<span class="w"> </span>ms
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.100.180:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">63</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">2</span>.82<span class="w"> </span>ms
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.100.180:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">63</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">2</span>.42<span class="w"> </span>ms
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.100.180:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">63</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">4</span>.00<span class="w"> </span>ms
+
+---<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">4</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">4</span><span class="w"> </span>received,<span class="w"> </span><span class="m">0</span>%<span class="w"> </span>packet<span class="w"> </span>loss,<span class="w"> </span><span class="nb">time</span><span class="w"> </span>3005ms
+rtt<span class="w"> </span>min/avg/max/mdev<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>.417/3.428/4.477/0.839<span class="w"> </span>ms
+</code></pre></div>
+</details>
+<h2 id="96-web-ui-equivalents"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.6 Web UI Equivalents<a class="headerlink" href="#96-web-ui-equivalents" title="Permanent link">&para;</a></h2>
+<p>This section provides a Web UI alternative to the validated CLI workflow above.
+If you already completed the CLI steps, treat this section as optional.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at <code>https://192.168.100.35/horizon</code>.</p>
+</div>
+<p><strong>9.6.1 Define Custom Instance Sizing Flavors via the Web UI</strong></p>
+<p><strong>To define a new instance sizing flavor via the Web UI perform the following:</strong></p>
 <ol>
-<li>In a web browser, point to the OpenStack Dashboard and log in as the  <code>admin</code> user.</li>
-<li>From the panels on the left select <code>Admin &gt; Compute &gt; Flavors</code>.<blockquote>
-<p>You should see the currently defined sizing flavors.</p>
-</blockquote>
-</li>
+<li>Log into the dashboard as the <code>admin</code> user.</li>
+<li>From the list of tabs on the left select <code>Admin &gt; Compute &gt; Flavors</code>.</li>
 <li>Click <code>Create Flavor</code>.</li>
-<li>In the <code>Create Flavor</code> window, under the <code>Flavor Information</code> tab, enter/selec the following:<blockquote>
+<li>On the <code>Create Flavor</code> screen, enter or select the following values and leave all unspecified values at their defaults:<blockquote>
 <p><code>Name</code>: <strong>m1.smaller</strong><br/>
 <code>ID</code>: <strong>auto</strong><br/>
-<code>VCPUs</code>: <strong>1</strong><br/>
-<code>RAM MB</code>: <strong>512</strong><br/>
+<code>VCPUs</code>: <strong>2</strong><br/>
+<code>RAM MB</code>: <strong>1024</strong><br/>
 <code>Root Disk GB</code>: <strong>5</strong><br/>
 <code>Ephemeral Disk GB</code>: <strong>0</strong><br/>
 <code>Swap Disk MB</code>: <strong>0</strong><br/>
-<code>RX/TX Factor</code>: <strong>1</strong></p>
+<code>Visibility</code>: <strong>Public</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Create Flavor</code>. You should see your new flavor in the list.</li>
+<li>Click <code>Create Flavor</code>. Your new flavor should appear in the list.</li>
 </ol>
-<h2 id="962-define-host-aggregates"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.6.2 Define Host Aggregates<a class="headerlink" href="#962-define-host-aggregates" title="Permanent link">&para;</a></h2>
+<p><strong>9.6.2 Define Host Aggregates via the Web UI</strong></p>
 <p><strong>9.6.2.1 Define a Host Aggregate</strong></p>
-<p><strong>To define a host aggregate via the WebUI perform the following:</strong></p>
+<p><strong>To define a host aggregate via the Web UI perform the following:</strong></p>
 <ol>
-<li>In a web browser, point to the OpenStack Dashboard and log in as the  <code>admin</code> user.</li>
-<li>From the panels on the left select <code>Admin &gt; Compute &gt; Host Aggregates</code>. You should see the currently defined host aggregates and availability zones.</li>
+<li>Log into the dashboard as the <code>admin</code> user.</li>
+<li>From the list of tabs on the left select <code>Admin &gt; Compute &gt; Host Aggregates</code>.</li>
 <li>Click <code>Create Host Aggregate</code>.</li>
-<li>In the <code>Create Host Aggregate</code> window, on the <code>Host Aggregate Information</code> tab, enter/select the following:<blockquote>
-<p><code>Name</code>: <strong>KVM</strong><br/>
+<li>On the <code>Create Host Aggregate</code> screen, enter or select the following:<blockquote>
+<p><code>Name</code>: <strong>kvm</strong><br/>
 <code>Availability Zone</code>: <strong>nova</strong></p>
 </blockquote>
 </li>
-<li>On the <code>Manage Hosts Within Aggregate</code> tab, in the <code>All available hosts</code> column,
-click on the <code>Plus sign</code> next to <code>os-compute02</code> and <code>os-compute03</code> to move
-them under the <code>Selected hosts</code> column.</li>
 <li>Click <code>Create Host Aggregate</code>.</li>
+<li>In the <code>Host Aggregates</code> list, click the <code>Add Host</code> action for the <code>kvm</code> aggregate.</li>
+<li>Select all <code>os-compute</code> hosts and move them to the selected column.</li>
+<li>Click <code>Add Hosts</code>.</li>
 </ol>
 <p><strong>9.6.2.2 Define a Key-Value property for a Host Aggregate</strong></p>
 <ol>
-<li>In a web browser, point to the OpenStack Dashboard and log in as the <code>admin</code> user.</li>
-<li>From the panels on the left select <code>Admin &gt; Compute &gt; Host Aggregates</code>. You should see the currently defined host aggregates and availability zones.</li>
-<li>In the <code>Host Aggregates</code> window, in the <code>Host Aggregates</code> section select the dropdown menu under <code>Edit Host Aggregate</code> for the <code>KVM</code> host aggregate.</li>
-<li>Select <code>Update Metadata</code>.</li>
-<li>In the <code>Available Metadata</code> column, type <code>kvm</code> in the <code>Custom</code> input box and click on the <code>plus sign</code>.</li>
+<li>Log into the dashboard as the <code>admin</code> user.</li>
+<li>From the list of tabs on the left select <code>Admin &gt; Compute &gt; Host Aggregates</code>.</li>
+<li>In the <code>Host Aggregates</code> list, select <code>Update Metadata</code> from the dropdown for the <code>kvm</code> aggregate.</li>
+<li>In the <code>Custom</code> input box, type <code>kvm</code> and click the <code>+</code> button.</li>
 <li>In the <code>Existing Metadata</code> column, type <code>true</code> in the input box next to <code>kvm</code>.</li>
 <li>Click <code>Save</code>. You should see <code>kvm = true</code> in the <code>Metadata</code> column for the <code>kvm</code> host aggregate.</li>
 </ol>
-<h2 id="963-define-a-custom-instance-sizing-flavor-for-a-host-aggregate"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate<a class="headerlink" href="#963-define-a-custom-instance-sizing-flavor-for-a-host-aggregate" title="Permanent link">&para;</a></h2>
+<p><strong>9.6.3 Define a Custom Instance Sizing Flavor for a Host Aggregate via the Web UI</strong></p>
 <p><strong>9.6.3.1 Define a New Instance Sizing Flavor</strong></p>
 <ol>
-<li>In a web browser, point to the OpenStack Dashboard and log in as the  <code>admin</code> user.</li>
-<li>From the panels on the left select <code>Admin &gt; Compute &gt; Flavors</code>. You should see the currently defined sizing flavors.</li>
+<li>Log into the dashboard as the <code>admin</code> user.</li>
+<li>From the list of tabs on the left select <code>Admin &gt; Compute &gt; Flavors</code>.</li>
 <li>Click <code>Create Flavor</code>.</li>
-<li>In the <code>Create Flavor</code> window, enter/select the following:<blockquote>
+<li>On the <code>Create Flavor</code> screen, enter or select the following:<blockquote>
 <p><code>Name</code>: <strong>kvm.smaller</strong><br/>
 <code>ID</code>: <strong>auto</strong><br/>
 <code>VCPUs</code>: <strong>1</strong><br/>
@@ -983,81 +1285,65 @@ them under the <code>Selected hosts</code> column.</li>
 <code>Root Disk GB</code>: <strong>5</strong><br/>
 <code>Ephemeral Disk GB</code>: <strong>0</strong><br/>
 <code>Swap Disk MB</code>: <strong>0</strong><br/>
-<code>RX/TX Factor</code>: <strong>1</strong></p>
+<code>Visibility</code>: <strong>Public</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Create Flavor</code>. You should see your new flavor in the list.</li>
-<li>From <code>Actions</code> for the <code>kvm.smaller</code> flavor.</li>
-<li>Select <code>Update Metadata</code>.</li>
-<li>In the <code>Available Metadata</code> column, type <code>aggregate_instance_extra_specs:kvm</code> in the <code>Custom</code> input box and click on the <code>plus sign</code>.</li>
-<li>In the <code>Existing Metadata</code> column, type true in the input box next to <code>aggregate_instance_extra_specs:kvm</code>.</li>
-<li>Click <code>Save</code>. You should see <code>Yes</code> in the <code>Metadata</code> column for the <code>kvm.smaller</code> flavor.</li>
+<li>Click <code>Create Flavor</code>. Your new flavor should appear in the list.</li>
+<li>From the <code>Actions</code> dropdown for the <code>kvm.smaller</code> flavor, select <code>Update Metadata</code>.</li>
+<li>In the <code>Custom</code> input box, type <code>aggregate_instance_extra_specs:kvm</code> and click the <code>+</code> button.</li>
+<li>In the <code>Existing Metadata</code> column, type <code>true</code> in the input box next to <code>aggregate_instance_extra_specs:kvm</code>.</li>
+<li>Click <code>Save</code>. You should see the metadata key listed for the <code>kvm.smaller</code> flavor.</li>
 </ol>
-<h2 id="964-create-a-cloud-instance"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.6.4 Create a cloud Instance<a class="headerlink" href="#964-create-a-cloud-instance" title="Permanent link">&para;</a></h2>
+<p><strong>9.6.4 Create a cloud Instance via the Web UI</strong></p>
 <p><strong>9.6.4.1 Create an Instance</strong></p>
 <ol>
-<li>Log into the OpenStack Dashboard as <code>student</code>.</li>
-<li>From the panels on the left, select: <code>Project &gt; Compute &gt; Instances</code>.</li>
+<li>Log into the dashboard as the <code>student</code> user.</li>
+<li>From the list of tabs on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
 <li>Click <code>Launch Instance</code>.</li>
-<li>In the <code>Launch Instance</code> window in the <code>Details</code> pane enter/select the following:<blockquote>
-<p><code>Instance Name</code>:<strong>jammy1</strong><br/>
+<li>On the <code>Launch Instance</code> screen in the <code>Details</code> tab, enter or select the following:<blockquote>
+<p><code>Instance Name</code>: <strong>jammy1</strong><br/>
 <code>Availability Zone</code>: <strong>nova</strong><br/>
 <code>Count</code>: <strong>1</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Next</code>.</li>
-<li>In the <code>Launch Instance</code> window in the <code>Source</code> pane enter/select the following:<blockquote>
-<p><code>Select Boot Source</code>: <strong>Image</strong><br/>
-<code>Create New Volume</code>: <strong>No</strong></p>
-</blockquote>
-</li>
-<li>Scroll down to the <code>Available</code> images and click on the up arrow to the right of the <code>jammy</code> image.</li>
-<li>The <code>jammy</code> image will move up to the <code>Allocated</code> section.</li>
+<li>In the <code>Source</code> tab, set <code>Select Boot Source</code> to <strong>Image</strong> and <code>Create New Volume</code> to <strong>No</strong>.</li>
+<li>Scroll to the <code>Available</code> images and click the up arrow next to the <code>jammy</code> image to move it to <code>Allocated</code>.</li>
 <li>Click <code>Next</code>.</li>
-<li>In the <code>Launch Instance</code> window in the Flavor pane scroll down to the Available flavors and click on the up arrow to the right of the <code>m1.smaller</code> flavor.</li>
-<li>The <code>m1.smaller</code> flavor will move up to the Allocated section.</li>
+<li>In the <code>Flavor</code> tab, click the up arrow next to the <code>m1.smaller</code> flavor to move it to <code>Allocated</code>.</li>
 <li>Click <code>Next</code>.</li>
-<li>In the <code>Launch Instance</code> window in the <code>Networks</code> pane scroll down to the
-<code>Available</code> networks and click on the + to the right of the <code>StudentProject_Network</code> network.</li>
-<li>The <code>StudentProject_Network</code> network will move up to the <code>Allocated</code> section.</li>
+<li>In the <code>Networks</code> tab, click the <code>+</code> next to <code>StudentProject_Network</code> to move it to <code>Allocated</code>.</li>
 <li>Click <code>Next</code> twice.</li>
-<li>In the <code>Launch Instance</code> window in the <code>Security Groups</code> pane scroll down to
-the <code>Available</code> security groups and click on the up arrow to the right of the <code>StudentProject_Allow_SSH</code> security group.</li>
-<li>The <code>StudentProject_Allow_SSH</code> security group will move up to the <code>Allocated</code> section.</li>
+<li>In the <code>Security Groups</code> tab, click the up arrow next to <code>StudentProject_Allow_SSH</code> to move it to <code>Allocated</code>.</li>
 <li>Click <code>Next</code>.</li>
-<li>In the <code>Launch Instance</code> window in the <code>Key Pair</code> pane scroll down to the
-    <code>Available</code> key pairs and click on the up arrow to the right of the <code>student-keypair</code> key pair.</li>
-<li>The <code>student-keypair</code> key pair will move up to the Allocated section.</li>
+<li>In the <code>Key Pair</code> tab, click the up arrow next to <code>student-keypair</code> to move it to <code>Allocated</code>.</li>
 <li>Click <code>Launch Instance</code>.</li>
 </ol>
-<blockquote>
-<p>You should see your new instance in the list. Initially its status should be <code>Build</code>
-and its task should be <code>Block Device Build</code> and then <code>Spawning</code>. This should
-transition to <code>Active</code> status with a power state of <code>Running</code> when it finishes
-deploying.</p>
-</blockquote>
-<h2 id="965-expose-a-cloud-workload-to-the-external-network"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 9.6.5 Expose a Cloud Workload to the External Network<a class="headerlink" href="#965-expose-a-cloud-workload-to-the-external-network" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The instance initially shows status <code>Build</code> with task <code>Block Device Build</code> and then <code>Spawning</code>. It should transition to <code>Active</code> status with a power state of <code>Running</code> when deployment finishes.</p>
+</div>
+<p><strong>9.6.5 Expose a Cloud Workload to the External Network via the Web UI</strong></p>
 <p><strong>9.6.5.1 Assign a Floating IP to an Instance</strong></p>
-<p><strong>To assign a floating IP via the WebUI perform the following:</strong></p>
+<p><strong>To assign a floating IP via the Web UI perform the following:</strong></p>
 <ol>
-<li>Log into the OpenStack Dashboard as <code>student</code>.</li>
-<li>From the panels on the left, select: <code>Project &gt; Compute &gt; Instances</code>.</li>
-<li>Next to the running instance in the Actions column select <code>Associate Floating IP</code>. from the <code>Create Snapshot</code> drop-down list.</li>
-<li>On the manage <code>Floating IP Associations</code> screen, select the following:<blockquote>
+<li>Log into the dashboard as the <code>student</code> user.</li>
+<li>From the list of tabs on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
+<li>Next to the running instance, in the <code>Actions</code> column, select <code>Associate Floating IP</code> from the dropdown.</li>
+<li>On the <code>Manage Floating IP Associations</code> screen, select the following:<blockquote>
 <p><code>IP Address</code>: <strong>(select the first address in the list)</strong><br/>
-<code>Port to be associated</code>:<strong>(accept the default)</strong></p>
+<code>Port to be associated</code>: <strong>(accept the default)</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Associate</code>.</li>
-<li>In the IP Address column next to the running instance, you should see the floating IP address listed.</li>
+<li>The floating IP address should now appear in the <code>IP Address</code> column next to the instance.</li>
 </ol>
-<p><strong>9.6.5.3 Edit Instance Security Groups</strong></p>
-<p><strong>To edit an instance security group via the WebUI perform the following:</strong></p>
+<p><strong>9.6.5.2 Edit Instance Security Groups</strong></p>
+<p><strong>To edit an instance security group via the Web UI perform the following:</strong></p>
 <ol>
-<li>Log into the OpenStack Dashboard as <code>student</code>.</li>
-<li>Next to the running instance, in the <code>Actions</code> column, select <code>Edit Security Groups</code> from the <code>Create Snapshot</code> drop-down list.</li>
-<li>In the <code>Edit Instance</code> window, in the <code>Security Groups</code> pane, click the <code>+</code> next to the <code>StudentProject_Allow_ICMP</code> security group. The security
-group should move to the <code>Instance Security Groups</code> pane.</li>
+<li>Log into the dashboard as the <code>student</code> user.</li>
+<li>Next to the running instance, in the <code>Actions</code> column, select <code>Edit Security Groups</code> from the dropdown.</li>
+<li>In the <code>Edit Instance</code> window, in the <code>Security Groups</code> pane, click the <code>+</code> next to <code>StudentProject_Allow_ICMP</code>. The security group should move to the <code>Instance Security Groups</code> pane.</li>
 <li>Click <code>Save</code>.</li>
 </ol>
 
