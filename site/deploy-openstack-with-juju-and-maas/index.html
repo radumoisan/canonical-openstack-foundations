@@ -358,6 +358,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#53-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+       5.3 Web UI
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -547,6 +556,15 @@
   <a href="#52-configure-access-to-openstack" class="md-nav__link">
     <span class="md-ellipsis">
        5.2 Configure Access to OpenStack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+       5.3 Web UI
     </span>
   </a>
   
@@ -858,41 +876,8 @@ juju<span class="w"> </span>ssh<span class="w"> </span>ceph-mon/0<span class="w"
 </details>
 <h2 id="52-configure-access-to-openstack"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 5.2 Configure Access to OpenStack<a class="headerlink" href="#52-configure-access-to-openstack" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
-<p>In this exercise, you interact with the OpenStack Dashboard and CLI.</p>
-<p><strong>5.2.1 Discover the OpenStack Dashboard Address</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Discover the OpenStack Dashboard address from the Juju model</span>
-juju<span class="w"> </span>status<span class="w"> </span>openstack-dashboard
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
-uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">17</span>:35:58Z
-
-App<span class="w">                     </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">                </span>Channel<span class="w">         </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
-dashboard-mysql-router<span class="w">  </span><span class="m">8</span>.0.46<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>mysql-router<span class="w">         </span><span class="m">8</span>.0/stable<span class="w">     </span><span class="m">1136</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
-openstack-dashboard<span class="w">     </span><span class="m">24</span>.0.1<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>openstack-dashboard<span class="w">  </span><span class="m">2024</span>.1/stable<span class="w">   </span><span class="m">728</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
-
-Unit<span class="w">                         </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">       </span>Message
-openstack-dashboard/0*<span class="w">       </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">3</span>/lxd/1<span class="w">  </span><span class="m">192</span>.168.100.35<span class="w">  </span><span class="m">80</span>,443/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
-<span class="w">  </span>dashboard-mysql-router/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">            </span><span class="m">192</span>.168.100.35<span class="w">              </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
-
-Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
-<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span>os-compute04<span class="w">         </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
-<span class="m">3</span>/lxd/1<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.35<span class="w">  </span>juju-ed0023-3-lxd-1<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Container<span class="w"> </span>started
-</code></pre></div>
-</details>
-<p><strong>5.2.2 Access Horizon</strong></p>
-<p>Open a web browser and point to <code>https://DASHBOARD_IP/horizon</code>.</p>
-<p>In this validation run, the dashboard URL was <code>https://192.168.100.35/horizon</code>.</p>
-<p>Log in using the following credentials:
-- <code>Domain</code>: <code>admin_domain</code>
-- <code>Username</code>: <code>admin</code>
-- <code>Password</code>: <code>openstack</code></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Use the browser proxy path from Chapter 1 to reach the internal <code>192.168.100.0/24</code> lab network.</p>
-</div>
-<p><strong>5.2.3 Interact with OpenStack CLI</strong></p>
+<p>In this exercise, you configure and use the OpenStack CLI.</p>
+<p><strong>5.2.1 Interact with OpenStack CLI</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Install the OpenStack client tools on the MAAS VM</span>
 sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>openstackclients<span class="w"> </span>--channel<span class="o">=</span><span class="m">2024</span>.1/stable<span class="w"> </span>--devmode
 </code></pre></div>
@@ -1027,6 +1012,41 @@ openstack<span class="w"> </span>endpoint<span class="w"> </span>list
 +----------------------------------+-----------+--------------+--------------+---------+-----------+----------------------------------+
 </code></pre></div>
 </details>
+<h2 id="53-web-ui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 5.3 Web UI<a class="headerlink" href="#53-web-ui" title="Permanent link">&para;</a></h2>
+<p><strong>Description:</strong></p>
+<p>In this exercise, you access the Horizon dashboard from a web browser.</p>
+<p><strong>5.3.1 Access Horizon</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Discover the OpenStack Dashboard address from the Juju model</span>
+juju<span class="w"> </span>status<span class="w"> </span>openstack-dashboard
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">17</span>:35:58Z
+
+App<span class="w">                     </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">                </span>Channel<span class="w">         </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+dashboard-mysql-router<span class="w">  </span><span class="m">8</span>.0.46<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>mysql-router<span class="w">         </span><span class="m">8</span>.0/stable<span class="w">     </span><span class="m">1136</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+openstack-dashboard<span class="w">     </span><span class="m">24</span>.0.1<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>openstack-dashboard<span class="w">  </span><span class="m">2024</span>.1/stable<span class="w">   </span><span class="m">728</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+
+Unit<span class="w">                         </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">       </span>Message
+openstack-dashboard/0*<span class="w">       </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">3</span>/lxd/1<span class="w">  </span><span class="m">192</span>.168.100.35<span class="w">  </span><span class="m">80</span>,443/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+<span class="w">  </span>dashboard-mysql-router/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">            </span><span class="m">192</span>.168.100.35<span class="w">              </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
+<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span>os-compute04<span class="w">         </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">3</span>/lxd/1<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.35<span class="w">  </span>juju-ed0023-3-lxd-1<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Container<span class="w"> </span>started
+</code></pre></div>
+</details>
+<p>Open a web browser and point to <code>https://DASHBOARD_IP/horizon</code>.</p>
+<p>In this validation run, the dashboard URL was <code>https://192.168.100.35/horizon</code>.</p>
+<p>Log in using the following credentials:
+- <code>Domain</code>: <code>admin_domain</code>
+- <code>Username</code>: <code>admin</code>
+- <code>Password</code>: <code>openstack</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the browser proxy path from Chapter 1 to reach the internal <code>192.168.100.0/24</code> lab network.</p>
+</div>
 
 
 
