@@ -497,6 +497,128 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_op
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack image show jammy'\''"'
 ```
 
+## Chapter 8 - Configure an OpenStack Project
+
 ```bash
-ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "curl -sk -o /dev/null -w \"%{http_code}\" https://192.168.100.35/horizon"'
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack project create --domain admin_domain --enable --description \"Student Project\" StudentProject'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack user create --project StudentProject --email student@example.com --password openstack --enable student --domain admin_domain'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack role add --project-domain admin_domain --user-domain admin_domain --user student --project StudentProject Member'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cp os_files/student_* ~/"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack keypair create student-keypair > ~/.ssh/student-keypair.pem'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "ls -al ~/.ssh/student-keypair.pem"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "chmod 600 ~/.ssh/student-keypair.pem"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack keypair create --public-key ~/.ssh/id_rsa.pub existing-keypair'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack keypair list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group create --description \"Allow ICMP Traffic\" StudentProject_Allow_ICMP'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group rule create --proto icmp StudentProject_Allow_ICMP'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group rule create --proto icmp --egress StudentProject_Allow_ICMP'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group rule list StudentProject_Allow_ICMP'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group create --description \"Allow SSH Traffic\" StudentProject_Allow_SSH'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group rule create --proto tcp --dst-port 22 StudentProject_Allow_SSH'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group rule create --proto tcp --egress --dst-port 22 StudentProject_Allow_SSH'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group rule list StudentProject_Allow_SSH'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack quota show StudentProject'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack quota set --cores 40 --ram 25600 --instances 20 --volumes 5 --snapshots 5 --floating-ips 10 --secgroups 20 --secgroup-rules 200 StudentProject'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack quota show StudentProject'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack network create StudentProject_Network --mtu 1300'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack subnet create --ip-version 4 --allocation-pool start=10.20.30.10,end=10.20.30.199 --gateway=10.20.30.1 --dhcp --dns-nameserver 192.168.100.3 --dns-nameserver 8.8.8.8 --subnet-range 10.20.30.0/24 --network StudentProject_Network StudentProject_Subnet'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack network list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack subnet list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack network show StudentProject_Network'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack subnet show StudentProject_Subnet'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack router create StudentProject_Public_Router'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack router set --external-gateway Public_Network StudentProject_Public_Router'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack router add subnet StudentProject_Public_Router StudentProject_Subnet'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack router show StudentProject_Public_Router'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack floating ip create Public_Network'\''"'
 ```

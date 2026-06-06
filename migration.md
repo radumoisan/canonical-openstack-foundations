@@ -118,9 +118,14 @@ Planned work:
 
 ### 8. Configure an OpenStack Project
 
-- Status: `Migrated`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 8
 - Target page: `docs/configure-openstack-project.md`
+- Validation note: Chapter 8 was validated from the MAAS VM on student host `34.159.9.11`.
+- Validation note: The `openstack project create` command required argument reordering: `--domain admin_domain` must appear before the project name positional argument.
+- Validation note: The `openstack quota set` command emits a deprecation warning about `--force` defaulting for network quotas; this does not affect the outcome.
+- Validation note: All CLI commands in sections 8.1 through 8.8 were validated successfully.
+- Validation note: The Web UI section (8.9) was reviewed and reorganized as an alternative path to the validated CLI workflow.
 
 ### 9. Work with Cloud Workload Instances
 
