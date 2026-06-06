@@ -98,9 +98,13 @@ Planned work:
 
 ### 6. Work with Software Defined Networks
 
-- Status: `Migrated`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 6
 - Target page: `docs/software-defined-networks.md`
+- Validation note: Chapter 6 was validated from the MAAS VM on student host `34.159.9.11`.
+- Validation note: External network `Public_Network` and subnet `Public_Subnet` were created successfully on `physnet1` with MTU `1300`.
+- Validation note: The validated subnet uses `192.168.100.0/24` with floating IP allocation pool `192.168.100.150-192.168.100.199` and DHCP disabled.
+- Validation note: Horizon remained reachable at `http://192.168.100.35/horizon` and returned HTTP `302` for an unauthenticated request.
 
 ### 7. Work with Cloud Images
 
@@ -162,7 +166,7 @@ Validation workflow:
 - Install and Configure MAAS: `install-and-configure-maas.md`
 - Install and Configure Juju: `install-and-configure-juju.md`
 - Juju Charms: `juju-charms.md`
-- Deploy OpenStack with Juju and MAAS: `deploy-openstack-with-juju-and-maas.md`
+- Deploy OpenStack: `deploy-openstack-with-juju-and-maas.md`
 - Software Defined Networks: `software-defined-networks.md`
 - Cloud Images: `cloud-images.md`
 - Configure an OpenStack Project: `configure-openstack-project.md`

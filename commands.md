@@ -422,3 +422,31 @@ ENDSSH
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && env | grep OS_'\''"'
 ```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack network create Public_Network --external --provider-physical-network physnet1 --provider-network-type flat --mtu 1300'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack network list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack network show Public_Network'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack subnet create --ip-version 4 --allocation-pool start=192.168.100.150,end=192.168.100.199 --gateway=192.168.100.1 --no-dhcp --network Public_Network --subnet-range 192.168.100.0/24 Public_Subnet'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack subnet list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack subnet show Public_Subnet'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "curl -s -o /dev/null -w \"%{http_code}\" http://192.168.100.35/horizon"'
+```

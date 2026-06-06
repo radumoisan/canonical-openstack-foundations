@@ -330,7 +330,7 @@ juju ssh ceph-mon/0 -- sudo ceph -s
 
 In this exercise, you interact with the OpenStack Dashboard and CLI.
 
-**5.2.1 Interact with the OpenStack Dashboard**
+**5.2.1 Discover the OpenStack Dashboard Address**
 
 ```bash
 # Discover the OpenStack Dashboard address from the Juju model
@@ -355,9 +355,11 @@ juju status openstack-dashboard
     3/lxd/1  started  192.168.100.35  juju-ed0023-3-lxd-1  ubuntu@22.04  default  Container started
     ```
 
-Open a web browser and point to `http://DASHBOARD_IP/horizon`.
+**5.2.2 Access Horizon**
 
-In this validation run, the dashboard URL was `http://192.168.100.35/horizon`.
+Open a web browser and point to `https://DASHBOARD_IP/horizon`.
+
+In this validation run, the dashboard URL was `https://192.168.100.35/horizon`.
 
 Log in using the following credentials:
 - `Domain`: `admin_domain`
@@ -365,9 +367,9 @@ Log in using the following credentials:
 - `Password`: `openstack`
 
 !!! note
-    During validation, the interactive browser step was confirmed non-interactively by checking that the Horizon URL returned HTTP `302`, which is the expected redirect to the login page.
+    Use the browser proxy path from Chapter 1 to reach the internal `192.168.100.0/24` lab network.
 
-**5.2.2 Interact with OpenStack CLI**
+**5.2.3 Interact with OpenStack CLI**
 
 ```bash
 # Install the OpenStack client tools on the MAAS VM
