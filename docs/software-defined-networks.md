@@ -31,8 +31,11 @@ source ~/admin_openrc
 
 ```bash
 # Create the external Neutron network on physnet1
-openstack network create Public_Network --external \
-  --provider-physical-network physnet1 --provider-network-type flat --mtu 1300
+openstack network create Public_Network \
+        --external \
+        --provider-physical-network physnet1 \
+        --provider-network-type flat \
+        --mtu 1300
 ```
 
 ??? example "Expected result"
@@ -133,11 +136,14 @@ openstack network show Public_Network
 
 ```bash
 # Create the external subnet and reserve the floating IP range
-openstack subnet create --ip-version 4 \
-  --allocation-pool start=192.168.100.150,end=192.168.100.199 \
-  --gateway=192.168.100.1 --no-dhcp \
-  --network Public_Network \
-  --subnet-range 192.168.100.0/24 Public_Subnet
+openstack subnet create \
+        --ip-version 4 \
+        --allocation-pool start=192.168.100.150,end=192.168.100.199 \
+        --gateway=192.168.100.1 \
+        --no-dhcp \
+        --network Public_Network \
+        --subnet-range 192.168.100.0/24 \
+        Public_Subnet
 ```
 
 ??? example "Expected result"
