@@ -328,48 +328,9 @@ juju ssh ceph-mon/0 -- sudo ceph -s
 
 **Description:**
 
-In this exercise, you interact with the OpenStack Dashboard and CLI.
+In this exercise, you configure and use the OpenStack CLI.
 
-**5.2.1 Discover the OpenStack Dashboard Address**
-
-```bash
-# Discover the OpenStack Dashboard address from the Juju model
-juju status openstack-dashboard
-```
-
-??? example "Expected result"
-    ```bash
-    Model  Controller       Cloud/Region  Version  SLA          Timestamp
-    uos    maas-controller  maas/default  3.6.23   unsupported  17:35:58Z
-
-    App                     Version  Status  Scale  Charm                Channel         Rev  Exposed  Message
-    dashboard-mysql-router  8.0.46   active      1  mysql-router         8.0/stable     1136  no       Unit is ready
-    openstack-dashboard     24.0.1   active      1  openstack-dashboard  2024.1/stable   728  no       Unit is ready
-
-    Unit                         Workload  Agent  Machine  Public address  Ports       Message
-    openstack-dashboard/0*       active    idle   3/lxd/1  192.168.100.35  80,443/tcp  Unit is ready
-      dashboard-mysql-router/0*  active    idle            192.168.100.35              Unit is ready
-
-    Machine  State    Address         Inst id              Base          AZ       Message
-    3        started  192.168.100.26  os-compute04         ubuntu@22.04  default  Deployed
-    3/lxd/1  started  192.168.100.35  juju-ed0023-3-lxd-1  ubuntu@22.04  default  Container started
-    ```
-
-**5.2.2 Access Horizon**
-
-Open a web browser and point to `https://DASHBOARD_IP/horizon`.
-
-In this validation run, the dashboard URL was `https://192.168.100.35/horizon`.
-
-Log in using the following credentials:
-- `Domain`: `admin_domain`
-- `Username`: `admin`
-- `Password`: `openstack`
-
-!!! note
-    Use the browser proxy path from Chapter 1 to reach the internal `192.168.100.0/24` lab network.
-
-**5.2.3 Interact with OpenStack CLI**
+**5.2.1 Interact with OpenStack CLI**
 
 ```bash
 # Install the OpenStack client tools on the MAAS VM
@@ -517,3 +478,46 @@ openstack endpoint list
     | e848cdc0bb604fc4a5bedb2c1a83a226 | RegionOne | placement    | placement    | True    | public    | https://192.168.100.44:8778      |
     +----------------------------------+-----------+--------------+--------------+---------+-----------+----------------------------------+
     ```
+
+## :material-book-open-page-variant-outline: 5.3 Web UI
+
+**Description:**
+
+In this exercise, you access the Horizon dashboard from a web browser.
+
+**5.3.1 Access Horizon**
+
+```bash
+# Discover the OpenStack Dashboard address from the Juju model
+juju status openstack-dashboard
+```
+
+??? example "Expected result"
+    ```bash
+    Model  Controller       Cloud/Region  Version  SLA          Timestamp
+    uos    maas-controller  maas/default  3.6.23   unsupported  17:35:58Z
+
+    App                     Version  Status  Scale  Charm                Channel         Rev  Exposed  Message
+    dashboard-mysql-router  8.0.46   active      1  mysql-router         8.0/stable     1136  no       Unit is ready
+    openstack-dashboard     24.0.1   active      1  openstack-dashboard  2024.1/stable   728  no       Unit is ready
+
+    Unit                         Workload  Agent  Machine  Public address  Ports       Message
+    openstack-dashboard/0*       active    idle   3/lxd/1  192.168.100.35  80,443/tcp  Unit is ready
+      dashboard-mysql-router/0*  active    idle            192.168.100.35              Unit is ready
+
+    Machine  State    Address         Inst id              Base          AZ       Message
+    3        started  192.168.100.26  os-compute04         ubuntu@22.04  default  Deployed
+    3/lxd/1  started  192.168.100.35  juju-ed0023-3-lxd-1  ubuntu@22.04  default  Container started
+    ```
+
+Open a web browser and point to `https://DASHBOARD_IP/horizon`.
+
+In this validation run, the dashboard URL was `https://192.168.100.35/horizon`.
+
+Log in using the following credentials:
+- `Domain`: `admin_domain`
+- `Username`: `admin`
+- `Password`: `openstack`
+
+!!! note
+    Use the browser proxy path from Chapter 1 to reach the internal `192.168.100.0/24` lab network.
