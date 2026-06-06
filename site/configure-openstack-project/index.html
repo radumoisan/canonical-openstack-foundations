@@ -473,81 +473,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#89-web-ui" class="md-nav__link">
+  <a href="#89-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       8.9 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#891-create-a-project-in-openstack" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.1 Create a project in OpenStack
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#892-configure-access-to-a-project-in-openstack" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.2 Configure Access to a Project in OpenStack
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#893-generate-key-pairs-for-workload-instance-access" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.3 Generate Key Pairs for Workload Instance Access
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#894-define-a-security-group-for-icmp-traffic" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.4 Define a Security Group for ICMP Traffic
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#895-define-a-security-group-for-ssh-traffic" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.5 Define a Security Group for SSH Traffic
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#896-define-quotas-for-a-project" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.6 Define Quotas for a Project
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#897-configure-virtual-networks-for-a-project" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.7 Configure Virtual Networks for a Project
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#898-assign-public-ip-addresses-to-a-project" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.8 Assign Public IP Addresses to a Project
+       8.9 Web UI Equivalents
     </span>
   </a>
   
@@ -742,81 +670,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#89-web-ui" class="md-nav__link">
+  <a href="#89-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       8.9 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#891-create-a-project-in-openstack" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.1 Create a project in OpenStack
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#892-configure-access-to-a-project-in-openstack" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.2 Configure Access to a Project in OpenStack
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#893-generate-key-pairs-for-workload-instance-access" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.3 Generate Key Pairs for Workload Instance Access
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#894-define-a-security-group-for-icmp-traffic" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.4 Define a Security Group for ICMP Traffic
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#895-define-a-security-group-for-ssh-traffic" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.5 Define a Security Group for SSH Traffic
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#896-define-quotas-for-a-project" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.6 Define Quotas for a Project
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#897-configure-virtual-networks-for-a-project" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.7 Configure Virtual Networks for a Project
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#898-assign-public-ip-addresses-to-a-project" class="md-nav__link">
-    <span class="md-ellipsis">
-       8.9.8 Assign Public IP Addresses to a Project
+       8.9 Web UI Equivalents
     </span>
   </a>
   
@@ -845,212 +701,851 @@
 <p>In this exercise, you create a new OpenStack project and then create and assign
 a new user to it.</p>
 <p><strong>8.1.1 Create a New Project</strong></p>
-<p>At the terminal of the MAAS server, enter the following commands to create
-a new project:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Change to the home directory and load the OpenStack administrator environment</span>
+<span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>project<span class="w"> </span>create<span class="w"> </span>--enable<span class="w"> </span>--description<span class="w"> </span><span class="s1">&#39;Student Project&#39;</span><span class="w"> </span>StudentProject<span class="w"> </span>--domain<span class="w"> </span>admin_domain
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run the following <code>openstack</code> commands in the same shell session after sourcing <code>~/admin_openrc</code>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new project named StudentProject in the admin_domain</span>
+openstack<span class="w"> </span>project<span class="w"> </span>create<span class="w"> </span>--domain<span class="w"> </span>admin_domain<span class="w"> </span>--enable<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;Student Project&quot;</span><span class="w"> </span>StudentProject
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">       </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                            </span><span class="p">|</span>
++-------------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>description<span class="w"> </span><span class="p">|</span><span class="w"> </span>Student<span class="w"> </span>Project<span class="w">                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>domain_id<span class="w">   </span><span class="p">|</span><span class="w"> </span>20edcdf73fc742d3a2c347118f244ecd<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enabled<span class="w">     </span><span class="p">|</span><span class="w"> </span>True<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">          </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_domain<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">        </span><span class="p">|</span><span class="w"> </span>StudentProject<span class="w">                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>options<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="o">{}</span><span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>parent_id<span class="w">   </span><span class="p">|</span><span class="w"> </span>20edcdf73fc742d3a2c347118f244ecd<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                               </span><span class="p">|</span>
++-------------+----------------------------------+
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>--domain</code> flag must appear before the project name positional argument.</p>
+</div>
 <p><strong>8.1.2 Create and Assign a User to a Project</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to create a 
-new user and assign that user to a project:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>--project<span class="w"> </span>StudentProject<span class="w"> </span>--email<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>student@example.com<span class="w"> </span>--password<span class="w"> </span>openstack<span class="w"> </span>--enable<span class="w"> </span>student<span class="w"> </span>--domain<span class="w"> </span>admin_domain
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new user named student and assign it to StudentProject</span>
+openstack<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>--project<span class="w"> </span>StudentProject<span class="w"> </span>--email<span class="w"> </span>student@example.com<span class="w"> </span>--password<span class="w"> </span>openstack<span class="w"> </span>--enable<span class="w"> </span>student<span class="w"> </span>--domain<span class="w"> </span>admin_domain
 </code></pre></div>
-<p>To assign the user and project to the Member role:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>role<span class="w"> </span>add<span class="w"> </span>--project-domain<span class="w"> </span>admin_domain<span class="w"> </span>--user-domain<span class="w"> </span>admin_domain<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--user<span class="w"> </span>student<span class="w"> </span>--project<span class="w"> </span>StudentProject<span class="w"> </span>Member
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">               </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                            </span><span class="p">|</span>
++---------------------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>default_project_id<span class="w">  </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>domain_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>20edcdf73fc742d3a2c347118f244ecd<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>email<span class="w">               </span><span class="p">|</span><span class="w"> </span>student@example.com<span class="w">              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enabled<span class="w">             </span><span class="p">|</span><span class="w"> </span>True<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                  </span><span class="p">|</span><span class="w"> </span>89ed5796241e4dddb49afd47ed2d08f5<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                </span><span class="p">|</span><span class="w"> </span>student<span class="w">                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>options<span class="w">             </span><span class="p">|</span><span class="w"> </span><span class="o">{}</span><span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>password_expires_at<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                             </span><span class="p">|</span>
++---------------------+----------------------------------+
 </code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Assign the student user the Member role on StudentProject</span>
+openstack<span class="w"> </span>role<span class="w"> </span>add<span class="w"> </span>--project-domain<span class="w"> </span>admin_domain<span class="w"> </span>--user-domain<span class="w"> </span>admin_domain<span class="w"> </span>--user<span class="w"> </span>student<span class="w"> </span>--project<span class="w"> </span>StudentProject<span class="w"> </span>Member
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
 <h2 id="82-configure-access-to-a-project-in-openstack"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.2 Configure Access to a Project in OpenStack<a class="headerlink" href="#82-configure-access-to-a-project-in-openstack" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
-<p>In this exercise, you use Juju to configure access to a project in OpenStack.</p>
+<p>In this exercise, you use the student resource file to authenticate as the
+student user.</p>
 <p><strong>8.2.1 Use the student resource file</strong></p>
-<p>At the terminal of the MAAS server, copy the student openrc file to the home directory:</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>os_files/student_*<span class="w"> </span>~/
+<div class="highlight"><pre><span></span><code><span class="c1"># Copy the student openrc files to the home directory</span>
+cp<span class="w"> </span>os_files/student_*<span class="w"> </span>~/
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment into the current shell</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run the following <code>openstack</code> commands in the same shell session after sourcing <code>~/student_openrc</code>.</p>
+</div>
 <h2 id="83-generate-key-pairs-for-workload-instance-access"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.3 Generate Key Pairs for Workload Instance Access<a class="headerlink" href="#83-generate-key-pairs-for-workload-instance-access" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you generate a new key pair for workload instance access and
-then import an existing public key</p>
+then import an existing public key.</p>
 <p><strong>8.3.1 Generate a New Key Pair</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to generate
-the key pair:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment (if not already loaded)</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>keypair<span class="w"> </span>create<span class="w"> </span>student-keypair<span class="w"> </span>&gt;<span class="w"> </span>~/.ssh/student-keypair.pem
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>A file named <code>~/.ssh/student-keypair.pem</code> should be created.</p>
-<p>Verify the key file <code>~/.ssh/student-keypair.pem</code> is created:</p>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-al<span class="w"> </span>~/.ssh/student-keypair.pem
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate a new keypair and save the private key</span>
+openstack<span class="w"> </span>keypair<span class="w"> </span>create<span class="w"> </span>student-keypair<span class="w"> </span>&gt;<span class="w"> </span>~/.ssh/student-keypair.pem
 </code></pre></div>
-<p>You should see something similar to:</p>
-<div class="highlight"><pre><span></span><code>-rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w"> </span><span class="m">1684</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">01</span>:20<span class="w">   </span>/home/ubuntu/.ssh/student-keypair.pem
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>Permissions on the key file are set based on umask. They should be changed to <code>600</code>:</p>
-<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/student-keypair.pem
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the key file was created</span>
+ls<span class="w"> </span>-al<span class="w"> </span>~/.ssh/student-keypair.pem
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w"> </span><span class="m">388</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:09<span class="w"> </span>/home/ubuntu/.ssh/student-keypair.pem
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set restrictive permissions on the private key</span>
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/student-keypair.pem
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
 <p><strong>8.3.2 Import a Public Key</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to import an
-existing key pair:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment (if not already loaded)</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>keypair<span class="w"> </span>create<span class="w"> </span>--public-key<span class="w"> </span>~/.ssh/id_rsa.pub<span class="w"> </span>existing-keypair
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>At the terminal of the MAAS server, enter the following command to view
-existing key pairs:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>keypair<span class="w"> </span>list
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import an existing public key as a keypair named existing-keypair</span>
+openstack<span class="w"> </span>keypair<span class="w"> </span>create<span class="w"> </span>--public-key<span class="w"> </span>~/.ssh/id_rsa.pub<span class="w"> </span>existing-keypair
 </code></pre></div>
-<p>You should see key pairs named existing-keypair and student-keypair and their
-fingerprints listed.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------+-------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">       </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                           </span><span class="p">|</span>
++-------------+-------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>fingerprint<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">39</span>:8a:c0:c3:ff:47:17:2f:9f:7e:1b:98:0b:11:5e:d8<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">          </span><span class="p">|</span><span class="w"> </span>existing-keypair<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_deleted<span class="w">  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">        </span><span class="p">|</span><span class="w"> </span>existing-keypair<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span><span class="nb">type</span><span class="w">        </span><span class="p">|</span><span class="w"> </span>ssh<span class="w">                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>user_id<span class="w">     </span><span class="p">|</span><span class="w"> </span>89ed5796241e4dddb49afd47ed2d08f5<span class="w">                </span><span class="p">|</span>
++-------------+-------------------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all keypairs for the current user</span>
+openstack<span class="w"> </span>keypair<span class="w"> </span>list
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++------------------+-------------------------------------------------+------+
+<span class="p">|</span><span class="w"> </span>Name<span class="w">             </span><span class="p">|</span><span class="w"> </span>Fingerprint<span class="w">                                     </span><span class="p">|</span><span class="w"> </span>Type<span class="w"> </span><span class="p">|</span>
++------------------+-------------------------------------------------+------+
+<span class="p">|</span><span class="w"> </span>existing-keypair<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">39</span>:8a:c0:c3:ff:47:17:2f:9f:7e:1b:98:0b:11:5e:d8<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w">  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>student-keypair<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">60</span>:3f:42:a4:19:40:4b:cf:e9:7d:97:bc:a8:04:8e:ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w">  </span><span class="p">|</span>
++------------------+-------------------------------------------------+------+
+</code></pre></div>
+</details>
 <h2 id="84-define-a-security-group-for-icmp-traffic"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.4 Define a Security Group for ICMP Traffic<a class="headerlink" href="#84-define-a-security-group-for-icmp-traffic" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you define a security group that allows both incoming and outgoing
 ICMP traffic.</p>
-<p><strong>Note:</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>By default, when you create a security group it will allow all outgoing IPv4 and IPv6
 traffic. The examples in the following exercises are there to familiarize you with
 the concept of <code>ingress</code> and <code>egress</code>.</p>
 <p>If you ever do need to restrict egress traffic make sure to remove all default egress
 rules from the security groups you apply to an instance or a port.</p>
+</div>
 <p><strong>8.4.1 Define a Rule to Allow Incoming ICMP</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to create a
-security group for ICMP traffic:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment (if not already loaded)</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--description<span class="w"> </span><span class="s1">&#39;Allow ICMP Traffic&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>StudentProject_Allow_ICMP
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see detailed information on the ICMP security group you just created.</p>
-<p>To create the rules for the newly created ICMP security group:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>icmp<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>StudentProject_Allow_ICMP
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a security group for ICMP traffic</span>
+openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;Allow ICMP Traffic&quot;</span><span class="w"> </span>StudentProject_Allow_ICMP
 </code></pre></div>
-<p>You should see your ICMP ingress rule listed.</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>icmp<span class="w"> </span>--egress<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>StudentProject_Allow_ICMP
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">           </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                                                                                                                        </span><span class="p">|</span>
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:10:54Z<span class="w">                                                                                                                                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">     </span><span class="p">|</span><span class="w"> </span>Allow<span class="w"> </span>ICMP<span class="w"> </span>Traffic<span class="w">                                                                                                                                                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">              </span><span class="p">|</span><span class="w"> </span>b39a3179-0980-4223-99ee-26316224ba65<span class="w">                                                                                                                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">            </span><span class="p">|</span><span class="w"> </span>StudentProject_Allow_ICMP<span class="w">                                                                                                                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">      </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                                                                                                                                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>rules<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="nv">created_at</span><span class="o">=</span><span class="s1">&#39;2026-06-06T11:10:54Z&#39;</span>,<span class="w"> </span><span class="nv">direction</span><span class="o">=</span><span class="s1">&#39;egress&#39;</span>,<span class="w"> </span><span class="nv">ethertype</span><span class="o">=</span><span class="s1">&#39;IPv6&#39;</span>,<span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s1">&#39;eafc9ca8-5609-4f60-8bcc-c60aa5f80e4c&#39;</span>,<span class="w"> </span><span class="nv">standard_attr_id</span><span class="o">=</span><span class="s1">&#39;21&#39;</span>,<span class="w"> </span><span class="nv">updated_at</span><span class="o">=</span><span class="s1">&#39;2026-06-06T11:10:54Z&#39;</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w">                 </span><span class="p">|</span><span class="w"> </span><span class="nv">created_at</span><span class="o">=</span><span class="s1">&#39;2026-06-06T11:10:54Z&#39;</span>,<span class="w"> </span><span class="nv">direction</span><span class="o">=</span><span class="s1">&#39;egress&#39;</span>,<span class="w"> </span><span class="nv">ethertype</span><span class="o">=</span><span class="s1">&#39;IPv4&#39;</span>,<span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s1">&#39;fa0a730e-95d0-42b8-bf6a-4e055a2d6305&#39;</span>,<span class="w"> </span><span class="nv">standard_attr_id</span><span class="o">=</span><span class="s1">&#39;20&#39;</span>,<span class="w"> </span><span class="nv">updated_at</span><span class="o">=</span><span class="s1">&#39;2026-06-06T11:10:54Z&#39;</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>shared<span class="w">          </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                                                                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>stateful<span class="w">        </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                                                                                                                                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">            </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                                                                                                                                                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:10:54Z<span class="w">                                                                                                                                                         </span><span class="p">|</span>
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
-<p>You should see your ICMP egress rule listed.</p>
-<p>To view the security group rules list inside StudentProject_Allow_ICMP security group, run the following command:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>list<span class="w"> </span>StudentProject_Allow_ICMP
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add an ICMP ingress rule to the security group</span>
+openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>icmp<span class="w"> </span>StudentProject_Allow_ICMP
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                   </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++-------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>belongs_to_default_sg<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:11:07Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">             </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>direction<span class="w">               </span><span class="p">|</span><span class="w"> </span>ingress<span class="w">                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ether_type<span class="w">              </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                      </span><span class="p">|</span><span class="w"> </span>64d51d77-95d0-4233-bbfc-c589c7e6b8ab<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>normalized_cidr<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_range_max<span class="w">          </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_range_min<span class="w">          </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">              </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>protocol<span class="w">                </span><span class="p">|</span><span class="w"> </span>icmp<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_address_group_id<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_group_id<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_ip_prefix<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>security_group_id<span class="w">       </span><span class="p">|</span><span class="w"> </span>b39a3179-0980-4223-99ee-26316224ba65<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                    </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:11:07Z<span class="w">                 </span><span class="p">|</span>
++-------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add an ICMP egress rule to the security group</span>
+openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>icmp<span class="w"> </span>--egress<span class="w"> </span>StudentProject_Allow_ICMP
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                   </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++-------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>belongs_to_default_sg<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:11:17Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">             </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>direction<span class="w">               </span><span class="p">|</span><span class="w"> </span>egress<span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ether_type<span class="w">              </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                      </span><span class="p">|</span><span class="w"> </span>6f6a9e99-085f-4495-8e60-d5fefa5f4885<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>normalized_cidr<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_range_max<span class="w">          </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_range_min<span class="w">          </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">              </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>protocol<span class="w">                </span><span class="p">|</span><span class="w"> </span>icmp<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_address_group_id<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_group_id<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_ip_prefix<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>security_group_id<span class="w">       </span><span class="p">|</span><span class="w"> </span>b39a3179-0980-4223-99ee-26316224ba65<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                    </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:11:17Z<span class="w">                 </span><span class="p">|</span>
++-------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the rules in the ICMP security group</span>
+openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>list<span class="w"> </span>StudentProject_Allow_ICMP
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+-------------+-----------+-----------+------------+-----------+-----------------------+----------------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>IP<span class="w"> </span>Protocol<span class="w"> </span><span class="p">|</span><span class="w"> </span>Ethertype<span class="w"> </span><span class="p">|</span><span class="w"> </span>IP<span class="w"> </span>Range<span class="w">  </span><span class="p">|</span><span class="w"> </span>Port<span class="w"> </span>Range<span class="w"> </span><span class="p">|</span><span class="w"> </span>Direction<span class="w"> </span><span class="p">|</span><span class="w"> </span>Remote<span class="w"> </span>Security<span class="w"> </span>Group<span class="w"> </span><span class="p">|</span><span class="w"> </span>Remote<span class="w"> </span>Address<span class="w"> </span>Group<span class="w"> </span><span class="p">|</span>
++--------------------------------------+-------------+-----------+-----------+------------+-----------+-----------------------+----------------------+
+<span class="p">|</span><span class="w"> </span>64d51d77-95d0-4233-bbfc-c589c7e6b8ab<span class="w"> </span><span class="p">|</span><span class="w"> </span>icmp<span class="w">        </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="p">|</span><span class="w">            </span><span class="p">|</span><span class="w"> </span>ingress<span class="w">   </span><span class="p">|</span><span class="w"> </span>None<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>6f6a9e99-085f-4495-8e60-d5fefa5f4885<span class="w"> </span><span class="p">|</span><span class="w"> </span>icmp<span class="w">        </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="p">|</span><span class="w">            </span><span class="p">|</span><span class="w"> </span>egress<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>eafc9ca8-5609-4f60-8bcc-c60aa5f80e4c<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">        </span><span class="p">|</span><span class="w"> </span>IPv6<span class="w">      </span><span class="p">|</span><span class="w"> </span>::/0<span class="w">      </span><span class="p">|</span><span class="w">            </span><span class="p">|</span><span class="w"> </span>egress<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>fa0a730e-95d0-42b8-bf6a-4e055a2d6305<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">        </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="p">|</span><span class="w">            </span><span class="p">|</span><span class="w"> </span>egress<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                 </span><span class="p">|</span>
++--------------------------------------+-------------+-----------+-----------+------------+-----------+-----------------------+----------------------+
+</code></pre></div>
+</details>
 <h2 id="85-define-a-security-group-for-ssh-traffic"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.5 Define a Security Group for SSH Traffic<a class="headerlink" href="#85-define-a-security-group-for-ssh-traffic" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you define a security group that allows both incoming and
 outgoing SSH traffic.</p>
 <p><strong>8.5.1 Define a Rule to Allow Incoming and Outgoing SSH</strong></p>
-<p>To define a rule allowing incoming SSH via the CLI perform the following:</p>
-<p>At the terminal of the MAAS server, enter the following command to create
-a security group for SSH traffic:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment (if not already loaded)</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--description<span class="w"> </span><span class="s1">&#39;Allow SSH Traffic&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>StudentProject_Allow_SSH
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see detailed information on the SSH security group you just created.</p>
-<p>To create rules for the newly created SSH security group:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>tcp<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--dst-port<span class="w"> </span><span class="m">22</span><span class="w"> </span>StudentProject_Allow_SSH
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a security group for SSH traffic</span>
+openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;Allow SSH Traffic&quot;</span><span class="w"> </span>StudentProject_Allow_SSH
 </code></pre></div>
-<p>You should see your SSH ingress rule listed.</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>tcp<span class="w"> </span>--egress<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--dst-port<span class="w"> </span><span class="m">22</span><span class="w"> </span>StudentProject_Allow_SSH
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">           </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                                                                                                                        </span><span class="p">|</span>
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:11:41Z<span class="w">                                                                                                                                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">     </span><span class="p">|</span><span class="w"> </span>Allow<span class="w"> </span>SSH<span class="w"> </span>Traffic<span class="w">                                                                                                                                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">              </span><span class="p">|</span><span class="w"> </span>909a3124-9e04-415d-9135-c6060a6a8c5c<span class="w">                                                                                                                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">            </span><span class="p">|</span><span class="w"> </span>StudentProject_Allow_SSH<span class="w">                                                                                                                                                     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">      </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                                                                                                                                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>rules<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="nv">created_at</span><span class="o">=</span><span class="s1">&#39;2026-06-06T11:11:41Z&#39;</span>,<span class="w"> </span><span class="nv">direction</span><span class="o">=</span><span class="s1">&#39;egress&#39;</span>,<span class="w"> </span><span class="nv">ethertype</span><span class="o">=</span><span class="s1">&#39;IPv4&#39;</span>,<span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s1">&#39;81345ca0-7255-42f8-bdbb-bdf6de285a57&#39;</span>,<span class="w"> </span><span class="nv">standard_attr_id</span><span class="o">=</span><span class="s1">&#39;25&#39;</span>,<span class="w"> </span><span class="nv">updated_at</span><span class="o">=</span><span class="s1">&#39;2026-06-06T11:11:41Z&#39;</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w">                 </span><span class="p">|</span><span class="w"> </span><span class="nv">created_at</span><span class="o">=</span><span class="s1">&#39;2026-06-06T11:11:41Z&#39;</span>,<span class="w"> </span><span class="nv">direction</span><span class="o">=</span><span class="s1">&#39;egress&#39;</span>,<span class="w"> </span><span class="nv">ethertype</span><span class="o">=</span><span class="s1">&#39;IPv6&#39;</span>,<span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s1">&#39;c4ebb57c-354e-409a-bc4c-63950f89522f&#39;</span>,<span class="w"> </span><span class="nv">standard_attr_id</span><span class="o">=</span><span class="s1">&#39;26&#39;</span>,<span class="w"> </span><span class="nv">updated_at</span><span class="o">=</span><span class="s1">&#39;2026-06-06T11:11:41Z&#39;</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>shared<span class="w">          </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                                                                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>stateful<span class="w">        </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                                                                                                                                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">            </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                                                                                                                                                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:11:41Z<span class="w">                                                                                                                                                         </span><span class="p">|</span>
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
-<p>You should see your SSH egress rule listed.</p>
-<p>To view the security group rules list in StudentProject_Allow_SSH security group, run the following command:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>list<span class="w"> </span>StudentProject_Allow_SSH
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add a TCP port 22 ingress rule to the SSH security group</span>
+openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>tcp<span class="w"> </span>--dst-port<span class="w"> </span><span class="m">22</span><span class="w"> </span>StudentProject_Allow_SSH
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                   </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++-------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>belongs_to_default_sg<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:11:52Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">             </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>direction<span class="w">               </span><span class="p">|</span><span class="w"> </span>ingress<span class="w">                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ether_type<span class="w">              </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                      </span><span class="p">|</span><span class="w"> </span>df2a4e2a-f9ee-493a-b44d-fea23e6e2e17<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>normalized_cidr<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_range_max<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">22</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_range_min<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">22</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">              </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>protocol<span class="w">                </span><span class="p">|</span><span class="w"> </span>tcp<span class="w">                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_address_group_id<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_group_id<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_ip_prefix<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>security_group_id<span class="w">       </span><span class="p">|</span><span class="w"> </span>909a3124-9e04-415d-9135-c6060a6a8c5c<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                    </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:11:52Z<span class="w">                 </span><span class="p">|</span>
++-------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add a TCP port 22 egress rule to the SSH security group</span>
+openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span>--proto<span class="w"> </span>tcp<span class="w"> </span>--egress<span class="w"> </span>--dst-port<span class="w"> </span><span class="m">22</span><span class="w"> </span>StudentProject_Allow_SSH
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                   </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++-------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>belongs_to_default_sg<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:12:04Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">             </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>direction<span class="w">               </span><span class="p">|</span><span class="w"> </span>egress<span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ether_type<span class="w">              </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                      </span><span class="p">|</span><span class="w"> </span>57a48131-cd16-4daa-b731-c292ab82cfd6<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>normalized_cidr<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_range_max<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">22</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_range_min<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">22</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">              </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>protocol<span class="w">                </span><span class="p">|</span><span class="w"> </span>tcp<span class="w">                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_address_group_id<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_group_id<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>remote_ip_prefix<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>security_group_id<span class="w">       </span><span class="p">|</span><span class="w"> </span>909a3124-9e04-415d-9135-c6060a6a8c5c<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                    </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:12:04Z<span class="w">                 </span><span class="p">|</span>
++-------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the rules in the SSH security group</span>
+openstack<span class="w"> </span>security<span class="w"> </span>group<span class="w"> </span>rule<span class="w"> </span>list<span class="w"> </span>StudentProject_Allow_SSH
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+-------------+-----------+-----------+------------+-----------+-----------------------+----------------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>IP<span class="w"> </span>Protocol<span class="w"> </span><span class="p">|</span><span class="w"> </span>Ethertype<span class="w"> </span><span class="p">|</span><span class="w"> </span>IP<span class="w"> </span>Range<span class="w">  </span><span class="p">|</span><span class="w"> </span>Port<span class="w"> </span>Range<span class="w"> </span><span class="p">|</span><span class="w"> </span>Direction<span class="w"> </span><span class="p">|</span><span class="w"> </span>Remote<span class="w"> </span>Security<span class="w"> </span>Group<span class="w"> </span><span class="p">|</span><span class="w"> </span>Remote<span class="w"> </span>Address<span class="w"> </span>Group<span class="w"> </span><span class="p">|</span>
++--------------------------------------+-------------+-----------+-----------+------------+-----------+-----------------------+----------------------+
+<span class="p">|</span><span class="w"> </span>57a48131-cd16-4daa-b731-c292ab82cfd6<span class="w"> </span><span class="p">|</span><span class="w"> </span>tcp<span class="w">         </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">22</span>:22<span class="w">      </span><span class="p">|</span><span class="w"> </span>egress<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>81345ca0-7255-42f8-bdbb-bdf6de285a57<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">        </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="p">|</span><span class="w">            </span><span class="p">|</span><span class="w"> </span>egress<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>c4ebb57c-354e-409a-bc4c-63950f89522f<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">        </span><span class="p">|</span><span class="w"> </span>IPv6<span class="w">      </span><span class="p">|</span><span class="w"> </span>::/0<span class="w">      </span><span class="p">|</span><span class="w">            </span><span class="p">|</span><span class="w"> </span>egress<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>df2a4e2a-f9ee-493a-b44d-fea23e6e2e17<span class="w"> </span><span class="p">|</span><span class="w"> </span>tcp<span class="w">         </span><span class="p">|</span><span class="w"> </span>IPv4<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">22</span>:22<span class="w">      </span><span class="p">|</span><span class="w"> </span>ingress<span class="w">   </span><span class="p">|</span><span class="w"> </span>None<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                 </span><span class="p">|</span>
++--------------------------------------+-------------+-----------+-----------+------------+-----------+-----------------------+----------------------+
+</code></pre></div>
+</details>
 <h2 id="86-define-quotas-for-a-project"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.6 Define Quotas for a Project<a class="headerlink" href="#86-define-quotas-for-a-project" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you will modify the quotas for a project.</p>
 <p><strong>8.6.1 Modify a Project's Quotas</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to view the
-quotas for the project StudentProject:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack administrator environment</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>quota<span class="w"> </span>show<span class="w"> </span>StudentProject
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see all quotas for project StudentProject.</p>
-<p>At the terminal of the MAAS server, enter the following command to set new
-quotas for the project StudentProject:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>quota<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">40</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">25600</span><span class="w"> </span>--instances<span class="w"> </span><span class="m">20</span><span class="w"> </span>--volumes<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--snapshots<span class="w"> </span><span class="m">5</span><span class="w"> </span>--floating-ips<span class="w"> </span><span class="m">10</span><span class="w"> </span>--secgroups<span class="w"> </span><span class="m">20</span><span class="w"> </span>--secgroup-rules<span class="w"> </span><span class="m">200</span><span class="w"> </span>StudentProject
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># View the current quotas for StudentProject</span>
+openstack<span class="w"> </span>quota<span class="w"> </span>show<span class="w"> </span>StudentProject
 </code></pre></div>
-<p>At the terminal of the MAAS server, enter the following command to view the
-newly set quotas for the project StudentProject:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>quota<span class="w"> </span>show<span class="w"> </span>StudentProject
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-----------------------+-------+
+<span class="p">|</span><span class="w"> </span>Resource<span class="w">              </span><span class="p">|</span><span class="w"> </span>Limit<span class="w"> </span><span class="p">|</span>
++-----------------------+-------+
+<span class="p">|</span><span class="w"> </span>cores<span class="w">                 </span><span class="p">|</span><span class="w">    </span><span class="m">20</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>instances<span class="w">             </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ram<span class="w">                   </span><span class="p">|</span><span class="w"> </span><span class="m">51200</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>volumes<span class="w">               </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>snapshots<span class="w">             </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>gigabytes<span class="w">             </span><span class="p">|</span><span class="w">  </span><span class="m">1000</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>backups<span class="w">               </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>volumes___DEFAULT__<span class="w">   </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>gigabytes___DEFAULT__<span class="w"> </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>snapshots___DEFAULT__<span class="w"> </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>groups<span class="w">                </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>trunk<span class="w">                 </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>networks<span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ports<span class="w">                 </span><span class="p">|</span><span class="w">    </span><span class="m">50</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>rbac_policies<span class="w">         </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>routers<span class="w">               </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnets<span class="w">               </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnet_pools<span class="w">          </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>fixed-ips<span class="w">             </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>injected-file-size<span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="m">10240</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>injected-path-size<span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">255</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>injected-files<span class="w">        </span><span class="p">|</span><span class="w">     </span><span class="m">5</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>key-pairs<span class="w">             </span><span class="p">|</span><span class="w">   </span><span class="m">100</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">            </span><span class="p">|</span><span class="w">   </span><span class="m">128</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>server-groups<span class="w">         </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>server-group-members<span class="w">  </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating-ips<span class="w">          </span><span class="p">|</span><span class="w">    </span><span class="m">50</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>secgroup-rules<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="m">100</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>secgroups<span class="w">             </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>backup-gigabytes<span class="w">      </span><span class="p">|</span><span class="w">  </span><span class="m">1000</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>per-volume-gigabytes<span class="w">  </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
++-----------------------+-------+
 </code></pre></div>
-<p>You should see all quotas for project StudentProject.</p>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set new quotas for StudentProject</span>
+openstack<span class="w"> </span>quota<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">40</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">25600</span><span class="w"> </span>--instances<span class="w"> </span><span class="m">20</span><span class="w"> </span>--volumes<span class="w"> </span><span class="m">5</span><span class="w"> </span>--snapshots<span class="w"> </span><span class="m">5</span><span class="w"> </span>--floating-ips<span class="w"> </span><span class="m">10</span><span class="w"> </span>--secgroups<span class="w"> </span><span class="m">20</span><span class="w"> </span>--secgroup-rules<span class="w"> </span><span class="m">200</span><span class="w"> </span>StudentProject
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+This<span class="w"> </span><span class="nb">command</span><span class="w"> </span>currently<span class="w"> </span>defaults<span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;--force&#39;</span><span class="w"> </span>when<span class="w"> </span>modifying<span class="w"> </span>network<span class="w"> </span>quotas.<span class="w"> </span>This<span class="w"> </span>behavior<span class="w"> </span>will<span class="w"> </span>change<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>future<span class="w"> </span>release.<span class="w"> </span>Consider<span class="w"> </span>explicitly<span class="w"> </span>providing<span class="w"> </span><span class="s1">&#39;--force&#39;</span><span class="w"> </span>or<span class="w"> </span><span class="s1">&#39;--no-force&#39;</span><span class="w"> </span>options<span class="w"> </span>to<span class="w"> </span>avoid<span class="w"> </span>changes<span class="w"> </span><span class="k">in</span><span class="w"> </span>behavior.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the updated quotas for StudentProject</span>
+openstack<span class="w"> </span>quota<span class="w"> </span>show<span class="w"> </span>StudentProject
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-----------------------+-------+
+<span class="p">|</span><span class="w"> </span>Resource<span class="w">              </span><span class="p">|</span><span class="w"> </span>Limit<span class="w"> </span><span class="p">|</span>
++-----------------------+-------+
+<span class="p">|</span><span class="w"> </span>cores<span class="w">                 </span><span class="p">|</span><span class="w">    </span><span class="m">40</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>instances<span class="w">             </span><span class="p">|</span><span class="w">    </span><span class="m">20</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ram<span class="w">                   </span><span class="p">|</span><span class="w"> </span><span class="m">25600</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>volumes<span class="w">               </span><span class="p">|</span><span class="w">     </span><span class="m">5</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>snapshots<span class="w">             </span><span class="p">|</span><span class="w">     </span><span class="m">5</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>gigabytes<span class="w">             </span><span class="p">|</span><span class="w">  </span><span class="m">1000</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>backups<span class="w">               </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>volumes___DEFAULT__<span class="w">   </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>gigabytes___DEFAULT__<span class="w"> </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>snapshots___DEFAULT__<span class="w"> </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>groups<span class="w">                </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>trunk<span class="w">                 </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>networks<span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ports<span class="w">                 </span><span class="p">|</span><span class="w">    </span><span class="m">50</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>rbac_policies<span class="w">         </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>routers<span class="w">               </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnets<span class="w">               </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnet_pools<span class="w">          </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>fixed-ips<span class="w">             </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>injected-file-size<span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="m">10240</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>injected-path-size<span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">255</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>injected-files<span class="w">        </span><span class="p">|</span><span class="w">     </span><span class="m">5</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>key-pairs<span class="w">             </span><span class="p">|</span><span class="w">   </span><span class="m">100</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">            </span><span class="p">|</span><span class="w">   </span><span class="m">128</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>server-groups<span class="w">         </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>server-group-members<span class="w">  </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating-ips<span class="w">          </span><span class="p">|</span><span class="w">    </span><span class="m">10</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>secgroup-rules<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="m">200</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>secgroups<span class="w">             </span><span class="p">|</span><span class="w">    </span><span class="m">20</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>backup-gigabytes<span class="w">      </span><span class="p">|</span><span class="w">  </span><span class="m">1000</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>per-volume-gigabytes<span class="w">  </span><span class="p">|</span><span class="w">    </span>-1<span class="w"> </span><span class="p">|</span>
++-----------------------+-------+
+</code></pre></div>
+</details>
 <h2 id="87-configure-virtual-networks-for-a-project"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.7 Configure Virtual Networks for a Project<a class="headerlink" href="#87-configure-virtual-networks-for-a-project" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you create a private network, subnet and router for a project.</p>
 <p><strong>8.7.1 Create the Tenant Private Network</strong></p>
-<p>At the terminal of the <code>MAAS server</code>, enter the following command to read in
-the environment for the StudentProject project.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<p>Enter the following command to define the private network:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>StudentProject_Network<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1300</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see the details of the newly created tenant network.</p>
-<p>Enter the following command to define the private subnet properties:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>subnet<span class="w"> </span>create<span class="w"> </span>--ip-version<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--allocation-pool<span class="w"> </span><span class="nv">start</span><span class="o">=</span><span class="m">10</span>.20.30.10,end<span class="o">=</span><span class="m">10</span>.20.30.199<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--gateway<span class="o">=</span><span class="m">10</span>.20.30.1<span class="w"> </span>--dhcp<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--dns-nameserver<span class="w"> </span><span class="m">192</span>.168.100.3<span class="w"> </span>--dns-nameserver<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--subnet-range<span class="w"> </span><span class="m">10</span>.20.30.0/24<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--network<span class="w"> </span>StudentProject_Network<span class="w"> </span>StudentProject_Subnet
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the tenant private network with MTU 1300</span>
+openstack<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>StudentProject_Network<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1300</span>
 </code></pre></div>
-<p>You should see the details of the newly created private subnet.</p>
-<p>Enter the following command to list the current networks:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>list
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                     </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>admin_state_up<span class="w">            </span><span class="p">|</span><span class="w"> </span>UP<span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zone_hints<span class="w">   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zones<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:13:05Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">               </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_domain<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                        </span><span class="p">|</span><span class="w"> </span>1d6562cd-9027-43ae-a12e-23f767a3eb8c<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv4_address_scope<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_address_scope<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_default<span class="w">                </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_vlan_transparent<span class="w">       </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>l2_adjacency<span class="w">              </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>mtu<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">1300</span><span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                      </span><span class="p">|</span><span class="w"> </span>StudentProject_Network<span class="w">               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_security_enabled<span class="w">     </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">                </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:network_type<span class="w">     </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:physical_network<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:segmentation_id<span class="w">  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>qos_policy_id<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>router:external<span class="w">           </span><span class="p">|</span><span class="w"> </span>Internal<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>segments<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>shared<span class="w">                    </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">                    </span><span class="p">|</span><span class="w"> </span>ACTIVE<span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnets<span class="w">                   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                      </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tenant_id<span class="w">                 </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:13:05Z<span class="w">                 </span><span class="p">|</span>
++---------------------------+--------------------------------------+
 </code></pre></div>
-<p>You should see the StudentProject_Network network listed</p>
-<p>Using the ID of the subnet associated with StudentProject_Network enter
-the following command to view the details of the subnet:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>subnet<span class="w"> </span>list
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the private subnet with DHCP and DNS nameservers</span>
+openstack<span class="w"> </span>subnet<span class="w"> </span>create<span class="w"> </span>--ip-version<span class="w"> </span><span class="m">4</span><span class="w"> </span>--allocation-pool<span class="w"> </span><span class="nv">start</span><span class="o">=</span><span class="m">10</span>.20.30.10,end<span class="o">=</span><span class="m">10</span>.20.30.199<span class="w"> </span>--gateway<span class="o">=</span><span class="m">10</span>.20.30.1<span class="w"> </span>--dhcp<span class="w"> </span>--dns-nameserver<span class="w"> </span><span class="m">192</span>.168.100.3<span class="w"> </span>--dns-nameserver<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span>--subnet-range<span class="w"> </span><span class="m">10</span>.20.30.0/24<span class="w"> </span>--network<span class="w"> </span>StudentProject_Network<span class="w"> </span>StudentProject_Subnet
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>show<span class="w"> </span>StudentProject_Network
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>allocation_pools<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">10</span>.20.30.10-10.20.30.199<span class="w">             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>cidr<span class="w">                 </span><span class="p">|</span><span class="w"> </span><span class="m">10</span>.20.30.0/24<span class="w">                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:13:20Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_nameservers<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.3,<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w">               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_publish_fixed_ip<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_dhcp<span class="w">          </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>gateway_ip<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">10</span>.20.30.1<span class="w">                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>host_routes<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                   </span><span class="p">|</span><span class="w"> </span>9d08b128-5e89-4eee-a725-4aaf6e329abd<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ip_version<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">4</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_address_mode<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_ra_mode<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                 </span><span class="p">|</span><span class="w"> </span>StudentProject_Subnet<span class="w">                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>network_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>1d6562cd-9027-43ae-a12e-23f767a3eb8c<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>segment_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>service_types<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnetpool_id<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                 </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:13:20Z<span class="w">                 </span><span class="p">|</span>
++----------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the current networks</span>
+openstack<span class="w"> </span>network<span class="w"> </span>list
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Name<span class="w">                   </span><span class="p">|</span><span class="w"> </span>Subnets<span class="w">                              </span><span class="p">|</span>
++--------------------------------------+------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span><span class="w"> </span>Public_Network<span class="w">         </span><span class="p">|</span><span class="w"> </span>1be22b55-8c88-4b9e-8e17-2a931084b052<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>1d6562cd-9027-43ae-a12e-23f767a3eb8c<span class="w"> </span><span class="p">|</span><span class="w"> </span>StudentProject_Network<span class="w"> </span><span class="p">|</span><span class="w"> </span>9d08b128-5e89-4eee-a725-4aaf6e329abd<span class="w"> </span><span class="p">|</span>
++--------------------------------------+------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the current subnets</span>
+openstack<span class="w"> </span>subnet<span class="w"> </span>list
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+-----------------------+--------------------------------------+---------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Name<span class="w">                  </span><span class="p">|</span><span class="w"> </span>Network<span class="w">                              </span><span class="p">|</span><span class="w"> </span>Subnet<span class="w">        </span><span class="p">|</span>
++--------------------------------------+-----------------------+--------------------------------------+---------------+
+<span class="p">|</span><span class="w"> </span>9d08b128-5e89-4eee-a725-4aaf6e329abd<span class="w"> </span><span class="p">|</span><span class="w"> </span>StudentProject_Subnet<span class="w"> </span><span class="p">|</span><span class="w"> </span>1d6562cd-9027-43ae-a12e-23f767a3eb8c<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">10</span>.20.30.0/24<span class="w"> </span><span class="p">|</span>
++--------------------------------------+-----------------------+--------------------------------------+---------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show details of the private network</span>
+openstack<span class="w"> </span>network<span class="w"> </span>show<span class="w"> </span>StudentProject_Network
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                     </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>admin_state_up<span class="w">            </span><span class="p">|</span><span class="w"> </span>UP<span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zone_hints<span class="w">   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zones<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:13:05Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">               </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_domain<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                        </span><span class="p">|</span><span class="w"> </span>1d6562cd-9027-43ae-a12e-23f767a3eb8c<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv4_address_scope<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_address_scope<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_default<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_vlan_transparent<span class="w">       </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>l2_adjacency<span class="w">              </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>mtu<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">1300</span><span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                      </span><span class="p">|</span><span class="w"> </span>StudentProject_Network<span class="w">               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_security_enabled<span class="w">     </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">                </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:network_type<span class="w">     </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:physical_network<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:segmentation_id<span class="w">  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>qos_policy_id<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>router:external<span class="w">           </span><span class="p">|</span><span class="w"> </span>Internal<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>segments<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>shared<span class="w">                    </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">                    </span><span class="p">|</span><span class="w"> </span>ACTIVE<span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnets<span class="w">                   </span><span class="p">|</span><span class="w"> </span>9d08b128-5e89-4eee-a725-4aaf6e329abd<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                      </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tenant_id<span class="w">                 </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:13:20Z<span class="w">                 </span><span class="p">|</span>
++---------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show details of the private subnet</span>
 openstack<span class="w"> </span>subnet<span class="w"> </span>show<span class="w"> </span>StudentProject_Subnet
 </code></pre></div>
-<p>You should see details of the private network and subnet listed.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>allocation_pools<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">10</span>.20.30.10-10.20.30.199<span class="w">             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>cidr<span class="w">                 </span><span class="p">|</span><span class="w"> </span><span class="m">10</span>.20.30.0/24<span class="w">                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:13:20Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_nameservers<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.3,<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w">               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_publish_fixed_ip<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_dhcp<span class="w">          </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>gateway_ip<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">10</span>.20.30.1<span class="w">                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>host_routes<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                   </span><span class="p">|</span><span class="w"> </span>9d08b128-5e89-4eee-a725-4aaf6e329abd<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ip_version<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">4</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_address_mode<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_ra_mode<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                 </span><span class="p">|</span><span class="w"> </span>StudentProject_Subnet<span class="w">                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>network_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>1d6562cd-9027-43ae-a12e-23f767a3eb8c<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>segment_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>service_types<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnetpool_id<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                 </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:13:20Z<span class="w">                 </span><span class="p">|</span>
++----------------------+--------------------------------------+
+</code></pre></div>
+</details>
 <p><strong>8.7.2 Create a Router to Connect the Networks</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to read in
-the environment for the StudentProject project.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment (if not already loaded)</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<p>Enter the following command to create the router:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>router<span class="w"> </span>create<span class="w"> </span>StudentProject_Public_Router
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see details on the newly created router.</p>
-<p>Enter the following define the router's gateway:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>router<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--external-gateway<span class="w"> </span>Public_Network<span class="w"> </span>StudentProject_Public_Router
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the router</span>
+openstack<span class="w"> </span>router<span class="w"> </span>create<span class="w"> </span>StudentProject_Public_Router
 </code></pre></div>
-<p>If successful you should not see any output.</p>
-<p>Enter the following command to add a router interface on the Private Network:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>router<span class="w"> </span>add<span class="w"> </span>subnet<span class="w"> </span>StudentProject_Public_Router<span class="w"> </span>StudentProject_Subnet
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                     </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>admin_state_up<span class="w">            </span><span class="p">|</span><span class="w"> </span>UP<span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zone_hints<span class="w">   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zones<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:14:15Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">               </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_default_route_bfd<span class="w">  </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_default_route_ecmp<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_ndp_proxy<span class="w">          </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>external_gateway_info<span class="w">     </span><span class="p">|</span><span class="w"> </span>null<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>external_gateways<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>flavor_id<span class="w">                 </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                        </span><span class="p">|</span><span class="w"> </span>bd1ec4ba-3a5b-463b-84df-9d8bd06adf4a<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                      </span><span class="p">|</span><span class="w"> </span>StudentProject_Public_Router<span class="w">         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">                </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>routes<span class="w">                    </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">                    </span><span class="p">|</span><span class="w"> </span>ACTIVE<span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                      </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tenant_id<span class="w">                 </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:14:15Z<span class="w">                 </span><span class="p">|</span>
++---------------------------+--------------------------------------+
 </code></pre></div>
-<p>If successful you should not see any output.</p>
-<p>Check details of the router:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>router<span class="w"> </span>show<span class="w"> </span>StudentProject_Public_Router
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the router&#39;s external gateway to Public_Network</span>
+openstack<span class="w"> </span>router<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--external-gateway<span class="w"> </span>Public_Network<span class="w"> </span>StudentProject_Public_Router
 </code></pre></div>
-<p>You should see details on the newly created router.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the private subnet as an interface on the router</span>
+openstack<span class="w"> </span>router<span class="w"> </span>add<span class="w"> </span>subnet<span class="w"> </span>StudentProject_Public_Router<span class="w"> </span>StudentProject_Subnet
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show the router details to confirm configuration</span>
+openstack<span class="w"> </span>router<span class="w"> </span>show<span class="w"> </span>StudentProject_Public_Router
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                     </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                                                                                                                                       </span><span class="p">|</span>
++---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>admin_state_up<span class="w">            </span><span class="p">|</span><span class="w"> </span>UP<span class="w">                                                                                                                                                                                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zone_hints<span class="w">   </span><span class="p">|</span><span class="w">                                                                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zones<span class="w">        </span><span class="p">|</span><span class="w">                                                                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:14:15Z<span class="w">                                                                                                                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">               </span><span class="p">|</span><span class="w">                                                                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_default_route_bfd<span class="w">  </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                                                                                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_default_route_ecmp<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                                                                                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_ndp_proxy<span class="w">          </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                                                                                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>external_gateway_info<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="o">{</span><span class="s2">&quot;network_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;0c7c4e22-a4ea-4454-b9b1-e5073c72c69b&quot;</span>,<span class="w"> </span><span class="s2">&quot;external_fixed_ips&quot;</span>:<span class="w"> </span><span class="o">[{</span><span class="s2">&quot;subnet_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;1be22b55-8c88-4b9e-8e17-2a931084b052&quot;</span>,<span class="w"> </span><span class="s2">&quot;ip_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;192.168.100.157&quot;</span><span class="o">}]</span>,<span class="w"> </span><span class="s2">&quot;enable_snat&quot;</span>:<span class="w"> </span>true<span class="o">}</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>external_gateways<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="o">[{</span><span class="s1">&#39;network_id&#39;</span>:<span class="w"> </span><span class="s1">&#39;0c7c4e22-a4ea-4454-b9b1-e5073c72c69b&#39;</span>,<span class="w"> </span><span class="s1">&#39;external_fixed_ips&#39;</span>:<span class="w"> </span><span class="o">[{</span><span class="s1">&#39;ip_address&#39;</span>:<span class="w"> </span><span class="s1">&#39;192.168.100.157&#39;</span>,<span class="w"> </span><span class="s1">&#39;subnet_id&#39;</span>:<span class="w"> </span><span class="s1">&#39;1be22b55-8c88-4b9e-8e17-2a931084b052&#39;</span><span class="o">}]}]</span><span class="w">                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>flavor_id<span class="w">                 </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                                                                                                                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                        </span><span class="p">|</span><span class="w"> </span>bd1ec4ba-3a5b-463b-84df-9d8bd06adf4a<span class="w">                                                                                                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>interfaces_info<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="o">[{</span><span class="s2">&quot;port_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;a2a00bff-70f6-4bd8-a63b-42f84d7a78a2&quot;</span>,<span class="w"> </span><span class="s2">&quot;ip_address&quot;</span>:<span class="w"> </span><span class="s2">&quot;10.20.30.1&quot;</span>,<span class="w"> </span><span class="s2">&quot;subnet_id&quot;</span>:<span class="w"> </span><span class="s2">&quot;9d08b128-5e89-4eee-a725-4aaf6e329abd&quot;</span><span class="o">}]</span><span class="w">                                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                      </span><span class="p">|</span><span class="w"> </span>StudentProject_Public_Router<span class="w">                                                                                                                                                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">                </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">                                                                                                                                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w">                                                                                                                                                                                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>routes<span class="w">                    </span><span class="p">|</span><span class="w">                                                                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">                    </span><span class="p">|</span><span class="w"> </span>ACTIVE<span class="w">                                                                                                                                                                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                      </span><span class="p">|</span><span class="w">                                                                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tenant_id<span class="w">                 </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">                                                                                                                                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:14:46Z<span class="w">                                                                                                                                                                        </span><span class="p">|</span>
++---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
+</details>
 <h2 id="88-assign-public-ip-addresses-to-a-project"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.8 Assign Public IP Addresses to a Project<a class="headerlink" href="#88-assign-public-ip-addresses-to-a-project" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you allocate a floating IP to a project.</p>
 <p><strong>8.8.1 Allocate a Floating IP to a Project</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to allocate a
-floating IP:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the student user environment (if not already loaded)</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see details on the allocated floating IP.</p>
-<hr />
-<h2 id="89-web-ui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9 WEB UI<a class="headerlink" href="#89-web-ui" title="Permanent link">&para;</a></h2>
-<h2 id="891-create-a-project-in-openstack"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9.1 Create a project in OpenStack<a class="headerlink" href="#891-create-a-project-in-openstack" title="Permanent link">&para;</a></h2>
-<p><strong>8.9.1.1 Create a New Project</strong></p>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Allocate a floating IP from Public_Network</span>
+openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">               </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:15:15Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">         </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_domain<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_name<span class="w">            </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>fixed_ip_address<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating_ip_address<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.180<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating_network_id<span class="w"> </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                  </span><span class="p">|</span><span class="w"> </span>0e04a08a-aa9b-44ed-b26e-f475d6afc9cb<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.180<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_details<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_id<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">          </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>qos_policy_id<span class="w">       </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>router_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">              </span><span class="p">|</span><span class="w"> </span>DOWN<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnet_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:15:15Z<span class="w">                 </span><span class="p">|</span>
++---------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="89-web-ui-equivalents"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9 Web UI Equivalents<a class="headerlink" href="#89-web-ui-equivalents" title="Permanent link">&para;</a></h2>
+<p>This section provides a Web UI alternative to the validated CLI workflow above.
+If you already completed the CLI steps, treat this section as optional.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at <code>https://192.168.100.35/horizon</code>.</p>
+</div>
+<p><strong>8.9.1 Create a project in OpenStack</strong></p>
 <p><strong>To create a new project via the WebUI perform the following:</strong></p>
 <ol>
 <li>In a web browser, point to the OpenStack Dashboard and log in as the <code>admin</code> user.</li>
@@ -1067,7 +1562,6 @@ floating IP:</p>
 </blockquote>
 </li>
 </ol>
-<p><strong>8.9.1.2 Create and Assign a User to a Project</strong></p>
 <p><strong>To create a user and assign them to a project via the WebUI perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Identity &gt; Users</code>.</li>
@@ -1090,10 +1584,10 @@ floating IP:</p>
 </blockquote>
 </li>
 </ol>
-<h2 id="892-configure-access-to-a-project-in-openstack"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9.2 Configure Access to a Project in OpenStack<a class="headerlink" href="#892-configure-access-to-a-project-in-openstack" title="Permanent link">&para;</a></h2>
+<p><strong>8.9.2 Configure Access to a Project in OpenStack</strong></p>
 <p><strong>To create a project user resource file via the WebUI perform the following:</strong></p>
 <ol>
-<li>In a web browser, point to the OpenStack Dashboard and log in as  <code>student</code>.</li>
+<li>In a web browser, point to the OpenStack Dashboard and log in as <code>student</code>.</li>
 <li>From the panels on the left select: <code>Project &gt; API Access</code>.</li>
 <li>Click on <code>Download OpenStack RC File</code> -&gt; <code>OpenStack RC File</code>. Rename the RC file to <code>StudentProject.rc</code>.</li>
 <li>Copy the RC file from the system running the web browser to the <code>ubuntu</code> account on the MAAS server.</li>
@@ -1105,25 +1599,25 @@ floating IP:</p>
 </code></pre></div>
 <blockquote>
 <p>You should see the endpoints of the cloud services displayed.</p>
-<p>When using the resource file downloaded the the WebUI you will be prompted for the project user's password.</p>
 </blockquote>
-<h2 id="893-generate-key-pairs-for-workload-instance-access"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9.3 Generate Key Pairs for Workload Instance Access<a class="headerlink" href="#893-generate-key-pairs-for-workload-instance-access" title="Permanent link">&para;</a></h2>
-<p><strong>8.9.3.1 Generate a New Key Pair</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using the resource file downloaded from the WebUI you will be prompted for the project user's password.</p>
+</div>
+<p><strong>8.9.3 Generate Key Pairs for Workload Instance Access</strong></p>
 <p><strong>To generate a new keypair via the WebUI perform the following:</strong></p>
 <ol>
-<li>In a web browser, point to the OpenStack Dashboard and log in as  <code>student</code>.</li>
+<li>In a web browser, point to the OpenStack Dashboard and log in as <code>student</code>.</li>
 <li>From the panels on the left select: <code>Project &gt; Compute &gt; Key pairs</code>.</li>
 <li>You should see a list of existing key pairs. (There are probably none at this point).</li>
 <li>Click <code>Create a Key Pair</code>.</li>
 <li>In the <code>Create a Key Pair</code> screen, enter the following: <code>Key Pair Name</code>: <code>student-keypair</code>, <code>Key Type</code>: <code>SSH Key</code>.</li>
 <li>Click <code>Create Key Pair</code>.</li>
 <li>You should be prompted to download the private key of the newly generated key pair.<blockquote>
-<p><strong>Important:</strong>: It is imperative that you download the key pair when prompted because you will not be able to download it again later.</p>
+<p><strong>Important:</strong> It is imperative that you download the key pair when prompted because you will not be able to download it again later.</p>
 </blockquote>
 </li>
-<li>Once downloaded change permissions on the key pair and move it from your Downloads
-directory to your <code>~/.ssh/</code> directory. At the terminal of the vhost enter the
-following command:</li>
+<li>Once downloaded change permissions on the key pair and move it from your Downloads directory to your <code>~/.ssh/</code> directory. At the terminal of the vhost enter the following command:</li>
 </ol>
 <div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/Downloads/student-keypair.pem
 mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span>~/.ssh
@@ -1133,11 +1627,10 @@ mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span
 </ol>
 <div class="highlight"><pre><span></span><code>scp<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>SHELL_USER@MAAS_IP:~/.ssh
 </code></pre></div>
-<h2 id="894-define-a-security-group-for-icmp-traffic"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9.4 Define a Security Group for ICMP Traffic<a class="headerlink" href="#894-define-a-security-group-for-icmp-traffic" title="Permanent link">&para;</a></h2>
-<p><strong>8.9.4.1 Define a Rule to Allow Incoming ICMP</strong></p>
+<p><strong>8.9.4 Define a Security Group for ICMP Traffic</strong></p>
 <p><strong>To define a rule allowing incoming ICMP via the WebUI perform the following:</strong></p>
 <ol>
-<li>In a web browser point, to the OpenStack Dashboard and log in as  <code>student</code>.</li>
+<li>In a web browser point, to the OpenStack Dashboard and log in as <code>student</code>.</li>
 <li>From the panels on the left select: <code>Project &gt; Network</code>.</li>
 <li>Select the <code>Security Groups</code> tab. You should see the existing security groups (probably only default at this point).</li>
 <li>Click <code>Create Security Group</code>.</li>
@@ -1167,11 +1660,10 @@ mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span
 </li>
 <li>Click <code>Add</code>. You should see your new Egress rule listed.</li>
 </ol>
-<h2 id="895-define-a-security-group-for-ssh-traffic"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9.5 Define a Security Group for SSH Traffic<a class="headerlink" href="#895-define-a-security-group-for-ssh-traffic" title="Permanent link">&para;</a></h2>
-<p><strong>8.9.5.1 Define a Rule to Allow Incoming and Outgoing SSH</strong></p>
+<p><strong>8.9.5 Define a Security Group for SSH Traffic</strong></p>
 <p><strong>To define a rule allowing incoming SSH via the WebUI perform the following:</strong></p>
 <ol>
-<li>In a web browser point, to the OpenStack Dashboard and log in as  <code>student</code>.</li>
+<li>In a web browser point, to the OpenStack Dashboard and log in as <code>student</code>.</li>
 <li>From the panels on the left select: <code>Project &gt; Network</code>.</li>
 <li>Select the <code>Security Groups</code> tab. You should see the existing security groups (probably only default at this point).</li>
 <li>Click <code>Create Security Group</code>.</li>
@@ -1205,8 +1697,7 @@ mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span
 </li>
 <li>Click <code>Add</code>. You should see your new <code>Egress</code> rule listed.</li>
 </ol>
-<h2 id="896-define-quotas-for-a-project"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9.6 Define Quotas for a Project<a class="headerlink" href="#896-define-quotas-for-a-project" title="Permanent link">&para;</a></h2>
-<p><strong>8.9.6.1 Modify a Project's Quotas</strong></p>
+<p><strong>8.9.6 Define Quotas for a Project</strong></p>
 <p><strong>To define quotas for a project via the WebUI perform the following:</strong></p>
 <ol>
 <li>Log into the OpenStack Dashboard as the <code>student</code>.</li>
@@ -1233,8 +1724,7 @@ mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span
 </blockquote>
 </li>
 </ol>
-<h2 id="897-configure-virtual-networks-for-a-project"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9.7 Configure Virtual Networks for a Project<a class="headerlink" href="#897-configure-virtual-networks-for-a-project" title="Permanent link">&para;</a></h2>
-<p><strong>8.9.7.1 Create the Tenant Private Network</strong></p>
+<p><strong>8.9.7 Configure Virtual Networks for a Project</strong></p>
 <p><strong>To create a tenant private network via the WebUI perform the following:</strong></p>
 <ol>
 <li>Log into the dashboard as the <code>student</code> user.</li>
@@ -1246,7 +1736,7 @@ mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span
 <code>Create Subnet</code>:<strong>(checked)</strong></p>
 </blockquote>
 </li>
-<li>Click<code>Next</code>.</li>
+<li>Click <code>Next</code>.</li>
 <li>On the Create Network screen Subnet tab enter/select the following:<blockquote>
 <p><code>Subnet Name</code>: <strong>StudentProject_Subnet</strong><br/>
 <code>Network Address</code>: <strong>PRIVATE_SUBNET</strong><br/>
@@ -1265,7 +1755,6 @@ mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span
 </li>
 <li>Click <code>Create</code></li>
 </ol>
-<p><strong>8.9.7.2 Create a Router to Connect the Networks</strong></p>
 <p><strong>To create the router via the WebUI perform the following:</strong></p>
 <ol>
 <li>Log into the dashboard as the <code>student</code> user.</li>
@@ -1282,14 +1771,13 @@ mv<span class="w"> </span>~/Downloads/student-keypair.pem<span class="w"> </span
 <li>On the <code>Routers / StudentProject_Public_Router</code> screen select the <code>Interfaces</code> tab.</li>
 <li>Click <code>Add Interface</code>.</li>
 <li>On the <code>Add Interface</code> screen,enter/select the following:<blockquote>
-<p><code>Subnet</code>: <code>`StudentProject_Network 10.20.30.0/24 (StudentProject_Subnet)</code><br/>
+<p><code>Subnet</code>: <code>StudentProject_Network 10.20.30.0/24 (StudentProject_Subnet)</code><br/>
 <code>IP Address (optional)</code>: <strong>(leave blank)</strong><br/></p>
 </blockquote>
 </li>
 <li>Click <code>Submit</code>.</li>
 </ol>
-<h2 id="898-assign-public-ip-addresses-to-a-project"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 8.9.8 Assign Public IP Addresses to a Project<a class="headerlink" href="#898-assign-public-ip-addresses-to-a-project" title="Permanent link">&para;</a></h2>
-<p><strong>8.9.8.1 Allocate a Floating IP to a Project</strong></p>
+<p><strong>8.9.8 Assign Public IP Addresses to a Project</strong></p>
 <p><strong>To allocate a floating IP to a project via the WebUI perform the following:</strong></p>
 <ol>
 <li>In a web browser, log into the Dashboard as <code>student</code>.</li>
