@@ -390,18 +390,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#72-web-ui" class="md-nav__link">
+  <a href="#72-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       7.2 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#721-upload-the-cloud-image-into-glance-via-webui" class="md-nav__link">
-    <span class="md-ellipsis">
-       7.2.1 Upload the Cloud Image into Glance via WebUI
+       7.2 Web UI Equivalents
     </span>
   </a>
   
@@ -553,18 +544,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#72-web-ui" class="md-nav__link">
+  <a href="#72-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       7.2 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#721-upload-the-cloud-image-into-glance-via-webui" class="md-nav__link">
-    <span class="md-ellipsis">
-       7.2.1 Upload the Cloud Image into Glance via WebUI
+       7.2 Web UI Equivalents
     </span>
   </a>
   
@@ -587,85 +569,243 @@
 
 <h1 id="7-work-with-cloud-images">7. Work with Cloud Images<a class="headerlink" href="#7-work-with-cloud-images" title="Permanent link">&para;</a></h1>
 <p><strong>Description:</strong></p>
-<p>In this section, you work with the OpenStack Glance service, using it to store and
-manage cloud images.</p>
+<p>In this section, you work with the OpenStack Glance service, using it to store
+and manage cloud images.</p>
 <h2 id="71-upload-images-into-glance"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 7.1 Upload Images into Glance<a class="headerlink" href="#71-upload-images-into-glance" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
-<p>In this exercise, you upload a cloud image to Glance. You then update the image by
-adding custom properties to the image.</p>
+<p>In this exercise, you upload a cloud image to Glance. You then update the image
+by adding custom properties to the image.</p>
 <p><strong>7.1.1 Download the Cloud Image</strong></p>
-<p>Use the following commands to create a directory for the cloud images:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>~/cloud_images
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a directory to store the cloud images</span>
+mkdir<span class="w"> </span>~/cloud_images
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Change into the cloud image working directory</span>
 <span class="nb">cd</span><span class="w"> </span>~/cloud_images
 </code></pre></div>
-<p>Enter the following command to download Ubuntu Jammy minimal cloud image:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://cloud-images.ubuntu.com/minimal/releases/jammy/release/ubuntu-22.04-minimal-cloudimg-amd64.img
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
-<p>When the file has finished downloading enter the following command to view its file type:</p>
-<div class="highlight"><pre><span></span><code>file<span class="w"> </span>ubuntu-22.04-minimal-cloudimg-amd64.img
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Download the Ubuntu Jammy minimal cloud image</span>
+wget<span class="w"> </span>https://cloud-images.ubuntu.com/minimal/releases/jammy/release/ubuntu-22.04-minimal-cloudimg-amd64.img
 </code></pre></div>
-<p>You should see that it is of type QEMU QCOW Image (v2)</p>
-<p>Enter the following command to display more information about the disk image:</p>
-<div class="highlight"><pre><span></span><code>qemu-img<span class="w"> </span>info<span class="w"> </span>ubuntu-22.04-minimal-cloudimg-amd64.img
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>--2026-06-06<span class="w"> </span><span class="m">10</span>:40:24--<span class="w">  </span>https://cloud-images.ubuntu.com/minimal/releases/jammy/release/ubuntu-22.04-minimal-cloudimg-amd64.img
+Resolving<span class="w"> </span>cloud-images.ubuntu.com...<span class="w"> </span><span class="m">185</span>.125.190.40,<span class="w"> </span><span class="m">185</span>.125.190.39,<span class="w"> </span>...
+Connecting<span class="w"> </span>to<span class="w"> </span>cloud-images.ubuntu.com<span class="p">|</span><span class="m">185</span>.125.190.40<span class="p">|</span>:443...<span class="w"> </span>connected.
+HTTP<span class="w"> </span>request<span class="w"> </span>sent,<span class="w"> </span>awaiting<span class="w"> </span>response...<span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+Length:<span class="w"> </span><span class="m">308800512</span><span class="w"> </span><span class="o">(</span>295M<span class="o">)</span><span class="w"> </span><span class="o">[</span>application/x-qemu-disk<span class="o">]</span>
+Saving<span class="w"> </span>to:<span class="w"> </span><span class="s1">&#39;ubuntu-22.04-minimal-cloudimg-amd64.img&#39;</span>
+
+<span class="w">     </span>0K<span class="w"> </span>..........<span class="w"> </span>..........<span class="w"> </span>..........<span class="w"> </span>..........<span class="w"> </span>..........<span class="w">  </span><span class="m">0</span>%<span class="w"> </span><span class="m">10</span>.2M<span class="w"> </span>29s
+<span class="w">   </span>...
+301550K<span class="w"> </span>..........<span class="w"> </span>...<span class="w">                                        </span><span class="m">100</span>%<span class="w"> </span><span class="m">85</span>.2M<span class="o">=</span><span class="m">2</span>.2s
+
+<span class="m">2026</span>-06-06<span class="w"> </span><span class="m">10</span>:40:26<span class="w"> </span><span class="o">(</span><span class="m">134</span><span class="w"> </span>MB/s<span class="o">)</span><span class="w"> </span>-<span class="w"> </span><span class="s1">&#39;ubuntu-22.04-minimal-cloudimg-amd64.img&#39;</span><span class="w"> </span>saved<span class="w"> </span><span class="o">[</span><span class="m">308800512</span>/308800512<span class="o">]</span>
 </code></pre></div>
-<p>Convert the image to <code>raw</code> format, this is due to the fact that is recommended to have raw images on Ceph backends:</p>
-<div class="highlight"><pre><span></span><code>qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"> </span>qcow2<span class="w"> </span>-O<span class="w"> </span>raw<span class="w"> </span>ubuntu-22.04-minimal-cloudimg-amd64.img<span class="w"> </span>ubuntu-jammy.img
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the file type of the downloaded cloud image</span>
+file<span class="w"> </span>ubuntu-22.04-minimal-cloudimg-amd64.img
 </code></pre></div>
-<p>Inspect the format again:</p>
-<div class="highlight"><pre><span></span><code>qemu-img<span class="w"> </span>info<span class="w"> </span>ubuntu-jammy.img
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>ubuntu-22.04-minimal-cloudimg-amd64.img:<span class="w"> </span>QEMU<span class="w"> </span>QCOW2<span class="w"> </span>Image<span class="w"> </span><span class="o">(</span>v2<span class="o">)</span>,<span class="w"> </span><span class="m">2361393152</span><span class="w"> </span>bytes
 </code></pre></div>
-<p><strong>Note</strong> the <code>virtual size</code>. You will not be able to launch workload instances from this image using a flavor with
-a root disk smaller than this.</p>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Inspect the downloaded QCOW2 image</span>
+qemu-img<span class="w"> </span>info<span class="w"> </span>ubuntu-22.04-minimal-cloudimg-amd64.img
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>image:<span class="w"> </span>ubuntu-22.04-minimal-cloudimg-amd64.img
+file<span class="w"> </span>format:<span class="w"> </span>qcow2
+virtual<span class="w"> </span>size:<span class="w"> </span><span class="m">2</span>.2<span class="w"> </span>GiB<span class="w"> </span><span class="o">(</span><span class="m">2361393152</span><span class="w"> </span>bytes<span class="o">)</span>
+disk<span class="w"> </span>size:<span class="w"> </span><span class="m">294</span><span class="w"> </span>MiB
+cluster_size:<span class="w"> </span><span class="m">65536</span>
+Format<span class="w"> </span>specific<span class="w"> </span>information:
+<span class="w">    </span>compat:<span class="w"> </span><span class="m">0</span>.10
+<span class="w">    </span>compression<span class="w"> </span>type:<span class="w"> </span>zlib
+<span class="w">    </span>refcount<span class="w"> </span>bits:<span class="w"> </span><span class="m">16</span>
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Convert the image to raw format for use with the Ceph-backed lab cloud</span>
+qemu-img<span class="w"> </span>convert<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-f<span class="w"> </span>qcow2<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-O<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>ubuntu-22.04-minimal-cloudimg-amd64.img<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>ubuntu-jammy.img
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Raw images are preferred in this lab because Glance stores images on a Ceph backend.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Inspect the converted raw image</span>
+qemu-img<span class="w"> </span>info<span class="w"> </span>ubuntu-jammy.img
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>image:<span class="w"> </span>ubuntu-jammy.img
+file<span class="w"> </span>format:<span class="w"> </span>raw
+virtual<span class="w"> </span>size:<span class="w"> </span><span class="m">2</span>.2<span class="w"> </span>GiB<span class="w"> </span><span class="o">(</span><span class="m">2361393152</span><span class="w"> </span>bytes<span class="o">)</span>
+disk<span class="w"> </span>size:<span class="w"> </span><span class="m">906</span><span class="w"> </span>MiB
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note the <code>virtual size</code>. You cannot launch workload instances from this image with a flavor whose root disk is smaller than <code>2.2 GiB</code>.</p>
+</div>
 <p><strong>7.1.2 Upload the Cloud Image into Glance</strong></p>
-<p>Enter the following command to source in the openrc config file:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack administrator environment into the current shell</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<p>To view the current list of images in the Glance server:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>image<span class="w"> </span>list
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see no images listed yet, since the deployment doesn't come with any images.</p>
-<p>To upload KVM the cloud image you just downloaded into the Glance server:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>image<span class="w"> </span>create<span class="w"> </span>--public<span class="w"> </span>--min-disk<span class="w"> </span><span class="m">3</span><span class="w"> </span>--container-format<span class="w"> </span>bare<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--disk-format<span class="w"> </span>raw<span class="w"> </span>--property<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--file<span class="w"> </span>~/cloud_images/ubuntu-jammy.img<span class="w"> </span>--progress<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;jammy&quot;</span>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run the following <code>openstack</code> commands in the same shell session after sourcing <code>~/admin_openrc</code>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the images currently available in Glance</span>
+openstack<span class="w"> </span>image<span class="w"> </span>list
 </code></pre></div>
-<p>You should see information about the image once the import has completed and the progress of uploading.</p>
-<p>Enter the following command to view the current list of images again:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>image<span class="w"> </span>list
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see the new images listed.</p>
-<p>Enter the following command to display more information about the image:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>image<span class="w"> </span>show<span class="w"> </span>jammy
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At this stage, no images are listed yet.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Upload the raw Jammy image into Glance as a public image</span>
+openstack<span class="w"> </span>image<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--public<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--min-disk<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--container-format<span class="w"> </span>bare<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--disk-format<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--property<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--file<span class="w"> </span>~/cloud_images/ubuntu-jammy.img<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--progress<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>jammy
 </code></pre></div>
-<p>You should see the same information displayed after the image was uploaded
-into Glance.</p>
-<hr />
-<h2 id="72-web-ui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 7.2 WEB UI<a class="headerlink" href="#72-web-ui" title="Permanent link">&para;</a></h2>
-<h2 id="721-upload-the-cloud-image-into-glance-via-webui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 7.2.1 Upload the Cloud Image into Glance via WebUI<a class="headerlink" href="#721-upload-the-cloud-image-into-glance-via-webui" title="Permanent link">&para;</a></h2>
-<p><strong>To upload the cloud image via the WebUI perform the following:</strong></p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">            </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                                                                                                                            </span><span class="p">|</span>
++------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>container_format<span class="w"> </span><span class="p">|</span><span class="w"> </span>bare<span class="w">                                                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:41:45Z<span class="w">                                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>disk_format<span class="w">      </span><span class="p">|</span><span class="w"> </span>raw<span class="w">                                                                                                                                                                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>file<span class="w">             </span><span class="p">|</span><span class="w"> </span>/v2/images/0c483320-4a39-43e6-a11a-d7f39bef94e8/file<span class="w">                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">               </span><span class="p">|</span><span class="w"> </span>0c483320-4a39-43e6-a11a-d7f39bef94e8<span class="w">                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>min_disk<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w">                                                                                                                                                                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>min_ram<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                                                                                                                                                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">             </span><span class="p">|</span><span class="w"> </span>jammy<span class="w">                                                                                                                                                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>owner<span class="w">            </span><span class="p">|</span><span class="w"> </span>045c13c72f32404ebf6c5ed6b2cebbf2<span class="w">                                                                                                                                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="nv">architecture</span><span class="o">=</span><span class="s1">&#39;x86_64&#39;</span>,<span class="w"> </span><span class="nv">locations</span><span class="o">=</span><span class="s1">&#39;[]&#39;</span>,<span class="w"> </span><span class="nv">os_hidden</span><span class="o">=</span><span class="s1">&#39;False&#39;</span>,<span class="w"> </span>owner_specified.openstack.md5<span class="o">=</span><span class="s1">&#39;&#39;</span>,<span class="w"> </span>owner_specified.openstack.object<span class="o">=</span><span class="s1">&#39;images/jammy&#39;</span>,<span class="w"> </span>owner_specified.openstack.sha256<span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>protected<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                                                                                                                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>schema<span class="w">           </span><span class="p">|</span><span class="w"> </span>/v2/schemas/image<span class="w">                                                                                                                                                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">           </span><span class="p">|</span><span class="w"> </span>queued<span class="w">                                                                                                                                                                           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">             </span><span class="p">|</span><span class="w">                                                                                                                                                                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:41:45Z<span class="w">                                                                                                                                                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>visibility<span class="w">       </span><span class="p">|</span><span class="w"> </span>public<span class="w">                                                                                                                                                                           </span><span class="p">|</span>
++------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this environment, <code>--progress</code> did not display a visible progress bar. The image initially appeared with status <code>queued</code> and then reached <code>active</code> a few seconds later.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Confirm that the new image is now available in Glance</span>
+openstack<span class="w"> </span>image<span class="w"> </span>list
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+-------+--------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Name<span class="w">  </span><span class="p">|</span><span class="w"> </span>Status<span class="w"> </span><span class="p">|</span>
++--------------------------------------+-------+--------+
+<span class="p">|</span><span class="w"> </span>0c483320-4a39-43e6-a11a-d7f39bef94e8<span class="w"> </span><span class="p">|</span><span class="w"> </span>jammy<span class="w"> </span><span class="p">|</span><span class="w"> </span>active<span class="w"> </span><span class="p">|</span>
++--------------------------------------+-------+--------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show the full details of the uploaded image</span>
+openstack<span class="w"> </span>image<span class="w"> </span>show<span class="w"> </span>jammy
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">            </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </span><span class="p">|</span>
++------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>checksum<span class="w">         </span><span class="p">|</span><span class="w"> </span>f01c0ab8e64eb46abf588dc8970abf1d<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>container_format<span class="w"> </span><span class="p">|</span><span class="w"> </span>bare<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:41:45Z<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>disk_format<span class="w">      </span><span class="p">|</span><span class="w"> </span>raw<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>file<span class="w">             </span><span class="p">|</span><span class="w"> </span>/v2/images/0c483320-4a39-43e6-a11a-d7f39bef94e8/file<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">               </span><span class="p">|</span><span class="w"> </span>0c483320-4a39-43e6-a11a-d7f39bef94e8<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>min_disk<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>min_ram<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">             </span><span class="p">|</span><span class="w"> </span>jammy<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>owner<span class="w">            </span><span class="p">|</span><span class="w"> </span>045c13c72f32404ebf6c5ed6b2cebbf2<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="nv">architecture</span><span class="o">=</span><span class="s1">&#39;x86_64&#39;</span>,<span class="w"> </span><span class="nv">direct_url</span><span class="o">=</span><span class="s1">&#39;rbd://9fde5db8-60fe-11f1-9d9b-818b9e2edeef/glance/0c483320-4a39-43e6-a11a-d7f39bef94e8/snap&#39;</span>,<span class="w"> </span><span class="nv">locations</span><span class="o">=</span><span class="s1">&#39;[{&#39;</span>url<span class="s1">&#39;: &#39;</span>rbd://9fde5db8-60fe-11f1-9d9b-818b9e2edeef/glance/0c483320-4a39-43e6-a11a-d7f39bef94e8/snap<span class="s1">&#39;, &#39;</span>metadata<span class="s1">&#39;: {&#39;</span>store<span class="s1">&#39;: &#39;</span>ceph<span class="s1">&#39;}}]&#39;</span>,<span class="w"> </span><span class="nv">os_hash_algo</span><span class="o">=</span><span class="s1">&#39;sha512&#39;</span>,<span class="w"> </span><span class="nv">os_hash_value</span><span class="o">=</span><span class="s1">&#39;3bf7f7e6ea99e04c621328f89e76d9cc21d1b1f6bf60cd15c11d62dcb05c8c1e7c9738fc8de606e685fc027b2e046683ee15ad5509c14691e71e4f2d620db8cf&#39;</span>,<span class="w"> </span><span class="nv">os_hidden</span><span class="o">=</span><span class="s1">&#39;False&#39;</span>,<span class="w"> </span>owner_specified.openstack.md5<span class="o">=</span><span class="s1">&#39;&#39;</span>,<span class="w"> </span>owner_specified.openstack.object<span class="o">=</span><span class="s1">&#39;images/jammy&#39;</span>,<span class="w"> </span>owner_specified.openstack.sha256<span class="o">=</span><span class="s1">&#39;&#39;</span>,<span class="w"> </span><span class="nv">stores</span><span class="o">=</span><span class="s1">&#39;ceph&#39;</span><span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>protected<span class="w">        </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>schema<span class="w">           </span><span class="p">|</span><span class="w"> </span>/v2/schemas/image<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>size<span class="w">             </span><span class="p">|</span><span class="w"> </span><span class="m">2361393152</span><span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">           </span><span class="p">|</span><span class="w"> </span>active<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">             </span><span class="p">|</span><span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:42:37Z<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>virtual_size<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">2361393152</span><span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>visibility<span class="w">       </span><span class="p">|</span><span class="w"> </span>public<span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </span><span class="p">|</span>
++------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="72-web-ui-equivalents"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 7.2 Web UI Equivalents<a class="headerlink" href="#72-web-ui-equivalents" title="Permanent link">&para;</a></h2>
+<p>This section provides a Web UI alternative to the validated CLI workflow above.
+If you already uploaded the image with the CLI, treat this section as optional.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at <code>https://192.168.100.35/horizon</code>.</p>
+</div>
+<p><strong>7.2.1 Upload the Cloud Image into Glance via the Web UI</strong></p>
+<p><strong>To upload the cloud image via the Web UI perform the following:</strong></p>
 <ol>
 <li>Log into the dashboard as the <code>admin</code> user.</li>
-<li>From the list of tabs on the left select: <code>Admin &gt; Compute &gt; Images</code>.</li>
+<li>From the list of tabs on the left select <code>Admin &gt; Compute &gt; Images</code>.</li>
 <li>Click <code>Create Image</code>.</li>
-<li>On the <code>Create An Image</code> screen, enter/select the following (leaving all unspecified values with their default):<blockquote>
+<li>On the <code>Create An Image</code> screen, enter or select the following values and leave all unspecified values at their defaults:<blockquote>
 <p><code>Image Name</code>: <strong>jammy</strong><br/>
 <code>Description</code>: <strong>ubuntu 22.04</strong><br/>
-<code>Source Type</code> -&gt; <code>File</code> -&gt; <code>Browse</code><br/>
+<code>Source Type</code>: <strong>File</strong> and then <code>Browse</code><br/>
 <code>Format</code>: <strong>RAW</strong><br/>
 <code>Architecture</code>: <strong>x86_64</strong><br/>
 <code>Minimum Disk (GB)</code>: <strong>3</strong><br/>
-<code>Minimum RAM (MB)</code>: <strong>(leave blank)</strong><br/>
+<code>Minimum RAM (MB)</code>: <strong>leave blank</strong><br/>
 <code>Visibility</code>: <strong>Public</strong><br/>
 <code>Protected</code>: <strong>no</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Create Image</code>.</li>
-<li>To update the metadata associated with the image select:  <code>Admin &gt; Compute &gt; Images</code>.</li>
-<li>Click on the <code>Launch</code> drop down to the right of the image name and select <code>Update Metadata</code>.</li>
-<li>On the <code>Update Image Metadata</code> page enter the following in the <code>Custom</code> input block under <code>Available Metadata: hw_disk_bus</code>.</li>
-<li>Click the <code>+</code> next to the input block. The metadata key should populate the <code>Existing Metadata</code> section.</li>
-<li>In the Existing Metadata section, locate the newly added metadata key and enter the following in the input block to the right of it: <code>virtio</code>.</li>
+<li>To update the metadata associated with the image, select <code>Admin &gt; Compute &gt; Images</code>.</li>
+<li>Click the <code>Launch</code> drop-down to the right of the image name and select <code>Update Metadata</code>.</li>
+<li>On the <code>Update Image Metadata</code> page, locate <code>hw_disk_bus</code> under <code>Available Metadata</code>.</li>
+<li>Click the <code>+</code> next to <code>hw_disk_bus</code>. The metadata key should populate the <code>Existing Metadata</code> section.</li>
+<li>In the <code>Existing Metadata</code> section, locate the newly added metadata key and enter <code>virtio</code> in the input block to the right of it.</li>
 <li>Click <code>Save</code>.</li>
 </ol>
 
