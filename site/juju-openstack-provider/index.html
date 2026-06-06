@@ -589,6 +589,10 @@
 <p><strong>Description:</strong></p>
 <p>In this section, you configure Juju to use OpenStack as a provider. You then use
 Juju to deploy services onto the OpenStack cloud.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Chapter 11 requires the OpenStack cloud deployed in Chapters 5-10 to be fully operational, including the <code>uos</code> model on <code>maas-controller</code>, the <code>StudentProject</code> project, <code>Public_Network</code>, <code>kvm.node</code> flavor, and the <code>glance-simplestreams-sync</code> charm deployed in the <code>uos</code> model.</p>
+</div>
 <h2 id="111-generate-simplestreams-metadata-for-a-private-cloud"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 11.1 Generate Simplestreams Metadata for a Private Cloud<a class="headerlink" href="#111-generate-simplestreams-metadata-for-a-private-cloud" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you use Juju to deploy <code>glance-simplestreams-sync</code> charm to provide
@@ -596,149 +600,433 @@ the cloud images to be used in a private OpenStack cloud.</p>
 <p><strong>11.1.1 Inspect the YAML file for Glance Simplestreams Sync</strong></p>
 <p>In a terminal on the MAAS server the <code>~/os_files/glance-simplestreams-sync.yaml</code> file
 already exists, just inspect the file:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/os_files/glance-simplestreams-sync.yaml
-<span class="c1"># output</span>
-glance-simplestreams-sync:
+<div class="highlight"><pre><span></span><code><span class="c1"># Inspect the glance-simplestreams-sync configuration file</span>
+cat<span class="w"> </span>~/os_files/glance-simplestreams-sync.yaml
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>glance-simplestreams-sync:
 <span class="w">  </span>use_swift:<span class="w"> </span>True
 <span class="w">  </span>run:<span class="w"> </span>True
 <span class="w">  </span>frequency:<span class="w"> </span>hourly
 <span class="w">  </span>region:<span class="w"> </span>RegionOne
-<span class="w">  </span>image_import_conversion:<span class="w"> </span>True
-<span class="w">  </span>snap-channel:<span class="w"> </span><span class="s1">&#39;latest/edge&#39;</span>
-<span class="w">  </span>mirror_list:<span class="w"> </span><span class="err">&#39;</span><span class="o">[{</span>url:<span class="w"> </span><span class="s2">&quot;https://cloud-images.ubuntu.com/releases/&quot;</span>,<span class="w"> </span>name_prefix:<span class="w"> </span><span class="s2">&quot;ubuntu:released&quot;</span>...
+<span class="w">  </span>snap-channel:<span class="w"> </span><span class="s1">&#39;stable&#39;</span>
+<span class="w">  </span>mirror_list:<span class="w"> </span><span class="s1">&#39;[{url: &quot;https://cloud-images.ubuntu.com/releases/&quot;, name_prefix: &quot;ubuntu:released&quot;, path: &quot;streams/v1/index.sjson&quot;, max: 1, item_filters: [&quot;release~(jammy)&quot;, &quot;arch~(x86_64|amd64)&quot;, &quot;ftype~(disk-kvm.img)&quot;]}]&#39;</span>
 </code></pre></div>
+</details>
 <p><strong>11.1.2 Deploy Glance Simplestreams Sync</strong></p>
-<p>Enter the following command to deploy <code>Glance Simplestreams Sync</code>:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>deploy<span class="w"> </span>--to<span class="o">=</span>lxd:3<span class="w"> </span>--base<span class="w"> </span>ubuntu@22.04<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the uos model context and deploy glance-simplestreams-sync</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">JUJU_MODEL</span><span class="o">=</span>uos
+juju<span class="w"> </span>deploy<span class="w"> </span>--to<span class="o">=</span>lxd:3<span class="w"> </span>--base<span class="w"> </span>ubuntu@22.04<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--config<span class="w"> </span>~/os_files/glance-simplestreams-sync.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--channel<span class="w"> </span><span class="m">2024</span>.1/stable<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>glance-simplestreams-sync
 </code></pre></div>
-<p><strong>Note:</strong> You need to deploy with the <code>jammy</code> series as it's the one compatible with <code>OpenStack Caracal</code> release.</p>
-<p>Add the relation from Glance Simplestreams Sync to Keystone (authentication and authorization) and Vault (certificates) with:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>integrate<span class="w"> </span>glance-simplestreams-sync<span class="w"> </span>keystone
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Deployed<span class="w"> </span><span class="s2">&quot;glance-simplestreams-sync&quot;</span><span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;glance-simplestreams-sync&quot;</span>,<span class="w"> </span>revision<span class="w"> </span><span class="m">124</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>channel<span class="w"> </span><span class="m">2024</span>.1/stable<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>--to=lxd:3</code> placement targets machine 3 in the <code>uos</code> model, which is one of the OpenStack compute nodes. The LXD container will be created on that machine.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Relate glance-simplestreams-sync to keystone for authentication</span>
+juju<span class="w"> </span>integrate<span class="w"> </span>glance-simplestreams-sync<span class="w"> </span>keystone
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Relate glance-simplestreams-sync to vault for certificates</span>
 juju<span class="w"> </span>integrate<span class="w"> </span>glance-simplestreams-sync<span class="w"> </span>vault
 </code></pre></div>
-<p>You can use the following command to view the status of the charm deployment:</p>
-<div class="highlight"><pre><span></span><code>watch<span class="w"> </span>-c<span class="w"> </span>juju<span class="w"> </span>status<span class="w"> </span>glance-simplestreams-sync<span class="w"> </span>--color
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Monitor the charm deployment status</span>
+juju<span class="w"> </span>status<span class="w"> </span>glance-simplestreams-sync
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">12</span>:03:08Z
+
+App<span class="w">                        </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">                      </span>Channel<span class="w">        </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+glance-simplestreams-sync<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>glance-simplestreams-sync<span class="w">  </span><span class="m">2024</span>.1/stable<span class="w">  </span><span class="m">124</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready<span class="w"> </span><span class="o">(</span>Glance<span class="w"> </span>sync<span class="w"> </span>completed<span class="w"> </span>at<span class="w"> </span><span class="m">06</span>/06/26<span class="w"> </span><span class="m">12</span>:00:13,<span class="w"> </span>metadata<span class="w"> </span>uploaded<span class="w"> </span>to<span class="w"> </span>object<span class="w"> </span>store<span class="o">)</span>
+
+Unit<span class="w">                          </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">  </span>Message
+glance-simplestreams-sync/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">3</span>/lxd/4<span class="w">  </span><span class="m">192</span>.168.100.46<span class="w">         </span>Unit<span class="w"> </span>is<span class="w"> </span>ready<span class="w"> </span><span class="o">(</span>Glance<span class="w"> </span>sync<span class="w"> </span>completed<span class="w"> </span>at<span class="w"> </span><span class="m">06</span>/06/26<span class="w"> </span><span class="m">12</span>:00:13,<span class="w"> </span>metadata<span class="w"> </span>uploaded<span class="w"> </span>to<span class="w"> </span>object<span class="w"> </span>store<span class="o">)</span>
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
+<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span>os-compute04<span class="w">         </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">3</span>/lxd/4<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.46<span class="w">  </span>juju-ed0023-3-lxd-4<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Container<span class="w"> </span>started
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The glance-simplestreams-sync charm syncs cloud images and uploads the metadata to the Swift object store. The <code>product-streams</code> service endpoint becomes available in OpenStack after the sync completes.</p>
+</div>
 <h2 id="112-configure-juju-to-use-openstack-as-a-provider"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 11.2 Configure Juju to Use OpenStack as a Provider<a class="headerlink" href="#112-configure-juju-to-use-openstack-as-a-provider" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you configure Juju to manage a project in a private OpenStack
 cloud.</p>
 <p><strong>11.2.1 Create the cloud my-openstack</strong></p>
 <p>On the MAAS server run the following to have environment variables set:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack student project environment</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<p>Then, add the cloud definition for your OpenStack cloud by running the following:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>add-cloud<span class="w"> </span>--client
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>When prompted enter the following values:</p>
-<blockquote>
-<p><code>Select cloud type:</code>: <strong>openstack</strong><br/>
-<code>Enter a name for your openstack cloud:</code>: <strong>my-openstack</strong><br/>
-<code>Enter the API endpoint url for the cloud</code>: <strong>https://192.168.100.xxx:5000/v3</strong><br/>
-<code>Enter a path to the CA certificate for your cloud if one is required to access it [/tmp/root-ca.crt]</code>: <strong>Leave as it is</strong><br/>
-<code>Select one or more auth types separated by commas</code>: <strong>userpass</strong><br/>
-<code>Enter region [RegionOne]</code>: <strong>Leave blank</strong><br/>
-<code>Enter the API endpoint url for the region [use cloud api url]</code>: <strong>Leave blank</strong><br/>
-<code>Enter another region? (y/N)</code>: <strong>N</strong><br/></p>
-</blockquote>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The interactive <code>juju add-cloud --client</code> and <code>juju add-credential my-openstack --client</code> commands require user input. The non-interactive equivalent using YAML files is shown below.</p>
+</div>
+<p>Create the cloud definition file:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the my-openstack cloud YAML file</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>~/os_files/my-openstack.yaml<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">clouds:</span>
+<span class="s">  my-openstack:</span>
+<span class="s">    type: openstack</span>
+<span class="s">    auth-types: [userpass]</span>
+<span class="s">    endpoint: https://192.168.100.29:5000/v3</span>
+<span class="s">    regions:</span>
+<span class="s">      RegionOne:</span>
+<span class="s">        endpoint: https://192.168.100.29:5000/v3</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the cloud definition to the local juju client</span>
+juju<span class="w"> </span>add-cloud<span class="w"> </span>--client<span class="w"> </span>my-openstack<span class="w"> </span>~/os_files/my-openstack.yaml
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Cloud<span class="w"> </span><span class="s2">&quot;my-openstack&quot;</span><span class="w"> </span>successfully<span class="w"> </span>added<span class="w"> </span>to<span class="w"> </span>your<span class="w"> </span><span class="nb">local</span><span class="w"> </span>client.
+You<span class="w"> </span>will<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>a<span class="w"> </span>credential<span class="w"> </span><span class="k">for</span><span class="w"> </span>this<span class="w"> </span>cloud<span class="w"> </span><span class="o">(</span><span class="sb">`</span>juju<span class="w"> </span>add-credential<span class="w"> </span>my-openstack<span class="sb">`</span><span class="o">)</span>
+before<span class="w"> </span>you<span class="w"> </span>can<span class="w"> </span>use<span class="w"> </span>it<span class="w"> </span>to<span class="w"> </span>bootstrap<span class="w"> </span>a<span class="w"> </span>controller<span class="w"> </span><span class="o">(</span><span class="sb">`</span>juju<span class="w"> </span>bootstrap<span class="w"> </span>my-openstack<span class="sb">`</span><span class="o">)</span><span class="w"> </span>or
+to<span class="w"> </span>create<span class="w"> </span>a<span class="w"> </span>model<span class="w"> </span><span class="o">(</span><span class="sb">`</span>juju<span class="w"> </span>add-model<span class="w"> </span>&lt;your<span class="w"> </span>model<span class="w"> </span>name&gt;<span class="w"> </span>my-openstack<span class="sb">`</span><span class="o">)</span>.
+</code></pre></div>
+</details>
 <p>On the MAAS server, add the credentials for the newly added cloud my-openstack
 by running the following:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>add-credential<span class="w"> </span>my-openstack<span class="w"> </span>--client
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the my-openstack credentials YAML file</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>~/os_files/my-openstack-creds.yaml<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">credentials:</span>
+<span class="s">  my-openstack:</span>
+<span class="s">    student:</span>
+<span class="s">      auth-type: userpass</span>
+<span class="s">      username: student</span>
+<span class="s">      password: openstack</span>
+<span class="s">      tenant-name: StudentProject</span>
+<span class="s">      user-domain-name: admin_domain</span>
+<span class="s">      project-domain-name: admin_domain</span>
+<span class="s">EOF</span>
 </code></pre></div>
-<p>When prompted enter the following values:</p>
-<blockquote>
-<p><code>Enter credential name</code>: <strong>student</strong><br/>
-<code>Select region</code>: <strong>Leave blank</strong><br/>
-<code>Enter username</code>: <strong>student</strong><br/>
-<code>Enter password</code>: <strong>openstack</strong><br/>
-<code>Enter tenant-name</code>: <strong>StudentProject</strong><br/>
-<code>Enter tenant-id (optional)</code>: <strong>Leave blank</strong><br/>
-<code>Enter version (optional)</code>: <strong>3</strong><br/>
-<code>Enter domain-name (optional):</code>: <strong>Leave blank</strong><br/>
-<code>Enter project-domain-name (optional):</code>: <strong>admin_domain</strong><br/>
-<code>Enter user-domain-name (optional):</code>: <strong>admin_domain</strong><br/></p>
-<p>Leave the rest of the fields blank.</p>
-<p>You should see output similar to the following:
-<div class="highlight"><pre><span></span><code><span class="go">Credential &quot;student&quot; added locally for cloud &quot;my-openstack&quot;.</span>
-</code></pre></div></p>
-</blockquote>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the credentials to the local juju client</span>
+juju<span class="w"> </span>add-credential<span class="w"> </span>my-openstack<span class="w"> </span>--client<span class="w"> </span>-f<span class="w"> </span>~/os_files/my-openstack-creds.yaml
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Credential<span class="w"> </span><span class="s2">&quot;student&quot;</span><span class="w"> </span>added<span class="w"> </span>locally<span class="w"> </span><span class="k">for</span><span class="w"> </span>cloud<span class="w"> </span><span class="s2">&quot;my-openstack&quot;</span>.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the cloud was added</span>
+juju<span class="w"> </span>clouds<span class="w"> </span>--all
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Only<span class="w"> </span>clouds<span class="w"> </span>with<span class="w"> </span>registered<span class="w"> </span>credentials<span class="w"> </span>are<span class="w"> </span>shown.
+There<span class="w"> </span>are<span class="w"> </span>more<span class="w"> </span>clouds,<span class="w"> </span>use<span class="w"> </span>--all<span class="w"> </span>to<span class="w"> </span>see<span class="w"> </span>them.
+You<span class="w"> </span>can<span class="w"> </span>bootstrap<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>controller<span class="w"> </span>using<span class="w"> </span>one<span class="w"> </span>of<span class="w"> </span>these<span class="w"> </span>clouds...
+
+Clouds<span class="w"> </span>available<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>client:
+Cloud<span class="w">         </span>Regions<span class="w">  </span>Default<span class="w">    </span>Type<span class="w">       </span>Credentials<span class="w">  </span>Source<span class="w">    </span>Description
+localhost<span class="w">     </span><span class="m">1</span><span class="w">        </span>localhost<span class="w">  </span>lxd<span class="w">        </span><span class="m">0</span><span class="w">            </span>built-in<span class="w">  </span>LXD<span class="w"> </span>Container<span class="w"> </span>Hypervisor
+maas<span class="w">          </span><span class="m">1</span><span class="w">        </span>default<span class="w">    </span>maas<span class="w">       </span><span class="m">1</span><span class="w">            </span><span class="nb">local</span><span class="w">     </span>Metal<span class="w"> </span>As<span class="w"> </span>A<span class="w"> </span>Service
+my-openstack<span class="w">  </span><span class="m">1</span><span class="w">        </span>RegionOne<span class="w">  </span>openstack<span class="w">  </span><span class="m">1</span><span class="w">            </span><span class="nb">local</span><span class="w">     </span>Openstack<span class="w"> </span>Cloud
+</code></pre></div>
+</details>
 <p><strong>11.2.2 Create the configuration file used for bootstrapping</strong></p>
 <p>Retrieve the product-streams public URL with the following:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
-
-openstack<span class="w"> </span>endpoint<span class="w"> </span>list<span class="w"> </span>--service<span class="w"> </span>product-streams<span class="w"> </span>-f<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.Interface==&quot;public&quot;).URL&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the admin environment and get the swift public endpoint</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
+openstack<span class="w"> </span>endpoint<span class="w"> </span>list<span class="w"> </span>--service<span class="w"> </span>swift<span class="w"> </span>--interface<span class="w"> </span>public<span class="w"> </span>-f<span class="w"> </span>value
 </code></pre></div>
-<p>We will refer to this value as the SWIFT_URL</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+393a8c74b7a94d63a0053163419b1054<span class="w"> </span>RegionOne<span class="w"> </span>swift<span class="w"> </span>object-store<span class="w"> </span>True<span class="w"> </span>public<span class="w"> </span>https://192.168.100.43:443/swift/v1
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>product-streams</code> service is created by the <code>glance-simplestreams-sync</code> charm. The image metadata is stored in Swift, so the Swift public endpoint is used for the <code>image-metadata-url</code> configuration.</p>
+</div>
 <p>On the MAAS server, the file named <code>~/os_files/my-config.yaml</code> already exists.
-Edit it in a text editor and replace the <code>XXX</code> with the IP from the previous command:   </p>
-<p>Enter the following values in the file:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/os_files/my-config.yaml
-<span class="c1"># output</span>
-network:<span class="w"> </span>StudentProject_Network
+Edit it in a text editor and replace the <code>XXX</code> with the IP from the previous command:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Update my-config.yaml with the correct Swift URL</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>~/os_files/my-config.yaml<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">network: StudentProject_Network</span>
+<span class="s">external-network: Public_Network</span>
+<span class="s">image-metadata-url: https://192.168.100.43:443/swift/v1/simplestreams/data/</span>
+<span class="s">default-base: ubuntu@22.04</span>
+<span class="s">ssl-hostname-verification: false</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the configuration file</span>
+cat<span class="w"> </span>~/os_files/my-config.yaml
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>network:<span class="w"> </span>StudentProject_Network
 external-network:<span class="w"> </span>Public_Network
-image-metadata-url:<span class="w"> </span>https://192.168.100.XXX:443/swift/v1/simplestreams/data/
+image-metadata-url:<span class="w"> </span>https://192.168.100.43:443/swift/v1/simplestreams/data/
 default-base:<span class="w"> </span>ubuntu@22.04
 ssl-hostname-verification:<span class="w"> </span><span class="nb">false</span>
 </code></pre></div>
-<p>Edit the file with the Swift URL:</p>
-<div class="highlight"><pre><span></span><code>vim<span class="w"> </span>~/os_files/my-config.yaml
-</code></pre></div>
+</details>
 <p><strong>11.2.3 Bootstrap Juju on OpenStack</strong></p>
-<p>Enter the following commands to allocate four floating IPs to the project:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack student project environment</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
-openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
-openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Allocate four floating IPs to the StudentProject</span>
 openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">               </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T12:05:04Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">         </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_domain<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_name<span class="w">            </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>fixed_ip_address<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating_ip_address<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.191<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating_network_id<span class="w"> </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                  </span><span class="p">|</span><span class="w"> </span>a51b633c-a428-4202-a0ee-a7ef1c73d507<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.191<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_details<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_id<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">          </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>qos_policy_id<span class="w">       </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>router_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">              </span><span class="p">|</span><span class="w"> </span>DOWN<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnet_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T12:05:04Z<span class="w">                 </span><span class="p">|</span>
++---------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Allocate a second floating IP</span>
+openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">               </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T12:05:21Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating_ip_address<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.166<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.166<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">              </span><span class="p">|</span><span class="w"> </span>DOWN<span class="w">                                 </span><span class="p">|</span>
++---------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Allocate a third floating IP</span>
+openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">               </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T12:05:28Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating_ip_address<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.167<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.167<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">              </span><span class="p">|</span><span class="w"> </span>DOWN<span class="w">                                 </span><span class="p">|</span>
++---------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Allocate a fourth floating IP</span>
+openstack<span class="w"> </span>floating<span class="w"> </span>ip<span class="w"> </span>create<span class="w"> </span>Public_Network
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">               </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T12:05:35Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>floating_ip_address<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.154<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.154<span class="w">                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">              </span><span class="p">|</span><span class="w"> </span>DOWN<span class="w">                                 </span><span class="p">|</span>
++---------------------+--------------------------------------+
+</code></pre></div>
+</details>
 <p>Create a new flavor for the instances created with Juju:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack admin environment</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span>create<span class="w"> </span>--vcpus<span class="w"> </span><span class="m">2</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">2048</span><span class="w"> </span>--disk<span class="w"> </span><span class="m">10</span><span class="w"> </span>--ephemeral<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the kvm.node flavor for Juju-managed instances</span>
+openstack<span class="w"> </span>flavor<span class="w"> </span>create<span class="w"> </span>--vcpus<span class="w"> </span><span class="m">2</span><span class="w"> </span>--ram<span class="w"> </span><span class="m">2048</span><span class="w"> </span>--disk<span class="w"> </span><span class="m">10</span><span class="w"> </span>--ephemeral<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--swap<span class="w"> </span><span class="m">0</span><span class="w"> </span>--public<span class="w"> </span>kvm.node
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>flavor<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="se">\</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                      </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++----------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>OS-FLV-DISABLED:disabled<span class="w">   </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>OS-FLV-EXT-DATA:ephemeral<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>disk<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">10</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                         </span><span class="p">|</span><span class="w"> </span>a93bdc4b-d833-438e-b4bb-c16e85bc2169<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                       </span><span class="p">|</span><span class="w"> </span>kvm.node<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-flavor-access:is_public<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">                 </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ram<span class="w">                        </span><span class="p">|</span><span class="w"> </span><span class="m">2048</span><span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>rxtx_factor<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>.0<span class="w">                                  </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>swap<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>vcpus<span class="w">                      </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w">                                    </span><span class="p">|</span>
++----------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the kvm aggregate property on the flavor</span>
+openstack<span class="w"> </span>flavor<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>aggregate_instance_extra_specs:kvm<span class="o">=</span><span class="nb">true</span><span class="w"> </span>kvm.node
 </code></pre></div>
-<p>Enter the following command to bootstrap Juju on the OpenStack cloud:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>bootstrap<span class="w"> </span>--config<span class="w"> </span>~/os_files/my-config.yaml<span class="w"> </span><span class="se">\</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Bootstrap Juju controller on the OpenStack cloud</span>
+juju<span class="w"> </span>bootstrap<span class="w"> </span>--config<span class="w"> </span>~/os_files/my-config.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--bootstrap-constraints<span class="o">=</span><span class="s2">&quot;mem=2G cores=2 allocate-public-ip=true&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--constraints<span class="o">=</span><span class="s2">&quot;mem=2G&quot;</span><span class="w"> </span>my-openstack<span class="w"> </span>my-controller
 </code></pre></div>
-<p>Bootstrapping the Juju controller inside OpenStack is going to take around 15 minutes.</p>
-<p>When the juju bootstrap command has finished, enter the following command to
-view the status of the Juju environment:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Creating<span class="w"> </span>Juju<span class="w"> </span>controller<span class="w"> </span><span class="s2">&quot;my-controller&quot;</span><span class="w"> </span>on<span class="w"> </span>my-openstack/RegionOne
+...
+Bootstrap<span class="w"> </span>complete,<span class="w"> </span>my-controller<span class="w"> </span>now<span class="w"> </span>available
 </code></pre></div>
-<p>You should see that the environment is bootstrapped.</p>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Bootstrapping the Juju controller inside OpenStack takes around 15 minutes. The controller VM is created as an OpenStack instance with a floating IP assigned.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># View the status of the Juju controller model</span>
+juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">       </span>Controller<span class="w">     </span>Cloud/Region<span class="w">            </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+controller<span class="w">  </span>my-controller<span class="w">  </span>my-openstack/RegionOne<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">12</span>:43:44Z
+
+App<span class="w">         </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">            </span>Channel<span class="w">     </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+controller<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>juju-controller<span class="w">  </span><span class="m">3</span>.6/stable<span class="w">  </span><span class="m">230</span><span class="w">  </span>yes
+
+Unit<span class="w">           </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">   </span>Ports<span class="w">            </span>Message
+controller/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">192</span>.168.100.180<span class="w">  </span><span class="m">17022</span>,17070/tcp
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">          </span>Inst<span class="w"> </span>id<span class="w">                               </span>Base<span class="w">          </span>AZ<span class="w">    </span>Message
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.180<span class="w">  </span>45b4b8fa-3650-446f-a6c9-aca2e78be7ae<span class="w">  </span>ubuntu@22.04<span class="w">  </span>nova<span class="w">  </span>ACTIVE
+</code></pre></div>
+</details>
 <h2 id="113-deploy-a-landscape-bundle-on-openstack-with-juju"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 11.3 Deploy a Landscape Bundle on OpenStack with Juju<a class="headerlink" href="#113-deploy-a-landscape-bundle-on-openstack-with-juju" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you deploy an application bundle using Juju.</p>
 <p><strong>11.3.1 Setup the cloud environment</strong></p>
 <p>At the terminal of the MAAS server, enter the following command to list the
 available controllers:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>controllers
+<div class="highlight"><pre><span></span><code><span class="c1"># List available Juju controllers</span>
+juju<span class="w"> </span>controllers
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Use<span class="w"> </span>--refresh<span class="w"> </span>option<span class="w"> </span>with<span class="w"> </span>this<span class="w"> </span><span class="nb">command</span><span class="w"> </span>to<span class="w"> </span>see<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>information.
+
+Controller<span class="w">       </span>Model<span class="w">  </span>User<span class="w">   </span>Access<span class="w">     </span>Cloud/Region<span class="w">            </span>Models<span class="w">  </span>Nodes<span class="w">    </span>HA<span class="w">  </span>Version
+maas-controller<span class="w">  </span>uos<span class="w">    </span>admin<span class="w">  </span>superuser<span class="w">  </span>maas/default<span class="w">                 </span><span class="m">2</span><span class="w">     </span><span class="m">25</span><span class="w">  </span>none<span class="w">  </span><span class="m">3</span>.6.23
+my-controller*<span class="w">   </span>-<span class="w">      </span>admin<span class="w">  </span>superuser<span class="w">  </span>my-openstack/RegionOne<span class="w">       </span><span class="m">1</span><span class="w">      </span><span class="m">1</span><span class="w">  </span>none<span class="w">  </span><span class="m">3</span>.6.23
+</code></pre></div>
+</details>
 <p>The controller <code>my-controller</code> should be listed as the active controller (has
-an asterisk next to the controller name)</p>
+an asterisk next to the controller name).</p>
 <p>If the controller <code>my-controller</code> is not listed as the active controller use
 the following command to switch the controller:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>switch<span class="w"> </span>my-controller
+<div class="highlight"><pre><span></span><code><span class="c1"># Switch to the my-controller if not already active</span>
+juju<span class="w"> </span>switch<span class="w"> </span>my-controller
 </code></pre></div>
-<p>Enter the following command to view the status of the OpenStack Juju environment:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>my-controller:admin/controller
 </code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># View the status of the OpenStack Juju environment</span>
+juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>controller
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">       </span>Controller<span class="w">     </span>Cloud/Region<span class="w">            </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+controller<span class="w">  </span>my-controller<span class="w">  </span>my-openstack/RegionOne<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">12</span>:43:44Z
+
+App<span class="w">         </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">            </span>Channel<span class="w">     </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+controller<span class="w">           </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>juju-controller<span class="w">  </span><span class="m">3</span>.6/stable<span class="w">  </span><span class="m">230</span><span class="w">  </span>yes
+
+Unit<span class="w">           </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">   </span>Ports<span class="w">            </span>Message
+controller/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">192</span>.168.100.180<span class="w">  </span><span class="m">17022</span>,17070/tcp
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">          </span>Inst<span class="w"> </span>id<span class="w">                               </span>Base<span class="w">          </span>AZ<span class="w">    </span>Message
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.180<span class="w">  </span>45b4b8fa-3650-446f-a6c9-aca2e78be7ae<span class="w">  </span>ubuntu@22.04<span class="w">  </span>nova<span class="w">  </span>ACTIVE
+</code></pre></div>
+</details>
 <p><strong>11.3.2 Deploy the Landscape Application Bundle</strong></p>
 <p>On the MAAS server you should have the file
 <code>~/os_files/landscape_bundle.yaml</code> file:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/os_files/landscape_bundle.yaml
-<span class="c1"># output</span>
-default-base:<span class="w"> </span>ubuntu@22.04/stable
+<div class="highlight"><pre><span></span><code><span class="c1"># Inspect the landscape bundle YAML file</span>
+cat<span class="w"> </span>~/os_files/landscape_bundle.yaml
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>default-base:<span class="w"> </span>ubuntu@22.04/stable
 applications:
 <span class="w">  </span>haproxy:
 <span class="w">    </span>charm:<span class="w"> </span>haproxy
@@ -796,27 +1084,127 @@ relations:
 -<span class="w"> </span>-<span class="w"> </span>landscape-server:db
 <span class="w">  </span>-<span class="w"> </span>postgresql:db-admin
 </code></pre></div>
-<p>Enter the following command to deploy the Landscape application bundle:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>add-model<span class="w"> </span>landscape
-
-juju<span class="w"> </span>set-model-constraints<span class="w"> </span>allocate-public-ip<span class="o">=</span><span class="nb">true</span>
-
-juju<span class="w"> </span>deploy<span class="w"> </span>./os_files/landscape_bundle.yaml
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new model for the Landscape deployment</span>
+juju<span class="w"> </span>add-model<span class="w"> </span>landscape<span class="w"> </span>--config<span class="w"> </span>ssl-hostname-verification<span class="o">=</span><span class="nb">false</span>
 </code></pre></div>
-<p>Deploying the bundle inside OpenStack will take around 30 minutes. Access the Landscape Web UI after the deployment finishes.</p>
-<p>Enter the following command to monitor the deployment of the bundle:</p>
-<div class="highlight"><pre><span></span><code>watch<span class="w"> </span>-c<span class="w"> </span>juju<span class="w"> </span>status<span class="w"> </span>--color
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Added<span class="w"> </span><span class="s1">&#39;landscape&#39;</span><span class="w"> </span>model<span class="w"> </span>on<span class="w"> </span>my-openstack/RegionOne<span class="w"> </span>with<span class="w"> </span>credential<span class="w"> </span><span class="s1">&#39;student&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>user<span class="w"> </span><span class="s1">&#39;admin&#39;</span>
 </code></pre></div>
-<p>You should see the applications defined in the bundle start to deploy.</p>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>ssl-hostname-verification=false</code> config is required because the OpenStack cloud uses a self-signed CA certificate. Without this, model creation fails with a TLS verification error.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set model constraints to allocate public IPs</span>
+juju<span class="w"> </span>set-model-constraints<span class="w"> </span>-m<span class="w"> </span>landscape<span class="w"> </span>allocate-public-ip<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Deploy the Landscape bundle</span>
+juju<span class="w"> </span>deploy<span class="w"> </span>-m<span class="w"> </span>landscape<span class="w"> </span>./os_files/landscape_bundle.yaml
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Located<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;haproxy&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>channel<span class="w"> </span>latest/stable
+Located<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;landscape-server&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>channel<span class="w"> </span>latest/stable
+Located<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;postgresql&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>channel<span class="w"> </span>latest/stable
+Located<span class="w"> </span>charm<span class="w"> </span><span class="s2">&quot;rabbitmq-server&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>charm-hub,<span class="w"> </span>channel<span class="w"> </span><span class="m">3</span>.9/stable
+Executing<span class="w"> </span>changes:
+-<span class="w"> </span>upload<span class="w"> </span>charm<span class="w"> </span>haproxy<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span><span class="k">for</span><span class="w"> </span>base<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>from<span class="w"> </span>channel<span class="w"> </span>latest/stable<span class="w"> </span>with<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>amd64
+-<span class="w"> </span>deploy<span class="w"> </span>application<span class="w"> </span>haproxy<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>latest/stable
+-<span class="w"> </span>expose<span class="w"> </span>all<span class="w"> </span>endpoints<span class="w"> </span>of<span class="w"> </span>haproxy<span class="w"> </span>and<span class="w"> </span>allow<span class="w"> </span>access<span class="w"> </span>from<span class="w"> </span>CIDRs<span class="w"> </span><span class="m">0</span>.0.0.0/0<span class="w"> </span>and<span class="w"> </span>::/0
+-<span class="w"> </span>upload<span class="w"> </span>charm<span class="w"> </span>landscape-server<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span><span class="k">for</span><span class="w"> </span>base<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>from<span class="w"> </span>channel<span class="w"> </span>latest/stable<span class="w"> </span>with<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>amd64
+-<span class="w"> </span>deploy<span class="w"> </span>application<span class="w"> </span>landscape-server<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>latest/stable
+-<span class="w"> </span>upload<span class="w"> </span>charm<span class="w"> </span>postgresql<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span><span class="k">for</span><span class="w"> </span>base<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>from<span class="w"> </span>channel<span class="w"> </span>latest/stable<span class="w"> </span>with<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>amd64
+-<span class="w"> </span>deploy<span class="w"> </span>application<span class="w"> </span>postgresql<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span>latest/stable
+<span class="w">  </span>added<span class="w"> </span>resource<span class="w"> </span>wal-e
+-<span class="w"> </span>upload<span class="w"> </span>charm<span class="w"> </span>rabbitmq-server<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span><span class="k">for</span><span class="w"> </span>base<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>from<span class="w"> </span>channel<span class="w"> </span><span class="m">3</span>.9/stable<span class="w"> </span>with<span class="w"> </span><span class="nv">architecture</span><span class="o">=</span>amd64
+-<span class="w"> </span>deploy<span class="w"> </span>application<span class="w"> </span>rabbitmq-server<span class="w"> </span>from<span class="w"> </span>charm-hub<span class="w"> </span>on<span class="w"> </span>ubuntu@22.04/stable<span class="w"> </span>with<span class="w"> </span><span class="m">3</span>.9/stable
+-<span class="w"> </span>add<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">0</span>
+-<span class="w"> </span>add<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">1</span>
+-<span class="w"> </span>add<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">2</span>
+-<span class="w"> </span>add<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">3</span>
+-<span class="w"> </span>add<span class="w"> </span>relation<span class="w"> </span>landscape-server:amqp<span class="w"> </span>-<span class="w"> </span>rabbitmq-server:amqp
+-<span class="w"> </span>add<span class="w"> </span>relation<span class="w"> </span>landscape-server:website<span class="w"> </span>-<span class="w"> </span>haproxy:reverseproxy
+-<span class="w"> </span>add<span class="w"> </span>relation<span class="w"> </span>landscape-server:db<span class="w"> </span>-<span class="w"> </span>postgresql:db-admin
+-<span class="w"> </span>add<span class="w"> </span>unit<span class="w"> </span>haproxy/0<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">0</span>
+-<span class="w"> </span>add<span class="w"> </span>unit<span class="w"> </span>landscape-server/0<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">1</span>
+-<span class="w"> </span>add<span class="w"> </span>unit<span class="w"> </span>postgresql/0<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">2</span>
+-<span class="w"> </span>add<span class="w"> </span>unit<span class="w"> </span>rabbitmq-server/0<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span>machine<span class="w"> </span><span class="m">3</span>
+Deploy<span class="w"> </span>of<span class="w"> </span>bundle<span class="w"> </span>completed.
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Deploying the bundle inside OpenStack takes around 30 minutes. Four new VMs are created using the <code>kvm.node</code> flavor.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Monitor the bundle deployment status</span>
+juju<span class="w"> </span>status<span class="w"> </span>-m<span class="w"> </span>landscape
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">      </span>Controller<span class="w">     </span>Cloud/Region<span class="w">            </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+landscape<span class="w">  </span>my-controller<span class="w">  </span>my-openstack/RegionOne<span class="w">  </span><span class="m">3</span>.6.23<span class="w">   </span>unsupported<span class="w">  </span><span class="m">12</span>:55:19Z
+
+App<span class="w">               </span>Version<span class="w">  </span>Status<span class="w">       </span>Scale<span class="w">  </span>Charm<span class="w">             </span>Channel<span class="w">        </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+haproxy<span class="w">                    </span>active<span class="w">           </span><span class="m">1</span><span class="w">  </span>haproxy<span class="w">           </span>latest/stable<span class="w">  </span><span class="m">147</span><span class="w">  </span>yes<span class="w">      </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+landscape-server<span class="w">           </span>maintenance<span class="w">      </span><span class="m">1</span><span class="w">  </span>landscape-server<span class="w">  </span>latest/stable<span class="w">  </span><span class="m">134</span><span class="w">  </span>no<span class="w">       </span>Installing<span class="w"> </span>apt<span class="w"> </span>packages
+postgresql<span class="w">                 </span>waiting<span class="w">          </span><span class="m">1</span><span class="w">  </span>postgresql<span class="w">        </span>latest/stable<span class="w">  </span><span class="m">591</span><span class="w">  </span>no<span class="w">       </span>agent<span class="w"> </span>initialising
+rabbitmq-server<span class="w">            </span>maintenance<span class="w">      </span><span class="m">1</span><span class="w">  </span>rabbitmq-server<span class="w">   </span><span class="m">3</span>.9/stable<span class="w">     </span><span class="m">295</span><span class="w">  </span>no<span class="w">       </span>installing<span class="w"> </span>charm<span class="w"> </span>software
+
+Unit<span class="w">                 </span>Workload<span class="w">     </span>Agent<span class="w">      </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">   </span>Ports<span class="w">  </span>Message
+haproxy/0*<span class="w">           </span>active<span class="w">       </span>idle<span class="w">       </span><span class="m">0</span><span class="w">        </span><span class="m">192</span>.168.100.167<span class="w">         </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+landscape-server/0*<span class="w">  </span>maintenance<span class="w">  </span>executing<span class="w">  </span><span class="m">1</span><span class="w">        </span><span class="m">192</span>.168.100.191<span class="w">         </span><span class="o">(</span>install<span class="o">)</span><span class="w"> </span>Installing<span class="w"> </span>apt<span class="w"> </span>packages
+postgresql/0*<span class="w">        </span>waiting<span class="w">      </span>executing<span class="w">  </span><span class="m">2</span><span class="w">        </span><span class="m">192</span>.168.100.166<span class="w">         </span>agent<span class="w"> </span>initialising
+rabbitmq-server/0*<span class="w">   </span>maintenance<span class="w">  </span>executing<span class="w">  </span><span class="m">3</span><span class="w">        </span><span class="m">192</span>.168.100.154<span class="w">         </span><span class="o">(</span>install<span class="o">)</span><span class="w"> </span>installing<span class="w"> </span>charm<span class="w"> </span>software
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">          </span>Inst<span class="w"> </span>id<span class="w">                               </span>Base<span class="w">          </span>AZ<span class="w">    </span>Message
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.167<span class="w">  </span>c36a3b5a-2636-4ad8-9877-a9ce6cfc0f4f<span class="w">  </span>ubuntu@22.04<span class="w">  </span>nova<span class="w">  </span>ACTIVE
+<span class="m">1</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.191<span class="w">  </span>cd268ff1-84a7-4b50-b3cc-e3e68e08824e<span class="w">  </span>ubuntu@22.04<span class="w">  </span>nova<span class="w">  </span>ACTIVE
+<span class="m">2</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.166<span class="w">  </span>461f7af2-3c76-4e5c-91cb-5524bd263636<span class="w">  </span>ubuntu@22.04<span class="w">  </span>nova<span class="w">  </span>ACTIVE
+<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.154<span class="w">  </span>7dfc4a6c-3be7-41da-8113-7f50b423a032<span class="w">  </span>ubuntu@22.04<span class="w">  </span>nova<span class="w">  </span>ACTIVE
+</code></pre></div>
+</details>
 <p>After it's finished deploying, you can access Landscape Web UI by accessing the IP address of your HAProxy unit.
 To find out the IP address of your HAProxy unit, run the following command:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>haproxy<span class="w"> </span>--format<span class="w"> </span>line<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^$<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the HAProxy unit IP address</span>
+juju<span class="w"> </span>status<span class="w"> </span>haproxy<span class="w"> </span>-m<span class="w"> </span>landscape<span class="w"> </span>--format<span class="w"> </span>line<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^$<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code><span class="m">192</span>.168.100.167
+</code></pre></div>
+</details>
 <p><strong>11.3.3 Remove the Landscape Application Bundle together with the controller</strong></p>
 <p>Remove the Juju controller managing OpenStack resources:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>switch<span class="w"> </span>maas-controller
+<div class="highlight"><pre><span></span><code><span class="c1"># Switch back to the maas-controller</span>
+juju<span class="w"> </span>switch<span class="w"> </span>maas-controller
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>my-controller:admin/landscape<span class="w"> </span>-&gt;<span class="w"> </span>maas-controller:admin/uos
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Destroy the my-controller and all its models</span>
 juju<span class="w"> </span>destroy-controller<span class="w"> </span>--destroy-all-models<span class="w"> </span>my-controller<span class="w"> </span>--no-prompt
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>WARNING<span class="w"> </span>This<span class="w"> </span><span class="nb">command</span><span class="w"> </span>will<span class="w"> </span>destroy<span class="w"> </span>the<span class="w"> </span><span class="s2">&quot;my-controller&quot;</span><span class="w"> </span>controller<span class="w"> </span>and<span class="w"> </span>all<span class="w"> </span>its<span class="w"> </span>resources
+Destroying<span class="w"> </span>controller
+Waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>model<span class="w"> </span>resources<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>reclaimed
+...
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The destroy-controller command takes a significant amount of time because it must terminate all OpenStack instances created by the controller (the controller VM itself plus the four Landscape bundle VMs). Wait for the command to complete before proceeding.</p>
+</div>
 
 
 
