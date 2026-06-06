@@ -590,8 +590,11 @@ deployment in Chapter 5.</p>
 <p>In this lab environment, each <code>openstack</code> command prints <code>Using Keystone v3 API</code> before the main command output.</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create the external Neutron network on physnet1</span>
-openstack<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>Public_Network<span class="w"> </span>--external<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--provider-physical-network<span class="w"> </span>physnet1<span class="w"> </span>--provider-network-type<span class="w"> </span>flat<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1300</span>
+openstack<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>Public_Network<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--external<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--provider-physical-network<span class="w"> </span>physnet1<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--provider-network-type<span class="w"> </span>flat<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--mtu<span class="w"> </span><span class="m">1300</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -686,11 +689,14 @@ openstack<span class="w"> </span>network<span class="w"> </span>show<span class=
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create the external subnet and reserve the floating IP range</span>
-openstack<span class="w"> </span>subnet<span class="w"> </span>create<span class="w"> </span>--ip-version<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--allocation-pool<span class="w"> </span><span class="nv">start</span><span class="o">=</span><span class="m">192</span>.168.100.150,end<span class="o">=</span><span class="m">192</span>.168.100.199<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--gateway<span class="o">=</span><span class="m">192</span>.168.100.1<span class="w"> </span>--no-dhcp<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--network<span class="w"> </span>Public_Network<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--subnet-range<span class="w"> </span><span class="m">192</span>.168.100.0/24<span class="w"> </span>Public_Subnet
+openstack<span class="w"> </span>subnet<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--ip-version<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--allocation-pool<span class="w"> </span><span class="nv">start</span><span class="o">=</span><span class="m">192</span>.168.100.150,end<span class="o">=</span><span class="m">192</span>.168.100.199<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--gateway<span class="o">=</span><span class="m">192</span>.168.100.1<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--no-dhcp<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--network<span class="w"> </span>Public_Network<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--subnet-range<span class="w"> </span><span class="m">192</span>.168.100.0/24<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>Public_Subnet
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
