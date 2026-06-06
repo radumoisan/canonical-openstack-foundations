@@ -450,3 +450,53 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_op
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "curl -s -o /dev/null -w \"%{http_code}\" http://192.168.100.35/horizon"'
 ```
+
+## Chapter 7 - Cloud Images
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "mkdir ~/cloud_images"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cd ~/cloud_images && wget https://cloud-images.ubuntu.com/minimal/releases/jammy/release/ubuntu-22.04-minimal-cloudimg-amd64.img"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "file ~/cloud_images/ubuntu-22.04-minimal-cloudimg-amd64.img"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "qemu-img info ~/cloud_images/ubuntu-22.04-minimal-cloudimg-amd64.img"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cd ~/cloud_images && qemu-img convert -f qcow2 -O raw ubuntu-22.04-minimal-cloudimg-amd64.img ubuntu-jammy.img"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "qemu-img info ~/cloud_images/ubuntu-jammy.img"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && echo SOURCED_OK'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack image list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack image create --public --min-disk 3 --container-format bare --disk-format raw --property architecture=x86_64 --file ~/cloud_images/ubuntu-jammy.img --progress \"jammy\"'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack image list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack image show jammy'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "curl -sk -o /dev/null -w \"%{http_code}\" https://192.168.100.35/horizon"'
+```

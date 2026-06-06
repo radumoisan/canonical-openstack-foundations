@@ -108,9 +108,13 @@ Planned work:
 
 ### 7. Work with Cloud Images
 
-- Status: `Migrated`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 7
 - Target page: `docs/cloud-images.md`
+- Validation note: Chapter 7 was validated from the MAAS VM on student host `34.159.9.11`.
+- Validation note: The Ubuntu Jammy minimal cloud image was downloaded successfully and converted from `qcow2` to `raw` as `~/cloud_images/ubuntu-jammy.img`.
+- Validation note: Glance image `jammy` was uploaded successfully with minimum disk `3`, visibility `public`, and architecture `x86_64`.
+- Validation note: The uploaded image reached `active` status on the Ceph-backed Glance store.
 
 ### 8. Configure an OpenStack Project
 
