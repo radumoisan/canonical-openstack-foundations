@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#13-appendices" class="md-skip">
+        <a href="#12-appendices" class="md-skip">
           Skip to content
         </a>
       
@@ -479,18 +479,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#131-appendix-a-recover-from-total-outage" class="md-nav__link">
+  <a href="#121-appendix-a-recover-from-total-outage" class="md-nav__link">
     <span class="md-ellipsis">
-       13.1 Appendix A: Recover from total outage
+       12.1 Appendix A: Recover from Total Outage
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#132-appendix-b-openstack-bundle-file" class="md-nav__link">
+  <a href="#122-appendix-b-openstack-bundle-file" class="md-nav__link">
     <span class="md-ellipsis">
-       13.2 Appendix B: OpenStack Bundle File
+       12.2 Appendix B: OpenStack Bundle File
     </span>
   </a>
   
@@ -533,18 +533,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#131-appendix-a-recover-from-total-outage" class="md-nav__link">
+  <a href="#121-appendix-a-recover-from-total-outage" class="md-nav__link">
     <span class="md-ellipsis">
-       13.1 Appendix A: Recover from total outage
+       12.1 Appendix A: Recover from Total Outage
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#132-appendix-b-openstack-bundle-file" class="md-nav__link">
+  <a href="#122-appendix-b-openstack-bundle-file" class="md-nav__link">
     <span class="md-ellipsis">
-       13.2 Appendix B: OpenStack Bundle File
+       12.2 Appendix B: OpenStack Bundle File
     </span>
   </a>
   
@@ -565,18 +565,22 @@
                   
 
 
-<h1 id="13-appendices">13. Appendices<a class="headerlink" href="#13-appendices" title="Permanent link">&para;</a></h1>
-<h2 id="131-appendix-a-recover-from-total-outage"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 13.1 Appendix A: Recover from total outage<a class="headerlink" href="#131-appendix-a-recover-from-total-outage" title="Permanent link">&para;</a></h2>
-<p>In cases of complete cluster failure, all nodes are down, when the
-cluster comes us again, some services will be degraded. User input
-is necessary.</p>
-<p>Two services need manual intervention, the <code>mysql-innodb-cluster</code> charm
-and the <code>vault</code> charm.</p>
-<p><strong>13.1.1 Recovering the DB</strong></p>
-<p>Check the the status of the DB charm. It should be in unhealthy state.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
-<span class="c1"># output</span>
-Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+<h1 id="12-appendices">12. Appendices<a class="headerlink" href="#12-appendices" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page is reference material. It was reviewed and reformatted during the migration, but it was not live-validated as part of the chapter-by-chapter lab run.</p>
+</div>
+<h2 id="121-appendix-a-recover-from-total-outage"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 12.1 Appendix A: Recover from Total Outage<a class="headerlink" href="#121-appendix-a-recover-from-total-outage" title="Permanent link">&para;</a></h2>
+<p>If the cluster experiences a complete outage, some services may remain degraded after the nodes return. This appendix covers the manual recovery steps that may still be required.</p>
+<p>Two services need manual intervention in this scenario: <code>mysql-innodb-cluster</code> and <code>vault</code>.</p>
+<p><strong>12.1.1 Recover the Database Cluster</strong></p>
+<p>Check the status of the database charm. It should be unhealthy after a full outage.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the mysql-innodb-cluster status</span>
+juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
 uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.5.2<span class="w">    </span>unsupported<span class="w">  </span><span class="m">06</span>:08:29-05:00
 
 App<span class="w">                   </span>Version<span class="w">  </span>Status<span class="w">   </span>Scale<span class="w">  </span>Charm<span class="w">                 </span>Channel<span class="w">       </span>Exposed<span class="w">  </span>Rev<span class="w">  </span>OS<span class="w">      </span>Notes
@@ -595,61 +599,141 @@ Machine<span class="w">  </span>State<span class="w">    </span>DNS<span class="
 <span class="m">2</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.39<span class="w">  </span>os-compute03<span class="w">         </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Deployed
 <span class="m">2</span>/lxd/2<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.52<span class="w">  </span>juju-3da275-2-lxd-2<span class="w">  </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Container<span class="w"> </span>started
 </code></pre></div>
-<p>List the juju actions available for <code>mysql-innodb-cluster</code>. The action that
-interests us is the <code>reboot-cluster-from-complete-outage</code> action.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>actions<span class="w"> </span>mysql-innodb-cluster
+</details>
+<p>List the available Juju actions for <code>mysql-innodb-cluster</code>. Look for <code>reboot-cluster-from-complete-outage</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># List mysql-innodb-cluster recovery actions</span>
+juju<span class="w"> </span>actions<span class="w"> </span>mysql-innodb-cluster
 </code></pre></div>
-<p><code>reboot-cluster-from-complete-outage</code> - In the case of a complete outage, reboot the cluster
-from this instance's GTID superset.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>reboot-cluster-from-complete-outage<span class="w">  </span>Reboot<span class="w"> </span>the<span class="w"> </span>cluster<span class="w"> </span>from<span class="w"> </span>this<span class="w"> </span>instance<span class="err">&#39;</span>s<span class="w"> </span>GTID<span class="w"> </span>superset<span class="w"> </span>after<span class="w"> </span>a<span class="w"> </span><span class="nb">complete</span><span class="w"> </span>outage.
+</code></pre></div>
+</details>
 <p>Run this action on the leader unit of the charm.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run<span class="w"> </span>mysql-innodb-cluster/leader<span class="w"> </span>reboot-cluster-from-complete-outage<span class="w"> </span>--wait<span class="w"> </span>15m
+<div class="highlight"><pre><span></span><code><span class="c1"># Run the complete-outage recovery action on the leader</span>
+juju<span class="w"> </span>run<span class="w"> </span>mysql-innodb-cluster/leader<span class="w"> </span>reboot-cluster-from-complete-outage<span class="w"> </span>--wait<span class="w"> </span>15m
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Action<span class="w"> </span>completed<span class="w"> </span>successfully.
+</code></pre></div>
+</details>
 <p>Wait a few minutes for this process to finish and check the cluster status again.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
+<div class="highlight"><pre><span></span><code><span class="c1"># Re-check the mysql-innodb-cluster status</span>
+juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
 </code></pre></div>
-<p><strong>13.1.2 Unseal Vault</strong></p>
-<p>The Vault charm needs to be unsealed after a complete cluster restart. Usually, Vault needs to be unsealed even after install,
-but because we deployed Vault with the <code>totally-unsecure-auto-unlock</code> option, the charm unsealed itself automatically. This is
-only done for testing purposes and not recommended in production.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>mysql-innodb-cluster<span class="w"> </span>units<span class="w"> </span>to<span class="w"> </span><span class="k">return</span><span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>healthy<span class="w"> </span>state.
+</code></pre></div>
+</details>
+<p><strong>12.1.2 Unseal Vault</strong></p>
+<p>The Vault charm may need to be unsealed after a complete cluster restart. In this lab, Vault was deployed with <code>totally-unsecure-auto-unlock</code>, which is suitable only for testing and not for production.</p>
 <p>Check the status of the Vault charm.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status<span class="w"> </span>vault
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the vault charm status</span>
+juju<span class="w"> </span>status<span class="w"> </span>vault
 </code></pre></div>
-<p>The Vault process inside the LXD container needs to be restarted in order to connect to the DB. Please note that the DB needs to be
-active and running before doing this.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>vault
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span>vault<span class="w"> </span>to<span class="w"> </span>report<span class="w"> </span>a<span class="w"> </span>degraded,<span class="w"> </span>blocked,<span class="w"> </span>or<span class="w"> </span>waiting<span class="w"> </span>state<span class="w"> </span>before<span class="w"> </span>recovery.
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>vault
+</details>
+<p>The Vault process inside the LXD container may need a restart after the database is healthy again.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the vault systemd service state</span>
+juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>vault
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>vault<span class="w"> </span>service<span class="w"> </span>state<span class="w"> </span>and<span class="w"> </span>any<span class="w"> </span>recent<span class="w"> </span>database<span class="w"> </span>connectivity<span class="w"> </span>errors.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Restart the vault systemd service</span>
+juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>vault
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
 <p>Install the Vault client.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>vault
+<div class="highlight"><pre><span></span><code><span class="c1"># Install the Vault CLI client</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>vault
 </code></pre></div>
-<p>Now it's time to get the unseal key. Usually, Vault requires at least 3 unseal keys, but because we used the 
-<code>totally-unsecure-auto-unlock</code> (only for testing purposes), we only need one key. To get the key run the following command,
-and look for <code>keys</code>:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>leader-get
-<span class="c1"># output</span>
-keys:<span class="w"> </span><span class="s1">&#39;[&quot;3291e16bcbfe08958043ae7963f9f1d12b0307819262c779600a72499dc80c65&quot;]&#39;</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>vault<span class="w"> </span>&lt;channel&gt;<span class="w"> </span>from<span class="w"> </span>HashiCorp<span class="w"> </span>installed
 </code></pre></div>
+</details>
+<p>Now get the unseal key. In a production deployment, Vault typically requires multiple unseal keys. In this lab configuration, a single key is sufficient.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the Vault leader data and locate the unseal key</span>
+juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>leader-get
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>keys:<span class="w"> </span><span class="s1">&#39;[&quot;[REDACTED]&quot;]&#39;</span>
+</code></pre></div>
+</details>
 <p>Unseal Vault using the keys from the file.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_ADDR</span><span class="o">=</span><span class="s2">&quot;http://</span><span class="k">$(</span>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/leader<span class="w"> </span>unit-get<span class="w"> </span>private-address<span class="k">)</span><span class="s2">:8200&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export the VAULT_ADDR environment variable</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_ADDR</span><span class="o">=</span><span class="s2">&quot;http://</span><span class="k">$(</span>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/leader<span class="w"> </span>unit-get<span class="w"> </span>private-address<span class="k">)</span><span class="s2">:8200&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>vault<span class="w"> </span>operator<span class="w"> </span>unseal<span class="w"> </span>&lt;unseal<span class="w"> </span>key<span class="w"> </span><span class="m">1</span>&gt;
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Unseal Vault with the recovery key</span>
+vault<span class="w"> </span>operator<span class="w"> </span>unseal<span class="w"> </span>&lt;unseal<span class="w"> </span>key<span class="w"> </span><span class="m">1</span>&gt;
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Key<span class="w">                </span>Value
+---<span class="w">                </span>-----
+Sealed<span class="w">             </span><span class="nb">false</span>
+</code></pre></div>
+</details>
 <p>Authorize the vault charm.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_TOKEN</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/home/ubuntu/vault-state.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Initial Root Token&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export the Vault root token from the saved state file</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_TOKEN</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/home/ubuntu/vault-state.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Initial Root Token&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nv">CHARM_TOKEN</span><span class="o">=</span><span class="k">$(</span>vault<span class="w"> </span>token<span class="w"> </span>create<span class="w"> </span>-ttl<span class="o">=</span>10m<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span><span class="s2">&quot;^token\s+&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run<span class="w"> </span>--wait<span class="w"> </span>5m<span class="w"> </span>vault/leader<span class="w"> </span>authorize-charm<span class="w"> </span><span class="nv">token</span><span class="o">=</span><span class="nv">$CHARM_TOKEN</span>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a short-lived token for charm authorization</span>
+<span class="nv">CHARM_TOKEN</span><span class="o">=</span><span class="k">$(</span>vault<span class="w"> </span>token<span class="w"> </span>create<span class="w"> </span>-ttl<span class="o">=</span>10m<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span><span class="s2">&quot;^token\s+&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Authorize the vault charm with the generated token</span>
+juju<span class="w"> </span>run<span class="w"> </span>--wait<span class="w"> </span>5m<span class="w"> </span>vault/leader<span class="w"> </span>authorize-charm<span class="w"> </span><span class="nv">token</span><span class="o">=</span><span class="nv">$CHARM_TOKEN</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Action<span class="w"> </span>completed<span class="w"> </span>successfully.
+</code></pre></div>
+</details>
 <p>Resolve the Vault charm if it is in error state.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>resolved<span class="w"> </span>vault/0
+<div class="highlight"><pre><span></span><code><span class="c1"># Resolve the vault unit if it remains in error</span>
+juju<span class="w"> </span>resolved<span class="w"> </span>vault/0
 </code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
 <p>Wait a few minutes for the charm to become active again.</p>
 <p>Check the status of the charm.</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>status
-<span class="c1"># output</span>
-Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the overall model status after Vault recovery</span>
+juju<span class="w"> </span>status
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
 uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.5.2<span class="w">    </span>unsupported<span class="w">  </span><span class="m">13</span>:43:39Z
 
 App<span class="w">                 </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">         </span>Channel<span class="w">     </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
@@ -664,7 +748,8 @@ Machine<span class="w">  </span>State<span class="w">    </span>Address<span cla
 <span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.24<span class="w">  </span>os-compute04<span class="w">         </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
 <span class="m">3</span>/lxd/3<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span>juju-c06005-3-lxd-3<span class="w">  </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Container<span class="w"> </span>started
 </code></pre></div>
-<h2 id="132-appendix-b-openstack-bundle-file"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 13.2 Appendix B: OpenStack Bundle File<a class="headerlink" href="#132-appendix-b-openstack-bundle-file" title="Permanent link">&para;</a></h2>
+</details>
+<h2 id="122-appendix-b-openstack-bundle-file"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 12.2 Appendix B: OpenStack Bundle File<a class="headerlink" href="#122-appendix-b-openstack-bundle-file" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>This is the OpenStack deploy bundle used in this course.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu@22.04</span>
