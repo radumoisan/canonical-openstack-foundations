@@ -143,9 +143,17 @@ Planned work:
 
 ### 10. Work with OpenStack Storage
 
-- Status: `Migrated`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 10
 - Target page: `docs/openstack-storage.md`
+- Validation note: Chapter 10 was validated from the MAAS VM on student host `34.159.9.11`.
+- Validation note: The `openstack volume create` command requires the name positional argument before `--description`. Placing the name after the description flag causes the name to be consumed as part of the description text, resulting in a volume with `name: None`.
+- Validation note: The `openstack server add volume` command accepts the volume name directly; the subshell pattern `$(openstack volume list | grep volume1 | awk ...)` does not work reliably due to nested SSH quoting issues.
+- Validation note: The `openstack server show` commands return fields in compact JSON format when using `-f value` (e.g., `volumes_attached` returns `[{'id': '...', 'delete_on_termination': False}]`).
+- Validation note: The `openstack endpoint list` command with `-c "Service Type"` fails due to nested quoting issues with spaces in column names. The working form uses `--service object-store --interface public` filters instead.
+- Validation note: The Swift public endpoint URL is `https://192.168.100.43/swift/v1`. The wget download requires `--ca-certificate=/home/ubuntu/snap/openstackclients/common/root-ca.crt`.
+- Validation note: All CLI commands in sections 10.1 through 10.3 were validated successfully.
+- Validation note: The Web UI section (10.4) was reviewed and reorganized as an alternative path to the validated CLI workflow.
 
 ### 11. Configure Juju to Use OpenStack as a Provider
 

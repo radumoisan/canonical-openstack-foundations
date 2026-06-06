@@ -732,3 +732,125 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "ping -c 4 192.168.100.180"'
 ```
+
+## Chapter 10 - OpenStack Storage
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack volume create volume1 --availability-zone nova --size 5 --description '"'"'StudentProject Volume 01'"'"'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack volume list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack volume show volume1'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server add volume --device /dev/vdb jammy1 volume1'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server show jammy1 -c volumes_attached -f value'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server show jammy1 -c key_name -f value'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server show jammy1 -c addresses -f value'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "ssh -o StrictHostKeyChecking=no -i ~/.ssh/student-keypair.pem ubuntu@192.168.100.180 sudo fdisk -l 2>&1 | head -30"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server delete jammy1'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && sleep 5 && openstack volume delete volume1'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack container create mydata'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack container list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack container show mydata'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "mkdir ~/mydata"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "echo \"my file 1\" > ~/mydata/myfile01.txt && echo \"my file 2\" > ~/mydata/myfile02.txt"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && cd ~/mydata && openstack object create mydata *'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack container show mydata'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack object list mydata'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && swift stat mydata'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && swift post mydata --read-acl ".r:*"'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && swift stat mydata'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack object list mydata'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && cd ~ && openstack object save mydata myfile01.txt'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "ls -l ~/myfile01.txt"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack endpoint list --service object-store --interface public -f value'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack object list mydata'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 << 'ENDSSH'
+ssh ubuntu@192.168.100.3 << 'ENDMAAS'
+bash -lc 'export JUJU_MODEL=uos && source ~/admin_openrc && export OBJECT_STORE_URL=$(openstack endpoint list --service object-store --interface public -f value | awk "{print \$7}") && wget $OBJECT_STORE_URL/mydata/myfile02.txt --ca-certificate=/home/ubuntu/snap/openstackclients/common/root-ca.crt -O /tmp/myfile02_wget.txt'
+ENDMAAS
+ENDSSH
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat /tmp/myfile02_wget.txt"'
+```
