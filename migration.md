@@ -157,9 +157,16 @@ Planned work:
 
 ### 11. Configure Juju to Use OpenStack as a Provider
 
-- Status: `Migrated`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 11
 - Target page: `docs/juju-openstack-provider.md`
+- Validation note: Chapter 11 was validated from the MAAS VM on student host `34.159.9.11`.
+- Validation note: The `glance-simplestreams-sync` charm deployed successfully on machine 3/lxd in the `uos` model and synced images to Swift.
+- Validation note: The interactive `juju add-cloud` and `juju add-credential` commands were replaced with non-interactive YAML file equivalents. The credential requires `tenant-name`, `user-domain-name`, and `project-domain-name` fields for Keystone v3 authentication.
+- Validation note: The `juju bootstrap` on OpenStack requires `ssl-hostname-verification: false` in the bootstrap config because the lab uses a self-signed CA. The bootstrap takes around 15 minutes.
+- Validation note: The `juju add-model` command also requires `ssl-hostname-verification=false` as model config, otherwise it fails with a TLS verification error.
+- Validation note: The Landscape bundle deployed successfully with all 4 machines reaching `started` state. HAProxy reached `active` status within 10 minutes.
+- Validation note: The `juju destroy-controller` command takes a significant amount of time because it must terminate all OpenStack instances (controller VM + 4 bundle VMs).
 
 ### Appendices
 

@@ -854,3 +854,130 @@ ENDSSH
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat /tmp/myfile02_wget.txt"'
 ```
+
+## Chapter 11 - Configure Juju to Use OpenStack as a Provider
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat ~/os_files/glance-simplestreams-sync.yaml"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "export JUJU_MODEL=uos && juju deploy --to=lxd:3 --base ubuntu@22.04 --config ~/os_files/glance-simplestreams-sync.yaml --channel 2024.1/stable glance-simplestreams-sync"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "export JUJU_MODEL=uos && juju integrate glance-simplestreams-sync keystone"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "export JUJU_MODEL=uos && juju integrate glance-simplestreams-sync vault"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && echo SOURCED_OK'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat > ~/os_files/my-openstack.yaml <<'"'"'EOF'"'"'
+clouds:
+  my-openstack:
+    type: openstack
+    auth-types: [userpass]
+    endpoint: https://192.168.100.29:5000/v3
+    regions:
+      RegionOne:
+        endpoint: https://192.168.100.29:5000/v3
+EOF"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju add-cloud --client my-openstack ~/os_files/my-openstack.yaml"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat > ~/os_files/my-openstack-creds.yaml <<'"'"'EOF'"'"'
+credentials:
+  my-openstack:
+    student:
+      auth-type: userpass
+      username: student
+      password: openstack
+      tenant-name: StudentProject
+      user-domain-name: admin_domain
+      project-domain-name: admin_domain
+EOF"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju add-credential my-openstack --client -f ~/os_files/my-openstack-creds.yaml"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack endpoint list --service swift --interface public -f value'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat > ~/os_files/my-config.yaml <<'"'"'EOF'"'"'
+network: StudentProject_Network
+external-network: Public_Network
+image-metadata-url: https://192.168.100.43:443/swift/v1/simplestreams/data/
+default-base: ubuntu@22.04
+ssl-hostname-verification: false
+EOF"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack floating ip create Public_Network'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack flavor create --vcpus 2 --ram 2048 --disk 10 --ephemeral 0 --swap 0 --public kvm.node'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack flavor set --property aggregate_instance_extra_specs:kvm=true kvm.node'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju bootstrap --config ~/os_files/my-config.yaml --bootstrap-constraints=\"mem=2G cores=2 allocate-public-ip=true\" --constraints=\"mem=2G\" my-openstack my-controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju controllers"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat ~/os_files/landscape_bundle.yaml"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju add-model landscape --config ssl-hostname-verification=false"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju set-model-constraints -m landscape allocate-public-ip=true"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju deploy -m landscape ./os_files/landscape_bundle.yaml"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m landscape"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status haproxy -m landscape --format line | grep -v ^$ | awk '"'"'{print $3}'"'"' | head -1"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju switch maas-controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju destroy-controller --destroy-all-models my-controller --no-prompt"'
+```
