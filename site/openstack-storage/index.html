@@ -468,27 +468,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#104-web-ui" class="md-nav__link">
+  <a href="#104-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       10.4 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1041-attach-volume-storage-to-a-cloud-workload-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-       10.4.1 Attach Volume Storage to a Cloud Workload Instance
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1042-upload-objects-into-swift" class="md-nav__link">
-    <span class="md-ellipsis">
-       10.4.2 Upload Objects into Swift
+       10.4 Web UI Equivalents
     </span>
   </a>
   
@@ -598,27 +580,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#104-web-ui" class="md-nav__link">
+  <a href="#104-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       10.4 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1041-attach-volume-storage-to-a-cloud-workload-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-       10.4.1 Attach Volume Storage to a Cloud Workload Instance
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1042-upload-objects-into-swift" class="md-nav__link">
-    <span class="md-ellipsis">
-       10.4.2 Upload Objects into Swift
+       10.4 Web UI Equivalents
     </span>
   </a>
   
@@ -646,249 +610,617 @@
 <p><strong>Description:</strong></p>
 <p>In this exercise, you create a volume and attach it to an instance.</p>
 <p><strong>10.1.1 Create a Storage Volume</strong></p>
-<p>At the terminal of the MAAS server, perform the following steps to create a
-storage volume:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack student project environment</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>--availability-zone<span class="w"> </span>nova<span class="w"> </span>--size<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--description<span class="w"> </span><span class="s1">&#39;StudentProject Volume 01&#39;</span><span class="w"> </span>volume1
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see the details listed for the newly created volume.</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>volume<span class="w"> </span>list
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run the following <code>openstack</code> commands in the same shell session after sourcing <code>~/student_openrc</code>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a 5 GB volume named volume1 in the nova availability zone</span>
+openstack<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>volume1<span class="w"> </span>--availability-zone<span class="w"> </span>nova<span class="w"> </span>--size<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--description<span class="w"> </span><span class="s1">&#39;StudentProject Volume 01&#39;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>volume<span class="w"> </span>show<span class="w"> </span>volume1
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">               </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>attachments<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w">   </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>bootable<span class="w">            </span><span class="p">|</span><span class="w"> </span><span class="nb">false</span><span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>consistencygroup_id<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:38:42.397074<span class="w">           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">         </span><span class="p">|</span><span class="w"> </span>StudentProject<span class="w"> </span>Volume<span class="w"> </span><span class="m">01</span><span class="w">             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>encrypted<span class="w">           </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                  </span><span class="p">|</span><span class="w"> </span>e218585b-c64f-45c8-83c0-3e4f948c709e<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>multiattach<span class="w">         </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                </span><span class="p">|</span><span class="w"> </span>volume1<span class="w">                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>replication_status<span class="w">  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>size<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">5</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>snapshot_id<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>source_volid<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">              </span><span class="p">|</span><span class="w"> </span>creating<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span><span class="nb">type</span><span class="w">                </span><span class="p">|</span><span class="w"> </span>__DEFAULT__<span class="w">                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">          </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>user_id<span class="w">             </span><span class="p">|</span><span class="w"> </span>89ed5796241e4dddb49afd47ed2d08f5<span class="w">     </span><span class="p">|</span>
++---------------------+--------------------------------------+
 </code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The volume name positional argument must appear before <code>--description</code>. Placing it after the description flag causes the name to be consumed as part of the description text.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># List volumes to confirm volume1 was created</span>
+openstack<span class="w"> </span>volume<span class="w"> </span>list
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+---------+-----------+------+-------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Name<span class="w">    </span><span class="p">|</span><span class="w"> </span>Status<span class="w">    </span><span class="p">|</span><span class="w"> </span>Size<span class="w"> </span><span class="p">|</span><span class="w"> </span>Attached<span class="w"> </span>to<span class="w"> </span><span class="p">|</span>
++--------------------------------------+---------+-----------+------+-------------+
+<span class="p">|</span><span class="w"> </span>e218585b-c64f-45c8-83c0-3e4f948c709e<span class="w"> </span><span class="p">|</span><span class="w"> </span>volume1<span class="w"> </span><span class="p">|</span><span class="w"> </span>available<span class="w"> </span><span class="p">|</span><span class="w">    </span><span class="m">5</span><span class="w"> </span><span class="p">|</span><span class="w">             </span><span class="p">|</span>
++--------------------------------------+---------+-----------+------+-------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show full details of volume1</span>
+openstack<span class="w"> </span>volume<span class="w"> </span>show<span class="w"> </span>volume1
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++------------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                        </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++------------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>attachments<span class="w">                  </span><span class="p">|</span><span class="w"> </span><span class="o">[]</span><span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zone<span class="w">            </span><span class="p">|</span><span class="w"> </span>nova<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>bootable<span class="w">                     </span><span class="p">|</span><span class="w"> </span><span class="nb">false</span><span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>consistencygroup_id<span class="w">          </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">                   </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:38:42.000000<span class="w">           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">                  </span><span class="p">|</span><span class="w"> </span>StudentProject<span class="w"> </span>Volume<span class="w"> </span><span class="m">01</span><span class="w">             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>encrypted<span class="w">                    </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                           </span><span class="p">|</span><span class="w"> </span>e218585b-c64f-45c8-83c0-3e4f948c709e<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>multiattach<span class="w">                  </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                         </span><span class="p">|</span><span class="w"> </span>volume1<span class="w">                              </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>os-vol-tenant-attr:tenant_id<span class="w"> </span><span class="p">|</span><span class="w"> </span>98b0c6176739443d827d4c51f88afcbe<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="w">                   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>replication_status<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>size<span class="w">                         </span><span class="p">|</span><span class="w"> </span><span class="m">5</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>snapshot_id<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>source_volid<span class="w">                 </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">                       </span><span class="p">|</span><span class="w"> </span>available<span class="w">                            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span><span class="nb">type</span><span class="w">                         </span><span class="p">|</span><span class="w"> </span>__DEFAULT__<span class="w">                          </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">                   </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T11:39:06.000000<span class="w">           </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>user_id<span class="w">                      </span><span class="p">|</span><span class="w"> </span>89ed5796241e4dddb49afd47ed2d08f5<span class="w">     </span><span class="p">|</span>
++------------------------------+--------------------------------------+
+</code></pre></div>
+</details>
 <p><strong>10.1.2 Attach a Volume to an Instance</strong></p>
-<p>At the terminal of the MAAS server, perform the following steps to retrieve
-the volume ID of the storage volume:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/student_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack student project environment</span>
+<span class="nb">source</span><span class="w"> </span>~/student_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nv">VOLUME_ID</span><span class="o">=</span><span class="k">$(</span>openstack<span class="w"> </span>volume<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>volume1<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>Attach the volume to an instance be performing the following:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>volume<span class="w"> </span>--device<span class="w"> </span>/dev/vdb<span class="w"> </span>jammy1<span class="w"> </span><span class="nv">$VOLUME_ID</span>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Attach volume1 to the jammy1 instance at device /dev/vdb</span>
+openstack<span class="w"> </span>server<span class="w"> </span>add<span class="w"> </span>volume<span class="w"> </span>--device<span class="w"> </span>/dev/vdb<span class="w"> </span>jammy1<span class="w"> </span>volume1
 </code></pre></div>
-<p>List the instance details to see the attached volume ID:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>volumes
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++-----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                 </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++-----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                    </span><span class="p">|</span><span class="w"> </span>e218585b-c64f-45c8-83c0-3e4f948c709e<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>Server<span class="w"> </span>ID<span class="w">             </span><span class="p">|</span><span class="w"> </span>e0bc4a2e-389d-4a46-9fe3-4d923903e0e8<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>Volume<span class="w"> </span>ID<span class="w">             </span><span class="p">|</span><span class="w"> </span>e218585b-c64f-45c8-83c0-3e4f948c709e<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>Device<span class="w">                </span><span class="p">|</span><span class="w"> </span>/dev/vdb<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>Tag<span class="w">                   </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>Delete<span class="w"> </span>On<span class="w"> </span>Termination<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
++-----------------------+--------------------------------------+
 </code></pre></div>
-<p>You should see a line beginning with <strong>volumes_attached</strong>
-listing the volume ID(s) attached to the instance.</p>
-<p>Retrieve the key-pair name used with the instance with the following:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>key_name
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the volume is attached to jammy1</span>
+openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span>-c<span class="w"> </span>volumes_attached<span class="w"> </span>-f<span class="w"> </span>value
 </code></pre></div>
-<p>You should see a line beginning with key_name listing the name of the key
-pair used by the instance.</p>
-<p>Retrieve the floating IP of the instance with the following:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>addresses
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+<span class="o">[{</span><span class="s1">&#39;id&#39;</span>:<span class="w"> </span><span class="s1">&#39;e218585b-c64f-45c8-83c0-3e4f948c709e&#39;</span>,<span class="w"> </span><span class="s1">&#39;delete_on_termination&#39;</span>:<span class="w"> </span>False<span class="o">}]</span>
 </code></pre></div>
-<p>You should see a line beginning with addresses listing the IP addresses
-associated with the instance. The <code>192.168.100.x</code> address will be the
-floating IP.</p>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the key pair name used by the instance</span>
+openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span>-c<span class="w"> </span>key_name<span class="w"> </span>-f<span class="w"> </span>value
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+student-keypair
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the IP addresses associated with the instance</span>
+openstack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span>jammy1<span class="w"> </span>-c<span class="w"> </span>addresses<span class="w"> </span>-f<span class="w"> </span>value
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+<span class="o">{</span><span class="s1">&#39;StudentProject_Network&#39;</span>:<span class="w"> </span><span class="o">[</span><span class="s1">&#39;10.20.30.162&#39;</span>,<span class="w"> </span><span class="s1">&#39;192.168.100.180&#39;</span><span class="o">]}</span>
+</code></pre></div>
+</details>
+<p>The <code>192.168.100.x</code> address is the floating IP.</p>
 <p><strong>10.1.3 Check the Volume</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to ssh
-to the instance:</p>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@<span class="nv">$INSTANCE_FLOATING_IP</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># SSH into the instance using the student key pair and the floating IP</span>
+ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@192.168.100.180
 </code></pre></div>
-<p>Enter the following command to view the disks attached to the instance:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>fdisk<span class="w"> </span>-l
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Welcome<span class="w"> </span>to<span class="w"> </span>Ubuntu<span class="w"> </span><span class="m">22</span>.04.5<span class="w"> </span>LTS<span class="w"> </span><span class="o">(</span>GNU/Linux<span class="w"> </span><span class="m">5</span>.15.0-157-generic<span class="w"> </span>x86_64<span class="o">)</span>
+...
+ubuntu@jammy1:~$
 </code></pre></div>
-<p>You should see the volume listed as one of the disks. Optionally, you can create partitions on the volume, format with a filesystem and mount it with either <code>parted</code> or <code>fdisk</code>.</p>
-<p>Finally, exit the VM and delete all the existing VMs and volumes:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># View the disks attached to the instance</span>
+sudo<span class="w"> </span>fdisk<span class="w"> </span>-l
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>list
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Disk<span class="w"> </span>/dev/vda:<span class="w"> </span><span class="m">5</span><span class="w"> </span>GiB,<span class="w"> </span><span class="m">5368709120</span><span class="w"> </span>bytes,<span class="w"> </span><span class="m">10485760</span><span class="w"> </span>sectors
+Units:<span class="w"> </span>sectors<span class="w"> </span>of<span class="w"> </span><span class="m">1</span><span class="w"> </span>*<span class="w"> </span><span class="nv">512</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
+Sector<span class="w"> </span>size<span class="w"> </span><span class="o">(</span>logical/physical<span class="o">)</span>:<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes<span class="w"> </span>/<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
+I/O<span class="w"> </span>size<span class="w"> </span><span class="o">(</span>minimum/optimal<span class="o">)</span>:<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes<span class="w"> </span>/<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
+Disklabel<span class="w"> </span>type:<span class="w"> </span>gpt
+Disk<span class="w"> </span>identifier:<span class="w"> </span>9E2F366D-9C82-41E0-9E15-A9B5679F8E0F
+
+Device<span class="w">      </span>Start<span class="w">      </span>End<span class="w">  </span>Sectors<span class="w">  </span>Size<span class="w"> </span>Type
+/dev/vda1<span class="w">  </span><span class="m">227328</span><span class="w"> </span><span class="m">10485726</span><span class="w"> </span><span class="m">10258399</span><span class="w">  </span><span class="m">4</span>.9G<span class="w"> </span>Linux<span class="w"> </span>filesystem
+/dev/vda14<span class="w">   </span><span class="m">2048</span><span class="w">    </span><span class="m">10239</span><span class="w">     </span><span class="m">8192</span><span class="w">    </span>4M<span class="w"> </span>BIOS<span class="w"> </span>boot
+/dev/vda15<span class="w">  </span><span class="m">10240</span><span class="w">   </span><span class="m">227327</span><span class="w">   </span><span class="m">217088</span><span class="w">  </span>106M<span class="w"> </span>EFI<span class="w"> </span>System
+
+Partition<span class="w"> </span>table<span class="w"> </span>entries<span class="w"> </span>are<span class="w"> </span>not<span class="w"> </span><span class="k">in</span><span class="w"> </span>disk<span class="w"> </span>order.
+
+Disk<span class="w"> </span>/dev/vdb:<span class="w"> </span><span class="m">5</span><span class="w"> </span>GiB,<span class="w"> </span><span class="m">5368709120</span><span class="w"> </span>bytes,<span class="w"> </span><span class="m">10485760</span><span class="w"> </span>sectors
+Units:<span class="w"> </span>sectors<span class="w"> </span>of<span class="w"> </span><span class="m">1</span><span class="w"> </span>*<span class="w"> </span><span class="nv">512</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
+Sector<span class="w"> </span>size<span class="w"> </span><span class="o">(</span>logical/physical<span class="o">)</span>:<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes<span class="w"> </span>/<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
+I/O<span class="w"> </span>size<span class="w"> </span><span class="o">(</span>minimum/optimal<span class="o">)</span>:<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes<span class="w"> </span>/<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>server<span class="w"> </span>delete<span class="w"> </span>jammy1
+</details>
+<p>The <code>/dev/vdb</code> disk is the attached volume. Optionally, you can create partitions on the volume, format it with a filesystem, and mount it using either <code>parted</code> or <code>fdisk</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Exit the instance SSH session</span>
+<span class="nb">exit</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Connection<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span>closed.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List servers before cleanup</span>
+openstack<span class="w"> </span>server<span class="w"> </span>list
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+--------+--------+------------------------------------------------------+-------+------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Name<span class="w">   </span><span class="p">|</span><span class="w"> </span>Status<span class="w"> </span><span class="p">|</span><span class="w"> </span>Networks<span class="w">                                             </span><span class="p">|</span><span class="w"> </span>Image<span class="w"> </span><span class="p">|</span><span class="w"> </span>Flavor<span class="w">     </span><span class="p">|</span>
++--------------------------------------+--------+--------+------------------------------------------------------+-------+------------+
+<span class="p">|</span><span class="w"> </span>e0bc4a2e-389d-4a46-9fe3-4d923903e0e8<span class="w"> </span><span class="p">|</span><span class="w"> </span>jammy1<span class="w"> </span><span class="p">|</span><span class="w"> </span>ACTIVE<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">StudentProject_Network</span><span class="o">=</span><span class="m">10</span>.20.30.162,<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span><span class="p">|</span><span class="w"> </span>jammy<span class="w"> </span><span class="p">|</span><span class="w"> </span>m1.smaller<span class="w"> </span><span class="p">|</span>
++--------------------------------------+--------+--------+------------------------------------------------------+-------+------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete the jammy1 instance</span>
+openstack<span class="w"> </span>server<span class="w"> </span>delete<span class="w"> </span>jammy1
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Wait for the volume to transition from in-use to available, then delete it</span>
 sleep<span class="w"> </span><span class="m">5</span>
 openstack<span class="w"> </span>volume<span class="w"> </span>delete<span class="w"> </span>volume1
 </code></pre></div>
-<p>There is a <code>sleep</code> between commands to allow the volume to become <code>available</code> again. After the instance is deleted, volume attachment also gets deleted and volume transitions from <code>in-use</code> to <code>available</code>. A volume can't be deleted if the status is <code>in-use</code>.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>sleep</code> allows the volume to transition from <code>in-use</code> to <code>available</code> after the instance is deleted. A volume cannot be deleted while its status is <code>in-use</code>.</p>
+</div>
 <h2 id="102-upload-objects-into-swift"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 10.2 Upload Objects into Swift<a class="headerlink" href="#102-upload-objects-into-swift" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you upload files as objects into Swift.</p>
 <p><strong>10.2.1 Upload a File to Swift</strong></p>
-<p>At the terminal of the MAAS server, enter the following command to source
-in the <code>admin_openrc</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack administrator environment</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<p><strong>Note:</strong> We need to source in the admin_openrc file rather the then project specific <code>.rc</code>
-file because we will be uploading the files to the Admin project and then make
-it publicly accessible. This way it is available to all tenants in the private
-cloud.</p>
-<p>Enter the following command to create a new container for the files:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>container<span class="w"> </span>create<span class="w"> </span>mydata
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>You should see the details of your newly created container.</p>
-<p>Enter the following command to display the newly created container:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>container<span class="w"> </span>list
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Source <code>admin_openrc</code> rather than the project-specific <code>.rc</code> file because the files are uploaded to the Admin project and then made publicly accessible to all tenants.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new Swift container named mydata</span>
+openstack<span class="w"> </span>container<span class="w"> </span>create<span class="w"> </span>mydata
 </code></pre></div>
-<p>You should see the new container listed.</p>
-<p>Enter the following command to view the status of the container:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>container<span class="w"> </span>show<span class="w"> </span>mydata
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------+-----------+-------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>account<span class="w"> </span><span class="p">|</span><span class="w"> </span>container<span class="w"> </span><span class="p">|</span><span class="w"> </span>x-trans-id<span class="w">                                      </span><span class="p">|</span>
++---------+-----------+-------------------------------------------------+
+<span class="p">|</span><span class="w"> </span>v1<span class="w">      </span><span class="p">|</span><span class="w"> </span>mydata<span class="w">    </span><span class="p">|</span><span class="w"> </span>tx000001e89c361d2ce014d-006a240780-7218-default<span class="w"> </span><span class="p">|</span>
++---------+-----------+-------------------------------------------------+
 </code></pre></div>
-<p>Notice the object_count: line. You should see that the container contains
-zero objects.</p>
-<p>Enter the following commands to create a directory and some files:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>~/mydata
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List containers to confirm mydata was created</span>
+openstack<span class="w"> </span>container<span class="w"> </span>list
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;my file 1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>~/mydata/myfile01.txt
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------+
+<span class="p">|</span><span class="w"> </span>Name<span class="w">   </span><span class="p">|</span>
++--------+
+<span class="p">|</span><span class="w"> </span>mydata<span class="w"> </span><span class="p">|</span>
++--------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show the container status and object count</span>
+openstack<span class="w"> </span>container<span class="w"> </span>show<span class="w"> </span>mydata
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------+-------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">          </span><span class="p">|</span><span class="w"> </span>Value<span class="w">             </span><span class="p">|</span>
++----------------+-------------------+
+<span class="p">|</span><span class="w"> </span>account<span class="w">        </span><span class="p">|</span><span class="w"> </span>v1<span class="w">                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>bytes_used<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>container<span class="w">      </span><span class="p">|</span><span class="w"> </span>mydata<span class="w">            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>object_count<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>storage_policy<span class="w"> </span><span class="p">|</span><span class="w"> </span>default-placement<span class="w"> </span><span class="p">|</span>
++----------------+-------------------+
+</code></pre></div>
+</details>
+<p>The <code>object_count</code> should be <code>0</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a directory for test files</span>
+mkdir<span class="w"> </span>~/mydata
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create two test files</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;my file 1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>~/mydata/myfile01.txt
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;my file 2&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>~/mydata/myfile02.txt
 </code></pre></div>
-<p>Enter the following commands to upload the files to the container:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/mydata
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>object<span class="w"> </span>create<span class="w"> </span>mydata<span class="w"> </span>*
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Change to the mydata directory</span>
+<span class="nb">cd</span><span class="w"> </span>~/mydata
 </code></pre></div>
-<p>You should see details on the two files uploaded.</p>
-<p>Enter the following command to view the status of the container:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>container<span class="w"> </span>show<span class="w"> </span>mydata
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
-<p>Notice the <code>object_count:</code> line; you should see that the container now
-contains two objects.</p>
-<p>Enter the following command to list the objects in the container:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Upload all files in the current directory to the mydata container</span>
+openstack<span class="w"> </span>object<span class="w"> </span>create<span class="w"> </span>mydata<span class="w"> </span>*
 </code></pre></div>
-<p>You should see the files listed.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------+-----------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>object<span class="w">       </span><span class="p">|</span><span class="w"> </span>container<span class="w"> </span><span class="p">|</span><span class="w"> </span>etag<span class="w">                             </span><span class="p">|</span>
++--------------+-----------+----------------------------------+
+<span class="p">|</span><span class="w"> </span>myfile01.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>mydata<span class="w">    </span><span class="p">|</span><span class="w"> </span>fb11eaef298d9c2ebcd571ac866068c3<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>myfile02.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>mydata<span class="w">    </span><span class="p">|</span><span class="w"> </span>e791fc7ddba5b9f3e085528a4199a334<span class="w"> </span><span class="p">|</span>
++--------------+-----------+----------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the container now shows two objects</span>
+openstack<span class="w"> </span>container<span class="w"> </span>show<span class="w"> </span>mydata
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------+-------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">          </span><span class="p">|</span><span class="w"> </span>Value<span class="w">             </span><span class="p">|</span>
++----------------+-------------------+
+<span class="p">|</span><span class="w"> </span>account<span class="w">        </span><span class="p">|</span><span class="w"> </span>v1<span class="w">                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>bytes_used<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">20</span><span class="w">                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>container<span class="w">      </span><span class="p">|</span><span class="w"> </span>mydata<span class="w">            </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>object_count<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>storage_policy<span class="w"> </span><span class="p">|</span><span class="w"> </span>default-placement<span class="w"> </span><span class="p">|</span>
++----------------+-------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the objects in the mydata container</span>
+openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------+
+<span class="p">|</span><span class="w"> </span>Name<span class="w">         </span><span class="p">|</span>
++--------------+
+<span class="p">|</span><span class="w"> </span>myfile01.txt<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>myfile02.txt<span class="w"> </span><span class="p">|</span>
++--------------+
+</code></pre></div>
+</details>
 <p><strong>10.2.2 Set ACLs on a Container</strong></p>
-<p>Since all swift client command features have not yet been implemented in the
-common client openstack we're going to use <code>python3-swiftclient</code> instead which 
-is already installed on the MAAS server.</p>
-<p>Enter the following command to display information about the mydata container:</p>
-<div class="highlight"><pre><span></span><code>swift<span class="w"> </span>stat<span class="w"> </span>mydata
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>swift</code> client from <code>python3-swiftclient</code> is used here because not all Swift ACL features are available in the unified <code>openstack</code> client. The package is pre-installed on the MAAS server.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show the current container status and ACL settings</span>
+swift<span class="w"> </span>stat<span class="w"> </span>mydata
 </code></pre></div>
-<p>Notice that there are no Read or Write ACLs. This is essentially a private
-container.</p>
-<p>Enter the following command to add a Read ACL that will make the container
-publicly accessible:</p>
-<div class="highlight"><pre><span></span><code>swift<span class="w"> </span>post<span class="w"> </span>mydata<span class="w"> </span>--read-acl<span class="w"> </span>.r:*
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+<span class="w">                      </span>Account:<span class="w"> </span>v1
+<span class="w">                    </span>Container:<span class="w"> </span>mydata
+<span class="w">                      </span>Objects:<span class="w"> </span><span class="m">2</span>
+<span class="w">                        </span>Bytes:<span class="w"> </span><span class="m">20</span>
+<span class="w">                     </span>Read<span class="w"> </span>ACL:
+<span class="w">                    </span>Write<span class="w"> </span>ACL:
+<span class="w">                      </span>Sync<span class="w"> </span>To:
+<span class="w">                     </span>Sync<span class="w"> </span>Key:
+<span class="w">                       </span>Server:<span class="w"> </span>Ceph<span class="w"> </span>Object<span class="w"> </span>Gateway<span class="w"> </span><span class="o">(</span>squid<span class="o">)</span>
+<span class="w">                  </span>X-Timestamp:<span class="w"> </span><span class="m">1780746113</span>.32952
+X-Container-Bytes-Used-Actual:<span class="w"> </span><span class="m">8192</span>
+<span class="w">             </span>X-Storage-Policy:<span class="w"> </span>default-placement
+<span class="w">              </span>X-Storage-Class:<span class="w"> </span>STANDARD
+<span class="w">                </span>Last-Modified:<span class="w"> </span>Sat,<span class="w"> </span><span class="m">06</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">2026</span><span class="w"> </span><span class="m">11</span>:41:53<span class="w"> </span>GMT
+<span class="w">                   </span>X-Trans-Id:<span class="w"> </span>tx000005e470e419cd74c61-006a2407d0-7218-default
+<span class="w">       </span>X-Openstack-Request-Id:<span class="w"> </span>tx000005e470e419cd74c61-006a2407d0-7218-default
+<span class="w">                </span>Accept-Ranges:<span class="w"> </span>bytes
+<span class="w">                 </span>Content-Type:<span class="w"> </span>text/plain<span class="p">;</span><span class="w"> </span><span class="nv">charset</span><span class="o">=</span>utf-8
 </code></pre></div>
-<p>Enter the following command to display information about the container again:</p>
-<div class="highlight"><pre><span></span><code>swift<span class="w"> </span>stat<span class="w"> </span>mydata
+</details>
+<p>Both Read ACL and Write ACL are empty, meaning the container is private.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set a public Read ACL on the container</span>
+swift<span class="w"> </span>post<span class="w"> </span>mydata<span class="w"> </span>--read-acl<span class="w"> </span><span class="s2">&quot;.r:*&quot;</span>
 </code></pre></div>
-<p>You should see the Read ACL listed now.</p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the Read ACL is now set</span>
+swift<span class="w"> </span>stat<span class="w"> </span>mydata
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+<span class="w">                      </span>Account:<span class="w"> </span>v1
+<span class="w">                    </span>Container:<span class="w"> </span>mydata
+<span class="w">                      </span>Objects:<span class="w"> </span><span class="m">2</span>
+<span class="w">                        </span>Bytes:<span class="w"> </span><span class="m">20</span>
+<span class="w">                     </span>Read<span class="w"> </span>ACL:<span class="w"> </span>.r:*
+<span class="w">                    </span>Write<span class="w"> </span>ACL:
+<span class="w">                      </span>Sync<span class="w"> </span>To:
+<span class="w">                     </span>Sync<span class="w"> </span>Key:
+<span class="w">                       </span>Server:<span class="w"> </span>Ceph<span class="w"> </span>Object<span class="w"> </span>Gateway<span class="w"> </span><span class="o">(</span>squid<span class="o">)</span>
+<span class="w">                  </span>X-Timestamp:<span class="w"> </span><span class="m">1780746113</span>.32952
+X-Container-Bytes-Used-Actual:<span class="w"> </span><span class="m">8192</span>
+<span class="w">             </span>X-Storage-Policy:<span class="w"> </span>default-placement
+<span class="w">              </span>X-Storage-Class:<span class="w"> </span>STANDARD
+<span class="w">                </span>Last-Modified:<span class="w"> </span>Sat,<span class="w"> </span><span class="m">06</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">2026</span><span class="w"> </span><span class="m">11</span>:43:22<span class="w"> </span>GMT
+<span class="w">                   </span>X-Trans-Id:<span class="w"> </span>tx0000067086cc9981c40ac-006a2407e4-7218-default
+<span class="w">       </span>X-Openstack-Request-Id:<span class="w"> </span>tx0000067086cc9981c40ac-006a2407e4-7218-default
+<span class="w">                </span>Accept-Ranges:<span class="w"> </span>bytes
+<span class="w">                 </span>Content-Type:<span class="w"> </span>text/plain<span class="p">;</span><span class="w"> </span><span class="nv">charset</span><span class="o">=</span>utf-8
+</code></pre></div>
+</details>
+<p>The Read ACL now shows <code>.r:*</code>, making the container publicly readable.</p>
 <h2 id="103-download-an-object-from-the-object-store"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 10.3 Download an Object from the Object Store<a class="headerlink" href="#103-download-an-object-from-the-object-store" title="Permanent link">&para;</a></h2>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you download an object that was previously uploaded into Swift.</p>
-<p><strong>Note:</strong> You should have uploaded the contents of the <code>~/mydata</code> directory to the
-Object Store container <code>mydata</code> before performing this exercise.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You should have uploaded the contents of the <code>~/mydata</code> directory to the Object Store container <code>mydata</code> before performing this exercise.</p>
+</div>
 <p><strong>10.3.1 Download an Object from the Object Store with the openstack client</strong></p>
-<p>At the terminal of the <code>MAAS server</code>, enter the following command to source in the
-<code>admin_openrc</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~<span class="p">;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Change to home directory and load the administrator environment</span>
+<span class="nb">cd</span><span class="w"> </span>~
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<p>Enter the following command to display the objects (files) from the container
-mydata within the object store:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>Enter the following commands to save the file <code>myfile01.txt</code> from the object store:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the objects in the mydata container</span>
+openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------+
+<span class="p">|</span><span class="w"> </span>Name<span class="w">         </span><span class="p">|</span>
++--------------+
+<span class="p">|</span><span class="w"> </span>myfile01.txt<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>myfile02.txt<span class="w"> </span><span class="p">|</span>
++--------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Download myfile01.txt from the object store to the current directory</span>
 openstack<span class="w"> </span>object<span class="w"> </span>save<span class="w"> </span>mydata<span class="w"> </span>myfile01.txt
 </code></pre></div>
-<p>Verify the file has been saved from the object store with the following command:</p>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-l<span class="w"> </span>~/myfile01.txt
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify the file was saved</span>
+ls<span class="w"> </span>-l<span class="w"> </span>~/myfile01.txt
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w"> </span><span class="m">10</span><span class="w"> </span>Jun<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:43<span class="w"> </span>/home/ubuntu/myfile01.txt
+</code></pre></div>
+</details>
 <p><strong>10.3.2 Download an Object from the Object Store with wget</strong></p>
-<p>At the terminal of the <code>MAAS server</code>, enter the following command source in the
-<code>admin_openrc</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the OpenStack administrator environment</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<p>Enter the following command to display the public URL to access the Object Store:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OBJECT_STORE_URL</span><span class="o">=</span><span class="k">$(</span>openstack<span class="w"> </span>endpoint<span class="w"> </span>list<span class="w"> </span>-f<span class="w"> </span>value<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-c<span class="w"> </span><span class="s2">&quot;Service Type&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;URL&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;Interface&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>object-store<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>public<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">)</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
 </code></pre></div>
-<p>Enter the following command to view the files that are in the <code>mydata</code> container:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the public endpoint URL for the object-store service</span>
+openstack<span class="w"> </span>endpoint<span class="w"> </span>list<span class="w"> </span>--service<span class="w"> </span>object-store<span class="w"> </span>--interface<span class="w"> </span>public<span class="w"> </span>-f<span class="w"> </span>value
 </code></pre></div>
-<p>You should see the files listed.</p>
-<p>Enter the following commands to download the <code>myfile01.txt</code>file:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span><span class="nv">$OBJECT_STORE_URL</span>/mydata/myfile02.txt<span class="w"> </span>--ca-certificate<span class="o">=</span>/home/ubuntu/snap/openstackclients/common/root-ca.crt
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
+393a8c74b7a94d63a0053163419b1054<span class="w"> </span>RegionOne<span class="w"> </span>swift<span class="w"> </span>object-store<span class="w"> </span>True<span class="w"> </span>public<span class="w"> </span>https://192.168.100.43:443/swift/v1
 </code></pre></div>
-<p>You should see that the myfile02.txt file was downloaded into your current directory.</p>
-<p>Enter the following command to view the contents of the myfile02.txt file you downloaded:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>myfile02.txt
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the objects in the mydata container</span>
+openstack<span class="w"> </span>object<span class="w"> </span>list<span class="w"> </span>mydata
 </code></pre></div>
-<p>You should see the contents that you wrote to the file.</p>
-<hr />
-<h2 id="104-web-ui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 10.4 WEB UI<a class="headerlink" href="#104-web-ui" title="Permanent link">&para;</a></h2>
-<h2 id="1041-attach-volume-storage-to-a-cloud-workload-instance"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 10.4.1 Attach Volume Storage to a Cloud Workload Instance<a class="headerlink" href="#1041-attach-volume-storage-to-a-cloud-workload-instance" title="Permanent link">&para;</a></h2>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------+
+<span class="p">|</span><span class="w"> </span>Name<span class="w">         </span><span class="p">|</span>
++--------------+
+<span class="p">|</span><span class="w"> </span>myfile01.txt<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>myfile02.txt<span class="w"> </span><span class="p">|</span>
++--------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Download myfile02.txt via wget using the Swift public URL and the lab CA certificate</span>
+wget<span class="w"> </span>https://192.168.100.43/swift/v1/mydata/myfile02.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ca-certificate<span class="o">=</span>/home/ubuntu/snap/openstackclients/common/root-ca.crt
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>--2026-06-06<span class="w"> </span><span class="m">11</span>:45:29--<span class="w">  </span>https://192.168.100.43/swift/v1/mydata/myfile02.txt
+Connecting<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.100.43:443...<span class="w"> </span>connected.
+HTTP<span class="w"> </span>request<span class="w"> </span>sent,<span class="w"> </span>awaiting<span class="w"> </span>response...<span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+Length:<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">[</span>text/plain<span class="o">]</span>
+Saving<span class="w"> </span>to:<span class="w"> </span><span class="s1">&#39;myfile02.txt&#39;</span>
+
+<span class="w">     </span>0K<span class="w">                                                       </span><span class="m">100</span>%<span class="w"> </span><span class="m">6</span>.56M<span class="o">=</span>0s
+
+<span class="m">2026</span>-06-06<span class="w"> </span><span class="m">11</span>:45:29<span class="w"> </span><span class="o">(</span><span class="m">6</span>.56<span class="w"> </span>MB/s<span class="o">)</span><span class="w"> </span>-<span class="w"> </span><span class="s1">&#39;myfile02.txt&#39;</span><span class="w"> </span>saved<span class="w"> </span><span class="o">[</span><span class="m">10</span>/10<span class="o">]</span>
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Swift public endpoint URL format is <code>https://&lt;swift-ip&gt;/swift/v1</code>. The full object URL appends <code>/&lt;container&gt;/&lt;object-name&gt;</code> to this base. The <code>--ca-certificate</code> flag is required because the lab uses a self-signed CA.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># View the contents of the downloaded file</span>
+cat<span class="w"> </span>myfile02.txt
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>my<span class="w"> </span>file<span class="w"> </span><span class="m">2</span>
+</code></pre></div>
+</details>
+<h2 id="104-web-ui-equivalents"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 10.4 Web UI Equivalents<a class="headerlink" href="#104-web-ui-equivalents" title="Permanent link">&para;</a></h2>
+<p>This section provides a Web UI alternative to the validated CLI workflow above.
+If you already completed the CLI steps, treat this section as optional.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at <code>https://192.168.100.35/horizon</code>.</p>
+</div>
+<p><strong>10.4.1 Attach Volume Storage to a Cloud Workload Instance via the Web UI</strong></p>
 <p><strong>10.4.1.1 Create a Storage Volume</strong></p>
-<p><strong>To create a storage volume via the WebUI perform the following:</strong></p>
+<p><strong>To create a storage volume via the Web UI perform the following:</strong></p>
 <ol>
 <li>Log into the OpenStack Dashboard as <code>student</code>.</li>
 <li>From the panels on the left, select: <code>Project &gt; Volumes &gt; Volumes</code>.</li>
-<li>click <code>Create Volume</code>.</li>
-<li>On the <code>Create Volume</code> screen, enter/select the following:<blockquote>
+<li>Click <code>Create Volume</code>.</li>
+<li>On the <code>Create Volume</code> screen, enter or select the following:<blockquote>
 <p><code>Volume Name</code>: <strong>volume1</strong><br/>
 <code>Description</code>: <strong>StudentProject Volume 01</strong><br/>
 <code>Volume Source</code>: <strong>No source, empty volume</strong><br/>
 <code>Type</code>: <strong>No volume type</strong><br/>
-<code>Size (GB)</code>: <strong>1</strong><br/>
+<code>Size (GB)</code>: <strong>5</strong><br/>
 <code>Availability Zone</code>: <strong>nova</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Create Volume</code>. You should see the new volume listed.</li>
 </ol>
 <p><strong>10.4.1.2 Attach a Volume to an Instance</strong></p>
-<p><strong>To attach a volume to an instance via the WebUI perform the following:</strong></p>
+<p><strong>To attach a volume to an instance via the Web UI perform the following:</strong></p>
 <ol>
-<li>Log into the OpenStack Dashboard as <code>student</code> and go to <code>Project &gt; Volumes &gt; Volumes</code></li>
+<li>Log into the OpenStack Dashboard as <code>student</code> and go to <code>Project &gt; Volumes &gt; Volumes</code>.</li>
 <li>Next to the <code>volume1</code> volume, in the Actions column, from the <code>Edit Volume</code> drop-down list, select <code>Manage Attachments</code>.</li>
-<li>On the <code>Manage Volume Attachments</code> screen from the <code>Attach to Instance</code> drop-down list, select one of the running instances.</li>
+<li>On the <code>Manage Volume Attachments</code> screen, from the <code>Attach to Instance</code> drop-down list, select one of the running instances.</li>
 <li>Click <code>Attach Volume</code>.</li>
-<li>You should see the instance name listed under the <code>Attached</code> to column.</li>
+<li>You should see the instance name listed under the <code>Attached To</code> column.</li>
 <li>From the panels on the left, select: <code>Project &gt; Compute &gt; Instances</code>.</li>
 <li>Click on the instance name of the instance you attached the volume to.</li>
-<li>On the <code>Instances / VM_NAME</code> screen under <code>Volumes Attached</code>, you should see the volume listed</li>
+<li>On the <code>Instances / VM_NAME</code> screen under <code>Volumes Attached</code>, you should see the volume listed.</li>
 <li>Note the key pair used by the instance. This will be located under the <code>Metadata</code> section and listed as <code>Key Name</code>.</li>
-<li>Also note the instances floating IP. This should be the second IP address listed in the <code>IP Addresses</code> section adjacent to the <code>Network</code> name.</li>
+<li>Also note the instance's floating IP. This should be the second IP address listed in the <code>IP Addresses</code> section adjacent to the <code>Network</code> name.</li>
 <li>We will refer to these as <code>INSTANCE_KEYPAIR</code> and <code>INSTANCE_FLOATING_IP</code>.</li>
 </ol>
-<h2 id="1042-upload-objects-into-swift"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 10.4.2 Upload Objects into Swift<a class="headerlink" href="#1042-upload-objects-into-swift" title="Permanent link">&para;</a></h2>
-<p><strong>Description:</strong></p>
+<p><strong>10.4.2 Upload Objects into Swift via the Web UI</strong></p>
 <p><strong>10.4.2.1 Upload a File to Swift</strong></p>
-<p><strong>To upload files to swift via the WebUI perform the following:</strong></p>
+<p><strong>To upload files to Swift via the Web UI perform the following:</strong></p>
 <ol>
 <li>Log into the OpenStack Dashboard as <code>admin</code>.</li>
 <li>From the panels on the left, select: <code>Project &gt; Object Store &gt; Containers</code>.</li>
 <li>In the <code>Containers</code> pane, click <code>+ Container</code>.</li>
-<li>On the <code>Create Container</code> screen, enter/select the following:<blockquote>
+<li>On the <code>Create Container</code> screen, enter or select the following:<blockquote>
 <p><code>Container Name</code>: <strong>mydata</strong><br/>
-<code>NotPublic</code>: <strong>selected</strong></p>
+<code>Public Access</code>: <strong>NotPublic</strong> (selected)</p>
 </blockquote>
 </li>
 <li>Click <code>Submit</code>.</li>
 <li>In the <code>Containers</code> pane, click on the container <code>mydata</code>.</li>
 <li>In the <code>Containers</code> pane, click on the <code>Upload File</code> icon (located next to the trashcan on the right side of the pane).</li>
-<li>On the <code>Upload File To: mydata</code> screen, enter/select the following:<blockquote>
-<p><code>File</code>:Click <code>Browse</code>.</p>
-</blockquote>
-</li>
+<li>On the <code>Upload File To: mydata</code> screen, click <code>Browse</code> next to <code>File</code>.</li>
 <li>Select a small file from your local (student machine) file system and click <code>Open</code>.</li>
 <li>Click <code>Upload File</code>. You should see the file listed.</li>
 </ol>
 <p><strong>10.4.2.2 Set ACLs on a Container</strong></p>
-<p><strong>To set ACLs on a container via the WebUI perform the following:</strong></p>
+<p><strong>To set ACLs on a container via the Web UI perform the following:</strong></p>
 <ol>
-<li>To perform this task via the OpenStack Dashboard, do the following:</li>
 <li>Log into the OpenStack Dashboard as <code>admin</code>.</li>
 <li>From the panels on the left, select: <code>Project &gt; Object Store &gt; Containers</code>.</li>
 <li>In the <code>Containers</code> pane, click on the container <code>mydata</code>.</li>
-<li>In the <code>mydata</code> info box, enter/select the following:<blockquote>
-<p><code>Public Access</code>: <strong>(checked)</strong></p>
-</blockquote>
-</li>
+<li>In the <code>mydata</code> info box, check the <code>Public Access</code> box.</li>
 <li>You should see a link named <code>link</code> next to the checked <code>Public Access</code> box.</li>
 </ol>
-<p><strong>10.4.2.3 Download an Object from the Object Store via the WebUI</strong></p>
+<p><strong>10.4.2.3 Download an Object from the Object Store via the Web UI</strong></p>
 <ol>
 <li>Log into the OpenStack Dashboard as <code>admin</code>.</li>
 <li>From the panels on the left, select: <code>Project &gt; Object Store &gt; Containers</code>.</li>
 <li>In the <code>Containers</code> pane, click on the container <code>mydata</code>.</li>
 <li>In the <code>mydata</code> files box, click <code>Download</code> to the right of the file you wish to save locally.</li>
 </ol>
-<blockquote>
-<p>This method will save the file to the local (student) machine and not to the MAAS server.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method saves the file to the local (student) machine and not to the MAAS server.</p>
+</div>
 
 
 
