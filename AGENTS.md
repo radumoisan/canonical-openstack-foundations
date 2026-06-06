@@ -99,7 +99,7 @@ This repository is for the Ubuntu Server Advanced documentation site.
 - Update `playground.md` whenever a lab machine is added, changed, or reassigned.
 - Use `playground.md` for internal execution context only; it is not part of the training content.
 - Update `commands.md` whenever an exact successful command string should be preserved for reuse, including during live interactive training when the user wants that record kept.
-- Record only commands from the training material that actually succeeded.
+- Record only commands from the training material that actually succeeded, or the exact successful equivalent command that was actually executed when the documented step is interactive or otherwise impractical to automate directly.
 - Record the exact command string that was actually executed successfully, including any required SSH wrappers or environment-specific prefixes.
 - Do not replace the executed command with a simplified or student-facing form in `commands.md`.
 - Do not record failed commands, exploratory commands, or commands that were corrected before a successful run.
