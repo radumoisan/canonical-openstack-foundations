@@ -77,19 +77,24 @@ Planned work:
 
 ### 4. Juju Charms
 
-- Status: `In review`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 4
 - Target page: `docs/juju-charms.md`
 - Validation note: Chapter 4 model creation and Landscape deployment were validated on the MAAS VM from student host `34.159.9.11`.
-- Validation note: The Landscape bundle reached `active` status with HAProxy exposed on `192.168.100.18` during the latest validation run.
-- Validation note: The cleanup flow to destroy the `landscape` model and `maas-controller` was validated in an earlier pass, but the current environment is intentionally preserved for a live demo.
-- Validation note: After the controller rebuild, the Juju dashboard was redeployed on the controller model and validated at `http://192.168.100.21:8080` while preserving the Landscape deployment.
+- Validation note: The Landscape bundle reached `active` status with HAProxy exposed on `192.168.100.18` during validation.
+- Validation note: The cleanup flow to destroy the `landscape` model and `maas-controller` was validated and then executed as the transition into Chapter 5.
+- Validation note: During intermediate demo validation, the Juju dashboard was redeployed on the controller model and validated at `http://192.168.100.21:8080` before the final Chapter 4 teardown.
 
 ### 5. Deploy an OpenStack Cloud with Juju and MAAS
 
-- Status: `Migrated`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 5
 - Target page: `docs/deploy-openstack-with-juju-and-maas.md`
+- Validation note: Chapter 5 was validated from the MAAS VM after the Chapter 4 controller teardown on student host `34.159.9.11`.
+- Validation note: A fresh `maas-controller` was bootstrapped on `os-juju01` at `192.168.100.22` and model `uos` was created for the OpenStack deployment.
+- Validation note: The OpenStack bundle deployed successfully with all 27 applications reaching `active` status.
+- Validation note: Ceph health checks returned `HEALTH_OK`, the Horizon dashboard was reachable at `http://192.168.100.35/horizon`, and the OpenStack CLI validated service catalog and endpoint access.
+- Validation note: Interactive monitoring and browser steps were preserved in the training content but validated non-interactively during live execution.
 
 ### 6. Work with Software Defined Networks
 

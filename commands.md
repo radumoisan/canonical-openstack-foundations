@@ -306,3 +306,119 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m controller dash
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju dashboard --browser=false"'
 ```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "for h in os-compute01 os-compute02 os-compute03 os-compute04 os-juju01; do SYSTEM_ID=\$(maas myprofile nodes read | jq -r \".[] | select(.hostname == \\\"\$h\\\") | .system_id\"); maas myprofile tag update-nodes juju add=\$SYSTEM_ID; done"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju bootstrap --config default-base=\"ubuntu@22.04\" --bootstrap-constraints=\"mem=2G cores=1\" --constraints=\"mem=2G tags=juju\" maas maas-controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju add-model uos"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju model-config -m uos default-base=ubuntu@22.04"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "head -50 /home/ubuntu/os_files/openstack-bundle.yaml"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju deploy /home/ubuntu/os_files/openstack-bundle.yaml"'
+```
+
+```bash
+for i in $(seq 1 60); do echo "=== Poll $i at $(date) ==="; ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status --format short 2>&1"'; sleep 60; done
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "for i in 0 1 2 3; do echo \"--- Machine \$i ---\"; juju ssh \$i -- sudo sysctl kernel.softlockup_panic=0; juju ssh \$i -- sudo sysctl kernel.hardlockup_panic=0; juju ssh \$i -- sudo systemctl disable --now apt-daily.timer apt-daily-upgrade.timer apt-daily.service apt-daily-upgrade.service; done"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju ssh ceph-mon/0 -- sudo ceph health detail"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju ssh ceph-mon/0 -- sudo ceph -s"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status openstack-dashboard"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "sudo snap install openstackclients --channel=2024.1/stable --devmode"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cp os_files/admin_openrc* ~/"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat ~/admin_openrc"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "cat ~/admin_openrcv3_project"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "source ~/admin_openrc && openstack catalog list"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "source ~/admin_openrc && openstack endpoint list"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "curl -s -o /dev/null -w \"%{http_code}\" http://192.168.100.35/horizon"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "for ((i=0;i<4;i++)); do juju ssh \$i sudo sysctl kernel.softlockup_panic=0; done"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "for ((i=0;i<4;i++)); do juju ssh \$i sudo sysctl kernel.hardlockup_panic=0; done"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "for ((i=0;i<4;i++)); do juju ssh \$i sudo systemctl disable --now apt-daily{,-upgrade}.{timer,service}; done"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 << 'ENDSSH'
+ssh ubuntu@192.168.100.3 << 'ENDMAAS'
+for ((i=0;i<4;i++)); do
+  juju ssh $i sudo sed -i '/Update-Package-Lists/s/"1"/"0"/' /etc/apt/apt.conf.d/*
+done
+ENDMAAS
+ENDSSH
+```
+
+```bash
+ssh ubuntu@34.159.9.11 << 'ENDSSH'
+ssh ubuntu@192.168.100.3 << 'ENDMAAS'
+for ((i=0;i<4;i++)); do
+  juju ssh $i sudo sed -i '/Unattended-Upgrade/s/"1"/"0"/' /etc/apt/apt.conf.d/*
+done
+ENDMAAS
+ENDSSH
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && env | grep OS_'\''"'
+```
