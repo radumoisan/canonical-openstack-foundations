@@ -370,18 +370,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#62-web-ui" class="md-nav__link">
+  <a href="#62-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       6.2 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#621-define-the-openstack-external-network-via-webui" class="md-nav__link">
-    <span class="md-ellipsis">
-       6.2.1 Define the OpenStack External Network via WebUI
+       6.2 Web UI Equivalents
     </span>
   </a>
   
@@ -553,18 +544,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#62-web-ui" class="md-nav__link">
+  <a href="#62-web-ui-equivalents" class="md-nav__link">
     <span class="md-ellipsis">
-       6.2 WEB UI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#621-define-the-openstack-external-network-via-webui" class="md-nav__link">
-    <span class="md-ellipsis">
-       6.2.1 Define the OpenStack External Network via WebUI
+       6.2 Web UI Equivalents
     </span>
   </a>
   
@@ -593,64 +575,243 @@ using Neutron.</p>
 <p><strong>Description:</strong></p>
 <p>In this exercise, you create the external network for the OpenStack cloud.</p>
 <p><strong>6.1.1 Define the OpenStack External Network</strong></p>
-<p>Source the <code>admin_openrc</code> file and create the Neutron external network.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/admin_openrc
+<p>Run the following commands on the MAAS VM after completing the OpenStack
+deployment in Chapter 5.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Source the OpenStack administrator credentials</span>
+<span class="nb">source</span><span class="w"> </span>~/admin_openrc
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>Public_Network<span class="w"> </span>--external<span class="w"> </span><span class="se">\</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this lab environment, each <code>openstack</code> command prints <code>Using Keystone v3 API</code> before the main command output.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the external Neutron network on physnet1</span>
+openstack<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>Public_Network<span class="w"> </span>--external<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--provider-physical-network<span class="w"> </span>physnet1<span class="w"> </span>--provider-network-type<span class="w"> </span>flat<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1300</span>
 </code></pre></div>
-<p>You should see the details of the newly created external network listed.</p>
-<p>Enter the following command to display the newly defined external network:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>list
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                     </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>admin_state_up<span class="w">            </span><span class="p">|</span><span class="w"> </span>UP<span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zone_hints<span class="w">   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zones<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:00:26Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">               </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_domain<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                        </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv4_address_scope<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_address_scope<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_default<span class="w">                </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_vlan_transparent<span class="w">       </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>l2_adjacency<span class="w">              </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>mtu<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">1300</span><span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                      </span><span class="p">|</span><span class="w"> </span>Public_Network<span class="w">                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_security_enabled<span class="w">     </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">                </span><span class="p">|</span><span class="w"> </span>045c13c72f32404ebf6c5ed6b2cebbf2<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:network_type<span class="w">     </span><span class="p">|</span><span class="w"> </span>flat<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:physical_network<span class="w"> </span><span class="p">|</span><span class="w"> </span>physnet1<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:segmentation_id<span class="w">  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>qos_policy_id<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>router:external<span class="w">           </span><span class="p">|</span><span class="w"> </span>External<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>segments<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>shared<span class="w">                    </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">                    </span><span class="p">|</span><span class="w"> </span>ACTIVE<span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnets<span class="w">                   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                      </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tenant_id<span class="w">                 </span><span class="p">|</span><span class="w"> </span>045c13c72f32404ebf6c5ed6b2cebbf2<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:00:26Z<span class="w">                 </span><span class="p">|</span>
++---------------------------+--------------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>network<span class="w"> </span>show<span class="w"> </span>Public_Network
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the networks currently defined in OpenStack</span>
+openstack<span class="w"> </span>network<span class="w"> </span>list
 </code></pre></div>
-<p>You should see the ID and name of the external network listed.</p>
-<p>Enter the following command to define the external subnet properties:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>subnet<span class="w"> </span>create<span class="w"> </span>--ip-version<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+----------------+---------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Name<span class="w">           </span><span class="p">|</span><span class="w"> </span>Subnets<span class="w"> </span><span class="p">|</span>
++--------------------------------------+----------------+---------+
+<span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span><span class="w"> </span>Public_Network<span class="w"> </span><span class="p">|</span><span class="w">         </span><span class="p">|</span>
++--------------------------------------+----------------+---------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show the details of the external network</span>
+openstack<span class="w"> </span>network<span class="w"> </span>show<span class="w"> </span>Public_Network
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                     </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++---------------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>admin_state_up<span class="w">            </span><span class="p">|</span><span class="w"> </span>UP<span class="w">                                   </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zone_hints<span class="w">   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>availability_zones<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:00:26Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">               </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_domain<span class="w">                </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                        </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv4_address_scope<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_address_scope<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_default<span class="w">                </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>is_vlan_transparent<span class="w">       </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>l2_adjacency<span class="w">              </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>mtu<span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="m">1300</span><span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                      </span><span class="p">|</span><span class="w"> </span>Public_Network<span class="w">                       </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>port_security_enabled<span class="w">     </span><span class="p">|</span><span class="w"> </span>True<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">                </span><span class="p">|</span><span class="w"> </span>045c13c72f32404ebf6c5ed6b2cebbf2<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:network_type<span class="w">     </span><span class="p">|</span><span class="w"> </span>flat<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:physical_network<span class="w"> </span><span class="p">|</span><span class="w"> </span>physnet1<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>provider:segmentation_id<span class="w">  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>qos_policy_id<span class="w">             </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>router:external<span class="w">           </span><span class="p">|</span><span class="w"> </span>External<span class="w">                             </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>segments<span class="w">                  </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>shared<span class="w">                    </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>status<span class="w">                    </span><span class="p">|</span><span class="w"> </span>ACTIVE<span class="w">                               </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnets<span class="w">                   </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                      </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tenant_id<span class="w">                 </span><span class="p">|</span><span class="w"> </span>045c13c72f32404ebf6c5ed6b2cebbf2<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">                </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:00:26Z<span class="w">                 </span><span class="p">|</span>
++---------------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the external subnet and reserve the floating IP range</span>
+openstack<span class="w"> </span>subnet<span class="w"> </span>create<span class="w"> </span>--ip-version<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--allocation-pool<span class="w"> </span><span class="nv">start</span><span class="o">=</span><span class="m">192</span>.168.100.150,end<span class="o">=</span><span class="m">192</span>.168.100.199<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--gateway<span class="o">=</span><span class="m">192</span>.168.100.1<span class="w"> </span>--no-dhcp<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--network<span class="w"> </span>Public_Network<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--subnet-range<span class="w"> </span><span class="m">192</span>.168.100.0/24<span class="w"> </span>Public_Subnet
 </code></pre></div>
-<p>You should see the details of the newly created subnet listed.</p>
-<p>Enter the following command to list the current subnets:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>subnet<span class="w"> </span>list
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>allocation_pools<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.150-192.168.100.199<span class="w">      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>cidr<span class="w">                 </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.0/24<span class="w">                     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:01:05Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_nameservers<span class="w">      </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_publish_fixed_ip<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_dhcp<span class="w">          </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>gateway_ip<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.1<span class="w">                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>host_routes<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                   </span><span class="p">|</span><span class="w"> </span>1be22b55-8c88-4b9e-8e17-2a931084b052<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ip_version<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">4</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_address_mode<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_ra_mode<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                 </span><span class="p">|</span><span class="w"> </span>Public_Subnet<span class="w">                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>network_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>045c13c72f32404ebf6c5ed6b2cebbf2<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>segment_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>service_types<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnetpool_id<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                 </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:01:05Z<span class="w">                 </span><span class="p">|</span>
++----------------------+--------------------------------------+
 </code></pre></div>
-<p>Enter the following command to show the current subnet details:</p>
-<div class="highlight"><pre><span></span><code>openstack<span class="w"> </span>subnet<span class="w"> </span>show<span class="w"> </span>Public_Subnet
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This lab uses the existing <code>192.168.100.0/24</code> network as the OpenStack external network on <code>physnet1</code>. That overlap is expected in this training environment.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># List the subnets currently defined in OpenStack</span>
+openstack<span class="w"> </span>subnet<span class="w"> </span>list
 </code></pre></div>
-<hr />
-<h2 id="62-web-ui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 6.2 WEB UI<a class="headerlink" href="#62-web-ui" title="Permanent link">&para;</a></h2>
-<h2 id="621-define-the-openstack-external-network-via-webui"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 6.2.1 Define the OpenStack External Network via WebUI<a class="headerlink" href="#621-define-the-openstack-external-network-via-webui" title="Permanent link">&para;</a></h2>
-<p><strong>To define the external network via the WebUI perform the following:</strong></p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++--------------------------------------+---------------+--------------------------------------+------------------+
+<span class="p">|</span><span class="w"> </span>ID<span class="w">                                   </span><span class="p">|</span><span class="w"> </span>Name<span class="w">          </span><span class="p">|</span><span class="w"> </span>Network<span class="w">                              </span><span class="p">|</span><span class="w"> </span>Subnet<span class="w">           </span><span class="p">|</span>
++--------------------------------------+---------------+--------------------------------------+------------------+
+<span class="p">|</span><span class="w"> </span>1be22b55-8c88-4b9e-8e17-2a931084b052<span class="w"> </span><span class="p">|</span><span class="w"> </span>Public_Subnet<span class="w"> </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.0/24<span class="w"> </span><span class="p">|</span>
++--------------------------------------+---------------+--------------------------------------+------------------+
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show the details of the external subnet</span>
+openstack<span class="w"> </span>subnet<span class="w"> </span>show<span class="w"> </span>Public_Subnet
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Using<span class="w"> </span>Keystone<span class="w"> </span>v3<span class="w"> </span>API
++----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>Field<span class="w">                </span><span class="p">|</span><span class="w"> </span>Value<span class="w">                                </span><span class="p">|</span>
++----------------------+--------------------------------------+
+<span class="p">|</span><span class="w"> </span>allocation_pools<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.150-192.168.100.199<span class="w">      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>cidr<span class="w">                 </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.0/24<span class="w">                     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>created_at<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:01:05Z<span class="w">                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>description<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_nameservers<span class="w">      </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>dns_publish_fixed_ip<span class="w"> </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>enable_dhcp<span class="w">          </span><span class="p">|</span><span class="w"> </span>False<span class="w">                                </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>gateway_ip<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">192</span>.168.100.1<span class="w">                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>host_routes<span class="w">          </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>id<span class="w">                   </span><span class="p">|</span><span class="w"> </span>1be22b55-8c88-4b9e-8e17-2a931084b052<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ip_version<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">4</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_address_mode<span class="w">    </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>ipv6_ra_mode<span class="w">         </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>name<span class="w">                 </span><span class="p">|</span><span class="w"> </span>Public_Subnet<span class="w">                        </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>network_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>0c7c4e22-a4ea-4454-b9b1-e5073c72c69b<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>project_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>045c13c72f32404ebf6c5ed6b2cebbf2<span class="w">     </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>revision_number<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w">                                    </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>segment_id<span class="w">           </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>service_types<span class="w">        </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>subnetpool_id<span class="w">        </span><span class="p">|</span><span class="w"> </span>None<span class="w">                                 </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>tags<span class="w">                 </span><span class="p">|</span><span class="w">                                      </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>updated_at<span class="w">           </span><span class="p">|</span><span class="w"> </span><span class="m">2026</span>-06-06T10:01:05Z<span class="w">                 </span><span class="p">|</span>
++----------------------+--------------------------------------+
+</code></pre></div>
+</details>
+<h2 id="62-web-ui-equivalents"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 6.2 Web UI Equivalents<a class="headerlink" href="#62-web-ui-equivalents" title="Permanent link">&para;</a></h2>
+<p>This section provides a Web UI alternative to the validated CLI workflow above.
+If you already completed the network creation with the CLI, treat this section
+as optional.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>During validation, an unauthenticated request to <code>http://192.168.100.35/horizon</code> returned HTTP <code>302</code>, which confirmed that the Horizon dashboard was reachable and redirecting to the login page.</p>
+</div>
+<p><strong>6.2.1 Define the OpenStack External Network via the Web UI</strong></p>
+<p><strong>To define the external network via the Web UI perform the following:</strong></p>
 <ol>
+<li>Open a web browser and point to <code>http://192.168.100.35/horizon</code>.</li>
 <li>Log into the dashboard as the <code>admin</code> user.</li>
-<li>From the list of panels on the left select: <code>Admin &gt; Network &gt; Networks</code>.</li>
+<li>From the list of panels on the left select <code>Admin &gt; Network &gt; Networks</code>.</li>
 <li>Click <code>Create Network</code>.</li>
-<li>On the <code>Create Network</code> screen, enter/select the following:<blockquote>
+<li>On the <code>Create Network</code> screen, enter or select the following values:<blockquote>
 <p><code>Network Name</code>: <strong>Public_Network</strong><br/>
 <code>Enable Admin State</code>: <strong>checked</strong><br/>
 <code>Shared</code>: <strong>checked</strong><br/>
-<code>Create Subnet</code>: <strong>unchecked</strong><br/></p>
+<code>Create Subnet</code>: <strong>unchecked</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Create</code>.</li>
-<li>In the <code>Network Name</code> column, click on <code>Public_Network</code>.</li>
+<li>In the <code>Network Name</code> column, click <code>Public_Network</code>.</li>
 <li>On the <code>Networks / Public_Network</code> screen, in the <code>Subnets</code> section, click <code>+Create Subnet</code>.</li>
-<li>On the <code>Create Subnet</code> screen on the <code>Subnet</code> tab, enter/select the following:<blockquote>
+<li>On the <code>Create Subnet</code> screen on the <code>Subnet</code> tab, enter or select the following values:<blockquote>
 <p><code>Subnet Name</code>: <strong>Public_Subnet</strong><br/>
-<code>Network Address</code>: 192.168.100.0/24<br/>
+<code>Network Address</code>: <code>192.168.100.0/24</code><br/>
 <code>IP Version</code>: <strong>IPv4</strong><br/>
-<code>Gateway IP</code> : <strong>192.168.100.1</strong><br/>
+<code>Gateway IP</code>: <strong>192.168.100.1</strong><br/>
 <code>Disable Gateway</code>: <strong>unchecked</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Next</code>.</li>
-<li>On the <code>Subnet Details</code> tab, enter/select the following:<blockquote>
-<p><code>Enable DHCP</code>: <strong>(unchecked)</strong><br/>
+<li>On the <code>Subnet Details</code> tab, enter or select the following values:<blockquote>
+<p><code>Enable DHCP</code>: <strong>unchecked</strong><br/>
 <code>Allocation Pools</code>: <strong>192.168.100.150,192.168.100.199</strong><br/>
-<code>Host Routes</code>: <strong>(leave blank)</strong></p>
+<code>Host Routes</code>: <strong>leave blank</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Create</code>.</li>
