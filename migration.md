@@ -85,7 +85,7 @@ Planned work:
 - Validation note: The cleanup flow to destroy the `landscape` model and `maas-controller` was validated and then executed as the transition into Chapter 5.
 - Validation note: During intermediate demo validation, the Juju dashboard was redeployed on the controller model and validated at `http://192.168.100.21:8080` before the final Chapter 4 teardown.
 
-### 5. Deploy an OpenStack Cloud with Juju and MAAS
+### 5. Deploy OpenStack
 
 - Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 5

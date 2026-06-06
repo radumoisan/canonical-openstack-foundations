@@ -1,4 +1,4 @@
-# 5. Deploy an OpenStack Cloud with Juju and MAAS
+# 5. Deploy OpenStack
 
 **Description:**
 
@@ -270,7 +270,11 @@ for ((i=0;i<4;i++)); do juju ssh $i -- sudo sed -i '/Update-Package-Lists/s/"[01
 
 ```bash
 # Disable unattended-upgrade execution on the four OpenStack machines
-for ((i=0;i<4;i++)); do juju ssh $i -- sudo sed -i '/Unattended-Upgrade/s/"[01]"/"0"/' /etc/apt/apt.conf.d/*; done
+for ((i=0;i<4;i++)); do
+  juju ssh $i -- sudo sed -i \
+    '/Unattended-Upgrade/s/"[01]"/"0"/' \
+    /etc/apt/apt.conf.d/*
+done
 ```
 
 ??? example "Expected result"
