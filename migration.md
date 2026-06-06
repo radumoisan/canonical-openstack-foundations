@@ -32,6 +32,8 @@ A chapter can be marked `Complete` only after all of these are true:
 - Any environment-specific corrections discovered during validation have been incorporated.
 - The chapter still preserves the technical meaning of the source material.
 
+Exception: `docs/appendices.md` is reference material and may be marked `Complete` after a documentation review pass when live validation is explicitly out of scope.
+
 ## Stage 1: Site Migration
 
 Purpose: create the OpenStack Foundations MkDocs structure from the source document.
@@ -42,7 +44,7 @@ Planned work:
 2. Replace the old Ubuntu Advanced navigation with OpenStack Foundations chapters.
 3. Create one Markdown file under `docs/` for each top-level chapter.
 4. Preserve the chapter order from `openstack_foundation_lab.md`.
-5. Keep appendices as a dedicated page without renumbering the source content.
+5. Keep appendices as a dedicated page while leaving the source file unchanged.
 6. Keep `openstack_foundation_lab.md` unchanged.
 7. Mark migrated chapters as `Migrated`, not `Complete`.
 
@@ -168,12 +170,13 @@ Planned work:
 - Validation note: The Landscape bundle deployed successfully with all 4 machines reaching `started` state. HAProxy reached `active` status within 10 minutes.
 - Validation note: The `juju destroy-controller` command takes a significant amount of time because it must terminate all OpenStack instances (controller VM + 4 bundle VMs).
 
-### Appendices
+### 12. Appendices
 
-- Status: `Migrated`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 13
 - Target page: `docs/appendices.md`
-- Note: the source skips chapter 12; do not renumber appendices during migration.
+- Review note: The source skips chapter 12. The derived site publishes Appendices as Chapter 12 for consistent navigation while keeping the source file unchanged.
+- Review note: Appendix A was reviewed and reformatted as reference recovery guidance. Live validation was not required for this page by request.
 
 ## Stage 2: Lab Validation
 
