@@ -1,8 +1,8 @@
 apiVersion: v2
 name: canonical-openstack-foundations
-version: 0.0.29
+version: 0.0.30
 description: A Helm chart for the Canonical OpenStack Foundations training site
-appVersion: 0.0.29
+appVersion: 0.0.30
 dependencies:
   - name: redis
     version: "18.1.2"
