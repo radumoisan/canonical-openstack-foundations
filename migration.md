@@ -129,9 +129,17 @@ Planned work:
 
 ### 9. Work with Cloud Workload Instances
 
-- Status: `Migrated`
+- Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 9
 - Target page: `docs/cloud-workload-instances.md`
+- Validation note: Chapter 9 was validated from the MAAS VM on student host `34.159.9.11`.
+- Validation note: The `openstack host list` command emits a deprecation warning suggesting `hypervisor list` instead; this does not affect the outcome.
+- Validation note: The subshell pattern `$(openstack host list ... | awk ...)` used in the source for adding hosts to aggregates does not work in this environment due to nested shell quoting. Hosts were added by name directly.
+- Validation note: The `juju exec` command for reading `DEFAULT_FILTERS` must be run directly on the MAAS VM, not inside a `bash -lc` subshell, since `juju` needs to be in the current shell PATH.
+- Validation note: The `openstack server create` command requires the network ID to be provided directly rather than via a subshell lookup.
+- Validation note: The `openstack server show jammy1 -c security_groups -f value` command returns security groups in compact JSON format rather than the full table shown in the source.
+- Validation note: All CLI commands in sections 9.1 through 9.5 were validated successfully.
+- Validation note: The Web UI section (9.6) was reviewed and reorganized as an alternative path to the validated CLI workflow.
 
 ### 10. Work with OpenStack Storage
 

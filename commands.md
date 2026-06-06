@@ -622,3 +622,113 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack floating ip create Public_Network'\''"'
 ```
+
+## Chapter 9 - Work with Cloud Workload Instances
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack flavor create --vcpus 2 --ram 1024 --disk 5 --ephemeral 0 --swap 0 --public m1.smaller'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate create --zone nova kvm'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack host list --zone nova'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate add host kvm os-compute01.maas'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate add host kvm os-compute02.maas'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate add host kvm os-compute03.maas'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate add host kvm os-compute04.maas'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate show kvm'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate set --property kvm=true kvm'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate show kvm'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack flavor create --vcpus 1 --ram 512 --disk 5 --public kvm.smaller'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack flavor set --property aggregate_instance_extra_specs:kvm=true kvm.smaller'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack flavor show kvm.smaller'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "export JUJU_MODEL=uos && juju exec -u nova-cloud-controller/0 \"grep enabled_filters /etc/nova/nova.conf\""'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "export JUJU_MODEL=uos && juju config nova-cloud-controller scheduler-default-filters=ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,DifferentHostFilter,SameHostFilter,AggregateInstanceExtraSpecsFilter"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "export JUJU_MODEL=uos && juju config nova-cloud-controller scheduler-default-filters"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "export JUJU_MODEL=uos && juju status nova-cloud-controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server create --availability-zone nova --image jammy --flavor m1.smaller --key-name student-keypair --security-group StudentProject_Allow_SSH --nic net-id=1d6562cd-9027-43ae-a12e-23f767a3eb8c jammy1'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack floating ip list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server add floating ip jammy1 192.168.100.180'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack floating ip list'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "ping -c 4 192.168.100.180"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server show jammy1 -c security_groups -f value'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server add security group jammy1 StudentProject_Allow_ICMP'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/student_openrc && openstack server show jammy1 -c security_groups -f value'\''"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "ping -c 4 192.168.100.180"'
+```
