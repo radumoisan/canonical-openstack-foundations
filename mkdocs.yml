@@ -14,7 +14,7 @@ nav:
   - Install and Configure MAAS: install-and-configure-maas.md
   - Install and Configure Juju: install-and-configure-juju.md
   - Juju Charms: juju-charms.md
-  - Deploy OpenStack with Juju and MAAS: deploy-openstack-with-juju-and-maas.md
+  - Deploy OpenStack: deploy-openstack-with-juju-and-maas.md
   - Software Defined Networks: software-defined-networks.md
   - Cloud Images: cloud-images.md
   - Configure an OpenStack Project: configure-openstack-project.md
