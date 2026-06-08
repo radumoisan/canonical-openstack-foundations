@@ -779,17 +779,34 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 <li>Confirm that the floating IP now appears in the <code>IP Address</code> column next to <code>demo_vm</code>.</li>
 </ol>
 <p><strong>12.3.9 Connect to the Instance over SSH</strong></p>
-<p>After the floating IP is associated, connect from the workstation terminal. The default login user for the CentOS Stream Generic Cloud image is <code>cloud-user</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># restrict permissions on the downloaded private key</span>
-chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/Downloads/demo_keypair.pem
+<p>After the floating IP is associated, connect from the workstation through the student host. The floating IP is on the internal lab network and is not directly reachable from the workstation. The default login user for the CentOS Stream Generic Cloud image is <code>cloud-user</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># copy the downloaded private key to the student host</span>
+scp<span class="w"> </span>~/Downloads/demo_keypair.pem<span class="w"> </span>ubuntu@34.159.9.11:~/
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>demo_keypair.pem<span class="w">                                                                                                 </span><span class="m">100</span>%<span class="w"> </span><span class="m">1675</span><span class="w">     </span><span class="m">4</span>.4KB/s<span class="w">   </span><span class="m">00</span>:00
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># connect to the student host</span>
+ssh<span class="w"> </span>ubuntu@34.159.9.11
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Welcome<span class="w"> </span>to<span class="w"> </span>Ubuntu<span class="w"> </span><span class="m">22</span>.04<span class="w"> </span>LTS<span class="w"> </span><span class="o">(</span>GNU/Linux<span class="w"> </span><span class="m">5</span>.15.0-xx-generic<span class="w"> </span>x86_64<span class="o">)</span>
+ubuntu@training-host:~$
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># restrict permissions on the private key on the student host</span>
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/demo_keypair.pem
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="c1"># connect to the CentOS instance using the downloaded private key</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/Downloads/demo_keypair.pem<span class="w"> </span>cloud-user@FLOATING_IP
+<div class="highlight"><pre><span></span><code><span class="c1"># connect to the CentOS instance from the student host</span>
+ssh<span class="w"> </span>-i<span class="w"> </span>~/demo_keypair.pem<span class="w"> </span>cloud-user@FLOATING_IP
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
