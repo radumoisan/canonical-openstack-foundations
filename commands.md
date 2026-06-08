@@ -981,3 +981,35 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju switch maas-controller"'
 ```bash
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju destroy-controller --destroy-all-models my-controller --no-prompt"'
 ```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m maas-controller:controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m maas-controller:uos"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju deploy -m maas-controller:controller juju-dashboard dashboard --to=lxd:0 --channel 0.15/stable"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju integrate -m maas-controller:controller dashboard controller"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju expose -m maas-controller:controller dashboard"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju status -m maas-controller:controller dashboard"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju dashboard -m maas-controller:controller --no-browser-login"'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "juju ssh -m maas-controller:controller 0 -- free -h"'
+```
