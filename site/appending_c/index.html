@@ -707,7 +707,7 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 <li>Click <code>Next</code>.</li>
 <li>On the <code>Subnet Details</code> tab, enter or select the following:<blockquote>
 <p><code>Enable DHCP</code>: <strong>(checked)</strong><br/>
-<code>Allocation Pools</code>: <strong>10.40.50.10, 10.40.50.200</strong><br/>
+<code>Allocation Pools</code>: <strong>10.40.50.10,10.40.50.200</strong><br/>
 <code>DNS Name Servers</code>: <strong>192.168.100.3</strong><br/>
 <code>Host Routes</code>: <strong>(leave blank)</strong></p>
 </blockquote>
@@ -743,7 +743,13 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 </blockquote>
 </li>
 <li>Click <code>Next</code>.</li>
-<li>On the <code>Source</code> tab, set <code>Select Boot Source</code> to <strong>Image</strong> and <code>Create New Volume</code> to <strong>No</strong>.</li>
+<li>On the <code>Source</code> tab, set or select the following:<blockquote>
+<p><code>Select Boot Source</code>: <strong>Image</strong><br/>
+<code>Create New Volume</code>: <strong>Yes</strong><br/>
+<code>Volume Size (GB)</code>: <strong>10</strong><br/>
+<code>Delete Volume on Instance Delete</code>: <strong>No</strong></p>
+</blockquote>
+</li>
 <li>Move <code>centos-stream-10</code> from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Next</code>.</li>
 <li>On the <code>Flavor</code> tab, move <code>m1.smaller</code> from <code>Available</code> to <code>Allocated</code>.</li>
