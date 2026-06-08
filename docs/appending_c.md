@@ -118,7 +118,7 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 6. Click `Next`.
 7. On the `Subnet Details` tab, enter or select the following:
 > `Enable DHCP`: **(checked)**<br/>
-> `Allocation Pools`: **10.40.50.10, 10.40.50.200**<br/>
+> `Allocation Pools`: **10.40.50.10,10.40.50.200**<br/>
 > `DNS Name Servers`: **192.168.100.3**<br/>
 > `Host Routes`: **(leave blank)**
 8. Click `Create Network`.
@@ -147,7 +147,11 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 > `Availability Zone`: **nova**<br/>
 > `Count`: **1**
 4. Click `Next`.
-5. On the `Source` tab, set `Select Boot Source` to **Image** and `Create New Volume` to **No**.
+5. On the `Source` tab, set or select the following:
+> `Select Boot Source`: **Image**<br/>
+> `Create New Volume`: **Yes**<br/>
+> `Volume Size (GB)`: **10**<br/>
+> `Delete Volume on Instance Delete`: **No**
 6. Move `centos-stream-10` from `Available` to `Allocated`.
 7. Click `Next`.
 8. On the `Flavor` tab, move `m1.smaller` from `Available` to `Allocated`.
