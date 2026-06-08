@@ -590,7 +590,7 @@
 <p><strong>12.3.1 Prepare the CentOS Stream Image</strong></p>
 <p>Before opening Horizon, convert the CentOS Stream cloud image in the project root from <code>qcow2</code> to <code>raw</code> format on the workstation where this repository is checked out.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># convert the CentOS Stream qcow2 image in the project root to raw format</span>
-qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"> </span>qcow2<span class="w"> </span>-O<span class="w"> </span>raw<span class="w"> </span>/home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.qcow2<span class="w"> </span>/home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.img
+qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"> </span>qcow2<span class="w"> </span>-O<span class="w"> </span>raw<span class="w"> </span>CentOS-Stream-GenericCloud-10-latest.x86_64.qcow2<span class="w"> </span>CentOS-Stream-GenericCloud-10-latest.x86_64.img
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -607,7 +607,7 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 <p><code>Image Name</code>: <strong>centos-stream-10</strong><br/>
 <code>Description</code>: <strong>CentOS Stream 10 Generic Cloud</strong><br/>
 <code>Source Type</code>: <strong>File</strong> and then <code>Browse</code><br/>
-<code>Image File</code>: <strong>/home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.img</strong><br/>
+<code>Image File</code>: <strong>CentOS-Stream-GenericCloud-10-latest.x86_64.img</strong><br/>
 <code>Format</code>: <strong>RAW</strong><br/>
 <code>Architecture</code>: <strong>x86_64</strong><br/>
 <code>Minimum Disk (GB)</code>: <strong>leave blank</strong><br/>
