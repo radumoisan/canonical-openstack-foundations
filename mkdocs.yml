@@ -21,7 +21,10 @@ nav:
   - Cloud Workload Instances: cloud-workload-instances.md
   - OpenStack Storage: openstack-storage.md
   - Juju OpenStack Provider: juju-openstack-provider.md
-  - Appendices: appendices.md
+  - Appendices:
+      - Appendix A: appendinx_a.md
+      - Appendix B: appendinx_b.md
+      - Appendix C: appending_c.md
 
 markdown_extensions:
   - tables
