@@ -1,8 +1,5 @@
 # 12. Appendices
 
-!!! note
-    This page is reference material. It was reviewed and reformatted during the migration, but it was not live-validated as part of the chapter-by-chapter lab run.
-
 ## :material-book-open-page-variant-outline: 12.1 Appendix A: Recover from Total Outage
 
 If the cluster experiences a complete outage, some services may remain degraded after the nodes return. This appendix covers the manual recovery steps that may still be required.
