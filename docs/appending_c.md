@@ -182,11 +182,32 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 
 **12.3.9 Connect to the Instance over SSH**
 
-After the floating IP is associated, connect from the workstation terminal. The default login user for the CentOS Stream Generic Cloud image is `cloud-user`.
+After the floating IP is associated, connect from the workstation through the student host. The floating IP is on the internal lab network and is not directly reachable from the workstation. The default login user for the CentOS Stream Generic Cloud image is `cloud-user`.
 
 ```bash
-# restrict permissions on the downloaded private key
-chmod 600 ~/Downloads/demo_keypair.pem
+# copy the downloaded private key to the student host
+scp ~/Downloads/demo_keypair.pem ubuntu@34.159.9.11:~/
+```
+
+??? example "Expected result"
+    ```bash
+    demo_keypair.pem                                                                                                 100% 1675     4.4KB/s   00:00
+    ```
+
+```bash
+# connect to the student host
+ssh ubuntu@34.159.9.11
+```
+
+??? example "Expected result"
+    ```bash
+    Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-xx-generic x86_64)
+    ubuntu@training-host:~$
+    ```
+
+```bash
+# restrict permissions on the private key on the student host
+chmod 600 ~/demo_keypair.pem
 ```
 
 ??? example "Expected result"
@@ -195,8 +216,8 @@ chmod 600 ~/Downloads/demo_keypair.pem
     ```
 
 ```bash
-# connect to the CentOS instance using the downloaded private key
-ssh -i ~/Downloads/demo_keypair.pem cloud-user@FLOATING_IP
+# connect to the CentOS instance from the student host
+ssh -i ~/demo_keypair.pem cloud-user@FLOATING_IP
 ```
 
 ??? example "Expected result"
