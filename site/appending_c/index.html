@@ -1,0 +1,850 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation site for the OpenStack Foundations training">
+      
+      
+      
+      
+        <link rel="prev" href="../appendinx_b/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Appendix C - OpenStack Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#123-appendix-c-horizon-only-openstack-showcase" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenStack Foundations" class="md-header__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenStack Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Appendix C
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenStack Foundations" class="md-nav__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OpenStack Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect-to-canonical-openstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prerequisites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-juju/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure Juju
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-charms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju Charms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-openstack-with-juju-and-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy OpenStack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-defined-networks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Defined Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure-openstack-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure an OpenStack Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-workload-instances/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Workload Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openstack-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenStack Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-openstack-provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju OpenStack Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Appendices
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Appendices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendinx_a/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix A
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendinx_b/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix B
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Appendix C
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="123-appendix-c-horizon-only-openstack-showcase">12.3 Appendix C: Horizon-Only OpenStack Showcase<a class="headerlink" href="#123-appendix-c-horizon-only-openstack-showcase" title="Permanent link">&para;</a></h1>
+<p>This appendix provides a compact end-to-end Horizon-based showcase of common OpenStack tasks. All cloud operations are performed in Horizon. Only the local image conversion step and the final SSH login are performed from the workstation terminal.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at <code>https://192.168.100.35/horizon</code>.</p>
+</div>
+<p><strong>12.3.1 Prepare the CentOS Stream Image</strong></p>
+<p>Before opening Horizon, convert the CentOS Stream cloud image in the project root from <code>qcow2</code> to <code>raw</code> format on the workstation where this repository is checked out.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># convert the CentOS Stream qcow2 image in the project root to raw format</span>
+qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"> </span>qcow2<span class="w"> </span>-O<span class="w"> </span>raw<span class="w"> </span>/home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.qcow2<span class="w"> </span>/home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.img
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<p><strong>12.3.2 Upload the CentOS Stream Image in Horizon</strong></p>
+<p><strong>To upload the image via Horizon perform the following:</strong></p>
+<ol>
+<li>Log into the dashboard as the <code>admin</code> user.</li>
+<li>From the list of panels on the left select <code>Admin &gt; Compute &gt; Images</code>.</li>
+<li>Click <code>Create Image</code>.</li>
+<li>On the <code>Create An Image</code> screen, enter or select the following values and leave all unspecified values at their defaults:<blockquote>
+<p><code>Image Name</code>: <strong>centos-stream-10</strong><br/>
+<code>Description</code>: <strong>CentOS Stream 10 Generic Cloud</strong><br/>
+<code>Source Type</code>: <strong>File</strong> and then <code>Browse</code><br/>
+<code>Image File</code>: <strong>/home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.img</strong><br/>
+<code>Format</code>: <strong>RAW</strong><br/>
+<code>Architecture</code>: <strong>x86_64</strong><br/>
+<code>Minimum Disk (GB)</code>: <strong>leave blank</strong><br/>
+<code>Minimum RAM (MB)</code>: <strong>leave blank</strong><br/>
+<code>Visibility</code>: <strong>Public</strong><br/>
+<code>Protected</code>: <strong>no</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Image</code>.</li>
+<li>Wait for <code>centos-stream-10</code> to reach <code>Active</code> status.</li>
+<li>From <code>Admin &gt; Compute &gt; Images</code>, open the action menu for <code>centos-stream-10</code> and select <code>Update Metadata</code>.</li>
+<li>On the <code>Update Image Metadata</code> page, locate <code>hw_disk_bus</code> under <code>Available Metadata</code>.</li>
+<li>Click the <code>+</code> next to <code>hw_disk_bus</code> and enter <code>virtio</code> for the value in the <code>Existing Metadata</code> section.</li>
+<li>Click <code>Save</code>.</li>
+</ol>
+<p><strong>12.3.3 Create a New Project and User</strong></p>
+<p><strong>To create a new project and a member user via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Identity &gt; Projects</code>.</li>
+<li>Click <code>Create Project</code>.</li>
+<li>On the <code>Create Project</code> screen, on the <code>Project Information</code> tab, enter the following:<blockquote>
+<p><code>Name</code>: <strong>DemoProject</strong><br/>
+<code>Description</code>: <strong>Demo project</strong><br/>
+<code>Enabled</code>: <strong>(checked)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Project</code>.</li>
+<li>From the panels on the left select <code>Identity &gt; Users</code>.</li>
+<li>Click <code>Create User</code>.</li>
+<li>On the <code>Create User</code> screen, enter or select the following:<blockquote>
+<p><code>User Name</code>: <strong>demo</strong><br/>
+<code>Email</code>: <strong>demo@example.com</strong><br/>
+<code>Password</code>: <strong>openstack</strong><br/>
+<code>Primary Project</code>: <strong>DemoProject</strong><br/>
+<code>Role</code>: <strong>Member</strong><br/>
+<code>Enabled</code>: <strong>(checked)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create User</code>.</li>
+</ol>
+<p><strong>12.3.4 Log In as the New Project User</strong></p>
+<p><strong>To switch from the admin account to the new project user perform the following:</strong></p>
+<ol>
+<li>Log out of the Horizon dashboard.</li>
+<li>Log back in with the following account:<blockquote>
+<p><code>Domain</code>: <strong>admin_domain</strong><br/>
+<code>Username</code>: <strong>demo</strong><br/>
+<code>Password</code>: <strong>openstack</strong></p>
+</blockquote>
+</li>
+<li>Confirm that only the <code>Project</code> and <code>Identity</code> panels are available on the left.</li>
+</ol>
+<p><strong>12.3.5 Create a Key Pair and Allow SSH</strong></p>
+<p><strong>To create a key pair and allow SSH access via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Project &gt; Compute &gt; Key Pairs</code>.</li>
+<li>Click <code>Create Key Pair</code>.</li>
+<li>On the <code>Create Key Pair</code> screen, enter the following:<blockquote>
+<p><code>Key Pair Name</code>: <strong>demo_keypair</strong><br/>
+<code>Key Type</code>: <strong>SSH Key</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Key Pair</code> and download the private key when prompted.</li>
+<li>Keep the downloaded private key on the workstation that you will use for the final SSH step.</li>
+<li>From the panels on the left select <code>Project &gt; Network &gt; Security Groups</code>.</li>
+<li>Next to the <code>default</code> security group, click <code>Manage Rules</code>.</li>
+<li>Click <code>Add Rule</code>.</li>
+<li>On the <code>Add Rule</code> screen, enter or select the following:<blockquote>
+<p><code>Rule</code>: <strong>SSH</strong><br/>
+<code>Direction</code>: <strong>Ingress</strong><br/>
+<code>Remote</code>: <strong>CIDR</strong><br/>
+<code>CIDR</code>: <strong>0.0.0.0/0</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Add</code>.</li>
+</ol>
+<p><strong>12.3.6 Create a Local Network and Router</strong></p>
+<p><strong>To create a project network and connect it to the external network via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Project &gt; Network &gt; Networks</code>.</li>
+<li>Click <code>Create Network</code>.</li>
+<li>On the <code>Create Network</code> screen <code>Network</code> tab, enter or select the following:<blockquote>
+<p><code>Name</code>: <strong>demo_net</strong><br/>
+<code>Enable Admin State</code>: <strong>(checked)</strong><br/>
+<code>Create Subnet</code>: <strong>(checked)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Next</code>.</li>
+<li>On the <code>Subnet</code> tab, enter or select the following:<blockquote>
+<p><code>Subnet Name</code>: <strong>demo_subnet</strong><br/>
+<code>Network Address</code>: <strong>10.40.50.0/24</strong><br/>
+<code>IP Version</code>: <strong>IPv4</strong><br/>
+<code>Gateway IP</code>: <strong>10.40.50.1</strong><br/>
+<code>Disable Gateway</code>: <strong>(unchecked)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Next</code>.</li>
+<li>On the <code>Subnet Details</code> tab, enter or select the following:<blockquote>
+<p><code>Enable DHCP</code>: <strong>(checked)</strong><br/>
+<code>Allocation Pools</code>: <strong>10.40.50.10, 10.40.50.200</strong><br/>
+<code>DNS Name Servers</code>: <strong>192.168.100.3</strong><br/>
+<code>Host Routes</code>: <strong>(leave blank)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Network</code>.</li>
+<li>From the panels on the left select <code>Project &gt; Network &gt; Routers</code>.</li>
+<li>Click <code>Create Router</code>.</li>
+<li>On the <code>Create Router</code> screen, enter or select the following:<blockquote>
+<p><code>Router Name</code>: <strong>demo_router</strong><br/>
+<code>Enable Admin State</code>: <strong>(checked)</strong><br/>
+<code>External Network</code>: <strong>Public_Network</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Router</code>.</li>
+<li>Click <code>demo_router</code> in the router list.</li>
+<li>Open the <code>Interfaces</code> tab and click <code>Add Interface</code>.</li>
+<li>On the <code>Add Interface</code> screen, enter or select the following:<blockquote>
+<p><code>Subnet</code>: <strong>demo_net 10.40.50.0/24 (demo_subnet)</strong><br/>
+<code>IP Address (optional)</code>: <strong>(leave blank)</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Submit</code>.</li>
+</ol>
+<p><strong>12.3.7 Create a Small CentOS Virtual Machine</strong></p>
+<p><strong>To launch a small CentOS instance via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
+<li>Click <code>Launch Instance</code>.</li>
+<li>On the <code>Details</code> tab, enter or select the following:<blockquote>
+<p><code>Instance Name</code>: <strong>demo_vm</strong><br/>
+<code>Availability Zone</code>: <strong>nova</strong><br/>
+<code>Count</code>: <strong>1</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Next</code>.</li>
+<li>On the <code>Source</code> tab, set <code>Select Boot Source</code> to <strong>Image</strong> and <code>Create New Volume</code> to <strong>No</strong>.</li>
+<li>Move <code>centos-stream-10</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>Click <code>Next</code>.</li>
+<li>On the <code>Flavor</code> tab, move <code>m1.smaller</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>Click <code>Next</code>.</li>
+<li>On the <code>Networks</code> tab, move <code>demo_net</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>Click <code>Next</code> twice.</li>
+<li>On the <code>Security Groups</code> tab, keep <code>default</code> assigned to the instance.</li>
+<li>Click <code>Next</code>.</li>
+<li>On the <code>Key Pair</code> tab, move <code>demo_keypair</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>Click <code>Launch Instance</code>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The instance initially shows status <code>Build</code> and then transitions to <code>Active</code> when deployment finishes.</p>
+</div>
+<p><strong>12.3.8 Assign a Floating IP to the New Instance</strong></p>
+<p><strong>To allocate and associate a floating IP via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Project &gt; Network &gt; Floating IPs</code>.</li>
+<li>Click <code>Allocate IP To Project</code>.</li>
+<li>On the <code>Allocate Floating IP</code> screen, select <code>Public_Network</code> from the <code>Pool</code> list.</li>
+<li>Click <code>Allocate IP</code>.</li>
+<li>From the panels on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
+<li>Next to <code>demo_vm</code>, select <code>Associate Floating IP</code> from the action menu.</li>
+<li>On the <code>Manage Floating IP Associations</code> screen, select the floating IP you just allocated and accept the default port.</li>
+<li>Click <code>Associate</code>.</li>
+<li>Confirm that the floating IP now appears in the <code>IP Address</code> column next to <code>demo_vm</code>.</li>
+</ol>
+<p><strong>12.3.9 Connect to the Instance over SSH</strong></p>
+<p>After the floating IP is associated, connect from the workstation terminal. The default login user for the CentOS Stream Generic Cloud image is <code>cloud-user</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># restrict permissions on the downloaded private key</span>
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/Downloads/demo_keypair.pem
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># connect to the CentOS instance using the downloaded private key</span>
+ssh<span class="w"> </span>-i<span class="w"> </span>~/Downloads/demo_keypair.pem<span class="w"> </span>cloud-user@FLOATING_IP
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>The<span class="w"> </span>authenticity<span class="w"> </span>of<span class="w"> </span>host<span class="w"> </span><span class="s1">&#39;FLOATING_IP (FLOATING_IP)&#39;</span><span class="w"> </span>can<span class="s1">&#39;t be established.</span>
+<span class="s1">ED25519 key fingerprint is SHA256:[redacted].</span>
+<span class="s1">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span>
+<span class="s1">Warning: Permanently added &#39;</span>FLOATING_IP<span class="err">&#39;</span><span class="w"> </span><span class="o">(</span>ED25519<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>known<span class="w"> </span>hosts.
+<span class="o">[</span>cloud-user@demo_vm<span class="w"> </span>~<span class="o">]</span>$
+</code></pre></div>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,818 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation site for the OpenStack Foundations training">
+      
+      
+      
+      
+        <link rel="prev" href="../juju-openstack-provider/">
+      
+      
+        <link rel="next" href="../appendinx_b/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Appendix A - OpenStack Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#121-appendix-a-recover-from-total-outage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenStack Foundations" class="md-header__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenStack Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Appendix A
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenStack Foundations" class="md-nav__button md-logo" aria-label="OpenStack Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OpenStack Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect-to-canonical-openstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prerequisites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure MAAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-and-configure-juju/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and Configure Juju
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-charms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju Charms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-openstack-with-juju-and-maas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy OpenStack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-defined-networks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Defined Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure-openstack-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure an OpenStack Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-workload-instances/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Workload Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openstack-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenStack Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../juju-openstack-provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Juju OpenStack Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Appendices
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Appendices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Appendix A
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendinx_b/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix B
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appending_c/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix C
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="121-appendix-a-recover-from-total-outage">12.1 Appendix A: Recover from Total Outage<a class="headerlink" href="#121-appendix-a-recover-from-total-outage" title="Permanent link">&para;</a></h1>
+<p>If the cluster experiences a complete outage, some services may remain degraded after the nodes return. This appendix covers the manual recovery steps that may still be required.</p>
+<p>Two services need manual intervention in this scenario: <code>mysql-innodb-cluster</code> and <code>vault</code>.</p>
+<p><strong>12.1.1 Recover the Database Cluster</strong></p>
+<p>Check the status of the database charm. It should be unhealthy after a full outage.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the mysql-innodb-cluster status</span>
+juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.5.2<span class="w">    </span>unsupported<span class="w">  </span><span class="m">06</span>:08:29-05:00
+
+App<span class="w">                   </span>Version<span class="w">  </span>Status<span class="w">   </span>Scale<span class="w">  </span>Charm<span class="w">                 </span>Channel<span class="w">       </span>Exposed<span class="w">  </span>Rev<span class="w">  </span>OS<span class="w">      </span>Notes
+mysql-innodb-cluster<span class="w">  </span><span class="m">8</span>.0.37<span class="w">   </span>blocked<span class="w">      </span><span class="m">3</span><span class="w">  </span>mysql-innodb-cluster<span class="w">  </span><span class="m">8</span>.0/stable<span class="w">    </span>no<span class="w">       </span><span class="m">133</span><span class="w">  </span>ubuntu
+
+Unit<span class="w">                     </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">  </span>Message
+mysql-innodb-cluster/0<span class="w">   </span>blocked<span class="w">   </span>idle<span class="w">   </span><span class="m">0</span>/lxd/3<span class="w">  </span><span class="m">192</span>.168.100.54<span class="w">         </span>MySQL<span class="w"> </span>InnoDB<span class="w"> </span>Cluster<span class="w"> </span>not<span class="w"> </span>healthy:<span class="w"> </span>None
+mysql-innodb-cluster/1*<span class="w">  </span>blocked<span class="w">   </span>idle<span class="w">   </span><span class="m">1</span>/lxd/2<span class="w">  </span><span class="m">192</span>.168.100.46<span class="w">         </span>MySQL<span class="w"> </span>InnoDB<span class="w"> </span>Cluster<span class="w"> </span>not<span class="w"> </span>healthy:<span class="w"> </span>None
+mysql-innodb-cluster/2<span class="w">   </span>blocked<span class="w">   </span>idle<span class="w">   </span><span class="m">2</span>/lxd/2<span class="w">  </span><span class="m">192</span>.168.100.52<span class="w">         </span>MySQL<span class="w"> </span>InnoDB<span class="w"> </span>Cluster<span class="w"> </span>not<span class="w"> </span>healthy:<span class="w"> </span>None
+
+Machine<span class="w">  </span>State<span class="w">    </span>DNS<span class="w">             </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">           </span>AZ<span class="w">       </span>Message
+<span class="m">0</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.37<span class="w">  </span>os-compute01<span class="w">         </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Deployed
+<span class="m">0</span>/lxd/3<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.54<span class="w">  </span>juju-3da275-0-lxd-3<span class="w">  </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Container<span class="w"> </span>started
+<span class="m">1</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.38<span class="w">  </span>os-compute02<span class="w">         </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Deployed
+<span class="m">1</span>/lxd/2<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.46<span class="w">  </span>juju-3da275-1-lxd-2<span class="w">  </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Container<span class="w"> </span>started
+<span class="m">2</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.39<span class="w">  </span>os-compute03<span class="w">         </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Deployed
+<span class="m">2</span>/lxd/2<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.52<span class="w">  </span>juju-3da275-2-lxd-2<span class="w">  </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Container<span class="w"> </span>started
+</code></pre></div>
+</details>
+<p>List the available Juju actions for <code>mysql-innodb-cluster</code>. Look for <code>reboot-cluster-from-complete-outage</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># List mysql-innodb-cluster recovery actions</span>
+juju<span class="w"> </span>actions<span class="w"> </span>mysql-innodb-cluster
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>reboot-cluster-from-complete-outage<span class="w">  </span>Reboot<span class="w"> </span>the<span class="w"> </span>cluster<span class="w"> </span>from<span class="w"> </span>this<span class="w"> </span>instance<span class="err">&#39;</span>s<span class="w"> </span>GTID<span class="w"> </span>superset<span class="w"> </span>after<span class="w"> </span>a<span class="w"> </span><span class="nb">complete</span><span class="w"> </span>outage.
+</code></pre></div>
+</details>
+<p>Run this action on the leader unit of the charm.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run the complete-outage recovery action on the leader</span>
+juju<span class="w"> </span>run<span class="w"> </span>mysql-innodb-cluster/leader<span class="w"> </span>reboot-cluster-from-complete-outage<span class="w"> </span>--wait<span class="w"> </span>15m
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Action<span class="w"> </span>completed<span class="w"> </span>successfully.
+</code></pre></div>
+</details>
+<p>Wait a few minutes for this process to finish and check the cluster status again.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Re-check the mysql-innodb-cluster status</span>
+juju<span class="w"> </span>status<span class="w"> </span>mysql-innodb-cluster
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>mysql-innodb-cluster<span class="w"> </span>units<span class="w"> </span>to<span class="w"> </span><span class="k">return</span><span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>healthy<span class="w"> </span>state.
+</code></pre></div>
+</details>
+<p><strong>12.1.2 Unseal Vault</strong></p>
+<p>The Vault charm may need to be unsealed after a complete cluster restart. In this lab, Vault was deployed with <code>totally-unsecure-auto-unlock</code>, which is suitable only for testing and not for production.</p>
+<p>Check the status of the Vault charm.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the vault charm status</span>
+juju<span class="w"> </span>status<span class="w"> </span>vault
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span>vault<span class="w"> </span>to<span class="w"> </span>report<span class="w"> </span>a<span class="w"> </span>degraded,<span class="w"> </span>blocked,<span class="w"> </span>or<span class="w"> </span>waiting<span class="w"> </span>state<span class="w"> </span>before<span class="w"> </span>recovery.
+</code></pre></div>
+</details>
+<p>The Vault process inside the LXD container may need a restart after the database is healthy again.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the vault systemd service state</span>
+juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>vault
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>vault<span class="w"> </span>service<span class="w"> </span>state<span class="w"> </span>and<span class="w"> </span>any<span class="w"> </span>recent<span class="w"> </span>database<span class="w"> </span>connectivity<span class="w"> </span>errors.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Restart the vault systemd service</span>
+juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>vault
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<p>Install the Vault client.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install the Vault CLI client</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>vault
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>vault<span class="w"> </span>&lt;channel&gt;<span class="w"> </span>from<span class="w"> </span>HashiCorp<span class="w"> </span>installed
+</code></pre></div>
+</details>
+<p>Now get the unseal key. In a production deployment, Vault typically requires multiple unseal keys. In this lab configuration, a single key is sufficient.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the Vault leader data and locate the unseal key</span>
+juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/0<span class="w"> </span>leader-get
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>keys:<span class="w"> </span><span class="s1">&#39;[&quot;[REDACTED]&quot;]&#39;</span>
+</code></pre></div>
+</details>
+<p>Unseal Vault using the keys from the file.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export the VAULT_ADDR environment variable</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_ADDR</span><span class="o">=</span><span class="s2">&quot;http://</span><span class="k">$(</span>juju<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--unit<span class="w"> </span>vault/leader<span class="w"> </span>unit-get<span class="w"> </span>private-address<span class="k">)</span><span class="s2">:8200&quot;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Unseal Vault with the recovery key</span>
+vault<span class="w"> </span>operator<span class="w"> </span>unseal<span class="w"> </span>&lt;unseal<span class="w"> </span>key<span class="w"> </span><span class="m">1</span>&gt;
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Key<span class="w">                </span>Value
+---<span class="w">                </span>-----
+Sealed<span class="w">             </span><span class="nb">false</span>
+</code></pre></div>
+</details>
+<p>Authorize the vault charm.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export the Vault root token from the saved state file</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_TOKEN</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/home/ubuntu/vault-state.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Initial Root Token&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a short-lived token for charm authorization</span>
+<span class="nv">CHARM_TOKEN</span><span class="o">=</span><span class="k">$(</span>vault<span class="w"> </span>token<span class="w"> </span>create<span class="w"> </span>-ttl<span class="o">=</span>10m<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span><span class="s2">&quot;^token\s+&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># Authorize the vault charm with the generated token</span>
+juju<span class="w"> </span>run<span class="w"> </span>--wait<span class="w"> </span>5m<span class="w"> </span>vault/leader<span class="w"> </span>authorize-charm<span class="w"> </span><span class="nv">token</span><span class="o">=</span><span class="nv">$CHARM_TOKEN</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Action<span class="w"> </span>completed<span class="w"> </span>successfully.
+</code></pre></div>
+</details>
+<p>Resolve the Vault charm if it is in error state.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Resolve the vault unit if it remains in error</span>
+juju<span class="w"> </span>resolved<span class="w"> </span>vault/0
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
+<p>Wait a few minutes for the charm to become active again.</p>
+<p>Check the status of the charm.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the overall model status after Vault recovery</span>
+juju<span class="w"> </span>status
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>Model<span class="w">  </span>Controller<span class="w">       </span>Cloud/Region<span class="w">  </span>Version<span class="w">  </span>SLA<span class="w">          </span>Timestamp
+uos<span class="w">    </span>maas-controller<span class="w">  </span>maas/default<span class="w">  </span><span class="m">3</span>.5.2<span class="w">    </span>unsupported<span class="w">  </span><span class="m">13</span>:43:39Z
+
+App<span class="w">                 </span>Version<span class="w">  </span>Status<span class="w">  </span>Scale<span class="w">  </span>Charm<span class="w">         </span>Channel<span class="w">     </span>Rev<span class="w">  </span>Exposed<span class="w">  </span>Message
+vault<span class="w">               </span><span class="m">1</span>.7.9<span class="w">    </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>vault<span class="w">         </span><span class="m">1</span>.7/stable<span class="w">  </span><span class="m">349</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready<span class="w"> </span><span class="o">(</span>active:<span class="w"> </span>true,<span class="w"> </span>mlock:<span class="w"> </span>disabled<span class="o">)</span>
+vault-mysql-router<span class="w">  </span><span class="m">8</span>.0.37<span class="w">   </span>active<span class="w">      </span><span class="m">1</span><span class="w">  </span>mysql-router<span class="w">  </span><span class="m">8</span>.0/stable<span class="w">  </span><span class="m">200</span><span class="w">  </span>no<span class="w">       </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+
+Unit<span class="w">                     </span>Workload<span class="w">  </span>Agent<span class="w">  </span>Machine<span class="w">  </span>Public<span class="w"> </span>address<span class="w">  </span>Ports<span class="w">     </span>Message
+vault/0*<span class="w">                 </span>active<span class="w">    </span>idle<span class="w">   </span><span class="m">3</span>/lxd/3<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span><span class="m">8200</span>/tcp<span class="w">  </span>Unit<span class="w"> </span>is<span class="w"> </span>ready<span class="w"> </span><span class="o">(</span>active:<span class="w"> </span>true,<span class="w"> </span>mlock:<span class="w"> </span>disabled<span class="o">)</span>
+<span class="w">  </span>vault-mysql-router/0*<span class="w">  </span>active<span class="w">    </span>idle<span class="w">            </span><span class="m">192</span>.168.100.26<span class="w">            </span>Unit<span class="w"> </span>is<span class="w"> </span>ready
+
+Machine<span class="w">  </span>State<span class="w">    </span>Address<span class="w">         </span>Inst<span class="w"> </span>id<span class="w">              </span>Base<span class="w">          </span>AZ<span class="w">       </span>Message
+<span class="m">3</span><span class="w">        </span>started<span class="w">  </span><span class="m">192</span>.168.100.24<span class="w">  </span>os-compute04<span class="w">         </span>ubuntu@22.04<span class="w">  </span>default<span class="w">  </span>Deployed
+<span class="m">3</span>/lxd/3<span class="w">  </span>started<span class="w">  </span><span class="m">192</span>.168.100.26<span class="w">  </span>juju-c06005-3-lxd-3<span class="w">  </span>ubuntu@22.04<span class="w">   </span>default<span class="w">  </span>Container<span class="w"> </span>started
+</code></pre></div>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
