@@ -11,7 +11,7 @@ Before opening Horizon, convert the CentOS Stream cloud image in the project roo
 
 ```bash
 # convert the CentOS Stream qcow2 image in the project root to raw format
-qemu-img convert -f qcow2 -O raw /home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.qcow2 /home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.img
+qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qcow2 CentOS-Stream-GenericCloud-10-latest.x86_64.img
 ```
 
 ??? example "Expected result"
@@ -30,7 +30,7 @@ qemu-img convert -f qcow2 -O raw /home/radu/Dev/cb-canonical-openstack-foundatio
 > `Image Name`: **centos-stream-10**<br/>
 > `Description`: **CentOS Stream 10 Generic Cloud**<br/>
 > `Source Type`: **File** and then `Browse`<br/>
-> `Image File`: **/home/radu/Dev/cb-canonical-openstack-foundations/CentOS-Stream-GenericCloud-10-latest.x86_64.img**<br/>
+> `Image File`: **CentOS-Stream-GenericCloud-10-latest.x86_64.img**<br/>
 > `Format`: **RAW**<br/>
 > `Architecture`: **x86_64**<br/>
 > `Minimum Disk (GB)`: **leave blank**<br/>
