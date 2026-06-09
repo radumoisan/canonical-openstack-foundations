@@ -1,9 +1,23 @@
-# 12.3 Appendix C: Horizon-Only OpenStack Showcase
+# 12.3 Appendix C: Horizon OpenStack Demo
 
 This appendix provides a compact end-to-end Horizon-based showcase of common OpenStack tasks. All cloud operations are performed in Horizon. Only the local image conversion step and the final SSH login are performed from the workstation terminal.
 
 !!! note
     Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at `https://192.168.100.35/horizon`.
+
+**Objectives**
+
+- Convert and upload a CentOS Stream cloud image.
+- Create a project, user, and role assignment.
+- Adjust project quotas.
+- Create a public flavor for the demo VM.
+- Build a project network with a subnet and router.
+- Launch an instance and assign a floating IP.
+- Demonstrate failed connectivity before security group changes.
+- Update the default security group for SSH and ICMP.
+- Verify ping and SSH access to the instance.
+- Create and attach a block storage volume.
+- Verify the attached volume from inside the instance.
 
 **12.3.1 Prepare the CentOS Stream Image**
 
