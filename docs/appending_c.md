@@ -66,7 +66,36 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 > `Enabled`: **(checked)**
 8. Click `Create User`.
 
-**12.3.4 Log In as the New Project User**
+**12.3.4 Adjust Quotas for DemoProject**
+
+**To adjust the DemoProject quotas via Horizon perform the following:**
+
+1. From the panels on the left select `Identity > Projects`.
+2. Next to `DemoProject`, open the action menu and select `Modify Quotas`.
+3. On the `Edit Project` screen, open the `Quota` tab and change the following values, leaving all other quota settings unchanged:
+> `VCPUs`: **4**<br/>
+> `RAM (MB)`: **8192**
+4. Click `Save`.
+
+**12.3.5 Create a Flavor for the Demo VM**
+
+**To create a flavor via Horizon perform the following:**
+
+1. From the panels on the left select `Admin > Compute > Flavors`.
+2. Click `Create Flavor`.
+3. On the `Create Flavor` screen, enter or select the following values and leave all unspecified values at their defaults:
+> `Name`: **demo.small**<br/>
+> `ID`: **auto**<br/>
+> `VCPUs`: **2**<br/>
+> `RAM MB`: **1024**<br/>
+> `Root Disk GB`: **5**<br/>
+> `Ephemeral Disk GB`: **0**<br/>
+> `Swap Disk MB`: **0**<br/>
+> `Visibility`: **Public**
+4. Click `Create Flavor`.
+5. Confirm that `demo.small` appears in the flavor list.
+
+**12.3.6 Log In as the New Project User**
 
 **To switch from the admin account to the new project user perform the following:**
 
@@ -76,10 +105,11 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 > `Username`: **demo**<br/>
 > `Password`: **openstack**
 3. Confirm that only the `Project` and `Identity` panels are available on the left.
+4. From the panels on the left select `Project > Compute > Overview` and confirm that the `Limit Summary` reflects the updated `VCPUs` and `RAM (MB)` quota values.
 
-**12.3.5 Create a Key Pair and Allow SSH**
+**12.3.7 Create a Key Pair for Instance Access**
 
-**To create a key pair and allow SSH access via Horizon perform the following:**
+**To create a key pair via Horizon perform the following:**
 
 1. From the panels on the left select `Project > Compute > Key Pairs`.
 2. Click `Create Key Pair`.
@@ -87,18 +117,19 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 > `Key Pair Name`: **demo_keypair**<br/>
 > `Key Type`: **SSH Key**
 4. Click `Create Key Pair` and download the private key when prompted.
-5. Keep the downloaded private key on the workstation that you will use for the final SSH step.
-6. From the panels on the left select `Project > Network > Security Groups`.
-7. Next to the `default` security group, click `Manage Rules`.
-8. Click `Add Rule`.
-9. On the `Add Rule` screen, enter or select the following:
-> `Rule`: **SSH**<br/>
-> `Direction`: **Ingress**<br/>
-> `Remote`: **CIDR**<br/>
-> `CIDR`: **0.0.0.0/0**
-10. Click `Add`.
+5. Keep the downloaded private key on the workstation that you will use later in the demo.
 
-**12.3.6 Create a Local Network and Router**
+```bash
+# copy the downloaded private key to the student host
+scp ~/Downloads/demo_keypair.pem ubuntu@34.159.9.11:~/
+```
+
+??? example "Expected result"
+    ```bash
+    demo_keypair.pem                                                                                                 100% 1675     4.4KB/s   00:00
+    ```
+
+**12.3.8 Create a Local Network and Router**
 
 **To create a project network and connect it to the external network via Horizon perform the following:**
 
@@ -136,7 +167,7 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 > `IP Address (optional)`: **(leave blank)**
 16. Click `Submit`.
 
-**12.3.7 Create a Small CentOS Virtual Machine**
+**12.3.9 Create a Small CentOS Virtual Machine**
 
 **To launch a small CentOS instance via Horizon perform the following:**
 
@@ -154,7 +185,7 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 > `Delete Volume on Instance Delete`: **No**
 6. Move `centos-stream-10` from `Available` to `Allocated`.
 7. Click `Next`.
-8. On the `Flavor` tab, move `m1.smaller` from `Available` to `Allocated`.
+8. On the `Flavor` tab, move `demo.small` from `Available` to `Allocated`.
 9. Click `Next`.
 10. On the `Networks` tab, move `demo_net` from `Available` to `Allocated`.
 11. Click `Next` twice.
@@ -166,7 +197,7 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 !!! note
     The instance initially shows status `Build` and then transitions to `Active` when deployment finishes.
 
-**12.3.8 Assign a Floating IP to the New Instance**
+**12.3.10 Assign a Floating IP to the New Instance**
 
 **To allocate and associate a floating IP via Horizon perform the following:**
 
@@ -180,19 +211,9 @@ qemu-img convert -f qcow2 -O raw CentOS-Stream-GenericCloud-10-latest.x86_64.qco
 8. Click `Associate`.
 9. Confirm that the floating IP now appears in the `IP Address` column next to `demo_vm`.
 
-**12.3.9 Connect to the Instance over SSH**
+**12.3.11 Demonstrate That Connectivity Fails by Default**
 
-After the floating IP is associated, connect from the workstation through the student host. The floating IP is on the internal lab network and is not directly reachable from the workstation. The default login user for the CentOS Stream Generic Cloud image is `cloud-user`.
-
-```bash
-# copy the downloaded private key to the student host
-scp ~/Downloads/demo_keypair.pem ubuntu@34.159.9.11:~/
-```
-
-??? example "Expected result"
-    ```bash
-    demo_keypair.pem                                                                                                 100% 1675     4.4KB/s   00:00
-    ```
+At this point the instance uses the `default` security group with no custom ingress rules. Ping and SSH should fail.
 
 ```bash
 # connect to the student host
@@ -216,6 +237,74 @@ chmod 600 ~/demo_keypair.pem
     ```
 
 ```bash
+# confirm that ICMP is blocked before updating the security group
+ping -c 4 FLOATING_IP
+```
+
+??? example "Expected result"
+    ```bash
+    PING FLOATING_IP (FLOATING_IP) 56(84) bytes of data.
+
+    --- FLOATING_IP ping statistics ---
+    4 packets transmitted, 0 received, 100% packet loss, time 3071ms
+    ```
+
+```bash
+# confirm that SSH is blocked before updating the security group
+ssh -o ConnectTimeout=10 -i ~/demo_keypair.pem cloud-user@FLOATING_IP
+```
+
+??? example "Expected result"
+    ```bash
+    ssh: connect to host FLOATING_IP port 22: Connection timed out
+    ```
+
+**12.3.12 Update the Default Security Group for SSH and ICMP**
+
+**To allow SSH and ICMP traffic via Horizon perform the following:**
+
+1. Return to the Horizon browser session and select `Project > Network > Security Groups`.
+2. Next to the `default` security group, click `Manage Rules`.
+3. Click `Add Rule`.
+4. On the `Add Rule` screen, enter or select the following:
+> `Rule`: **SSH**<br/>
+> `Direction`: **Ingress**<br/>
+> `Remote`: **CIDR**<br/>
+> `CIDR`: **0.0.0.0/0**
+5. Click `Add`.
+6. Click `Add Rule` again.
+7. On the `Add Rule` screen, enter or select the following:
+> `Rule`: **ALL ICMP**<br/>
+> `Direction`: **Ingress**<br/>
+> `Remote`: **CIDR**<br/>
+> `CIDR`: **0.0.0.0/0**
+8. Click `Add`.
+
+!!! note
+    The default security group already includes the required egress rules in this environment. For this demo, only the ingress rules need to be added.
+
+**12.3.13 Verify Ping and SSH Access**
+
+Return to the student host terminal and retry the connectivity checks.
+
+```bash
+# confirm that ICMP now works after the security group update
+ping -c 4 FLOATING_IP
+```
+
+??? example "Expected result"
+    ```bash
+    PING FLOATING_IP (FLOATING_IP) 56(84) bytes of data.
+    64 bytes from FLOATING_IP: icmp_seq=1 ttl=64 time=0.550 ms
+    64 bytes from FLOATING_IP: icmp_seq=2 ttl=64 time=0.601 ms
+    64 bytes from FLOATING_IP: icmp_seq=3 ttl=64 time=0.579 ms
+    64 bytes from FLOATING_IP: icmp_seq=4 ttl=64 time=0.588 ms
+
+    --- FLOATING_IP ping statistics ---
+    4 packets transmitted, 4 received, 0% packet loss, time 3072ms
+    ```
+
+```bash
 # connect to the CentOS instance from the student host
 ssh -i ~/demo_keypair.pem cloud-user@FLOATING_IP
 ```
@@ -227,4 +316,54 @@ ssh -i ~/demo_keypair.pem cloud-user@FLOATING_IP
     Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
     Warning: Permanently added 'FLOATING_IP' (ED25519) to the list of known hosts.
     [cloud-user@demo_vm ~]$
+    ```
+
+**12.3.14 Create and Attach a Volume via Horizon**
+
+**12.3.14.1 Create a Storage Volume**
+
+**To create a storage volume via Horizon perform the following:**
+
+1. From the panels on the left select `Project > Volumes > Volumes`.
+2. Click `Create Volume`.
+3. On the `Create Volume` screen, enter or select the following:
+> `Volume Name`: **demo_vol**<br/>
+> `Description`: **DemoProject Volume 01**<br/>
+> `Volume Source`: **No source, empty volume**<br/>
+> `Type`: **No volume type**<br/>
+> `Size (GB)`: **5**<br/>
+> `Availability Zone`: **nova**
+4. Click `Create Volume`.
+5. Wait for `demo_vol` to reach the `Available` state.
+
+**12.3.14.2 Attach the Volume to demo_vm**
+
+**To attach the volume to the existing instance via Horizon perform the following:**
+
+1. From the panels on the left select `Project > Volumes > Volumes`.
+2. Next to `demo_vol`, open the action menu and select `Manage Attachments`.
+3. On the `Manage Volume Attachments` screen, select `demo_vm` from the `Attach to Instance` list.
+4. Click `Attach Volume`.
+5. Confirm that `demo_vm` now appears in the `Attached To` column for `demo_vol`.
+6. From the panels on the left select `Project > Compute > Instances`.
+7. Click `demo_vm`.
+8. On the `Instances / demo_vm` screen, confirm that `demo_vol` appears under `Volumes Attached`.
+
+**12.3.15 Verify the Attached Volume over SSH**
+
+From the student host terminal, verify that the additional volume is visible inside the CentOS instance.
+
+```bash
+# display block devices inside the CentOS instance
+ssh -i ~/demo_keypair.pem cloud-user@FLOATING_IP lsblk
+```
+
+??? example "Expected result"
+    ```bash
+    NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
+    vda    252:0    0  10G  0 disk
+    |-vda1 252:1    0   1M  0 part
+    |-vda2 252:2    0 200M  0 part /boot/efi
+    `-vda3 252:3    0 9.8G  0 part /
+    vdb    252:16   0   5G  0 disk
     ```
