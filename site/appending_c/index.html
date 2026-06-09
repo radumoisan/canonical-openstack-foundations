@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#123-appendix-c-horizon-only-openstack-showcase" class="md-skip">
+        <a href="#123-appendix-c-horizon-openstack-demo" class="md-skip">
           Skip to content
         </a>
       
@@ -581,12 +581,26 @@
                   
 
 
-<h1 id="123-appendix-c-horizon-only-openstack-showcase">12.3 Appendix C: Horizon-Only OpenStack Showcase<a class="headerlink" href="#123-appendix-c-horizon-only-openstack-showcase" title="Permanent link">&para;</a></h1>
+<h1 id="123-appendix-c-horizon-openstack-demo">12.3 Appendix C: Horizon OpenStack Demo<a class="headerlink" href="#123-appendix-c-horizon-openstack-demo" title="Permanent link">&para;</a></h1>
 <p>This appendix provides a compact end-to-end Horizon-based showcase of common OpenStack tasks. All cloud operations are performed in Horizon. Only the local image conversion step and the final SSH login are performed from the workstation terminal.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at <code>https://192.168.100.35/horizon</code>.</p>
 </div>
+<p><strong>Objectives</strong></p>
+<ul>
+<li>Convert and upload a CentOS Stream cloud image.</li>
+<li>Create a project, user, and role assignment.</li>
+<li>Adjust project quotas.</li>
+<li>Create a public flavor for the demo VM.</li>
+<li>Build a project network with a subnet and router.</li>
+<li>Launch an instance and assign a floating IP.</li>
+<li>Demonstrate failed connectivity before security group changes.</li>
+<li>Update the default security group for SSH and ICMP.</li>
+<li>Verify ping and SSH access to the instance.</li>
+<li>Create and attach a block storage volume.</li>
+<li>Verify the attached volume from inside the instance.</li>
+</ul>
 <p><strong>12.3.1 Prepare the CentOS Stream Image</strong></p>
 <p>Before opening Horizon, convert the CentOS Stream cloud image in the project root from <code>qcow2</code> to <code>raw</code> format on the workstation where this repository is checked out.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># convert the CentOS Stream qcow2 image in the project root to raw format</span>
