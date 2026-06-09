@@ -648,7 +648,38 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 </li>
 <li>Click <code>Create User</code>.</li>
 </ol>
-<p><strong>12.3.4 Log In as the New Project User</strong></p>
+<p><strong>12.3.4 Adjust Quotas for DemoProject</strong></p>
+<p><strong>To adjust the DemoProject quotas via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Identity &gt; Projects</code>.</li>
+<li>Next to <code>DemoProject</code>, open the action menu and select <code>Modify Quotas</code>.</li>
+<li>On the <code>Edit Project</code> screen, open the <code>Quota</code> tab and change the following values, leaving all other quota settings unchanged:<blockquote>
+<p><code>VCPUs</code>: <strong>4</strong><br/>
+<code>RAM (MB)</code>: <strong>8192</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Save</code>.</li>
+</ol>
+<p><strong>12.3.5 Create a Flavor for the Demo VM</strong></p>
+<p><strong>To create a flavor via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Admin &gt; Compute &gt; Flavors</code>.</li>
+<li>Click <code>Create Flavor</code>.</li>
+<li>On the <code>Create Flavor</code> screen, enter or select the following values and leave all unspecified values at their defaults:<blockquote>
+<p><code>Name</code>: <strong>demo.small</strong><br/>
+<code>ID</code>: <strong>auto</strong><br/>
+<code>VCPUs</code>: <strong>2</strong><br/>
+<code>RAM MB</code>: <strong>1024</strong><br/>
+<code>Root Disk GB</code>: <strong>5</strong><br/>
+<code>Ephemeral Disk GB</code>: <strong>0</strong><br/>
+<code>Swap Disk MB</code>: <strong>0</strong><br/>
+<code>Visibility</code>: <strong>Public</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Flavor</code>.</li>
+<li>Confirm that <code>demo.small</code> appears in the flavor list.</li>
+</ol>
+<p><strong>12.3.6 Log In as the New Project User</strong></p>
 <p><strong>To switch from the admin account to the new project user perform the following:</strong></p>
 <ol>
 <li>Log out of the Horizon dashboard.</li>
@@ -659,9 +690,10 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 </blockquote>
 </li>
 <li>Confirm that only the <code>Project</code> and <code>Identity</code> panels are available on the left.</li>
+<li>From the panels on the left select <code>Project &gt; Compute &gt; Overview</code> and confirm that the <code>Limit Summary</code> reflects the updated <code>VCPUs</code> and <code>RAM (MB)</code> quota values.</li>
 </ol>
-<p><strong>12.3.5 Create a Key Pair and Allow SSH</strong></p>
-<p><strong>To create a key pair and allow SSH access via Horizon perform the following:</strong></p>
+<p><strong>12.3.7 Create a Key Pair for Instance Access</strong></p>
+<p><strong>To create a key pair via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Compute &gt; Key Pairs</code>.</li>
 <li>Click <code>Create Key Pair</code>.</li>
@@ -671,20 +703,17 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 </blockquote>
 </li>
 <li>Click <code>Create Key Pair</code> and download the private key when prompted.</li>
-<li>Keep the downloaded private key on the workstation that you will use for the final SSH step.</li>
-<li>From the panels on the left select <code>Project &gt; Network &gt; Security Groups</code>.</li>
-<li>Next to the <code>default</code> security group, click <code>Manage Rules</code>.</li>
-<li>Click <code>Add Rule</code>.</li>
-<li>On the <code>Add Rule</code> screen, enter or select the following:<blockquote>
-<p><code>Rule</code>: <strong>SSH</strong><br/>
-<code>Direction</code>: <strong>Ingress</strong><br/>
-<code>Remote</code>: <strong>CIDR</strong><br/>
-<code>CIDR</code>: <strong>0.0.0.0/0</strong></p>
-</blockquote>
-</li>
-<li>Click <code>Add</code>.</li>
+<li>Keep the downloaded private key on the workstation that you will use later in the demo.</li>
 </ol>
-<p><strong>12.3.6 Create a Local Network and Router</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># copy the downloaded private key to the student host</span>
+scp<span class="w"> </span>~/Downloads/demo_keypair.pem<span class="w"> </span>ubuntu@34.159.9.11:~/
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>demo_keypair.pem<span class="w">                                                                                                 </span><span class="m">100</span>%<span class="w"> </span><span class="m">1675</span><span class="w">     </span><span class="m">4</span>.4KB/s<span class="w">   </span><span class="m">00</span>:00
+</code></pre></div>
+</details>
+<p><strong>12.3.8 Create a Local Network and Router</strong></p>
 <p><strong>To create a project network and connect it to the external network via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Network &gt; Networks</code>.</li>
@@ -731,7 +760,7 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 </li>
 <li>Click <code>Submit</code>.</li>
 </ol>
-<p><strong>12.3.7 Create a Small CentOS Virtual Machine</strong></p>
+<p><strong>12.3.9 Create a Small CentOS Virtual Machine</strong></p>
 <p><strong>To launch a small CentOS instance via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
@@ -752,7 +781,7 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 </li>
 <li>Move <code>centos-stream-10</code> from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Next</code>.</li>
-<li>On the <code>Flavor</code> tab, move <code>m1.smaller</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>On the <code>Flavor</code> tab, move <code>demo.small</code> from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Next</code>.</li>
 <li>On the <code>Networks</code> tab, move <code>demo_net</code> from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Next</code> twice.</li>
@@ -765,7 +794,7 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 <p class="admonition-title">Note</p>
 <p>The instance initially shows status <code>Build</code> and then transitions to <code>Active</code> when deployment finishes.</p>
 </div>
-<p><strong>12.3.8 Assign a Floating IP to the New Instance</strong></p>
+<p><strong>12.3.10 Assign a Floating IP to the New Instance</strong></p>
 <p><strong>To allocate and associate a floating IP via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Network &gt; Floating IPs</code>.</li>
@@ -778,16 +807,8 @@ qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"
 <li>Click <code>Associate</code>.</li>
 <li>Confirm that the floating IP now appears in the <code>IP Address</code> column next to <code>demo_vm</code>.</li>
 </ol>
-<p><strong>12.3.9 Connect to the Instance over SSH</strong></p>
-<p>After the floating IP is associated, connect from the workstation through the student host. The floating IP is on the internal lab network and is not directly reachable from the workstation. The default login user for the CentOS Stream Generic Cloud image is <code>cloud-user</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># copy the downloaded private key to the student host</span>
-scp<span class="w"> </span>~/Downloads/demo_keypair.pem<span class="w"> </span>ubuntu@34.159.9.11:~/
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>demo_keypair.pem<span class="w">                                                                                                 </span><span class="m">100</span>%<span class="w"> </span><span class="m">1675</span><span class="w">     </span><span class="m">4</span>.4KB/s<span class="w">   </span><span class="m">00</span>:00
-</code></pre></div>
-</details>
+<p><strong>12.3.11 Demonstrate That Connectivity Fails by Default</strong></p>
+<p>At this point the instance uses the <code>default</code> security group with no custom ingress rules. Ping and SSH should fail.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># connect to the student host</span>
 ssh<span class="w"> </span>ubuntu@34.159.9.11
 </code></pre></div>
@@ -805,6 +826,70 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm that ICMP is blocked before updating the security group</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>FLOATING_IP
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>PING<span class="w"> </span>FLOATING_IP<span class="w"> </span><span class="o">(</span>FLOATING_IP<span class="o">)</span><span class="w"> </span><span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span><span class="w"> </span>bytes<span class="w"> </span>of<span class="w"> </span>data.
+
+---<span class="w"> </span>FLOATING_IP<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">4</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">0</span><span class="w"> </span>received,<span class="w"> </span><span class="m">100</span>%<span class="w"> </span>packet<span class="w"> </span>loss,<span class="w"> </span><span class="nb">time</span><span class="w"> </span>3071ms
+</code></pre></div>
+</details>
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm that SSH is blocked before updating the security group</span>
+ssh<span class="w"> </span>-o<span class="w"> </span><span class="nv">ConnectTimeout</span><span class="o">=</span><span class="m">10</span><span class="w"> </span>-i<span class="w"> </span>~/demo_keypair.pem<span class="w"> </span>cloud-user@FLOATING_IP
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>ssh:<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>host<span class="w"> </span>FLOATING_IP<span class="w"> </span>port<span class="w"> </span><span class="m">22</span>:<span class="w"> </span>Connection<span class="w"> </span>timed<span class="w"> </span>out
+</code></pre></div>
+</details>
+<p><strong>12.3.12 Update the Default Security Group for SSH and ICMP</strong></p>
+<p><strong>To allow SSH and ICMP traffic via Horizon perform the following:</strong></p>
+<ol>
+<li>Return to the Horizon browser session and select <code>Project &gt; Network &gt; Security Groups</code>.</li>
+<li>Next to the <code>default</code> security group, click <code>Manage Rules</code>.</li>
+<li>Click <code>Add Rule</code>.</li>
+<li>On the <code>Add Rule</code> screen, enter or select the following:<blockquote>
+<p><code>Rule</code>: <strong>SSH</strong><br/>
+<code>Direction</code>: <strong>Ingress</strong><br/>
+<code>Remote</code>: <strong>CIDR</strong><br/>
+<code>CIDR</code>: <strong>0.0.0.0/0</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Add</code>.</li>
+<li>Click <code>Add Rule</code> again.</li>
+<li>On the <code>Add Rule</code> screen, enter or select the following:<blockquote>
+<p><code>Rule</code>: <strong>ALL ICMP</strong><br/>
+<code>Direction</code>: <strong>Ingress</strong><br/>
+<code>Remote</code>: <strong>CIDR</strong><br/>
+<code>CIDR</code>: <strong>0.0.0.0/0</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Add</code>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default security group already includes the required egress rules in this environment. For this demo, only the ingress rules need to be added.</p>
+</div>
+<p><strong>12.3.13 Verify Ping and SSH Access</strong></p>
+<p>Return to the student host terminal and retry the connectivity checks.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm that ICMP now works after the security group update</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>FLOATING_IP
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>PING<span class="w"> </span>FLOATING_IP<span class="w"> </span><span class="o">(</span>FLOATING_IP<span class="o">)</span><span class="w"> </span><span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span><span class="w"> </span>bytes<span class="w"> </span>of<span class="w"> </span>data.
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span>FLOATING_IP:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">0</span>.550<span class="w"> </span>ms
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span>FLOATING_IP:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">0</span>.601<span class="w"> </span>ms
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span>FLOATING_IP:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">0</span>.579<span class="w"> </span>ms
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span>FLOATING_IP:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">0</span>.588<span class="w"> </span>ms
+
+---<span class="w"> </span>FLOATING_IP<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">4</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">4</span><span class="w"> </span>received,<span class="w"> </span><span class="m">0</span>%<span class="w"> </span>packet<span class="w"> </span>loss,<span class="w"> </span><span class="nb">time</span><span class="w"> </span>3072ms
+</code></pre></div>
+</details>
 <div class="highlight"><pre><span></span><code><span class="c1"># connect to the CentOS instance from the student host</span>
 ssh<span class="w"> </span>-i<span class="w"> </span>~/demo_keypair.pem<span class="w"> </span>cloud-user@FLOATING_IP
 </code></pre></div>
@@ -815,6 +900,51 @@ ssh<span class="w"> </span>-i<span class="w"> </span>~/demo_keypair.pem<span cla
 <span class="s1">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span>
 <span class="s1">Warning: Permanently added &#39;</span>FLOATING_IP<span class="err">&#39;</span><span class="w"> </span><span class="o">(</span>ED25519<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>known<span class="w"> </span>hosts.
 <span class="o">[</span>cloud-user@demo_vm<span class="w"> </span>~<span class="o">]</span>$
+</code></pre></div>
+</details>
+<p><strong>12.3.14 Create and Attach a Volume via Horizon</strong></p>
+<p><strong>12.3.14.1 Create a Storage Volume</strong></p>
+<p><strong>To create a storage volume via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Project &gt; Volumes &gt; Volumes</code>.</li>
+<li>Click <code>Create Volume</code>.</li>
+<li>On the <code>Create Volume</code> screen, enter or select the following:<blockquote>
+<p><code>Volume Name</code>: <strong>demo_vol</strong><br/>
+<code>Description</code>: <strong>DemoProject Volume 01</strong><br/>
+<code>Volume Source</code>: <strong>No source, empty volume</strong><br/>
+<code>Type</code>: <strong>No volume type</strong><br/>
+<code>Size (GB)</code>: <strong>5</strong><br/>
+<code>Availability Zone</code>: <strong>nova</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Volume</code>.</li>
+<li>Wait for <code>demo_vol</code> to reach the <code>Available</code> state.</li>
+</ol>
+<p><strong>12.3.14.2 Attach the Volume to demo_vm</strong></p>
+<p><strong>To attach the volume to the existing instance via Horizon perform the following:</strong></p>
+<ol>
+<li>From the panels on the left select <code>Project &gt; Volumes &gt; Volumes</code>.</li>
+<li>Next to <code>demo_vol</code>, open the action menu and select <code>Manage Attachments</code>.</li>
+<li>On the <code>Manage Volume Attachments</code> screen, select <code>demo_vm</code> from the <code>Attach to Instance</code> list.</li>
+<li>Click <code>Attach Volume</code>.</li>
+<li>Confirm that <code>demo_vm</code> now appears in the <code>Attached To</code> column for <code>demo_vol</code>.</li>
+<li>From the panels on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
+<li>Click <code>demo_vm</code>.</li>
+<li>On the <code>Instances / demo_vm</code> screen, confirm that <code>demo_vol</code> appears under <code>Volumes Attached</code>.</li>
+</ol>
+<p><strong>12.3.15 Verify the Attached Volume over SSH</strong></p>
+<p>From the student host terminal, verify that the additional volume is visible inside the CentOS instance.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># display block devices inside the CentOS instance</span>
+ssh<span class="w"> </span>-i<span class="w"> </span>~/demo_keypair.pem<span class="w"> </span>cloud-user@FLOATING_IP<span class="w"> </span>lsblk
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">   </span>MAJ:MIN<span class="w"> </span>RM<span class="w"> </span>SIZE<span class="w"> </span>RO<span class="w"> </span>TYPE<span class="w"> </span>MOUNTPOINTS
+vda<span class="w">    </span><span class="m">252</span>:0<span class="w">    </span><span class="m">0</span><span class="w">  </span>10G<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk
+<span class="p">|</span>-vda1<span class="w"> </span><span class="m">252</span>:1<span class="w">    </span><span class="m">0</span><span class="w">   </span>1M<span class="w">  </span><span class="m">0</span><span class="w"> </span>part
+<span class="p">|</span>-vda2<span class="w"> </span><span class="m">252</span>:2<span class="w">    </span><span class="m">0</span><span class="w"> </span>200M<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/boot/efi
+<span class="sb">`</span>-vda3<span class="w"> </span><span class="m">252</span>:3<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">9</span>.8G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/
+vdb<span class="w">    </span><span class="m">252</span>:16<span class="w">   </span><span class="m">0</span><span class="w">   </span>5G<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk
 </code></pre></div>
 </details>
 
