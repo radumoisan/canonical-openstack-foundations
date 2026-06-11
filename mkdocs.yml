@@ -25,6 +25,7 @@ nav:
       - Appendix A: appendinx_a.md
       - Appendix B: appendinx_b.md
       - Appendix C: appending_c.md
+      - Appendix D: appendinx_d.md
 
 markdown_extensions:
   - tables

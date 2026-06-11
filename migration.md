@@ -172,11 +172,13 @@ Planned work:
 
 ### 12. Appendices
 
-- Status: `Complete`
+- Status: `In review`
 - Source range: `openstack_foundation_lab.md` chapter 13
-- Target pages: `docs/appendinx_a.md`, `docs/appendinx_b.md`, `docs/appending_c.md`
+- Target pages: `docs/appendinx_a.md`, `docs/appendinx_b.md`, `docs/appending_c.md`, `docs/appendinx_d.md`
 - Review note: The source skips chapter 12. The derived site publishes Appendices as Chapter 12 for consistent navigation while keeping the source file unchanged.
 - Review note: Appendix A was reviewed and reformatted as reference recovery guidance. Live validation was not required for this page by request.
+- Review note: Appendix D is a derived Horizon-only Octavia exercise that extends the training beyond the source material.
+- Validation note: Appendix D still requires live validation on an Octavia-enabled lab deployment before it can be marked `Complete`.
 
 ## Stage 2: Lab Validation
 
@@ -211,6 +213,7 @@ Validation workflow:
 - Appendix A: `appendinx_a.md`
 - Appendix B: `appendinx_b.md`
 - Appendix C: `appending_c.md`
+- Appendix D: `appendinx_d.md`
 
 ## Notes
 
