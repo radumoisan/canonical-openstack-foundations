@@ -497,6 +497,18 @@ ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_op
 ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/admin_openrc && openstack image show jammy'\''"'
 ```
 
+```bash
+ssh ubuntu@34.159.9.11 'scp ~/CentOS-Stream-GenericCloud-10-latest.x86_64.img ubuntu@192.168.100.3:~/'
+```
+
+```bash
+ssh ubuntu@34.159.9.11 "ssh ubuntu@192.168.100.3 'source ~/admin_openrc && openstack image create --disk-format raw --container-format bare --public --property architecture=x86_64 --file ~/CentOS-Stream-GenericCloud-10-latest.x86_64.img centos-stream-10'"
+```
+
+```bash
+ssh ubuntu@34.159.9.11 "ssh ubuntu@192.168.100.3 'source ~/admin_openrc && openstack image show centos-stream-10'"
+```
+
 ## Chapter 8 - Configure an OpenStack Project
 
 ```bash

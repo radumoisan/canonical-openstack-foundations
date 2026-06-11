@@ -54,7 +54,7 @@ Planned work:
 
 - Status: `Complete`
 - Source range: `openstack_foundation_lab.md` chapter 1
-- Target page: `docs/connect-to-canonical-openstack.md`
+- Target page: `docs/prerequisites.md`
 - Validation note: `1.1 SSH connection` has been started on student host `34.159.9.11`.
 - Validation note: Firefox SOCKS proxy setup is verified locally and was later used successfully to access internal lab web interfaces.
 
@@ -197,7 +197,7 @@ Validation workflow:
 ## MkDocs Target Navigation
 
 - Home: `index.md`
-- Prerequisites: `connect-to-canonical-openstack.md`
+- Prerequisites: `prerequisites.md`
 - Install and Configure MAAS: `install-and-configure-maas.md`
 - Install and Configure Juju: `install-and-configure-juju.md`
 - Juju Charms: `juju-charms.md`
