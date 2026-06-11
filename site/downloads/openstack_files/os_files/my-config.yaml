@@ -1,0 +1,5 @@
+network: StudentProject_Network
+external-network: Public_Network
+image-metadata-url: https://192.168.100.XXX:443/swift/v1/simplestreams/data/
+default-base: ubuntu@22.04
+ssl-hostname-verification: false

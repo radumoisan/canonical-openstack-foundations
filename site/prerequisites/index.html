@@ -269,6 +269,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#12-training-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+       1.2 Training Resources
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -582,6 +591,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendinx_d/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -621,6 +651,15 @@
   <a href="#11-ssh-connection" class="md-nav__link">
     <span class="md-ellipsis">
        1.1 SSH connection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-training-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+       1.2 Training Resources
     </span>
   </a>
   
@@ -679,6 +718,44 @@ this proxy path happens after the MAAS server is installed and initialized in
 Chapter 2.</p>
 <p>For <code>Chrome</code>, the proxy settings can be configured from the operating system
 network settings, for example via LAN Settings on Windows.</p>
+<h2 id="12-training-resources"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 1-5 5v11l5-4.5V1m2 4v13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6c-1.45-1.1-3.55-1.5-5.5-1.5-1.95 0-4.05.4-5.5 1.5v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1M10 18.41C8.75 18.09 7.5 18 6.5 18c-1.06 0-2.32.19-3.5.5V7.13c.91-.4 2.14-.63 3.5-.63 1.36 0 2.59.23 3.5.63v11.28Z"/></svg></span> 1.2 Training Resources<a class="headerlink" href="#12-training-resources" title="Permanent link">&para;</a></h2>
+<p>The following lab files are published with the site so you can download them as
+needed during the training.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These files are provided for this training environment exactly as requested.
+Some files contain lab-specific defaults, passwords, or credential-bearing
+configuration and should be treated as lab-only assets.</p>
+</div>
+<p><strong>Deployment assets</strong></p>
+<ul>
+<li><a href="../downloads/openstack_files/deploy/cloud-init.iso"><code>cloud-init.iso</code></a>: Cloud-init ISO used during local VM creation.</li>
+<li><a href="../downloads/openstack_files/deploy/cloud.xml"><code>cloud.xml</code></a>: Libvirt domain definition template for the lab VM.</li>
+<li><a href="../downloads/openstack_files/deploy/create-vms.sh"><code>create-vms.sh</code></a>: Script that creates the local lab VMs.</li>
+<li><a href="../downloads/openstack_files/deploy/destroy-vms.sh"><code>destroy-vms.sh</code></a>: Script that removes the local lab VMs.</li>
+<li><a href="../downloads/openstack_files/deploy/meta-data"><code>meta-data</code></a>: Cloud-init metadata file.</li>
+<li><a href="../downloads/openstack_files/deploy/network-config"><code>network-config</code></a>: Cloud-init network configuration file.</li>
+<li><a href="../downloads/openstack_files/deploy/user-data"><code>user-data</code></a>: Cloud-init user-data file for VM initialization.</li>
+</ul>
+<p><strong>OpenStack and Juju assets</strong></p>
+<ul>
+<li><a href="../downloads/openstack_files/os_files/admin_openrc"><code>admin_openrc</code></a>: Wrapper that selects the appropriate admin OpenStack RC settings.</li>
+<li><a href="../downloads/openstack_files/os_files/admin_openrcv3_project"><code>admin_openrcv3_project</code></a>: Keystone v3 admin environment file.</li>
+<li><a href="../downloads/openstack_files/os_files/glance-simplestreams-sync.yaml"><code>glance-simplestreams-sync.yaml</code></a>: Juju config for <code>glance-simplestreams-sync</code>.</li>
+<li><a href="../downloads/openstack_files/os_files/init_vault.sh"><code>init_vault.sh</code></a>: Helper script to authorize the Vault charm.</li>
+<li><a href="../downloads/openstack_files/os_files/labvars.sh"><code>labvars.sh</code></a>: Lab-wide environment variable definitions.</li>
+<li><a href="../downloads/openstack_files/os_files/landscape_bundle.yaml"><code>landscape_bundle.yaml</code></a>: Juju bundle for the Landscape deployment.</li>
+<li><a href="../downloads/openstack_files/os_files/maas.yaml"><code>maas.yaml</code></a>: Juju cloud definition for MAAS.</li>
+<li><a href="../downloads/openstack_files/os_files/my-config.yaml"><code>my-config.yaml</code></a>: Juju bootstrap configuration for the OpenStack controller.</li>
+<li><a href="../downloads/openstack_files/os_files/my-openstack.yaml"><code>my-openstack.yaml</code></a>: Juju cloud definition for the OpenStack provider.</li>
+<li><a href="../downloads/openstack_files/os_files/openstack-bundle.yaml"><code>openstack-bundle.yaml</code></a>: Main Juju bundle used to deploy OpenStack.</li>
+<li><a href="../downloads/openstack_files/os_files/student_openrc"><code>student_openrc</code></a>: Wrapper that selects the appropriate student OpenStack RC settings.</li>
+<li><a href="../downloads/openstack_files/os_files/student_openrcv3_project"><code>student_openrcv3_project</code></a>: Keystone v3 student environment file.</li>
+</ul>
+<p><strong>Provisioning script</strong></p>
+<ul>
+<li><a href="../downloads/openstack_files/provision_maas.sh"><code>provision_maas.sh</code></a>: Script used to provision the MAAS lab host.</li>
+</ul>
 
 
 

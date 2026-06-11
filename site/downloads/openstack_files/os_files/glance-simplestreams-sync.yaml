@@ -1,0 +1,7 @@
+glance-simplestreams-sync:
+  use_swift: True
+  run: True
+  frequency: hourly
+  region: RegionOne
+  snap-channel: 'stable'
+  mirror_list: '[{url: "https://cloud-images.ubuntu.com/releases/", name_prefix: "ubuntu:released", path: "streams/v1/index.sjson", max: 1, item_filters: ["release~(jammy)", "arch~(x86_64|amd64)", "ftype~(disk-kvm.img)"]}]'
