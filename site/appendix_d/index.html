@@ -644,7 +644,6 @@
 <p>The exact load balancer dialog labels can vary slightly between Horizon releases. Use the closest matching field names if your dashboard wording differs.</p>
 </div>
 <p><strong>12.4.2 Allow SSH, ICMP, and HTTP in the Default Security Group</strong></p>
-<p><strong>To prepare the default project security group via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Network &gt; Security Groups</code>.</li>
 <li>Next to the <code>default</code> security group, click <code>Manage Rules</code>.</li>
@@ -865,10 +864,9 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The remaining service-management steps use the Horizon web console with the <code>ubuntu</code> user and the password <code>openstack</code>.</p>
+<p>The remaining service-management steps use a mix of Horizon instance actions and the Horizon web console with the <code>ubuntu</code> user and the password <code>openstack</code>.</p>
 </div>
 <p><strong>12.4.9 Create the Load Balancer in Horizon</strong></p>
-<p><strong>To create the load balancer via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Network &gt; Load Balancers</code>.</li>
 <li>Click <code>Create Load Balancer</code>.</li>
@@ -909,7 +907,6 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <p>The load balancer wizard adds the backend members from the available instances list, but Octavia still uses the instances' fixed IP addresses on <code>local-net</code>, not their floating IP addresses.</p>
 </div>
 <p><strong>12.4.10 Associate a Floating IP Address with the Load Balancer VIP</strong></p>
-<p><strong>To expose the load balancer VIP externally via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
 <li>Record the VIP address and the VIP port ID shown on the load balancer details page.</li>
@@ -942,10 +939,47 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The exact request order can vary, but over several requests you should see responses from both backends while both Apache services are healthy.</p>
+<p>This test can be performed also from a Web browser by reloading the page multiple times.</p>
 </div>
+<ol>
+<li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and shut the instance down.</li>
+<li>Wait until <code>web-1</code> shows the <code>Shut Off</code> state in Horizon.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># send repeated HTTP requests through the VIP while one backend VM is powered off</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;request failed&#39;</span><span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+request<span class="w"> </span>failed
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+request<span class="w"> </span>failed
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+request<span class="w"> </span>failed
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Without a health monitor, the load balancer still tries to send traffic to <code>web-1</code> even though the VM is shut down.</p>
+</div>
+<ol>
+<li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and start the instance again.</li>
+<li>Wait until <code>web-1</code> returns to the <code>Active</code> state in Horizon.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm that round-robin responses return after web-1 starts again</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-1&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-1&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-1&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+</code></pre></div>
+</details>
 <p><strong>12.4.12 Create a PING Health Monitor</strong></p>
-<p><strong>To create a basic VM reachability monitor via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
 <li>Open the <code>Pools</code> tab and click <code>demo-pool</code>.</li>
@@ -1023,7 +1057,6 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/
 </code></pre></div>
 </details>
 <p><strong>12.4.15 Replace the PING Monitor with an HTTP Monitor</strong></p>
-<p><strong>To replace the basic liveness monitor with an application-aware HTTP monitor via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
 <li>Open the <code>Pools</code> tab and click <code>demo-pool</code>.</li>
@@ -1101,7 +1134,6 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/healthche
 <p>After the demo, give the HTTP monitor enough time to probe <code>web-1</code> again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.</p>
 </div>
 <p><strong>12.4.18 Optional Cleanup</strong></p>
-<p><strong>To remove the demo resources after the exercise via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, delete <code>demo-lb</code> and confirm the cascade delete of its child resources if Horizon prompts for it.</li>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, delete <code>web-1</code> and <code>web-2</code>.</li>
