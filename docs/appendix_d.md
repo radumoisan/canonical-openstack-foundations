@@ -92,7 +92,7 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 **12.4.5 Floating IPs**
 
 !!! note
-    These floating IP addresses are only needed for the initial VM configuration and direct backend checks later in the appendix. Octavia uses the instances' fixed IP addresses on `local-net`, not their floating IP addresses.
+    These floating IP addresses are only needed for the initial VM configuration and direct backend checks later in the appendix. Release them after section `12.4.7`. Octavia uses the instances' fixed IP addresses on `local-net`, not their floating IP addresses.
 
 1. From `Project > Network > Routers`, click `Create Router`.
 2. On the `Create Router` screen, enter or select the following, then click `Create Router`:
@@ -147,6 +147,16 @@ ssh -i bootstrap.pem ubuntu@<web-1-floating-ip>
     ```
 
 ```bash
+# set a password for the ubuntu user so you can use the Horizon web console later
+echo 'ubuntu:openstack' | sudo chpasswd
+```
+
+??? example "Expected result"
+    ```bash
+    No output.
+    ```
+
+```bash
 # install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-1
 sudo apt update && \
 sudo apt install -y apache2 && \
@@ -177,66 +187,13 @@ exit
     Connection to 192.168.100.88 closed.
     ```
 
-```bash
-# connect to the second backend instance
-ssh -i bootstrap.pem ubuntu@<web-2-floating-ip>
-```
-
-??? example "Expected result"
-    ```bash
-    The authenticity of host '192.168.100.98 (192.168.100.98)' can't be established.
-    ED25519 key fingerprint is SHA256:[redacted].
-    Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-    Warning: Permanently added '192.168.100.98' (ED25519) to the list of known hosts.
-    ubuntu@web-2:~$
-    ```
-
-```bash
-# install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-2
-sudo apt update && \
-sudo apt install -y apache2 && \
-printf '%s\n' '<h1>Apache backend web-2</h1>' | sudo tee /var/www/html/index.html && \
-printf 'OK\n' | sudo tee /var/www/html/healthcheck && \
-curl -s http://127.0.0.1/ && \
-curl -s http://127.0.0.1/healthcheck
-```
-
-??? example "Expected result"
-    ```bash
-    Reading package lists... Done
-    Building dependency tree... Done
-    Reading state information... Done
-    ...
-    Setting up apache2 ...
-    <h1>Apache backend web-2</h1>
-    OK
-    ```
-
-```bash
-# leave the web-2 SSH session
-exit
-```
-
-??? example "Expected result"
-    ```bash
-    Connection to 192.168.100.98 closed.
-    ```
+Repeat the same SSH, password update, Apache installation, landing page, and health check steps for `web-2`, using its floating IP address, **setting the password to `openstack`**, and **changing the landing page content to `<h1>Apache backend web-2</h1>`**.
 
 **12.4.7 Verify Direct Backend Reachability and HTTP Responses**
 
 ```bash
-# record the backend floating IP addresses for reuse in the remaining commands
-export WEB1_FLOATING_IP=<web-1-floating-ip> WEB2_FLOATING_IP=<web-2-floating-ip>
-```
-
-??? example "Expected result"
-    ```bash
-    No output.
-    ```
-
-```bash
 # confirm that the first backend VM is reachable over ICMP
-ping -c 4 $WEB1_FLOATING_IP
+ping -c 4 <web-1-floating-ip>
 ```
 
 ??? example "Expected result"
@@ -253,7 +210,7 @@ ping -c 4 $WEB1_FLOATING_IP
 
 ```bash
 # confirm that the second backend VM is reachable over ICMP
-ping -c 4 $WEB2_FLOATING_IP
+ping -c 4 <web-2-floating-ip>
 ```
 
 ??? example "Expected result"
@@ -270,7 +227,7 @@ ping -c 4 $WEB2_FLOATING_IP
 
 ```bash
 # confirm that the first backend Apache page responds directly
-curl -s http://$WEB1_FLOATING_IP/
+curl -s http://<web-1-floating-ip>/
 ```
 
 ??? example "Expected result"
@@ -280,7 +237,7 @@ curl -s http://$WEB1_FLOATING_IP/
 
 ```bash
 # confirm that the second backend Apache page responds directly
-curl -s http://$WEB2_FLOATING_IP/
+curl -s http://<web-2-floating-ip>/
 ```
 
 ??? example "Expected result"
@@ -288,7 +245,19 @@ curl -s http://$WEB2_FLOATING_IP/
     <h1>Apache backend web-2</h1>
     ```
 
-**12.4.8 Create the Load Balancer, Listener, and Pool in Horizon**
+!!! note ""
+    You can also perform the `curl` checks in a web browser by opening each backend floating IP address directly.
+
+**12.4.8 Release the Backend Floating IPs**
+
+1. From `Project > Compute > Instances`, next to `web-1`, select `Disassociate Floating IP`.
+2. Repeat the same action for `web-2`.
+3. From `Project > Network > Floating IPs`, release the two unassociated backend floating IP addresses.
+
+!!! note
+    The remaining service-management steps use the Horizon web console with the `ubuntu` user and the password `openstack`.
+
+**12.4.9 Create the Load Balancer, Listener, and Pool in Horizon**
 
 **To create the load balancer via Horizon perform the following:**
 
@@ -317,7 +286,7 @@ curl -s http://$WEB2_FLOATING_IP/
 !!! note
     Use the same project subnet for the VIP and the backend members. The pool members must use the instances' fixed IP addresses on the project network, not their floating IP addresses.
 
-**12.4.9 Add the Two Apache Backends as Pool Members**
+**12.4.10 Add the Two Apache Backends as Pool Members**
 
 **To add the backend members via Horizon perform the following:**
 
@@ -337,7 +306,7 @@ curl -s http://$WEB2_FLOATING_IP/
 > `Weight`: **1**
 7. Wait until both members appear in the pool member list.
 
-**12.4.10 Associate a Floating IP Address with the Load Balancer VIP**
+**12.4.11 Associate a Floating IP Address with the Load Balancer VIP**
 
 **To expose the load balancer VIP externally via Horizon perform the following:**
 
@@ -352,24 +321,14 @@ curl -s http://$WEB2_FLOATING_IP/
 9. Click `Associate`.
 10. Record the associated external address for later use from the terminal.
 
-```bash
-# record the load balancer floating IP address for reuse in the remaining commands
-export VIP_FLOATING_IP=<vip-floating-ip>
-```
-
-??? example "Expected result"
-    ```bash
-    No output.
-    ```
-
 !!! note
     Some Horizon releases display the load balancer name directly in the port list, while others only show the port ID. Match the VIP port carefully before confirming the association.
 
-**12.4.11 Verify Round-Robin Responses Through the VIP**
+**12.4.12 Verify Round-Robin Responses Through the VIP**
 
 ```bash
 # send repeated HTTP requests through the load balancer VIP
-for i in {1..6}; do curl -s http://$VIP_FLOATING_IP/; printf '\n'; done
+for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
 ```
 
 ??? example "Expected result"
@@ -385,7 +344,7 @@ for i in {1..6}; do curl -s http://$VIP_FLOATING_IP/; printf '\n'; done
 !!! note
     The exact request order can vary, but over several requests you should see responses from both backends while both Apache services are healthy.
 
-**12.4.12 Create a PING Health Monitor**
+**12.4.13 Create a PING Health Monitor**
 
 **To create a basic VM reachability monitor via Horizon perform the following:**
 
@@ -401,11 +360,13 @@ for i in {1..6}; do curl -s http://$VIP_FLOATING_IP/; printf '\n'; done
 5. Click `Create`.
 6. Wait until the health monitor is active and both pool members show a healthy or online state.
 
-**12.4.13 Stop Apache on web-1 and Observe the Limitation of PING Monitoring**
+**12.4.14 Stop Apache on web-1 and Observe the Limitation of PING Monitoring**
+
+From `Project > Compute > Instances`, open the Horizon console for `web-1`, log in as `ubuntu` with password `openstack`, and run the following command:
 
 ```bash
 # stop Apache on the first backend while leaving the VM running
-ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
+sudo systemctl stop apache2
 ```
 
 ??? example "Expected result"
@@ -414,30 +375,23 @@ ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
     ```
 
 ```bash
-# confirm that the first backend VM is still alive at the network layer
-ping -c 4 $WEB1_FLOATING_IP
+# confirm from the console that the Apache service is no longer active
+systemctl is-active apache2
 ```
 
 ??? example "Expected result"
     ```bash
-    PING 192.168.100.180 (192.168.100.180) 56(84) bytes of data.
-    64 bytes from 192.168.100.180: icmp_seq=1 ttl=64 time=0.565 ms
-    64 bytes from 192.168.100.180: icmp_seq=2 ttl=64 time=0.590 ms
-    64 bytes from 192.168.100.180: icmp_seq=3 ttl=64 time=0.577 ms
-    64 bytes from 192.168.100.180: icmp_seq=4 ttl=64 time=0.584 ms
-
-    --- 192.168.100.180 ping statistics ---
-    4 packets transmitted, 4 received, 0% packet loss, time 3071ms
+    inactive
     ```
 
 ```bash
-# confirm that the Apache service on the first backend no longer answers HTTP requests
-curl -sS --max-time 5 http://$WEB1_FLOATING_IP/
+# confirm that the Apache service on the first backend no longer answers locally
+curl -sS --max-time 5 http://127.0.0.1/
 ```
 
 ??? example "Expected result"
     ```bash
-    curl: (7) Failed to connect to 192.168.100.180 port 80 after 0 ms: Connection refused
+    curl: (7) Failed to connect to 127.0.0.1 port 80 after 0 ms: Connection refused
     ```
 
 !!! note
@@ -445,7 +399,7 @@ curl -sS --max-time 5 http://$WEB1_FLOATING_IP/
 
 ```bash
 # send repeated HTTP requests through the VIP while one backend application is down
-for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/ || printf 'request failed'; printf '\n'; done
+for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 'request failed'; printf '\n'; done
 ```
 
 ??? example "Expected result"
@@ -458,11 +412,13 @@ for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/ || printf 'req
     request failed
     ```
 
-**12.4.14 Start Apache Again Before Replacing the Health Monitor**
+**12.4.15 Start Apache Again Before Replacing the Health Monitor**
+
+Use the `web-1` Horizon console again and run:
 
 ```bash
 # start Apache on the first backend again
-ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
+sudo systemctl start apache2
 ```
 
 ??? example "Expected result"
@@ -471,8 +427,8 @@ ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
     ```
 
 ```bash
-# confirm that the first backend Apache page responds again
-curl -s http://$WEB1_FLOATING_IP/
+# confirm locally that the first backend Apache page responds again
+curl -s http://127.0.0.1/
 ```
 
 ??? example "Expected result"
@@ -480,7 +436,7 @@ curl -s http://$WEB1_FLOATING_IP/
     <h1>Apache backend web-1</h1>
     ```
 
-**12.4.15 Replace the PING Monitor with an HTTP Monitor**
+**12.4.16 Replace the PING Monitor with an HTTP Monitor**
 
 **To replace the basic liveness monitor with an application-aware HTTP monitor via Horizon perform the following:**
 
@@ -500,11 +456,13 @@ curl -s http://$WEB1_FLOATING_IP/
 7. Click `Create`.
 8. Wait until the new HTTP health monitor is active and both members return to a healthy or online state.
 
-**12.4.16 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
+**12.4.17 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
+
+Use the `web-1` Horizon console again and run:
 
 ```bash
 # stop Apache on the first backend again to trigger the HTTP monitor
-ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
+sudo systemctl stop apache2
 ```
 
 ??? example "Expected result"
@@ -527,7 +485,7 @@ sleep 20
 
 ```bash
 # confirm that requests through the VIP continue to succeed from the remaining healthy backend
-for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/; printf '\n'; done
+for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/; printf '\n'; done
 ```
 
 ??? example "Expected result"
@@ -540,11 +498,13 @@ for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/; printf '\n'; 
     <h1>Apache backend web-2</h1>
     ```
 
-**12.4.17 Restore the Failed Backend After the Demo**
+**12.4.18 Restore the Failed Backend After the Demo**
+
+Use the `web-1` Horizon console again and run:
 
 ```bash
 # start Apache on the first backend so both members can return to service
-ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
+sudo systemctl start apache2
 ```
 
 ??? example "Expected result"
@@ -553,8 +513,8 @@ ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
     ```
 
 ```bash
-# confirm that the first backend health endpoint responds again
-curl -s http://$WEB1_FLOATING_IP/healthcheck
+# confirm locally that the first backend health endpoint responds again
+curl -s http://127.0.0.1/healthcheck
 ```
 
 ??? example "Expected result"
@@ -565,11 +525,11 @@ curl -s http://$WEB1_FLOATING_IP/healthcheck
 !!! note
     After the demo, give the HTTP monitor enough time to probe `web-1` again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.
 
-**12.4.18 Optional Cleanup**
+**12.4.19 Optional Cleanup**
 
 **To remove the demo resources after the exercise via Horizon perform the following:**
 
 1. From `Project > Network > Load Balancers`, delete `demo-lb` and confirm the cascade delete of its child resources if Horizon prompts for it.
 2. From `Project > Compute > Instances`, delete `web-1` and `web-2`.
-3. From `Project > Network > Floating IPs`, release the three floating IP addresses used by `web-1`, `web-2`, and the VIP.
+3. From `Project > Network > Floating IPs`, release the floating IP address used by the VIP.
 4. Wait until the instances, floating IP associations, and load balancer resources are removed.
