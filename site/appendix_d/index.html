@@ -709,6 +709,10 @@
 <li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on <code>local-net</code>. You will use them later when adding pool members.</li>
 </ol>
 <p><strong>12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These floating IP addresses are only needed for the initial VM configuration and direct backend checks later in the appendix. Octavia uses the instances' fixed IP addresses on <code>local-net</code>, not their floating IP addresses.</p>
+</div>
 <ol>
 <li>From <code>Project &gt; Network &gt; Routers</code>, click <code>Create Router</code>.</li>
 <li>On the <code>Create Router</code> screen, enter or select the following, then click <code>Create Router</code>:<blockquote>
@@ -718,7 +722,6 @@
 </li>
 </ol>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>Open <code>Project &gt; Network &gt; Network Topology</code> after creating the router. This makes it easier to see the new <code>local-router</code> object and its relationship to the external network.</p>
 </div>
 <ol>
@@ -729,7 +732,6 @@
 </li>
 </ol>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>Return to <code>Project &gt; Network &gt; Network Topology</code> after adding the interface. This view makes it easier to confirm that <code>local-net</code> is now connected to <code>local-router</code>.</p>
 </div>
 <ol>
@@ -742,16 +744,7 @@
 <li>Record the two external addresses for later use from the shell on the student host.</li>
 </ol>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>Check <code>Project &gt; Network &gt; Network Topology</code> again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The backend instances need floating IP addresses for direct SSH access and direct HTTP checks later in the appendix. Octavia still uses the instances' fixed IP addresses on <code>local-net</code> when you add them as pool members.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If Horizon reports that the subnet is already using gateway IP <code>10.0.20.1</code> when you add the router interface, the subnet is already attached to another router. In that case, keep the existing routing path and continue with the floating IP allocation and association steps instead of adding a second router interface.</p>
 </div>
 <p><strong>12.4.6 Connect to the Student Host</strong></p>
 <p>From the workstation terminal, connect to the student host for this validation environment. That host should already contain the OpenStack credentials and the SSH private key you will use for the backend instances.</p>
