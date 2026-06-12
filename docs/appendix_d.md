@@ -78,32 +78,28 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 > `Instance Name`: **web-1**<br/>
 > `Availability Zone`: **nova**<br/>
 > `Count`: **1**
-4. Click `Next`.
-5. On the `Source` tab, enter or select the following:
+4. On the `Source` tab, enter or select the following:
 > `Select Boot Source`: **Image**<br/>
-> `Create New Volume`: **No**
-6. Move the Ubuntu image for this environment from `Available` to `Allocated`.
-7. Click `Next`.
-8. On the `Flavor` tab, move a small flavor suitable for an Apache demo instance from `Available` to `Allocated`.
-9. Click `Next`.
-10. On the `Networks` tab, move the project network for the backend instances from `Available` to `Allocated`.
-11. Click `Next` twice.
-12. On the `Security Groups` tab, keep `default` assigned to the instance.
-13. Click `Next`.
-14. On the `Key Pair` tab, move the SSH key pair for this environment from `Available` to `Allocated`.
-15. Click `Launch Instance`.
-16. Wait for `web-1` to reach the `Active` state.
+> `Create New Volume`: **Yes**<br/>
+> `Volume Size (GB)`: **5**<br/>
+> `Allocated`: **ubuntu-24.04**
+5. On the `Flavor` tab, move `c1.small` from `Available` to `Allocated`.
+6. On the `Networks` tab, move `local-net` from `Available` to `Allocated`.
+7. On the `Security Groups` tab, keep `default` assigned to the instance.
+8. On the `Key Pair` tab, move `bootstrap` from `Available` to `Allocated`.
+9. Click `Launch Instance`.
+10. Wait for `web-1` to reach the `Active` state.
 
 **12.4.4 Launch the Second Ubuntu Backend Instance**
 
 **To launch the second backend instance via Horizon perform the following:**
 
 1. From `Project > Compute > Instances`, click `Launch Instance` again.
-2. Repeat the same selections as in the previous task with the following change:
+2. Repeat the same tab selections as in the previous task with the following change:
 > `Instance Name`: **web-2**
 3. Click `Launch Instance`.
 4. Wait for `web-2` to reach the `Active` state.
-5. In the `IP Address` column for both instances, record the fixed IP addresses shown on the selected project network. You will use them later when adding pool members.
+5. In the `IP Address` column for both instances, record the fixed IP addresses shown on `local-net`. You will use them later when adding pool members.
 
 **12.4.5 Assign Floating IP Addresses to Both Backend Instances**
 
