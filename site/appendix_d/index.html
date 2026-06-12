@@ -982,19 +982,57 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
 <li>Open the <code>Pools</code> tab and click <code>demo-pool</code>.</li>
+<li>Open the <code>Health Monitor</code> tab.</li>
 <li>Click <code>Create Health Monitor</code>.</li>
 <li>On the <code>Create Health Monitor</code> screen, enter or select the following:<blockquote>
 <p><code>Name</code>: <strong>demo-hm-ping</strong><br/>
-<code>Type</code>: <strong>PING</strong><br/>
-<code>Delay</code>: <strong>5</strong><br/>
-<code>Timeout</code>: <strong>3</strong><br/>
-<code>Max Retries</code>: <strong>3</strong></p>
+<code>Type</code>: <strong>PING</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Create</code>.</li>
 <li>Wait until the health monitor is active and both pool members show a healthy or online state.</li>
 </ol>
-<p><strong>12.4.13 Stop Apache on web-1 and Observe the Limitation of PING Monitoring</strong></p>
+<p><strong>12.4.13 Shut Down web-1 Again and Observe the Improvement with PING</strong></p>
+<ol>
+<li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and shut the instance down.</li>
+<li>Wait until <code>web-1</code> shows the <code>Shut Off</code> state in Horizon.</li>
+<li>Return to <code>Project &gt; Network &gt; Load Balancers</code> and inspect the <code>demo-pool</code> member list. After a short delay, <code>web-1</code> should show <code>Operating Status = Error</code>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># send repeated HTTP requests through the VIP while one backend VM is powered off</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+</code></pre></div>
+</details>
+<div class="admonition example">
+<p>With the <code>PING</code> health monitor in place, the improvement is visible both in Horizon and from the client side. <code>web-1</code> is marked with <code>Operating Status = Error</code>, and requests go directly to <code>web-2</code> with normal response time instead of first failing internally.</p>
+</div>
+<p><strong>12.4.14 Start web-1 Again Before the Apache Failure Test</strong></p>
+<ol>
+<li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and start the instance again.</li>
+<li>Wait until <code>web-1</code> returns to the <code>Active</code> state in Horizon.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm that round-robin responses return after web-1 starts again</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-1&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-1&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-1&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+</code></pre></div>
+</details>
+<p><strong>12.4.15 Stop Apache on web-1 and Observe the Limitation of PING Monitoring</strong></p>
 <p>From <code>Project &gt; Compute &gt; Instances</code>, open the Horizon console for <code>web-1</code>, log in as <code>ubuntu</code> with password <code>openstack</code>, and run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend while leaving the VM running</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
@@ -1037,7 +1075,7 @@ request<span class="w"> </span>failed
 request<span class="w"> </span>failed
 </code></pre></div>
 </details>
-<p><strong>12.4.14 Start Apache Again Before Replacing the Health Monitor</strong></p>
+<p><strong>12.4.16 Start Apache Again Before Replacing the Health Monitor</strong></p>
 <p>Use the <code>web-1</code> Horizon console again and run:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend again</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
@@ -1055,7 +1093,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/
 <div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-1&lt;/h1&gt;
 </code></pre></div>
 </details>
-<p><strong>12.4.15 Replace the PING Monitor with an HTTP Monitor</strong></p>
+<p><strong>12.4.17 Replace the PING Monitor with an HTTP Monitor</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
 <li>Open the <code>Pools</code> tab and click <code>demo-pool</code>.</li>
@@ -1066,16 +1104,13 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/
 <p><code>Name</code>: <strong>demo-hm-http</strong><br/>
 <code>Type</code>: <strong>HTTP</strong><br/>
 <code>URL Path</code>: <strong>/healthcheck</strong><br/>
-<code>Expected Codes</code>: <strong>200</strong><br/>
-<code>Delay</code>: <strong>5</strong><br/>
-<code>Timeout</code>: <strong>3</strong><br/>
-<code>Max Retries</code>: <strong>3</strong></p>
+<code>Expected Codes</code>: <strong>200</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Create</code>.</li>
 <li>Wait until the new HTTP health monitor is active and both members return to a healthy or online state.</li>
 </ol>
-<p><strong>12.4.16 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service</strong></p>
+<p><strong>12.4.18 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service</strong></p>
 <p>Use the <code>web-1</code> Horizon console again and run:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend again to trigger the HTTP monitor</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
@@ -1110,7 +1145,7 @@ sleep<span class="w"> </span><span class="m">20</span>
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
-<p><strong>12.4.17 Restore the Failed Backend After the Demo</strong></p>
+<p><strong>12.4.19 Restore the Failed Backend After the Demo</strong></p>
 <p>Use the <code>web-1</code> Horizon console again and run:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend so both members can return to service</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
@@ -1132,7 +1167,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/healthche
 <p class="admonition-title">Note</p>
 <p>After the demo, give the HTTP monitor enough time to probe <code>web-1</code> again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.</p>
 </div>
-<p><strong>12.4.18 Optional Cleanup</strong></p>
+<p><strong>12.4.20 Optional Cleanup</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, delete <code>demo-lb</code> and confirm the cascade delete of its child resources if Horizon prompts for it.</li>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, delete <code>web-1</code> and <code>web-2</code>.</li>
