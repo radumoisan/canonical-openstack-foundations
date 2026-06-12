@@ -101,21 +101,44 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 4. Wait for `web-2` to reach the `Active` state.
 5. In the `IP Address` column for both instances, record the fixed IP addresses shown on `local-net`. You will use them later when adding pool members.
 
-**12.4.5 Assign Floating IP Addresses to Both Backend Instances**
+**12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances**
 
-**To allocate and associate floating IP addresses via Horizon perform the following:**
+**To prepare external access for the backend instances via Horizon perform the following:**
 
-1. From the panels on the left select `Project > Network > Floating IPs`.
-2. Click `Allocate IP To Project`.
-3. On the `Allocate Floating IP` screen, select the external network used for floating IP allocation in this environment.
-4. Click `Allocate IP`.
-5. Repeat the allocation once more so that you have two free floating IP addresses.
-6. From the panels on the left select `Project > Compute > Instances`.
-7. Next to `web-1`, select `Associate Floating IP` from the action menu.
-8. On the `Manage Floating IP Associations` screen, select one of the newly allocated floating IP addresses and accept the default port.
-9. Click `Associate`.
-10. Repeat the same association process for `web-2` using the second floating IP address.
-11. Record the two external addresses for later use from the shell on the student host.
+1. From `Project > Network > Routers`, click `Create Router`.
+2. On the `Create Router` screen, enter or select the following:
+> `Name`: **local-router**<br/>
+> `External Network`: **office**
+3. Click `Create Router`.
+
+!!! note
+    Open `Project > Network > Network Topology` after creating the router. This makes it easier to see the new `local-router` object and its relationship to the external network.
+
+4. Open `local-router`, select the `Interfaces` tab, and click `Add Interface`.
+5. On the `Add Interface` screen, select the following:
+> `Subnet`: **local-subnet**
+6. Click `Add Interface`.
+
+!!! note
+    Return to `Project > Network > Network Topology` after adding the interface. This view makes it easier to confirm that `local-net` is now connected to `local-router`.
+
+7. From `Project > Network > Floating IPs`, click `Allocate IP To Project`.
+8. On the `Allocate Floating IP` screen, select `office` from the `Pool` list.
+9. Click `Allocate IP`.
+10. Repeat the allocation once more so that you have two free floating IP addresses.
+11. From `Project > Compute > Instances`, next to `web-1`, select `Associate Floating IP` from the action menu.
+12. On the `Manage Floating IP Associations` screen, select one of the newly allocated floating IP addresses and accept the default port, then click `Associate`.
+13. Repeat the same association process for `web-2` using the second floating IP address.
+14. Record the two external addresses for later use from the shell on the student host.
+
+!!! note
+    Check `Project > Network > Network Topology` again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.
+
+!!! note
+    The backend instances need floating IP addresses for direct SSH access and direct HTTP checks later in the appendix. Octavia still uses the instances' fixed IP addresses on `local-net` when you add them as pool members.
+
+!!! warning
+    If Horizon reports that the subnet is already using gateway IP `10.0.20.1` when you add the router interface, the subnet is already attached to another router. In that case, keep the existing routing path and continue with the floating IP allocation and association steps instead of adding a second router interface.
 
 **12.4.6 Connect to the Student Host**
 
