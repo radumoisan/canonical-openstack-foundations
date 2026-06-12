@@ -719,21 +719,55 @@
 <li>Wait for <code>web-2</code> to reach the <code>Active</code> state.</li>
 <li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on <code>local-net</code>. You will use them later when adding pool members.</li>
 </ol>
-<p><strong>12.4.5 Assign Floating IP Addresses to Both Backend Instances</strong></p>
-<p><strong>To allocate and associate floating IP addresses via Horizon perform the following:</strong></p>
+<p><strong>12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances</strong></p>
+<p><strong>To prepare external access for the backend instances via Horizon perform the following:</strong></p>
 <ol>
-<li>From the panels on the left select <code>Project &gt; Network &gt; Floating IPs</code>.</li>
-<li>Click <code>Allocate IP To Project</code>.</li>
-<li>On the <code>Allocate Floating IP</code> screen, select the external network used for floating IP allocation in this environment.</li>
+<li>From <code>Project &gt; Network &gt; Routers</code>, click <code>Create Router</code>.</li>
+<li>On the <code>Create Router</code> screen, enter or select the following:<blockquote>
+<p><code>Name</code>: <strong>local-router</strong><br/>
+<code>External Network</code>: <strong>office</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Create Router</code>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Open <code>Project &gt; Network &gt; Network Topology</code> after creating the router. This makes it easier to see the new <code>local-router</code> object and its relationship to the external network.</p>
+</div>
+<ol>
+<li>Open <code>local-router</code>, select the <code>Interfaces</code> tab, and click <code>Add Interface</code>.</li>
+<li>On the <code>Add Interface</code> screen, select the following:<blockquote>
+<p><code>Subnet</code>: <strong>local-subnet</strong></p>
+</blockquote>
+</li>
+<li>Click <code>Add Interface</code>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Return to <code>Project &gt; Network &gt; Network Topology</code> after adding the interface. This view makes it easier to confirm that <code>local-net</code> is now connected to <code>local-router</code>.</p>
+</div>
+<ol>
+<li>From <code>Project &gt; Network &gt; Floating IPs</code>, click <code>Allocate IP To Project</code>.</li>
+<li>On the <code>Allocate Floating IP</code> screen, select <code>office</code> from the <code>Pool</code> list.</li>
 <li>Click <code>Allocate IP</code>.</li>
 <li>Repeat the allocation once more so that you have two free floating IP addresses.</li>
-<li>From the panels on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
-<li>Next to <code>web-1</code>, select <code>Associate Floating IP</code> from the action menu.</li>
-<li>On the <code>Manage Floating IP Associations</code> screen, select one of the newly allocated floating IP addresses and accept the default port.</li>
-<li>Click <code>Associate</code>.</li>
+<li>From <code>Project &gt; Compute &gt; Instances</code>, next to <code>web-1</code>, select <code>Associate Floating IP</code> from the action menu.</li>
+<li>On the <code>Manage Floating IP Associations</code> screen, select one of the newly allocated floating IP addresses and accept the default port, then click <code>Associate</code>.</li>
 <li>Repeat the same association process for <code>web-2</code> using the second floating IP address.</li>
 <li>Record the two external addresses for later use from the shell on the student host.</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Check <code>Project &gt; Network &gt; Network Topology</code> again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The backend instances need floating IP addresses for direct SSH access and direct HTTP checks later in the appendix. Octavia still uses the instances' fixed IP addresses on <code>local-net</code> when you add them as pool members.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If Horizon reports that the subnet is already using gateway IP <code>10.0.20.1</code> when you add the router interface, the subnet is already attached to another router. In that case, keep the existing routing path and continue with the floating IP allocation and association steps instead of adding a second router interface.</p>
+</div>
 <p><strong>12.4.6 Connect to the Student Host</strong></p>
 <p>From the workstation terminal, connect to the student host for this validation environment. That host should already contain the OpenStack credentials and the SSH private key you will use for the backend instances.</p>
 <div class="admonition note">
