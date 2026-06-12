@@ -802,7 +802,9 @@ OK
 <div class="highlight"><pre><span></span><code>Connection<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.100.88<span class="w"> </span>closed.
 </code></pre></div>
 </details>
-<p>Repeat the same SSH, password update, Apache installation, landing page, and health check steps for <code>web-2</code>, using its floating IP address, <strong>setting the password to <code>openstack</code></strong>, and <strong>changing the landing page content to <code>&lt;h1&gt;Apache backend web-2&lt;/h1&gt;</code></strong>.</p>
+<blockquote>
+<p>Repeat the same SSH, password update, Apache installation, landing page, and health check steps for <code>web-2</code>, using its floating IP address, setting the password to <code>openstack</code>, and <strong>changing the landing page content to <code>&lt;h1&gt;Apache backend web-2&lt;/h1&gt;</code></strong>.</p>
+</blockquote>
 <p><strong>12.4.7 Verify Direct Backend Reachability and HTTP Responses</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that the first backend VM is reachable over ICMP</span>
 ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>&lt;web-1-floating-ip&gt;
