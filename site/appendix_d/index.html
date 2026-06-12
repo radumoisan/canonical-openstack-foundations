@@ -951,16 +951,20 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <details class="example">
 <summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
-request<span class="w"> </span>failed
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
-request<span class="w"> </span>failed
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
-request<span class="w"> </span>failed
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Without a health monitor, the load balancer still tries to send traffic to <code>web-1</code> even though the VM is shut down.</p>
+<p>Without a health monitor, <code>web-1</code> remains attached to the pool in Horizon even though the VM is shut down. In this environment, client requests continue to return content from <code>web-2</code> instead of marking <code>web-1</code> unhealthy.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Observed behavior</p>
+<p>Without a health monitor, the setup can still appear to work from the client side because the load balancer eventually serves content from <code>web-2</code>. However, this is still not ideal: incoming requests can still be sent to <code>web-1</code> first, fail internally, and only then be served by <code>web-2</code>. The backend is not proactively marked unhealthy.</p>
 </div>
 <ol>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and start the instance again.</li>
