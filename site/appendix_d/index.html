@@ -711,7 +711,7 @@
 <p><strong>12.4.5 Floating IPs</strong></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>These floating IP addresses are only needed for the initial VM configuration and direct backend checks later in the appendix. Octavia uses the instances' fixed IP addresses on <code>local-net</code>, not their floating IP addresses.</p>
+<p>These floating IP addresses are only needed for the initial VM configuration and direct backend checks later in the appendix. Release them after section <code>12.4.7</code>. Octavia uses the instances' fixed IP addresses on <code>local-net</code>, not their floating IP addresses.</p>
 </div>
 <ol>
 <li>From <code>Project &gt; Network &gt; Routers</code>, click <code>Create Router</code>.</li>
@@ -767,6 +767,14 @@ ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w
 ubuntu@web-1:~$
 </code></pre></div>
 </details>
+<div class="highlight"><pre><span></span><code><span class="c1"># set a password for the ubuntu user so you can use the Horizon web console later</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;ubuntu:openstack&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>chpasswd
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
 <div class="highlight"><pre><span></span><code><span class="c1"># install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-1</span>
 sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>apache2<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
@@ -794,56 +802,10 @@ OK
 <div class="highlight"><pre><span></span><code>Connection<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.100.88<span class="w"> </span>closed.
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="c1"># connect to the second backend instance</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@&lt;web-2-floating-ip&gt;
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>The<span class="w"> </span>authenticity<span class="w"> </span>of<span class="w"> </span>host<span class="w"> </span><span class="s1">&#39;192.168.100.98 (192.168.100.98)&#39;</span><span class="w"> </span>can<span class="s1">&#39;t be established.</span>
-<span class="s1">ED25519 key fingerprint is SHA256:[redacted].</span>
-<span class="s1">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span>
-<span class="s1">Warning: Permanently added &#39;</span><span class="m">192</span>.168.100.98<span class="err">&#39;</span><span class="w"> </span><span class="o">(</span>ED25519<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>known<span class="w"> </span>hosts.
-ubuntu@web-2:~$
-</code></pre></div>
-</details>
-<div class="highlight"><pre><span></span><code><span class="c1"># install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-2</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>apache2<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;%s\n&#39;</span><span class="w"> </span><span class="s1">&#39;&lt;h1&gt;Apache backend web-2&lt;/h1&gt;&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/var/www/html/index.html<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;OK\n&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/var/www/html/healthcheck<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/healthcheck
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Reading<span class="w"> </span>package<span class="w"> </span>lists...<span class="w"> </span>Done
-Building<span class="w"> </span>dependency<span class="w"> </span>tree...<span class="w"> </span>Done
-Reading<span class="w"> </span>state<span class="w"> </span>information...<span class="w"> </span>Done
-...
-Setting<span class="w"> </span>up<span class="w"> </span>apache2<span class="w"> </span>...
-&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
-OK
-</code></pre></div>
-</details>
-<div class="highlight"><pre><span></span><code><span class="c1"># leave the web-2 SSH session</span>
-<span class="nb">exit</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>Connection<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.100.98<span class="w"> </span>closed.
-</code></pre></div>
-</details>
+<p>Repeat the same SSH, password update, Apache installation, landing page, and health check steps for <code>web-2</code>, using its floating IP address, <strong>setting the password to <code>openstack</code></strong>, and <strong>changing the landing page content to <code>&lt;h1&gt;Apache backend web-2&lt;/h1&gt;</code></strong>.</p>
 <p><strong>12.4.7 Verify Direct Backend Reachability and HTTP Responses</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># record the backend floating IP addresses for reuse in the remaining commands</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">WEB1_FLOATING_IP</span><span class="o">=</span>&lt;web-1-floating-ip&gt;<span class="w"> </span><span class="nv">WEB2_FLOATING_IP</span><span class="o">=</span>&lt;web-2-floating-ip&gt;
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
-</code></pre></div>
-</details>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that the first backend VM is reachable over ICMP</span>
-ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">$WEB1_FLOATING_IP</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>&lt;web-1-floating-ip&gt;
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -858,7 +820,7 @@ ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><s
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that the second backend VM is reachable over ICMP</span>
-ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">$WEB2_FLOATING_IP</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>&lt;web-2-floating-ip&gt;
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -873,7 +835,7 @@ ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><s
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that the first backend Apache page responds directly</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$WEB1_FLOATING_IP</span>/
+curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-1-floating-ip&gt;/
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -881,14 +843,27 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that the second backend Apache page responds directly</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$WEB2_FLOATING_IP</span>/
+curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-ip&gt;/
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
-<p><strong>12.4.8 Create the Load Balancer, Listener, and Pool in Horizon</strong></p>
+<div class="admonition note">
+<p>You can also perform the <code>curl</code> checks in a web browser by opening each backend floating IP address directly.</p>
+</div>
+<p><strong>12.4.8 Release the Backend Floating IPs</strong></p>
+<ol>
+<li>From <code>Project &gt; Compute &gt; Instances</code>, next to <code>web-1</code>, select <code>Disassociate Floating IP</code>.</li>
+<li>Repeat the same action for <code>web-2</code>.</li>
+<li>From <code>Project &gt; Network &gt; Floating IPs</code>, release the two unassociated backend floating IP addresses.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The remaining service-management steps use the Horizon web console with the <code>ubuntu</code> user and the password <code>openstack</code>.</p>
+</div>
+<p><strong>12.4.9 Create the Load Balancer, Listener, and Pool in Horizon</strong></p>
 <p><strong>To create the load balancer via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Network &gt; Load Balancers</code>.</li>
@@ -923,7 +898,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <p class="admonition-title">Note</p>
 <p>Use the same project subnet for the VIP and the backend members. The pool members must use the instances' fixed IP addresses on the project network, not their floating IP addresses.</p>
 </div>
-<p><strong>12.4.9 Add the Two Apache Backends as Pool Members</strong></p>
+<p><strong>12.4.10 Add the Two Apache Backends as Pool Members</strong></p>
 <p><strong>To add the backend members via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
@@ -946,7 +921,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 </li>
 <li>Wait until both members appear in the pool member list.</li>
 </ol>
-<p><strong>12.4.10 Associate a Floating IP Address with the Load Balancer VIP</strong></p>
+<p><strong>12.4.11 Associate a Floating IP Address with the Load Balancer VIP</strong></p>
 <p><strong>To expose the load balancer VIP externally via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
@@ -960,21 +935,13 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <li>Click <code>Associate</code>.</li>
 <li>Record the associated external address for later use from the terminal.</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="c1"># record the load balancer floating IP address for reuse in the remaining commands</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">VIP_FLOATING_IP</span><span class="o">=</span>&lt;vip-floating-ip&gt;
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
-</code></pre></div>
-</details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Some Horizon releases display the load balancer name directly in the port list, while others only show the port ID. Match the VIP port carefully before confirming the association.</p>
 </div>
-<p><strong>12.4.11 Verify Round-Robin Responses Through the VIP</strong></p>
+<p><strong>12.4.12 Verify Round-Robin Responses Through the VIP</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># send repeated HTTP requests through the load balancer VIP</span>
-<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$VIP_FLOATING_IP</span>/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -990,7 +957,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <p class="admonition-title">Note</p>
 <p>The exact request order can vary, but over several requests you should see responses from both backends while both Apache services are healthy.</p>
 </div>
-<p><strong>12.4.12 Create a PING Health Monitor</strong></p>
+<p><strong>12.4.13 Create a PING Health Monitor</strong></p>
 <p><strong>To create a basic VM reachability monitor via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
@@ -1007,36 +974,30 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <li>Click <code>Create</code>.</li>
 <li>Wait until the health monitor is active and both pool members show a healthy or online state.</li>
 </ol>
-<p><strong>12.4.13 Stop Apache on web-1 and Observe the Limitation of PING Monitoring</strong></p>
+<p><strong>12.4.14 Stop Apache on web-1 and Observe the Limitation of PING Monitoring</strong></p>
+<p>From <code>Project &gt; Compute &gt; Instances</code>, open the Horizon console for <code>web-1</code>, log in as <code>ubuntu</code> with password <code>openstack</code>, and run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend while leaving the VM running</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="c1"># confirm that the first backend VM is still alive at the network layer</span>
-ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">$WEB1_FLOATING_IP</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm from the console that the Apache service is no longer active</span>
+systemctl<span class="w"> </span>is-active<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>PING<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span><span class="o">(</span><span class="m">192</span>.168.100.180<span class="o">)</span><span class="w"> </span><span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span><span class="w"> </span>bytes<span class="w"> </span>of<span class="w"> </span>data.
-<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.100.180:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">0</span>.565<span class="w"> </span>ms
-<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.100.180:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">0</span>.590<span class="w"> </span>ms
-<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.100.180:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">0</span>.577<span class="w"> </span>ms
-<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.100.180:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">0</span>.584<span class="w"> </span>ms
-
----<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
-<span class="m">4</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">4</span><span class="w"> </span>received,<span class="w"> </span><span class="m">0</span>%<span class="w"> </span>packet<span class="w"> </span>loss,<span class="w"> </span><span class="nb">time</span><span class="w"> </span>3071ms
+<div class="highlight"><pre><span></span><code>inactive
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="c1"># confirm that the Apache service on the first backend no longer answers HTTP requests</span>
-curl<span class="w"> </span>-sS<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://<span class="nv">$WEB1_FLOATING_IP</span>/
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm that the Apache service on the first backend no longer answers locally</span>
+curl<span class="w"> </span>-sS<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://127.0.0.1/
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>curl:<span class="w"> </span><span class="o">(</span><span class="m">7</span><span class="o">)</span><span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.100.180<span class="w"> </span>port<span class="w"> </span><span class="m">80</span><span class="w"> </span>after<span class="w"> </span><span class="m">0</span><span class="w"> </span>ms:<span class="w"> </span>Connection<span class="w"> </span>refused
+<div class="highlight"><pre><span></span><code>curl:<span class="w"> </span><span class="o">(</span><span class="m">7</span><span class="o">)</span><span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>port<span class="w"> </span><span class="m">80</span><span class="w"> </span>after<span class="w"> </span><span class="m">0</span><span class="w"> </span>ms:<span class="w"> </span>Connection<span class="w"> </span>refused
 </code></pre></div>
 </details>
 <div class="admonition note">
@@ -1044,7 +1005,7 @@ curl<span class="w"> </span>-sS<span class="w"> </span>--max-time<span class="w"
 <p>Return to <code>Project &gt; Network &gt; Load Balancers</code> and inspect the <code>demo-pool</code> member list. With a <code>PING</code> monitor, <code>web-1</code> can still appear healthy because the VM is reachable even though the Apache application has stopped.</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="c1"># send repeated HTTP requests through the VIP while one backend application is down</span>
-<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://<span class="nv">$VIP_FLOATING_IP</span>/<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;request failed&#39;</span><span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;request failed&#39;</span><span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1056,24 +1017,25 @@ request<span class="w"> </span>failed
 request<span class="w"> </span>failed
 </code></pre></div>
 </details>
-<p><strong>12.4.14 Start Apache Again Before Replacing the Health Monitor</strong></p>
+<p><strong>12.4.15 Start Apache Again Before Replacing the Health Monitor</strong></p>
+<p>Use the <code>web-1</code> Horizon console again and run:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend again</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="c1"># confirm that the first backend Apache page responds again</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$WEB1_FLOATING_IP</span>/
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm locally that the first backend Apache page responds again</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-1&lt;/h1&gt;
 </code></pre></div>
 </details>
-<p><strong>12.4.15 Replace the PING Monitor with an HTTP Monitor</strong></p>
+<p><strong>12.4.16 Replace the PING Monitor with an HTTP Monitor</strong></p>
 <p><strong>To replace the basic liveness monitor with an application-aware HTTP monitor via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
@@ -1094,9 +1056,10 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <li>Click <code>Create</code>.</li>
 <li>Wait until the new HTTP health monitor is active and both members return to a healthy or online state.</li>
 </ol>
-<p><strong>12.4.16 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service</strong></p>
+<p><strong>12.4.17 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service</strong></p>
+<p>Use the <code>web-1</code> Horizon console again and run:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend again to trigger the HTTP monitor</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1116,7 +1079,7 @@ sleep<span class="w"> </span><span class="m">20</span>
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that requests through the VIP continue to succeed from the remaining healthy backend</span>
-<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://<span class="nv">$VIP_FLOATING_IP</span>/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1128,17 +1091,18 @@ sleep<span class="w"> </span><span class="m">20</span>
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
-<p><strong>12.4.17 Restore the Failed Backend After the Demo</strong></p>
+<p><strong>12.4.18 Restore the Failed Backend After the Demo</strong></p>
+<p>Use the <code>web-1</code> Horizon console again and run:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend so both members can return to service</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="c1"># confirm that the first backend health endpoint responds again</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$WEB1_FLOATING_IP</span>/healthcheck
+<div class="highlight"><pre><span></span><code><span class="c1"># confirm locally that the first backend health endpoint responds again</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/healthcheck
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1149,12 +1113,12 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <p class="admonition-title">Note</p>
 <p>After the demo, give the HTTP monitor enough time to probe <code>web-1</code> again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.</p>
 </div>
-<p><strong>12.4.18 Optional Cleanup</strong></p>
+<p><strong>12.4.19 Optional Cleanup</strong></p>
 <p><strong>To remove the demo resources after the exercise via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, delete <code>demo-lb</code> and confirm the cascade delete of its child resources if Horizon prompts for it.</li>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, delete <code>web-1</code> and <code>web-2</code>.</li>
-<li>From <code>Project &gt; Network &gt; Floating IPs</code>, release the three floating IP addresses used by <code>web-1</code>, <code>web-2</code>, and the VIP.</li>
+<li>From <code>Project &gt; Network &gt; Floating IPs</code>, release the floating IP address used by the VIP.</li>
 <li>Wait until the instances, floating IP associations, and load balancer resources are removed.</li>
 </ol>
 
