@@ -714,37 +714,43 @@
 </div>
 <ol>
 <li>From <code>Project &gt; Network &gt; Routers</code>, click <code>Create Router</code>.</li>
-<li>On the <code>Create Router</code> screen, enter or select the following, then click <code>Create Router</code>:<blockquote>
+<li>
+<p>On the <code>Create Router</code> screen, enter or select the following, then click <code>Create Router</code>:</p>
+<blockquote>
 <p><code>Name</code>: <strong>local-router</strong><br/>
 <code>External Network</code>: <strong>office</strong></p>
 </blockquote>
-</li>
-</ol>
 <div class="admonition note">
 <p>Open <code>Project &gt; Network &gt; Network Topology</code> after creating the router. This makes it easier to see the new <code>local-router</code> object and its relationship to the external network.</p>
 </div>
-<ol>
-<li>Open <code>local-router</code>, select the <code>Interfaces</code> tab, and click <code>Add Interface</code>.</li>
-<li>On the <code>Add Interface</code> screen, select the following, then click <code>Add Interface</code>:<blockquote>
+</li>
+<li>
+<p>Open <code>local-router</code>, select the <code>Interfaces</code> tab, and click <code>Add Interface</code>.</p>
+</li>
+<li>
+<p>On the <code>Add Interface</code> screen, select the following, then click <code>Add Interface</code>:</p>
+<blockquote>
 <p><code>Subnet</code>: <strong>local-subnet</strong></p>
 </blockquote>
-</li>
-</ol>
 <div class="admonition note">
 <p>Return to <code>Project &gt; Network &gt; Network Topology</code> after adding the interface. This view makes it easier to confirm that <code>local-net</code> is now connected to <code>local-router</code>.</p>
 </div>
-<ol>
-<li>From <code>Project &gt; Network &gt; Floating IPs</code>, click <code>Allocate IP To Project</code>.</li>
+</li>
+<li>
+<p>From <code>Project &gt; Network &gt; Floating IPs</code>, click <code>Allocate IP To Project</code>.</p>
+</li>
 <li>On the <code>Allocate Floating IP</code> screen, select <code>office</code> from the <code>Pool</code> list, then click <code>Allocate IP</code>.</li>
 <li>Repeat the allocation once more so that you have two free floating IP addresses.</li>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, next to <code>web-1</code>, select <code>Associate Floating IP</code> from the action menu.</li>
 <li>On the <code>Manage Floating IP Associations</code> screen, select one of the newly allocated floating IP addresses and accept the default port, then click <code>Associate</code>.</li>
 <li>Repeat the same association process for <code>web-2</code> using the second floating IP address.</li>
-<li>Record the two external addresses for later use from the terminal.</li>
-</ol>
+<li>
+<p>Record the two external addresses for later use from the terminal.</p>
 <div class="admonition note">
 <p>Check <code>Project &gt; Network &gt; Network Topology</code> again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.</p>
 </div>
+</li>
+</ol>
 <p><strong>12.4.6 Connect to Each Backend and Install Apache</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm the backend private key uses restrictive permissions</span>
 chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>bootstrap.pem
@@ -924,6 +930,9 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <p>Some Horizon releases display the load balancer name directly in the port list, while others only show the port ID. Match the VIP port carefully before confirming the association.</p>
 </div>
 <p><strong>12.4.11 Verify Round-Robin Responses Through the VIP</strong></p>
+<ol>
+<li>
+<p>Verify that round-robin responses are working through the VIP.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># send repeated HTTP requests through the load balancer VIP</span>
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </code></pre></div>
@@ -937,6 +946,8 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
+</li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This test can be performed also from a Web browser by reloading the page multiple times.</p>
@@ -944,7 +955,10 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <ol>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and shut the instance down.</li>
 <li>Wait until <code>web-1</code> shows the <code>Shut Off</code> state in Horizon.</li>
-</ol>
+<li>
+<p>Verify the limitation without a health monitor.</p>
+<div class="admonition quote">
+<p class="admonition-title">Test</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># send repeated HTTP requests through the VIP while one backend VM is powered off</span>
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;request failed&#39;</span><span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </code></pre></div>
@@ -958,13 +972,19 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
+</div>
 <div class="admonition example">
 <p>Without a health monitor, shutting down <code>web-1</code> does not automatically mark it unhealthy in Horizon. The member can remain attached to the pool even though the VM is no longer available. Client requests can still appear to work because the load balancer eventually serves content from <code>web-2</code>, but this is still not ideal: requests can still be sent to <code>web-1</code> first, fail internally, and only then be served by <code>web-2</code>. In this environment, normal browser requests completed in about <code>5 ms</code>, while requests during the failure scenario took about <code>3 s</code> before returning content from <code>web-2</code>. This suggests the load balancer is attempting a backend connection to the failed VM first and only then failing over.</p>
 </div>
-<ol>
-<li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and start the instance again.</li>
+</li>
+<li>
+<p>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and start the instance again.</p>
+</li>
 <li>Wait until <code>web-1</code> returns to the <code>Active</code> state in Horizon.</li>
-</ol>
+<li>
+<p>Confirm that round-robin responses return.</p>
+<div class="admonition quote">
+<p class="admonition-title">Test</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that round-robin responses return after web-1 starts again</span>
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </code></pre></div>
@@ -978,6 +998,9 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
+</div>
+</li>
+</ol>
 <p><strong>12.4.12 Create a PING Health Monitor</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
@@ -1039,8 +1062,8 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 </details>
 </div>
 <ol>
-<li>From <code>Project &gt; Compute &gt; Instances</code>, open the Horizon console for <code>web-1</code>, log in as <code>ubuntu</code> with password <code>openstack</code>, and run the following command:</li>
-</ol>
+<li>
+<p>From <code>Project &gt; Compute &gt; Instances</code>, open the Horizon console for <code>web-1</code>, log in as <code>ubuntu</code> with password <code>openstack</code>, and run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend while leaving the VM running</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
 </code></pre></div>
@@ -1057,7 +1080,7 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>apache2
 <div class="highlight"><pre><span></span><code>inactive
 </code></pre></div>
 </details>
-<ol>
+</li>
 <li>
 <p>Return to <code>Project &gt; Network &gt; Load Balancers</code> and inspect the <code>demo-pool</code> member list. With a <code>PING</code> monitor, <code>web-1</code> can still appear healthy because the VM is reachable even though the Apache application has stopped.</p>
 </li>
@@ -1085,8 +1108,8 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>apache2
 <p>In this case, requests can still return quickly even though Apache is down on <code>web-1</code>. When HAProxy tries <code>web-1:80</code>, the kernel returns an immediate TCP refusal. That failure is fast, unlike a powered-off VM which can cause a timeout.</p>
 </div>
 <ol>
-<li>Restore the application on <code>web-1</code> before moving to the HTTP monitor test.</li>
-</ol>
+<li>
+<p>Restore the application on <code>web-1</code> before moving to the HTTP monitor test.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend again</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
@@ -1095,6 +1118,8 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
+</li>
+</ol>
 <p><strong>12.4.14 Replace the PING Monitor with an HTTP Monitor</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, click <code>demo-lb</code>.</li>
@@ -1111,8 +1136,8 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 </li>
 <li>Click <code>Create</code>.</li>
 <li>Wait until the new HTTP health monitor is active and both members return to a healthy or online state.</li>
-<li>Use the <code>web-1</code> Horizon console again and run:</li>
-</ol>
+<li>
+<p>Use the <code>web-1</code> Horizon console again and run:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend again to trigger the HTTP monitor</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
 </code></pre></div>
@@ -1121,19 +1146,11 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
-<ol>
-<li>Return to <code>Project &gt; Network &gt; Load Balancers</code> and inspect the <code>demo-pool</code> members. After a short delay, the member for <code>web-1</code> should leave the healthy or online state because <code>/healthcheck</code> no longer returns <code>200</code>.</li>
-</ol>
+</li>
+<li>
+<p>Return to <code>Project &gt; Network &gt; Load Balancers</code> and inspect the <code>demo-pool</code> members. After a short delay, the member for <code>web-1</code> should leave the healthy or online state because <code>/healthcheck</code> no longer returns <code>200</code>.</p>
 <div class="admonition quote">
 <p class="admonition-title">Test</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># wait for the HTTP health monitor to mark web-1 unhealthy</span>
-sleep<span class="w"> </span><span class="m">20</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
-</code></pre></div>
-</details>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that requests through the VIP continue to succeed from the remaining healthy backend</span>
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..6<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://&lt;vip-floating-ip&gt;/<span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </code></pre></div>
@@ -1148,9 +1165,9 @@ sleep<span class="w"> </span><span class="m">20</span>
 </code></pre></div>
 </details>
 </div>
-<ol>
-<li>Restore Apache on <code>web-1</code> before you move on.</li>
-</ol>
+</li>
+<li>
+<p>Restore Apache on <code>web-1</code> before you move on.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend so both members can return to service</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
@@ -1159,6 +1176,8 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
+</li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>After the demo, give the HTTP monitor enough time to probe <code>web-1</code> again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.</p>
