@@ -89,7 +89,7 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 3. Wait for `web-2` to reach the `Active` state.
 4. In the `IP Address` column for both instances, record the fixed IP addresses shown on `local-net`. You will use them later when adding pool members.
 
-**12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances**
+**12.4.5 Floating IPs**
 
 !!! note
     These floating IP addresses are only needed for the initial VM configuration and direct backend checks later in the appendix. Octavia uses the instances' fixed IP addresses on `local-net`, not their floating IP addresses.
@@ -122,12 +122,9 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 
 **12.4.6 Connect to Each Backend and Install Apache**
 
-!!! note
-    Replace the example floating IP addresses with the actual addresses you recorded in Horizon. Run these commands from a terminal where `bootstrap.pem` is available.
-
 ```bash
 # confirm the backend private key uses restrictive permissions
-chmod 600 ~/.ssh/bootstrap.pem
+chmod 600 bootstrap.pem
 ```
 
 ??? example "Expected result"
@@ -137,7 +134,7 @@ chmod 600 ~/.ssh/bootstrap.pem
 
 ```bash
 # connect to the first backend instance
-ssh -i ~/.ssh/bootstrap.pem ubuntu@<web-1-floating-ip>
+ssh -i bootstrap.pem ubuntu@<web-1-floating-ip>
 ```
 
 ??? example "Expected result"
@@ -182,7 +179,7 @@ exit
 
 ```bash
 # connect to the second backend instance
-ssh -i ~/.ssh/bootstrap.pem ubuntu@<web-2-floating-ip>
+ssh -i bootstrap.pem ubuntu@<web-2-floating-ip>
 ```
 
 ??? example "Expected result"
@@ -408,7 +405,7 @@ for i in {1..6}; do curl -s http://$VIP_FLOATING_IP/; printf '\n'; done
 
 ```bash
 # stop Apache on the first backend while leaving the VM running
-ssh -i ~/.ssh/bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
+ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
 ```
 
 ??? example "Expected result"
@@ -465,7 +462,7 @@ for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/ || printf 'req
 
 ```bash
 # start Apache on the first backend again
-ssh -i ~/.ssh/bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
+ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
 ```
 
 ??? example "Expected result"
@@ -507,7 +504,7 @@ curl -s http://$WEB1_FLOATING_IP/
 
 ```bash
 # stop Apache on the first backend again to trigger the HTTP monitor
-ssh -i ~/.ssh/bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
+ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
 ```
 
 ??? example "Expected result"
@@ -547,7 +544,7 @@ for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/; printf '\n'; 
 
 ```bash
 # start Apache on the first backend so both members can return to service
-ssh -i ~/.ssh/bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
+ssh -i bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
 ```
 
 ??? example "Expected result"
