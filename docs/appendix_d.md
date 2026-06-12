@@ -43,30 +43,24 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 1. From the panels on the left select `Project > Network > Security Groups`.
 2. Next to the `default` security group, click `Manage Rules`.
 3. Confirm that the following ingress rules exist. If any rule is missing, add it.
-4. For SSH access, click `Add Rule` and enter or select the following:
+4. For SSH access, click `Add Rule`, enter or select the following, then click `Add`:
 > `Rule`: **SSH**<br/>
 > `Direction`: **Ingress**<br/>
 > `Remote`: **CIDR**<br/>
 > `CIDR`: **0.0.0.0/0**
-5. Click `Add`.
-6. For ICMP reachability, click `Add Rule` again and enter or select the following:
+5. For ICMP reachability, click `Add Rule` again, enter or select the following, then click `Add`:
 > `Rule`: **ALL ICMP**<br/>
 > `Direction`: **Ingress**<br/>
 > `Remote`: **CIDR**<br/>
 > `CIDR`: **0.0.0.0/0**
-7. Click `Add`.
-8. For HTTP access, click `Add Rule` again and enter or select the following:
+6. For HTTP access, click `Add Rule` again, enter or select the following, then click `Add`:
 > `Rule`: **HTTP**<br/>
 > `Direction`: **Ingress**<br/>
 > `Remote`: **CIDR**<br/>
 > `CIDR`: **0.0.0.0/0**
-9. Click `Add`.
 
 !!! warning
     Some Horizon releases have a known bug where the `SSH` and `HTTP` preset rules silently fail to appear after you click `Add`. If that happens, use `Custom TCP Rule` instead and create one ingress rule for port `22` and one ingress rule for port `80`, both with `Remote = CIDR` and `CIDR = 0.0.0.0/0`.
-
-!!! note
-    In this lab environment, the default security group already includes the required egress rules. For this appendix, only the ingress rules above need to be present.
 
 **12.4.3 Launch the First Ubuntu Backend Instance**
 
@@ -86,50 +80,45 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 5. On the `Flavor` tab, move `c1.small` from `Available` to `Allocated`.
 6. On the `Networks` tab, move `local-net` from `Available` to `Allocated`.
 7. On the `Security Groups` tab, keep `default` assigned to the instance.
-8. On the `Key Pair` tab, move `bootstrap` from `Available` to `Allocated`.
-9. Click `Launch Instance`.
-10. Wait for `web-1` to reach the `Active` state.
+8. On the `Key Pair` tab, move `bootstrap` from `Available` to `Allocated`, then click `Launch Instance`.
+9. Wait for `web-1` to reach the `Active` state.
 
 **12.4.4 Launch the Second Ubuntu Backend Instance**
 
 **To launch the second backend instance via Horizon perform the following:**
 
 1. From `Project > Compute > Instances`, click `Launch Instance` again.
-2. Repeat the same tab selections as in the previous task with the following change:
+2. Repeat the same tab selections as in the previous task with the following change, then click `Launch Instance`:
 > `Instance Name`: **web-2**
-3. Click `Launch Instance`.
-4. Wait for `web-2` to reach the `Active` state.
-5. In the `IP Address` column for both instances, record the fixed IP addresses shown on `local-net`. You will use them later when adding pool members.
+3. Wait for `web-2` to reach the `Active` state.
+4. In the `IP Address` column for both instances, record the fixed IP addresses shown on `local-net`. You will use them later when adding pool members.
 
 **12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances**
 
 **To prepare external access for the backend instances via Horizon perform the following:**
 
 1. From `Project > Network > Routers`, click `Create Router`.
-2. On the `Create Router` screen, enter or select the following:
+2. On the `Create Router` screen, enter or select the following, then click `Create Router`:
 > `Name`: **local-router**<br/>
 > `External Network`: **office**
-3. Click `Create Router`.
 
 !!! note
     Open `Project > Network > Network Topology` after creating the router. This makes it easier to see the new `local-router` object and its relationship to the external network.
 
-4. Open `local-router`, select the `Interfaces` tab, and click `Add Interface`.
-5. On the `Add Interface` screen, select the following:
+3. Open `local-router`, select the `Interfaces` tab, and click `Add Interface`.
+4. On the `Add Interface` screen, select the following, then click `Add Interface`:
 > `Subnet`: **local-subnet**
-6. Click `Add Interface`.
 
 !!! note
     Return to `Project > Network > Network Topology` after adding the interface. This view makes it easier to confirm that `local-net` is now connected to `local-router`.
 
-7. From `Project > Network > Floating IPs`, click `Allocate IP To Project`.
-8. On the `Allocate Floating IP` screen, select `office` from the `Pool` list.
-9. Click `Allocate IP`.
-10. Repeat the allocation once more so that you have two free floating IP addresses.
-11. From `Project > Compute > Instances`, next to `web-1`, select `Associate Floating IP` from the action menu.
-12. On the `Manage Floating IP Associations` screen, select one of the newly allocated floating IP addresses and accept the default port, then click `Associate`.
-13. Repeat the same association process for `web-2` using the second floating IP address.
-14. Record the two external addresses for later use from the shell on the student host.
+5. From `Project > Network > Floating IPs`, click `Allocate IP To Project`.
+6. On the `Allocate Floating IP` screen, select `office` from the `Pool` list, then click `Allocate IP`.
+7. Repeat the allocation once more so that you have two free floating IP addresses.
+8. From `Project > Compute > Instances`, next to `web-1`, select `Associate Floating IP` from the action menu.
+9. On the `Manage Floating IP Associations` screen, select one of the newly allocated floating IP addresses and accept the default port, then click `Associate`.
+10. Repeat the same association process for `web-2` using the second floating IP address.
+11. Record the two external addresses for later use from the shell on the student host.
 
 !!! note
     Check `Project > Network > Network Topology` again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.
