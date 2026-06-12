@@ -708,7 +708,7 @@
 <li>Wait for <code>web-2</code> to reach the <code>Active</code> state.</li>
 <li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on <code>local-net</code>. You will use them later when adding pool members.</li>
 </ol>
-<p><strong>12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances</strong></p>
+<p><strong>12.4.5 Floating IPs</strong></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>These floating IP addresses are only needed for the initial VM configuration and direct backend checks later in the appendix. Octavia uses the instances' fixed IP addresses on <code>local-net</code>, not their floating IP addresses.</p>
@@ -747,12 +747,8 @@
 <p>Check <code>Project &gt; Network &gt; Network Topology</code> again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.</p>
 </div>
 <p><strong>12.4.6 Connect to Each Backend and Install Apache</strong></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Replace the example floating IP addresses with the actual addresses you recorded in Horizon. Run these commands from a terminal where <code>bootstrap.pem</code> is available.</p>
-</div>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm the backend private key uses restrictive permissions</span>
-chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/bootstrap.pem
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>bootstrap.pem
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -760,7 +756,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># connect to the first backend instance</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/bootstrap.pem<span class="w"> </span>ubuntu@&lt;web-1-floating-ip&gt;
+ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@&lt;web-1-floating-ip&gt;
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -799,7 +795,7 @@ OK
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># connect to the second backend instance</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/bootstrap.pem<span class="w"> </span>ubuntu@&lt;web-2-floating-ip&gt;
+ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@&lt;web-2-floating-ip&gt;
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1013,7 +1009,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 </ol>
 <p><strong>12.4.13 Stop Apache on web-1 and Observe the Limitation of PING Monitoring</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend while leaving the VM running</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
+ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1062,7 +1058,7 @@ request<span class="w"> </span>failed
 </details>
 <p><strong>12.4.14 Start Apache Again Before Replacing the Health Monitor</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend again</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
+ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1100,7 +1096,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 </ol>
 <p><strong>12.4.16 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend again to trigger the HTTP monitor</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
+ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1134,7 +1130,7 @@ sleep<span class="w"> </span><span class="m">20</span>
 </details>
 <p><strong>12.4.17 Restore the Failed Backend After the Demo</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend so both members can return to service</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
+ssh<span class="w"> </span>-i<span class="w"> </span>bootstrap.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
