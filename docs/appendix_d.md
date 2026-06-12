@@ -341,11 +341,8 @@ for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 're
     <h1>Apache backend web-2</h1>
     ```
 
-!!! note
-    Without a health monitor, `web-1` remains attached to the pool in Horizon even though the VM is shut down. In this environment, client requests continue to return content from `web-2` instead of marking `web-1` unhealthy.
-
-!!! note "Observed behavior"
-    Without a health monitor, the setup can still appear to work from the client side because the load balancer eventually serves content from `web-2`. However, this is still not ideal: incoming requests can still be sent to `web-1` first, fail internally, and only then be served by `web-2`. The backend is not proactively marked unhealthy.
+!!! example ""
+    Without a health monitor, shutting down `web-1` does not automatically mark it unhealthy in Horizon. The member can remain attached to the pool even though the VM is no longer available. Client requests can still appear to work because the load balancer eventually serves content from `web-2`, but this is still not ideal: requests can still be sent to `web-1` first, fail internally, and only then be served by `web-2`. In this environment, normal browser requests completed in about `5 ms`, while requests during the failure scenario took about `3 s` before returning content from `web-2`. This suggests the load balancer is attempting a backend connection to the failed VM first and only then failing over.
 
 3. From `Project > Compute > Instances`, use the instance action menu for `web-1` and start the instance again.
 4. Wait until `web-1` returns to the `Active` state in Horizon.
