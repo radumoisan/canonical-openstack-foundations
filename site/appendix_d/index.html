@@ -649,38 +649,31 @@
 <li>From the panels on the left select <code>Project &gt; Network &gt; Security Groups</code>.</li>
 <li>Next to the <code>default</code> security group, click <code>Manage Rules</code>.</li>
 <li>Confirm that the following ingress rules exist. If any rule is missing, add it.</li>
-<li>For SSH access, click <code>Add Rule</code> and enter or select the following:<blockquote>
+<li>For SSH access, click <code>Add Rule</code>, enter or select the following, then click <code>Add</code>:<blockquote>
 <p><code>Rule</code>: <strong>SSH</strong><br/>
 <code>Direction</code>: <strong>Ingress</strong><br/>
 <code>Remote</code>: <strong>CIDR</strong><br/>
 <code>CIDR</code>: <strong>0.0.0.0/0</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Add</code>.</li>
-<li>For ICMP reachability, click <code>Add Rule</code> again and enter or select the following:<blockquote>
+<li>For ICMP reachability, click <code>Add Rule</code> again, enter or select the following, then click <code>Add</code>:<blockquote>
 <p><code>Rule</code>: <strong>ALL ICMP</strong><br/>
 <code>Direction</code>: <strong>Ingress</strong><br/>
 <code>Remote</code>: <strong>CIDR</strong><br/>
 <code>CIDR</code>: <strong>0.0.0.0/0</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Add</code>.</li>
-<li>For HTTP access, click <code>Add Rule</code> again and enter or select the following:<blockquote>
+<li>For HTTP access, click <code>Add Rule</code> again, enter or select the following, then click <code>Add</code>:<blockquote>
 <p><code>Rule</code>: <strong>HTTP</strong><br/>
 <code>Direction</code>: <strong>Ingress</strong><br/>
 <code>Remote</code>: <strong>CIDR</strong><br/>
 <code>CIDR</code>: <strong>0.0.0.0/0</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Add</code>.</li>
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Some Horizon releases have a known bug where the <code>SSH</code> and <code>HTTP</code> preset rules silently fail to appear after you click <code>Add</code>. If that happens, use <code>Custom TCP Rule</code> instead and create one ingress rule for port <code>22</code> and one ingress rule for port <code>80</code>, both with <code>Remote = CIDR</code> and <code>CIDR = 0.0.0.0/0</code>.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In this lab environment, the default security group already includes the required egress rules. For this appendix, only the ingress rules above need to be present.</p>
 </div>
 <p><strong>12.4.3 Launch the First Ubuntu Backend Instance</strong></p>
 <p><strong>To launch the first backend instance via Horizon perform the following:</strong></p>
@@ -703,19 +696,17 @@
 <li>On the <code>Flavor</code> tab, move <code>c1.small</code> from <code>Available</code> to <code>Allocated</code>.</li>
 <li>On the <code>Networks</code> tab, move <code>local-net</code> from <code>Available</code> to <code>Allocated</code>.</li>
 <li>On the <code>Security Groups</code> tab, keep <code>default</code> assigned to the instance.</li>
-<li>On the <code>Key Pair</code> tab, move <code>bootstrap</code> from <code>Available</code> to <code>Allocated</code>.</li>
-<li>Click <code>Launch Instance</code>.</li>
+<li>On the <code>Key Pair</code> tab, move <code>bootstrap</code> from <code>Available</code> to <code>Allocated</code>, then click <code>Launch Instance</code>.</li>
 <li>Wait for <code>web-1</code> to reach the <code>Active</code> state.</li>
 </ol>
 <p><strong>12.4.4 Launch the Second Ubuntu Backend Instance</strong></p>
 <p><strong>To launch the second backend instance via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, click <code>Launch Instance</code> again.</li>
-<li>Repeat the same tab selections as in the previous task with the following change:<blockquote>
+<li>Repeat the same tab selections as in the previous task with the following change, then click <code>Launch Instance</code>:<blockquote>
 <p><code>Instance Name</code>: <strong>web-2</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Launch Instance</code>.</li>
 <li>Wait for <code>web-2</code> to reach the <code>Active</code> state.</li>
 <li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on <code>local-net</code>. You will use them later when adding pool members.</li>
 </ol>
@@ -723,12 +714,11 @@
 <p><strong>To prepare external access for the backend instances via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Routers</code>, click <code>Create Router</code>.</li>
-<li>On the <code>Create Router</code> screen, enter or select the following:<blockquote>
+<li>On the <code>Create Router</code> screen, enter or select the following, then click <code>Create Router</code>:<blockquote>
 <p><code>Name</code>: <strong>local-router</strong><br/>
 <code>External Network</code>: <strong>office</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Create Router</code>.</li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -736,11 +726,10 @@
 </div>
 <ol>
 <li>Open <code>local-router</code>, select the <code>Interfaces</code> tab, and click <code>Add Interface</code>.</li>
-<li>On the <code>Add Interface</code> screen, select the following:<blockquote>
+<li>On the <code>Add Interface</code> screen, select the following, then click <code>Add Interface</code>:<blockquote>
 <p><code>Subnet</code>: <strong>local-subnet</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Add Interface</code>.</li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -748,8 +737,7 @@
 </div>
 <ol>
 <li>From <code>Project &gt; Network &gt; Floating IPs</code>, click <code>Allocate IP To Project</code>.</li>
-<li>On the <code>Allocate Floating IP</code> screen, select <code>office</code> from the <code>Pool</code> list.</li>
-<li>Click <code>Allocate IP</code>.</li>
+<li>On the <code>Allocate Floating IP</code> screen, select <code>office</code> from the <code>Pool</code> list, then click <code>Allocate IP</code>.</li>
 <li>Repeat the allocation once more so that you have two free floating IP addresses.</li>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, next to <code>web-1</code>, select <code>Associate Floating IP</code> from the action menu.</li>
 <li>On the <code>Manage Floating IP Associations</code> screen, select one of the newly allocated floating IP addresses and accept the default port, then click <code>Associate</code>.</li>
