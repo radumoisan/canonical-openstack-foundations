@@ -259,56 +259,53 @@ curl -s http://<web-2-floating-ip>/
 !!! note
     The remaining service-management steps use the Horizon web console with the `ubuntu` user and the password `openstack`.
 
-**12.4.9 Create the Load Balancer, Listener, and Pool in Horizon**
+**12.4.9 Create the Load Balancer in Horizon**
 
 **To create the load balancer via Horizon perform the following:**
 
 1. From the panels on the left select `Project > Network > Load Balancers`.
 2. Click `Create Load Balancer`.
-3. On the `Create Load Balancer` screen, enter or select the following:
+3. On the `Load Balancer Details` screen, enter or select the following, then click `Next`:
 > `Name`: **demo-lb**<br/>
 > `Description`: **Round-robin Apache demo**<br/>
-> `VIP Subnet`: **the project subnet used by the backend instances**
-4. Click `Create Load Balancer`.
-5. Wait for `demo-lb` to reach the active or online state.
-6. Open the action menu for `demo-lb` and select `Create Listener`.
-7. On the `Create Listener` screen, enter or select the following:
+> `IP address`: **leave empty**<br/>
+> `Availability Zone`: **leave empty**<br/>
+> `Flavor`: **leave empty**<br/>
+> `Subnet`: **local-net: 10.0.20.0/24 (local-subnet)**<br/>
+> `Admin State Up`: **Yes**
+4. On the `Listener Details` screen, enter or select the following, then click `Next`:
+> `Create Listener`: **Yes**<br/>
 > `Name`: **demo-listener-http**<br/>
+> `Description`: **leave empty**<br/>
 > `Protocol`: **HTTP**<br/>
-> `Protocol Port`: **80**
-8. Click `Create Listener`.
-9. Open the action menu for `demo-listener-http` and select `Create Pool`.
-10. On the `Create Pool` screen, enter or select the following:
+> `Port`: **80**<br/>
+> `Client Data Timeout`: **leave default**<br/>
+> `TCP Inspect Timeout`: **leave default**<br/>
+> `Member Connect Timeout`: **leave default**<br/>
+> `Member Data Timeout`: **leave default**<br/>
+> `Connection Limit`: **leave default**<br/>
+> `Allowed Cidrs`: **leave default**<br/>
+> `Admin State Up`: **Yes**
+5. On the `Pool Details` screen, enter or select the following, then click `Next`:
+> `Create Pool`: **Yes**<br/>
 > `Name`: **demo-pool**<br/>
-> `Protocol`: **HTTP**<br/>
-> `Load Balancing Algorithm`: **ROUND_ROBIN**
-11. Click `Create Pool`.
-12. Wait until the load balancer, listener, and pool all return to an active or online state.
+> `Description`: **leave empty**<br/>
+> `Algorithm`: **ROUND_ROBIN**<br/>
+> `Session Persistence`: **None**<br/>
+> `TLS Enabled`: **No**<br/>
+> `Admin State Up`: **Yes**
+6. On the `Pool Members` screen, add `web-1` and `web-2`, then click `Next`.
 
 !!! note
-    Use the same project subnet for the VIP and the backend members. The pool members must use the instances' fixed IP addresses on the project network, not their floating IP addresses.
+    Add only `web-1` and `web-2` as members. Do not add `test-master-kzhbh-w7cc7`.
 
-**12.4.10 Add the Two Apache Backends as Pool Members**
+7. On the `Monitor Details` screen, set `Create Health Monitor` to `No`, then click `Create Load Balancer`.
+8. Wait until `demo-lb`, `demo-listener-http`, and `demo-pool` return to an active or online state and both backend members appear under the pool.
 
-**To add the backend members via Horizon perform the following:**
+!!! note
+    The load balancer wizard adds the backend members from the available instances list, but Octavia still uses the instances' fixed IP addresses on `local-net`, not their floating IP addresses.
 
-1. From `Project > Network > Load Balancers`, click `demo-lb`.
-2. Open the `Pools` tab and click `demo-pool`.
-3. Select `Add Members`.
-4. Add the first backend member with the following values:
-> `Subnet`: **the project subnet used by the backend instances**<br/>
-> `IP Address`: **the fixed IP recorded for web-1**<br/>
-> `Protocol Port`: **80**<br/>
-> `Weight`: **1**
-5. Click `Add`.
-6. Repeat the process for the second backend member with the following values:
-> `Subnet`: **the project subnet used by the backend instances**<br/>
-> `IP Address`: **the fixed IP recorded for web-2**<br/>
-> `Protocol Port`: **80**<br/>
-> `Weight`: **1**
-7. Wait until both members appear in the pool member list.
-
-**12.4.11 Associate a Floating IP Address with the Load Balancer VIP**
+**12.4.10 Associate a Floating IP Address with the Load Balancer VIP**
 
 **To expose the load balancer VIP externally via Horizon perform the following:**
 
@@ -326,7 +323,7 @@ curl -s http://<web-2-floating-ip>/
 !!! note
     Some Horizon releases display the load balancer name directly in the port list, while others only show the port ID. Match the VIP port carefully before confirming the association.
 
-**12.4.12 Verify Round-Robin Responses Through the VIP**
+**12.4.11 Verify Round-Robin Responses Through the VIP**
 
 ```bash
 # send repeated HTTP requests through the load balancer VIP
@@ -346,7 +343,7 @@ for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
 !!! note
     The exact request order can vary, but over several requests you should see responses from both backends while both Apache services are healthy.
 
-**12.4.13 Create a PING Health Monitor**
+**12.4.12 Create a PING Health Monitor**
 
 **To create a basic VM reachability monitor via Horizon perform the following:**
 
@@ -362,7 +359,7 @@ for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
 5. Click `Create`.
 6. Wait until the health monitor is active and both pool members show a healthy or online state.
 
-**12.4.14 Stop Apache on web-1 and Observe the Limitation of PING Monitoring**
+**12.4.13 Stop Apache on web-1 and Observe the Limitation of PING Monitoring**
 
 From `Project > Compute > Instances`, open the Horizon console for `web-1`, log in as `ubuntu` with password `openstack`, and run the following command:
 
@@ -414,7 +411,7 @@ for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 're
     request failed
     ```
 
-**12.4.15 Start Apache Again Before Replacing the Health Monitor**
+**12.4.14 Start Apache Again Before Replacing the Health Monitor**
 
 Use the `web-1` Horizon console again and run:
 
@@ -438,7 +435,7 @@ curl -s http://127.0.0.1/
     <h1>Apache backend web-1</h1>
     ```
 
-**12.4.16 Replace the PING Monitor with an HTTP Monitor**
+**12.4.15 Replace the PING Monitor with an HTTP Monitor**
 
 **To replace the basic liveness monitor with an application-aware HTTP monitor via Horizon perform the following:**
 
@@ -458,7 +455,7 @@ curl -s http://127.0.0.1/
 7. Click `Create`.
 8. Wait until the new HTTP health monitor is active and both members return to a healthy or online state.
 
-**12.4.17 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
+**12.4.16 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
 
 Use the `web-1` Horizon console again and run:
 
@@ -500,7 +497,7 @@ for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/; printf '\n';
     <h1>Apache backend web-2</h1>
     ```
 
-**12.4.18 Restore the Failed Backend After the Demo**
+**12.4.17 Restore the Failed Backend After the Demo**
 
 Use the `web-1` Horizon console again and run:
 
@@ -527,7 +524,7 @@ curl -s http://127.0.0.1/healthcheck
 !!! note
     After the demo, give the HTTP monitor enough time to probe `web-1` again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.
 
-**12.4.19 Optional Cleanup**
+**12.4.18 Optional Cleanup**
 
 **To remove the demo resources after the exercise via Horizon perform the following:**
 
