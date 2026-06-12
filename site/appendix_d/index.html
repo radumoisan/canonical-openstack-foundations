@@ -1148,8 +1148,9 @@ sleep<span class="w"> </span><span class="m">20</span>
 </code></pre></div>
 </details>
 </div>
-<p><strong>12.4.15 Restore the Failed Backend After the Demo</strong></p>
-<p>Use the <code>web-1</code> Horizon console again and run:</p>
+<ol>
+<li>Restore Apache on <code>web-1</code> before you move on.</li>
+</ol>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend so both members can return to service</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
@@ -1158,19 +1159,11 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="c1"># confirm locally that the first backend health endpoint responds again</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/healthcheck
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>OK
-</code></pre></div>
-</details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>After the demo, give the HTTP monitor enough time to probe <code>web-1</code> again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.</p>
 </div>
-<p><strong>12.4.16 Optional Cleanup</strong></p>
+<p><strong>12.4.15 Optional Cleanup</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Load Balancers</code>, delete <code>demo-lb</code> and confirm the cascade delete of its child resources if Horizon prompts for it.</li>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, delete <code>web-1</code> and <code>web-2</code>.</li>
