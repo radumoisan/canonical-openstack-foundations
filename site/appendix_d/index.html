@@ -958,13 +958,8 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Without a health monitor, <code>web-1</code> remains attached to the pool in Horizon even though the VM is shut down. In this environment, client requests continue to return content from <code>web-2</code> instead of marking <code>web-1</code> unhealthy.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Observed behavior</p>
-<p>Without a health monitor, the setup can still appear to work from the client side because the load balancer eventually serves content from <code>web-2</code>. However, this is still not ideal: incoming requests can still be sent to <code>web-1</code> first, fail internally, and only then be served by <code>web-2</code>. The backend is not proactively marked unhealthy.</p>
+<div class="admonition example">
+<p>Without a health monitor, shutting down <code>web-1</code> does not automatically mark it unhealthy in Horizon. The member can remain attached to the pool even though the VM is no longer available. Client requests can still appear to work because the load balancer eventually serves content from <code>web-2</code>, but this is still not ideal: requests can still be sent to <code>web-1</code> first, fail internally, and only then be served by <code>web-2</code>. In this environment, normal browser requests completed in about <code>5 ms</code>, while requests during the failure scenario took about <code>3 s</code> before returning content from <code>web-2</code>. This suggests the load balancer is attempting a backend connection to the failed VM first and only then failing over.</p>
 </div>
 <ol>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and start the instance again.</li>
