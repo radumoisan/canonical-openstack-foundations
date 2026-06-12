@@ -38,8 +38,6 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 
 **12.4.2 Allow SSH, ICMP, and HTTP in the Default Security Group**
 
-**To prepare the default project security group via Horizon perform the following:**
-
 1. From the panels on the left select `Project > Network > Security Groups`.
 2. Next to the `default` security group, click `Manage Rules`.
 3. Confirm that the following ingress rules exist. If any rule is missing, add it.
@@ -257,11 +255,9 @@ curl -s http://<web-2-floating-ip>/
 3. From `Project > Network > Floating IPs`, release the two unassociated backend floating IP addresses.
 
 !!! note
-    The remaining service-management steps use the Horizon web console with the `ubuntu` user and the password `openstack`.
+    The remaining service-management steps use a mix of Horizon instance actions and the Horizon web console with the `ubuntu` user and the password `openstack`.
 
 **12.4.9 Create the Load Balancer in Horizon**
-
-**To create the load balancer via Horizon perform the following:**
 
 1. From the panels on the left select `Project > Network > Load Balancers`.
 2. Click `Create Load Balancer`.
@@ -292,8 +288,6 @@ curl -s http://<web-2-floating-ip>/
     The load balancer wizard adds the backend members from the available instances list, but Octavia still uses the instances' fixed IP addresses on `local-net`, not their floating IP addresses.
 
 **12.4.10 Associate a Floating IP Address with the Load Balancer VIP**
-
-**To expose the load balancer VIP externally via Horizon perform the following:**
 
 1. From `Project > Network > Load Balancers`, click `demo-lb`.
 2. Record the VIP address and the VIP port ID shown on the load balancer details page.
@@ -327,11 +321,48 @@ for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
     ```
 
 !!! note
-    The exact request order can vary, but over several requests you should see responses from both backends while both Apache services are healthy.
+    This test can be performed also from a Web browser by reloading the page multiple times.
+
+1. From `Project > Compute > Instances`, use the instance action menu for `web-1` and shut the instance down.
+2. Wait until `web-1` shows the `Shut Off` state in Horizon.
+
+```bash
+# send repeated HTTP requests through the VIP while one backend VM is powered off
+for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 'request failed'; printf '\n'; done
+```
+
+??? example "Expected result"
+    ```bash
+    <h1>Apache backend web-2</h1>
+    request failed
+    <h1>Apache backend web-2</h1>
+    request failed
+    <h1>Apache backend web-2</h1>
+    request failed
+    ```
+
+!!! note
+    Without a health monitor, the load balancer still tries to send traffic to `web-1` even though the VM is shut down.
+
+3. From `Project > Compute > Instances`, use the instance action menu for `web-1` and start the instance again.
+4. Wait until `web-1` returns to the `Active` state in Horizon.
+
+```bash
+# confirm that round-robin responses return after web-1 starts again
+for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
+```
+
+??? example "Expected result"
+    ```bash
+    <h1>Apache backend web-1</h1>
+    <h1>Apache backend web-2</h1>
+    <h1>Apache backend web-1</h1>
+    <h1>Apache backend web-2</h1>
+    <h1>Apache backend web-1</h1>
+    <h1>Apache backend web-2</h1>
+    ```
 
 **12.4.12 Create a PING Health Monitor**
-
-**To create a basic VM reachability monitor via Horizon perform the following:**
 
 1. From `Project > Network > Load Balancers`, click `demo-lb`.
 2. Open the `Pools` tab and click `demo-pool`.
@@ -423,8 +454,6 @@ curl -s http://127.0.0.1/
 
 **12.4.15 Replace the PING Monitor with an HTTP Monitor**
 
-**To replace the basic liveness monitor with an application-aware HTTP monitor via Horizon perform the following:**
-
 1. From `Project > Network > Load Balancers`, click `demo-lb`.
 2. Open the `Pools` tab and click `demo-pool`.
 3. Delete the existing `demo-hm-ping` health monitor.
@@ -511,8 +540,6 @@ curl -s http://127.0.0.1/healthcheck
     After the demo, give the HTTP monitor enough time to probe `web-1` again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.
 
 **12.4.18 Optional Cleanup**
-
-**To remove the demo resources after the exercise via Horizon perform the following:**
 
 1. From `Project > Network > Load Balancers`, delete `demo-lb` and confirm the cascade delete of its child resources if Horizon prompts for it.
 2. From `Project > Compute > Instances`, delete `web-1` and `web-2`.
