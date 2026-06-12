@@ -875,9 +875,6 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <li>On the <code>Load Balancer Details</code> screen, enter or select the following, then click <code>Next</code>:<blockquote>
 <p><code>Name</code>: <strong>demo-lb</strong><br/>
 <code>Description</code>: <strong>Round-robin Apache demo</strong><br/>
-<code>IP address</code>: <strong>leave empty</strong><br/>
-<code>Availability Zone</code>: <strong>leave empty</strong><br/>
-<code>Flavor</code>: <strong>leave empty</strong><br/>
 <code>Subnet</code>: <strong>local-net: 10.0.20.0/24 (local-subnet)</strong><br/>
 <code>Admin State Up</code>: <strong>Yes</strong></p>
 </blockquote>
@@ -885,36 +882,26 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <li>On the <code>Listener Details</code> screen, enter or select the following, then click <code>Next</code>:<blockquote>
 <p><code>Create Listener</code>: <strong>Yes</strong><br/>
 <code>Name</code>: <strong>demo-listener-http</strong><br/>
-<code>Description</code>: <strong>leave empty</strong><br/>
 <code>Protocol</code>: <strong>HTTP</strong><br/>
 <code>Port</code>: <strong>80</strong><br/>
-<code>Client Data Timeout</code>: <strong>leave default</strong><br/>
-<code>TCP Inspect Timeout</code>: <strong>leave default</strong><br/>
-<code>Member Connect Timeout</code>: <strong>leave default</strong><br/>
-<code>Member Data Timeout</code>: <strong>leave default</strong><br/>
-<code>Connection Limit</code>: <strong>leave default</strong><br/>
-<code>Allowed Cidrs</code>: <strong>leave default</strong><br/>
 <code>Admin State Up</code>: <strong>Yes</strong></p>
 </blockquote>
 </li>
 <li>On the <code>Pool Details</code> screen, enter or select the following, then click <code>Next</code>:<blockquote>
 <p><code>Create Pool</code>: <strong>Yes</strong><br/>
 <code>Name</code>: <strong>demo-pool</strong><br/>
-<code>Description</code>: <strong>leave empty</strong><br/>
 <code>Algorithm</code>: <strong>ROUND_ROBIN</strong><br/>
 <code>Session Persistence</code>: <strong>None</strong><br/>
 <code>TLS Enabled</code>: <strong>No</strong><br/>
 <code>Admin State Up</code>: <strong>Yes</strong></p>
 </blockquote>
 </li>
-<li>On the <code>Pool Members</code> screen, add <code>web-1</code> and <code>web-2</code>, then click <code>Next</code>.</li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Add only <code>web-1</code> and <code>web-2</code> as members. Do not add <code>test-master-kzhbh-w7cc7</code>.</p>
-</div>
-<ol>
-<li>On the <code>Monitor Details</code> screen, set <code>Create Health Monitor</code> to <code>No</code>, then click <code>Create Load Balancer</code>.</li>
+<li>
+<p>On the <code>Pool Members</code> screen, add <code>web-1</code> and <code>web-2</code>, then click <code>Next</code>.</p>
+</li>
+<li>
+<p>On the <code>Monitor Details</code> screen, set <code>Create Health Monitor</code> to <code>No</code>, then click <code>Create Load Balancer</code>.</p>
+</li>
 <li>Wait until <code>demo-lb</code>, <code>demo-listener-http</code>, and <code>demo-pool</code> return to an active or online state and both backend members appear under the pool.</li>
 </ol>
 <div class="admonition note">
