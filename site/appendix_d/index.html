@@ -676,7 +676,6 @@
 <p>Some Horizon releases have a known bug where the <code>SSH</code> and <code>HTTP</code> preset rules silently fail to appear after you click <code>Add</code>. If that happens, use <code>Custom TCP Rule</code> instead and create one ingress rule for port <code>22</code> and one ingress rule for port <code>80</code>, both with <code>Remote = CIDR</code> and <code>CIDR = 0.0.0.0/0</code>.</p>
 </div>
 <p><strong>12.4.3 Launch the First Ubuntu Backend Instance</strong></p>
-<p><strong>To launch the first backend instance via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
 <li>Click <code>Launch Instance</code>.</li>
@@ -700,7 +699,6 @@
 <li>Wait for <code>web-1</code> to reach the <code>Active</code> state.</li>
 </ol>
 <p><strong>12.4.4 Launch the Second Ubuntu Backend Instance</strong></p>
-<p><strong>To launch the second backend instance via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, click <code>Launch Instance</code> again.</li>
 <li>Repeat the same tab selections as in the previous task with the following change, then click <code>Launch Instance</code>:<blockquote>
@@ -711,7 +709,6 @@
 <li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on <code>local-net</code>. You will use them later when adding pool members.</li>
 </ol>
 <p><strong>12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances</strong></p>
-<p><strong>To prepare external access for the backend instances via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Network &gt; Routers</code>, click <code>Create Router</code>.</li>
 <li>On the <code>Create Router</code> screen, enter or select the following, then click <code>Create Router</code>:<blockquote>
