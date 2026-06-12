@@ -618,7 +618,6 @@
 </div>
 <div class="admonition success">
 <p class="admonition-title"><strong>Objectives</strong></p>
-</div>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Launch two Ubuntu backend instances from Horizon.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Assign floating IP addresses and verify direct SSH and HTTP access.</li>
@@ -629,15 +628,17 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Replace the <code>PING</code> monitor with an <code>HTTP</code> monitor that checks <code>/healthcheck</code>.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Verify that the HTTP monitor removes a failed backend from service.</li>
 </ul>
+</div>
 <p><strong>12.4.1 Review the Starting Conditions</strong></p>
-<p>Before starting the appendix, confirm the following:</p>
+<p>Before starting the appendix, expect the following to already be available in this validation environment:</p>
 <ol>
-<li>You can log in to Horizon as the student project user.</li>
+<li>Horizon is reachable and the left navigation shows <code>Project &gt; Network &gt; Load Balancers</code>.</li>
+<li>At least one Ubuntu image is available for launching the backend instances.</li>
+<li>An SSH key pair is already available for this environment.</li>
+<li>A private project network and subnet are available for the backend instances.</li>
 <li>The project can allocate at least three floating IP addresses from the external network used in this environment.</li>
-<li>The SSH private key for the backend instances is available on the student host.</li>
-<li>An Ubuntu image, a project network and subnet for the backend instances, and external network access for floating IPs and the load balancer VIP are available in the project.</li>
-<li>The Horizon dashboard shows <code>Project &gt; Network &gt; Load Balancers</code>.</li>
 </ol>
+<p>If any of these prerequisites are missing, stop and correct them in Horizon before continuing.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The exact load balancer dialog labels can vary slightly between Horizon releases. Use the closest matching field names if your dashboard wording differs.</p>
@@ -673,6 +674,10 @@
 </li>
 <li>Click <code>Add</code>.</li>
 </ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some Horizon releases have a known bug where the <code>SSH</code> and <code>HTTP</code> preset rules silently fail to appear after you click <code>Add</code>. If that happens, use <code>Custom TCP Rule</code> instead and create one ingress rule for port <code>22</code> and one ingress rule for port <code>80</code>, both with <code>Remote = CIDR</code> and <code>CIDR = 0.0.0.0/0</code>.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In this lab environment, the default security group already includes the required egress rules. For this appendix, only the ingress rules above need to be present.</p>
