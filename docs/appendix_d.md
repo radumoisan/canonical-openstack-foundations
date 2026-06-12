@@ -12,24 +12,26 @@ This appendix provides a compact Horizon-based Octavia exercise that uses two Ub
     This appendix runs on a different student host and OpenStack environment from the earlier training chapters. Focus on the Octavia workflow and validation steps here; the environment-specific machine details are not part of the exercise.
 
 !!! success "**Objectives**"
-  - [x] Launch two Ubuntu backend instances from Horizon.
-  - [x] Assign floating IP addresses and verify direct SSH and HTTP access.
-  - [x] Install Apache on both backends and publish distinct landing pages.
-  - [x] Create an Octavia load balancer with an HTTP listener and a round-robin pool.
-  - [x] Demonstrate successful round-robin responses through the VIP.
-  - [x] Show that a `PING` health monitor only proves that the VM is reachable.
-  - [x] Replace the `PING` monitor with an `HTTP` monitor that checks `/healthcheck`.
-  - [x] Verify that the HTTP monitor removes a failed backend from service.
+    - [x] Launch two Ubuntu backend instances from Horizon.
+    - [x] Assign floating IP addresses and verify direct SSH and HTTP access.
+    - [x] Install Apache on both backends and publish distinct landing pages.
+    - [x] Create an Octavia load balancer with an HTTP listener and a round-robin pool.
+    - [x] Demonstrate successful round-robin responses through the VIP.
+    - [x] Show that a `PING` health monitor only proves that the VM is reachable.
+    - [x] Replace the `PING` monitor with an `HTTP` monitor that checks `/healthcheck`.
+    - [x] Verify that the HTTP monitor removes a failed backend from service.
 
 **12.4.1 Review the Starting Conditions**
 
-Before starting the appendix, confirm the following:
+Before starting the appendix, expect the following to already be available in this validation environment:
 
-1. You can log in to Horizon as the student project user.
-2. The project can allocate at least three floating IP addresses from the external network used in this environment.
-3. The SSH private key for the backend instances is available on the student host.
-4. An Ubuntu image, a project network and subnet for the backend instances, and external network access for floating IPs and the load balancer VIP are available in the project.
-5. The Horizon dashboard shows `Project > Network > Load Balancers`.
+1. Horizon is reachable and the left navigation shows `Project > Network > Load Balancers`.
+2. At least one Ubuntu image is available for launching the backend instances.
+3. An SSH key pair is already available for this environment.
+4. A private project network and subnet are available for the backend instances.
+5. The project can allocate at least three floating IP addresses from the external network used in this environment.
+
+If any of these prerequisites are missing, stop and correct them in Horizon before continuing.
 
 !!! note
     The exact load balancer dialog labels can vary slightly between Horizon releases. Use the closest matching field names if your dashboard wording differs.
@@ -59,6 +61,9 @@ Before starting the appendix, confirm the following:
 > `Remote`: **CIDR**<br/>
 > `CIDR`: **0.0.0.0/0**
 9. Click `Add`.
+
+!!! warning
+    Some Horizon releases have a known bug where the `SSH` and `HTTP` preset rules silently fail to appear after you click `Add`. If that happens, use `Custom TCP Rule` instead and create one ingress rule for port `22` and one ingress rule for port `80`, both with `Remote = CIDR` and `CIDR = 0.0.0.0/0`.
 
 !!! note
     In this lab environment, the default security group already includes the required egress rules. For this appendix, only the ingress rules above need to be present.
