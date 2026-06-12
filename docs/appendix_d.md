@@ -64,8 +64,6 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 
 **12.4.3 Launch the First Ubuntu Backend Instance**
 
-**To launch the first backend instance via Horizon perform the following:**
-
 1. From the panels on the left select `Project > Compute > Instances`.
 2. Click `Launch Instance`.
 3. On the `Details` tab, enter or select the following:
@@ -85,8 +83,6 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 
 **12.4.4 Launch the Second Ubuntu Backend Instance**
 
-**To launch the second backend instance via Horizon perform the following:**
-
 1. From `Project > Compute > Instances`, click `Launch Instance` again.
 2. Repeat the same tab selections as in the previous task with the following change, then click `Launch Instance`:
 > `Instance Name`: **web-2**
@@ -94,8 +90,6 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 4. In the `IP Address` column for both instances, record the fixed IP addresses shown on `local-net`. You will use them later when adding pool members.
 
 **12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances**
-
-**To prepare external access for the backend instances via Horizon perform the following:**
 
 1. From `Project > Network > Routers`, click `Create Router`.
 2. On the `Create Router` screen, enter or select the following, then click `Create Router`:
