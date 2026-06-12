@@ -148,12 +148,14 @@ ssh -i bootstrap.pem ubuntu@<web-1-floating-ip>
 
 ```bash
 # set a password for the ubuntu user so you can use the Horizon web console later
-echo 'ubuntu:openstack' | sudo chpasswd
+sudo passwd ubuntu
 ```
 
 ??? example "Expected result"
     ```bash
-    No output.
+    New password:
+    Retype new password:
+    passwd: password updated successfully
     ```
 
 ```bash
