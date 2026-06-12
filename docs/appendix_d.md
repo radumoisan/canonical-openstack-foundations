@@ -374,7 +374,7 @@ for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
 6. Click `Create`.
 7. Wait until the health monitor is active and both pool members show a healthy or online state.
 
-!!! quote "Test again"
+!!! quote "Test"
     1. From `Project > Compute > Instances`, use the instance action menu for `web-1` and shut the instance down.
     2. Wait until `web-1` shows the `Shut Off` state in Horizon.
     3. Return to `Project > Network > Load Balancers` and inspect the `demo-pool` member list. After a short delay, `web-1` should show `Operating Status = Error`.
@@ -397,29 +397,28 @@ for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
     !!! example ""
         With the `PING` health monitor in place, the improvement is visible both in Horizon and from the client side. `web-1` is marked with `Operating Status = Error`, and requests go directly to `web-2` with normal response time instead of first failing internally.
 
-**12.4.13 Start web-1 Again Before the Apache Failure Test**
+**12.4.13 Test Application Failure**
 
 1. From `Project > Compute > Instances`, use the instance action menu for `web-1` and start the instance again.
 2. Wait until `web-1` returns to the `Active` state in Horizon.
 
-```bash
-# confirm that round-robin responses return after web-1 starts again
-for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
-```
-
-??? example "Expected result"
+!!! quote "Test"
     ```bash
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
+    # confirm that round-robin responses return after web-1 starts again
+    for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
     ```
 
-**12.4.14 Stop Apache on web-1 and Observe the Limitation of PING Monitoring**
+    ??? example "Expected result"
+        ```bash
+        <h1>Apache backend web-1</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-1</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-1</h1>
+        <h1>Apache backend web-2</h1>
+        ```
 
-From `Project > Compute > Instances`, open the Horizon console for `web-1`, log in as `ubuntu` with password `openstack`, and run the following command:
+3. From `Project > Compute > Instances`, open the Horizon console for `web-1`, log in as `ubuntu` with password `openstack`, and run the following command:
 
 ```bash
 # stop Apache on the first backend while leaving the VM running
@@ -431,45 +430,47 @@ sudo systemctl stop apache2
     No output.
     ```
 
-```bash
-# confirm from the console that the Apache service is no longer active
-systemctl is-active apache2
-```
-
-??? example "Expected result"
+!!! quote "Test"
     ```bash
-    inactive
+    # confirm from the console that the Apache service is no longer active
+    systemctl is-active apache2
     ```
 
-```bash
-# confirm that the Apache service on the first backend no longer answers locally
-curl -sS --max-time 5 http://127.0.0.1/
-```
+    ??? example "Expected result"
+        ```bash
+        inactive
+        ```
 
-??? example "Expected result"
     ```bash
-    curl: (7) Failed to connect to 127.0.0.1 port 80 after 0 ms: Connection refused
+    # confirm that the Apache service on the first backend no longer answers locally
+    curl -sS --max-time 5 http://127.0.0.1/
     ```
+
+    ??? example "Expected result"
+        ```bash
+        curl: (7) Failed to connect to 127.0.0.1 port 80 after 0 ms: Connection refused
+        ```
 
 !!! note
     Return to `Project > Network > Load Balancers` and inspect the `demo-pool` member list. With a `PING` monitor, `web-1` can still appear healthy because the VM is reachable even though the Apache application has stopped.
 
-```bash
-# send repeated HTTP requests through the VIP while one backend application is down
-for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 'request failed'; printf '\n'; done
-```
-
-??? example "Expected result"
+!!! quote "Test"
     ```bash
-    <h1>Apache backend web-2</h1>
-    request failed
-    <h1>Apache backend web-2</h1>
-    request failed
-    <h1>Apache backend web-2</h1>
-    request failed
+    # send repeated HTTP requests through the VIP while one backend application is down
+    for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 'request failed'; printf '\n'; done
     ```
 
-**12.4.15 Start Apache Again Before Replacing the Health Monitor**
+    ??? example "Expected result"
+        ```bash
+        <h1>Apache backend web-2</h1>
+        request failed
+        <h1>Apache backend web-2</h1>
+        request failed
+        <h1>Apache backend web-2</h1>
+        request failed
+        ```
+
+**12.4.14 Start Apache Again Before Replacing the Health Monitor**
 
 Use the `web-1` Horizon console again and run:
 
@@ -493,7 +494,7 @@ curl -s http://127.0.0.1/
     <h1>Apache backend web-1</h1>
     ```
 
-**12.4.16 Replace the PING Monitor with an HTTP Monitor**
+**12.4.15 Replace the PING Monitor with an HTTP Monitor**
 
 1. From `Project > Network > Load Balancers`, click `demo-lb`.
 2. Open the `Pools` tab and click `demo-pool`.
@@ -508,7 +509,7 @@ curl -s http://127.0.0.1/
 7. Click `Create`.
 8. Wait until the new HTTP health monitor is active and both members return to a healthy or online state.
 
-**12.4.17 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
+**12.4.16 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
 
 Use the `web-1` Horizon console again and run:
 
@@ -550,7 +551,7 @@ for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/; printf '\n';
     <h1>Apache backend web-2</h1>
     ```
 
-**12.4.18 Restore the Failed Backend After the Demo**
+**12.4.17 Restore the Failed Backend After the Demo**
 
 Use the `web-1` Horizon console again and run:
 
@@ -577,7 +578,7 @@ curl -s http://127.0.0.1/healthcheck
 !!! note
     After the demo, give the HTTP monitor enough time to probe `web-1` again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.
 
-**12.4.19 Optional Cleanup**
+**12.4.18 Optional Cleanup**
 
 1. From `Project > Network > Load Balancers`, delete `demo-lb` and confirm the cascade delete of its child resources if Horizon prompts for it.
 2. From `Project > Compute > Instances`, delete `web-1` and `web-2`.
