@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../appending_c/">
+        <link rel="prev" href="../appendix_c/">
       
       
       
@@ -473,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../appendinx_a/" class="md-nav__link">
+      <a href="../appendix_a/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -494,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../appendinx_b/" class="md-nav__link">
+      <a href="../appendix_b/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -515,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../appending_c/" class="md-nav__link">
+      <a href="../appendix_c/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -606,30 +606,36 @@
 <p>This appendix provides a compact Horizon-based Octavia exercise that uses two Ubuntu workload instances running Apache behind a load balancer. All OpenStack resource changes are performed in Horizon. The Apache installation, <code>curl</code> tests, and service stop and start operations are performed from the student host terminal over SSH.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at <code>https://192.168.100.35/horizon</code>.</p>
+<p>Use the Horizon access details provided for this validation environment to reach the dashboard.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This appendix assumes the cloud already has Octavia installed, the Horizon load balancer panels are enabled, and the project user already has the resources created in Chapters 8 and 9: the <code>jammy</code> image, the <code>student-keypair</code> key pair, the <code>StudentProject_Network</code> network, the <code>StudentProject_Subnet</code> subnet, and router access to <code>Public_Network</code>.</p>
+<p>This appendix assumes the cloud already has Octavia installed, the Horizon load balancer panels are enabled, and the project can create instances, floating IPs, and load balancers in this environment.</p>
 </div>
-<p><strong>Objectives</strong></p>
-<ul>
-<li>Launch two Ubuntu backend instances from Horizon.</li>
-<li>Assign floating IP addresses and verify direct SSH and HTTP access.</li>
-<li>Install Apache on both backends and publish distinct landing pages.</li>
-<li>Create an Octavia load balancer with an HTTP listener and a round-robin pool.</li>
-<li>Demonstrate successful round-robin responses through the VIP.</li>
-<li>Show that a <code>PING</code> health monitor only proves that the VM is reachable.</li>
-<li>Replace the <code>PING</code> monitor with an <code>HTTP</code> monitor that checks <code>/healthcheck</code>.</li>
-<li>Verify that the HTTP monitor removes a failed backend from service.</li>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This appendix runs on a different student host and OpenStack environment from the earlier training chapters. Focus on the Octavia workflow and validation steps here; the environment-specific machine details are not part of the exercise.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title"><strong>Objectives</strong></p>
+</div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Launch two Ubuntu backend instances from Horizon.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Assign floating IP addresses and verify direct SSH and HTTP access.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Install Apache on both backends and publish distinct landing pages.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Create an Octavia load balancer with an HTTP listener and a round-robin pool.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Demonstrate successful round-robin responses through the VIP.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Show that a <code>PING</code> health monitor only proves that the VM is reachable.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Replace the <code>PING</code> monitor with an <code>HTTP</code> monitor that checks <code>/healthcheck</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Verify that the HTTP monitor removes a failed backend from service.</li>
 </ul>
 <p><strong>12.4.1 Review the Starting Conditions</strong></p>
 <p>Before starting the appendix, confirm the following:</p>
 <ol>
 <li>You can log in to Horizon as the student project user.</li>
-<li>The project already has at least three available floating IP addresses or enough free addresses in <code>Public_Network</code> to allocate them.</li>
-<li>The private key from Chapter 8 is available on the student host at <code>~/.ssh/student-keypair.pem</code>.</li>
-<li>The <code>jammy</code> image is available and the <code>StudentProject_Network</code> network is connected to <code>Public_Network</code>.</li>
+<li>The project can allocate at least three floating IP addresses from the external network used in this environment.</li>
+<li>The SSH private key for the backend instances is available on the student host.</li>
+<li>An Ubuntu image, a project network and subnet for the backend instances, and external network access for floating IPs and the load balancer VIP are available in the project.</li>
 <li>The Horizon dashboard shows <code>Project &gt; Network &gt; Load Balancers</code>.</li>
 </ol>
 <div class="admonition note">
@@ -688,15 +694,15 @@
 <code>Create New Volume</code>: <strong>No</strong></p>
 </blockquote>
 </li>
-<li>Move <code>jammy</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>Move the Ubuntu image for this environment from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Next</code>.</li>
-<li>On the <code>Flavor</code> tab, move <code>m1.smaller</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>On the <code>Flavor</code> tab, move a small flavor suitable for an Apache demo instance from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Next</code>.</li>
-<li>On the <code>Networks</code> tab, move <code>StudentProject_Network</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>On the <code>Networks</code> tab, move the project network for the backend instances from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Next</code> twice.</li>
 <li>On the <code>Security Groups</code> tab, keep <code>default</code> assigned to the instance.</li>
 <li>Click <code>Next</code>.</li>
-<li>On the <code>Key Pair</code> tab, move <code>student-keypair</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>On the <code>Key Pair</code> tab, move the SSH key pair for this environment from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Launch Instance</code>.</li>
 <li>Wait for <code>web-1</code> to reach the <code>Active</code> state.</li>
 </ol>
@@ -710,14 +716,14 @@
 </li>
 <li>Click <code>Launch Instance</code>.</li>
 <li>Wait for <code>web-2</code> to reach the <code>Active</code> state.</li>
-<li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on <code>StudentProject_Network</code>. You will use them later when adding pool members.</li>
+<li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on the selected project network. You will use them later when adding pool members.</li>
 </ol>
 <p><strong>12.4.5 Assign Floating IP Addresses to Both Backend Instances</strong></p>
 <p><strong>To allocate and associate floating IP addresses via Horizon perform the following:</strong></p>
 <ol>
 <li>From the panels on the left select <code>Project &gt; Network &gt; Floating IPs</code>.</li>
 <li>Click <code>Allocate IP To Project</code>.</li>
-<li>On the <code>Allocate Floating IP</code> screen, select <code>Public_Network</code> from the <code>Pool</code> list.</li>
+<li>On the <code>Allocate Floating IP</code> screen, select the external network used for floating IP allocation in this environment.</li>
 <li>Click <code>Allocate IP</code>.</li>
 <li>Repeat the allocation once more so that you have two free floating IP addresses.</li>
 <li>From the panels on the left select <code>Project &gt; Compute &gt; Instances</code>.</li>
@@ -728,13 +734,13 @@
 <li>Record the two external addresses for later use from the shell on the student host.</li>
 </ol>
 <p><strong>12.4.6 Connect to the Student Host</strong></p>
-<p>From the workstation terminal, connect to the student host that already contains the OpenStack credentials and the student key pair.</p>
+<p>From the workstation terminal, connect to the student host for this validation environment. That host should already contain the OpenStack credentials and the SSH private key you will use for the backend instances.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Replace the example addresses in the next command with the actual addresses you recorded from Horizon before you continue.</p>
+<p>Replace the example host address, key path, and IP addresses in the next commands with the actual values for this environment before you continue.</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="c1"># connect to the student host</span>
-ssh<span class="w"> </span>ubuntu@34.159.9.11
+ssh<span class="w"> </span>ubuntu@&lt;student-host-address&gt;
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -742,8 +748,16 @@ ssh<span class="w"> </span>ubuntu@34.159.9.11
 ubuntu@training-host:~$
 </code></pre></div>
 </details>
+<div class="highlight"><pre><span></span><code><span class="c1"># set the path to the SSH private key for the backend instances</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SSH_KEY_PATH</span><span class="o">=</span>~/.ssh/my-private-key.pem
+</code></pre></div>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+</code></pre></div>
+</details>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm the student private key uses restrictive permissions</span>
-chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/student-keypair.pem
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_KEY_PATH</span><span class="s2">&quot;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -760,7 +774,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~
 </details>
 <p><strong>12.4.7 Install Apache on web-1</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># connect to the first backend instance</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span>
+ssh<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_KEY_PATH</span><span class="s2">&quot;</span><span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -849,7 +863,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1/healthche
 </details>
 <p><strong>12.4.8 Install Apache on web-2</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># connect to the second backend instance</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB2_FLOATING_IP</span>
+ssh<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_KEY_PATH</span><span class="s2">&quot;</span><span class="w"> </span>ubuntu@<span class="nv">$WEB2_FLOATING_IP</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -991,7 +1005,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <li>On the <code>Create Load Balancer</code> screen, enter or select the following:<blockquote>
 <p><code>Name</code>: <strong>demo-lb</strong><br/>
 <code>Description</code>: <strong>Round-robin Apache demo</strong><br/>
-<code>VIP Subnet</code>: <strong>StudentProject_Subnet</strong></p>
+<code>VIP Subnet</code>: <strong>the project subnet used by the backend instances</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Create Load Balancer</code>.</li>
@@ -1016,7 +1030,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Use the <code>StudentProject_Subnet</code> subnet for the VIP and the backend members. The pool members must use the instances' fixed IP addresses on <code>StudentProject_Network</code>, not their floating IP addresses.</p>
+<p>Use the same project subnet for the VIP and the backend members. The pool members must use the instances' fixed IP addresses on the project network, not their floating IP addresses.</p>
 </div>
 <p><strong>12.4.11 Add the Two Apache Backends as Pool Members</strong></p>
 <p><strong>To add the backend members via Horizon perform the following:</strong></p>
@@ -1025,7 +1039,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <li>Open the <code>Pools</code> tab and click <code>demo-pool</code>.</li>
 <li>Select <code>Add Members</code>.</li>
 <li>Add the first backend member with the following values:<blockquote>
-<p><code>Subnet</code>: <strong>StudentProject_Subnet</strong><br/>
+<p><code>Subnet</code>: <strong>the project subnet used by the backend instances</strong><br/>
 <code>IP Address</code>: <strong>the fixed IP recorded for web-1</strong><br/>
 <code>Protocol Port</code>: <strong>80</strong><br/>
 <code>Weight</code>: <strong>1</strong></p>
@@ -1033,7 +1047,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 </li>
 <li>Click <code>Add</code>.</li>
 <li>Repeat the process for the second backend member with the following values:<blockquote>
-<p><code>Subnet</code>: <strong>StudentProject_Subnet</strong><br/>
+<p><code>Subnet</code>: <strong>the project subnet used by the backend instances</strong><br/>
 <code>IP Address</code>: <strong>the fixed IP recorded for web-2</strong><br/>
 <code>Protocol Port</code>: <strong>80</strong><br/>
 <code>Weight</code>: <strong>1</strong></p>
@@ -1048,7 +1062,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 <li>Record the VIP address and the VIP port ID shown on the load balancer details page.</li>
 <li>From the panels on the left select <code>Project &gt; Network &gt; Floating IPs</code>.</li>
 <li>Click <code>Allocate IP To Project</code>.</li>
-<li>On the <code>Allocate Floating IP</code> screen, select <code>Public_Network</code> from the <code>Pool</code> list.</li>
+<li>On the <code>Allocate Floating IP</code> screen, select the external network used for floating IP allocation in this environment.</li>
 <li>Click <code>Allocate IP</code>.</li>
 <li>Next to the newly allocated address, click <code>Associate</code>.</li>
 <li>In the port selection list, choose the load balancer VIP port that matches the <code>demo-lb</code> VIP port ID.</li>
@@ -1096,7 +1110,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 </ol>
 <p><strong>12.4.15 Stop Apache on web-1 and Observe the Limitation of PING Monitoring</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend while leaving the VM running</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
+ssh<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_KEY_PATH</span><span class="s2">&quot;</span><span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1145,7 +1159,7 @@ request<span class="w"> </span>failed
 </details>
 <p><strong>12.4.16 Start Apache Again Before Replacing the Health Monitor</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend again</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
+ssh<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_KEY_PATH</span><span class="s2">&quot;</span><span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1183,7 +1197,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="nv">$W
 </ol>
 <p><strong>12.4.18 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend again to trigger the HTTP monitor</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
+ssh<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_KEY_PATH</span><span class="s2">&quot;</span><span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
@@ -1217,7 +1231,7 @@ sleep<span class="w"> </span><span class="m">20</span>
 </details>
 <p><strong>12.4.19 Restore the Failed Backend After the Demo</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend so both members can return to service</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/student-keypair.pem<span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
+ssh<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSH_KEY_PATH</span><span class="s2">&quot;</span><span class="w"> </span>ubuntu@<span class="nv">$WEB1_FLOATING_IP</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
