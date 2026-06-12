@@ -91,19 +91,22 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 
 **12.4.5 Create the Project Router and Assign Floating IP Addresses to Both Backend Instances**
 
+!!! note
+    These floating IP addresses are only needed for the initial VM configuration and direct backend checks later in the appendix. Octavia uses the instances' fixed IP addresses on `local-net`, not their floating IP addresses.
+
 1. From `Project > Network > Routers`, click `Create Router`.
 2. On the `Create Router` screen, enter or select the following, then click `Create Router`:
 > `Name`: **local-router**<br/>
 > `External Network`: **office**
 
-!!! note
+!!! note ""
     Open `Project > Network > Network Topology` after creating the router. This makes it easier to see the new `local-router` object and its relationship to the external network.
 
 3. Open `local-router`, select the `Interfaces` tab, and click `Add Interface`.
 4. On the `Add Interface` screen, select the following, then click `Add Interface`:
 > `Subnet`: **local-subnet**
 
-!!! note
+!!! note ""
     Return to `Project > Network > Network Topology` after adding the interface. This view makes it easier to confirm that `local-net` is now connected to `local-router`.
 
 5. From `Project > Network > Floating IPs`, click `Allocate IP To Project`.
@@ -114,14 +117,8 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 10. Repeat the same association process for `web-2` using the second floating IP address.
 11. Record the two external addresses for later use from the shell on the student host.
 
-!!! note
+!!! note ""
     Check `Project > Network > Network Topology` again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.
-
-!!! note
-    The backend instances need floating IP addresses for direct SSH access and direct HTTP checks later in the appendix. Octavia still uses the instances' fixed IP addresses on `local-net` when you add them as pool members.
-
-!!! warning
-    If Horizon reports that the subnet is already using gateway IP `10.0.20.1` when you add the router interface, the subnet is already attached to another router. In that case, keep the existing routing path and continue with the floating IP allocation and association steps instead of adding a second router interface.
 
 **12.4.6 Connect to the Student Host**
 
