@@ -693,21 +693,17 @@
 <code>Count</code>: <strong>1</strong></p>
 </blockquote>
 </li>
-<li>Click <code>Next</code>.</li>
 <li>On the <code>Source</code> tab, enter or select the following:<blockquote>
 <p><code>Select Boot Source</code>: <strong>Image</strong><br/>
-<code>Create New Volume</code>: <strong>No</strong></p>
+<code>Create New Volume</code>: <strong>Yes</strong><br/>
+<code>Volume Size (GB)</code>: <strong>5</strong><br/>
+<code>Allocated</code>: <strong>ubuntu-24.04</strong></p>
 </blockquote>
 </li>
-<li>Move the Ubuntu image for this environment from <code>Available</code> to <code>Allocated</code>.</li>
-<li>Click <code>Next</code>.</li>
-<li>On the <code>Flavor</code> tab, move a small flavor suitable for an Apache demo instance from <code>Available</code> to <code>Allocated</code>.</li>
-<li>Click <code>Next</code>.</li>
-<li>On the <code>Networks</code> tab, move the project network for the backend instances from <code>Available</code> to <code>Allocated</code>.</li>
-<li>Click <code>Next</code> twice.</li>
+<li>On the <code>Flavor</code> tab, move <code>c1.small</code> from <code>Available</code> to <code>Allocated</code>.</li>
+<li>On the <code>Networks</code> tab, move <code>local-net</code> from <code>Available</code> to <code>Allocated</code>.</li>
 <li>On the <code>Security Groups</code> tab, keep <code>default</code> assigned to the instance.</li>
-<li>Click <code>Next</code>.</li>
-<li>On the <code>Key Pair</code> tab, move the SSH key pair for this environment from <code>Available</code> to <code>Allocated</code>.</li>
+<li>On the <code>Key Pair</code> tab, move <code>bootstrap</code> from <code>Available</code> to <code>Allocated</code>.</li>
 <li>Click <code>Launch Instance</code>.</li>
 <li>Wait for <code>web-1</code> to reach the <code>Active</code> state.</li>
 </ol>
@@ -715,13 +711,13 @@
 <p><strong>To launch the second backend instance via Horizon perform the following:</strong></p>
 <ol>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, click <code>Launch Instance</code> again.</li>
-<li>Repeat the same selections as in the previous task with the following change:<blockquote>
+<li>Repeat the same tab selections as in the previous task with the following change:<blockquote>
 <p><code>Instance Name</code>: <strong>web-2</strong></p>
 </blockquote>
 </li>
 <li>Click <code>Launch Instance</code>.</li>
 <li>Wait for <code>web-2</code> to reach the <code>Active</code> state.</li>
-<li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on the selected project network. You will use them later when adding pool members.</li>
+<li>In the <code>IP Address</code> column for both instances, record the fixed IP addresses shown on <code>local-net</code>. You will use them later when adding pool members.</li>
 </ol>
 <p><strong>12.4.5 Assign Floating IP Addresses to Both Backend Instances</strong></p>
 <p><strong>To allocate and associate floating IP addresses via Horizon perform the following:</strong></p>
