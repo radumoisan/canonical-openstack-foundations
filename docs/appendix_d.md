@@ -1,6 +1,6 @@
 # 12.4 Appendix D: Horizon Octavia Load Balancer Demo
 
-This appendix provides a compact Horizon-based Octavia exercise that uses two Ubuntu workload instances running Apache behind a load balancer. All OpenStack resource changes are performed in Horizon. The Apache installation, `curl` tests, and service stop and start operations are performed from the student host terminal over SSH.
+This appendix provides a compact Horizon-based Octavia exercise that uses two Ubuntu workload instances running Apache behind a load balancer. All OpenStack resource changes are performed in Horizon. The Apache installation, `curl` tests, and service stop and start operations are performed from a terminal over SSH.
 
 !!! note
     Use the Horizon access details provided for this validation environment to reach the dashboard.
@@ -115,93 +115,43 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 8. From `Project > Compute > Instances`, next to `web-1`, select `Associate Floating IP` from the action menu.
 9. On the `Manage Floating IP Associations` screen, select one of the newly allocated floating IP addresses and accept the default port, then click `Associate`.
 10. Repeat the same association process for `web-2` using the second floating IP address.
-11. Record the two external addresses for later use from the shell on the student host.
+11. Record the two external addresses for later use from the terminal.
 
 !!! note ""
     Check `Project > Network > Network Topology` again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.
 
-**12.4.6 Connect to the Student Host**
-
-From the workstation terminal, connect to the student host for this validation environment. That host should already contain the OpenStack credentials and the SSH private key you will use for the backend instances.
+**12.4.6 Connect to Each Backend and Install Apache**
 
 !!! note
-    Replace the example host address, key path, and IP addresses in the next commands with the actual values for this environment before you continue.
+    Replace the example floating IP addresses with the actual addresses you recorded in Horizon. Run these commands from a terminal where `bootstrap.pem` is available.
 
 ```bash
-# connect to the student host
-ssh ubuntu@<student-host-address>
-```
-
-??? example "Expected result"
-    ```bash
-    Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-xx-generic x86_64)
-    ubuntu@training-host:~$
-    ```
-
-```bash
-# set the path to the SSH private key for the backend instances
-export SSH_KEY_PATH=~/.ssh/my-private-key.pem
+# confirm the backend private key uses restrictive permissions
+chmod 600 ~/.ssh/bootstrap.pem
 ```
 
 ??? example "Expected result"
     ```bash
     No output.
     ```
-
-```bash
-# confirm the student private key uses restrictive permissions
-chmod 600 "$SSH_KEY_PATH"
-```
-
-??? example "Expected result"
-    ```bash
-    No output.
-    ```
-
-```bash
-# export the recorded backend and VIP addresses for reuse in the remaining commands
-export WEB1_FIXED_IP=10.20.30.161 WEB2_FIXED_IP=10.20.30.162 WEB1_FLOATING_IP=192.168.100.180 WEB2_FLOATING_IP=192.168.100.181 VIP_FLOATING_IP=192.168.100.182
-```
-
-??? example "Expected result"
-    ```bash
-    No output.
-    ```
-
-**12.4.7 Install Apache on web-1**
 
 ```bash
 # connect to the first backend instance
-ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP
+ssh -i ~/.ssh/bootstrap.pem ubuntu@<web-1-floating-ip>
 ```
 
 ??? example "Expected result"
     ```bash
-    The authenticity of host '192.168.100.180 (192.168.100.180)' can't be established.
+    The authenticity of host '192.168.100.88 (192.168.100.88)' can't be established.
     ED25519 key fingerprint is SHA256:[redacted].
     Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-    Warning: Permanently added '192.168.100.180' (ED25519) to the list of known hosts.
+    Warning: Permanently added '192.168.100.88' (ED25519) to the list of known hosts.
     ubuntu@web-1:~$
     ```
 
 ```bash
-# refresh the package index on web-1
-sudo apt update
-```
-
-??? example "Expected result"
-    ```bash
-    Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
-    Hit:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
-    Hit:3 http://archive.ubuntu.com/ubuntu jammy-security InRelease
-    Reading package lists... Done
-    Building dependency tree... Done
-    All packages are up to date.
-    ```
-
-```bash
-# install the Apache web server on web-1
-sudo apt install -y apache2
+# install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-1
+sudo apt update && sudo apt install -y apache2 && printf '%s\n' '<h1>Apache backend web-1</h1>' | sudo tee /var/www/html/index.html && printf 'OK\n' | sudo tee /var/www/html/healthcheck && curl -s http://127.0.0.1/ && curl -s http://127.0.0.1/healthcheck
 ```
 
 ??? example "Expected result"
@@ -209,60 +159,9 @@ sudo apt install -y apache2
     Reading package lists... Done
     Building dependency tree... Done
     Reading state information... Done
-    The following NEW packages will be installed:
-      apache2 apache2-bin apache2-data apache2-utils
     ...
     Setting up apache2 ...
-    Created symlink /etc/systemd/system/multi-user.target.wants/apache2.service -> /lib/systemd/system/apache2.service.
-    ```
-
-```bash
-# verify that Apache is running on web-1
-sudo systemctl is-active apache2
-```
-
-??? example "Expected result"
-    ```bash
-    active
-    ```
-
-```bash
-# publish a unique landing page on web-1
-printf '%s\n' '<h1>Apache backend web-1</h1>' | sudo tee /var/www/html/index.html
-```
-
-??? example "Expected result"
-    ```bash
     <h1>Apache backend web-1</h1>
-    ```
-
-```bash
-# create a dedicated HTTP health check file on web-1
-printf 'OK\n' | sudo tee /var/www/html/healthcheck
-```
-
-??? example "Expected result"
-    ```bash
-    OK
-    ```
-
-```bash
-# verify the Apache landing page locally on web-1
-curl -s http://127.0.0.1/
-```
-
-??? example "Expected result"
-    ```bash
-    <h1>Apache backend web-1</h1>
-    ```
-
-```bash
-# verify the HTTP health check file locally on web-1
-curl -s http://127.0.0.1/healthcheck
-```
-
-??? example "Expected result"
-    ```bash
     OK
     ```
 
@@ -273,43 +172,26 @@ exit
 
 ??? example "Expected result"
     ```bash
-    Connection to 192.168.100.180 closed.
+    Connection to 192.168.100.88 closed.
     ```
-
-**12.4.8 Install Apache on web-2**
 
 ```bash
 # connect to the second backend instance
-ssh -i "$SSH_KEY_PATH" ubuntu@$WEB2_FLOATING_IP
+ssh -i ~/.ssh/bootstrap.pem ubuntu@<web-2-floating-ip>
 ```
 
 ??? example "Expected result"
     ```bash
-    The authenticity of host '192.168.100.181 (192.168.100.181)' can't be established.
+    The authenticity of host '192.168.100.98 (192.168.100.98)' can't be established.
     ED25519 key fingerprint is SHA256:[redacted].
     Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-    Warning: Permanently added '192.168.100.181' (ED25519) to the list of known hosts.
+    Warning: Permanently added '192.168.100.98' (ED25519) to the list of known hosts.
     ubuntu@web-2:~$
     ```
 
 ```bash
-# refresh the package index on web-2
-sudo apt update
-```
-
-??? example "Expected result"
-    ```bash
-    Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
-    Hit:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
-    Hit:3 http://archive.ubuntu.com/ubuntu jammy-security InRelease
-    Reading package lists... Done
-    Building dependency tree... Done
-    All packages are up to date.
-    ```
-
-```bash
-# install the Apache web server on web-2
-sudo apt install -y apache2
+# install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-2
+sudo apt update && sudo apt install -y apache2 && printf '%s\n' '<h1>Apache backend web-2</h1>' | sudo tee /var/www/html/index.html && printf 'OK\n' | sudo tee /var/www/html/healthcheck && curl -s http://127.0.0.1/ && curl -s http://127.0.0.1/healthcheck
 ```
 
 ??? example "Expected result"
@@ -317,60 +199,9 @@ sudo apt install -y apache2
     Reading package lists... Done
     Building dependency tree... Done
     Reading state information... Done
-    The following NEW packages will be installed:
-      apache2 apache2-bin apache2-data apache2-utils
     ...
     Setting up apache2 ...
-    Created symlink /etc/systemd/system/multi-user.target.wants/apache2.service -> /lib/systemd/system/apache2.service.
-    ```
-
-```bash
-# verify that Apache is running on web-2
-sudo systemctl is-active apache2
-```
-
-??? example "Expected result"
-    ```bash
-    active
-    ```
-
-```bash
-# publish a unique landing page on web-2
-printf '%s\n' '<h1>Apache backend web-2</h1>' | sudo tee /var/www/html/index.html
-```
-
-??? example "Expected result"
-    ```bash
     <h1>Apache backend web-2</h1>
-    ```
-
-```bash
-# create a dedicated HTTP health check file on web-2
-printf 'OK\n' | sudo tee /var/www/html/healthcheck
-```
-
-??? example "Expected result"
-    ```bash
-    OK
-    ```
-
-```bash
-# verify the Apache landing page locally on web-2
-curl -s http://127.0.0.1/
-```
-
-??? example "Expected result"
-    ```bash
-    <h1>Apache backend web-2</h1>
-    ```
-
-```bash
-# verify the HTTP health check file locally on web-2
-curl -s http://127.0.0.1/healthcheck
-```
-
-??? example "Expected result"
-    ```bash
     OK
     ```
 
@@ -381,10 +212,20 @@ exit
 
 ??? example "Expected result"
     ```bash
-    Connection to 192.168.100.181 closed.
+    Connection to 192.168.100.98 closed.
     ```
 
-**12.4.9 Verify Direct Backend Reachability and HTTP Responses**
+**12.4.7 Verify Direct Backend Reachability and HTTP Responses**
+
+```bash
+# record the backend floating IP addresses for reuse in the remaining commands
+export WEB1_FLOATING_IP=<web-1-floating-ip> WEB2_FLOATING_IP=<web-2-floating-ip>
+```
+
+??? example "Expected result"
+    ```bash
+    No output.
+    ```
 
 ```bash
 # confirm that the first backend VM is reachable over ICMP
@@ -440,7 +281,7 @@ curl -s http://$WEB2_FLOATING_IP/
     <h1>Apache backend web-2</h1>
     ```
 
-**12.4.10 Create the Load Balancer, Listener, and Pool in Horizon**
+**12.4.8 Create the Load Balancer, Listener, and Pool in Horizon**
 
 **To create the load balancer via Horizon perform the following:**
 
@@ -469,7 +310,7 @@ curl -s http://$WEB2_FLOATING_IP/
 !!! note
     Use the same project subnet for the VIP and the backend members. The pool members must use the instances' fixed IP addresses on the project network, not their floating IP addresses.
 
-**12.4.11 Add the Two Apache Backends as Pool Members**
+**12.4.9 Add the Two Apache Backends as Pool Members**
 
 **To add the backend members via Horizon perform the following:**
 
@@ -489,7 +330,7 @@ curl -s http://$WEB2_FLOATING_IP/
 > `Weight`: **1**
 7. Wait until both members appear in the pool member list.
 
-**12.4.12 Associate a Floating IP Address with the Load Balancer VIP**
+**12.4.10 Associate a Floating IP Address with the Load Balancer VIP**
 
 **To expose the load balancer VIP externally via Horizon perform the following:**
 
@@ -502,12 +343,22 @@ curl -s http://$WEB2_FLOATING_IP/
 7. Next to the newly allocated address, click `Associate`.
 8. In the port selection list, choose the load balancer VIP port that matches the `demo-lb` VIP port ID.
 9. Click `Associate`.
-10. Record the associated external address for later use from the shell on the student host.
+10. Record the associated external address for later use from the terminal.
+
+```bash
+# record the load balancer floating IP address for reuse in the remaining commands
+export VIP_FLOATING_IP=<vip-floating-ip>
+```
+
+??? example "Expected result"
+    ```bash
+    No output.
+    ```
 
 !!! note
     Some Horizon releases display the load balancer name directly in the port list, while others only show the port ID. Match the VIP port carefully before confirming the association.
 
-**12.4.13 Verify Round-Robin Responses Through the VIP**
+**12.4.11 Verify Round-Robin Responses Through the VIP**
 
 ```bash
 # send repeated HTTP requests through the load balancer VIP
@@ -527,7 +378,7 @@ for i in {1..6}; do curl -s http://$VIP_FLOATING_IP/; printf '\n'; done
 !!! note
     The exact request order can vary, but over several requests you should see responses from both backends while both Apache services are healthy.
 
-**12.4.14 Create a PING Health Monitor**
+**12.4.12 Create a PING Health Monitor**
 
 **To create a basic VM reachability monitor via Horizon perform the following:**
 
@@ -543,11 +394,11 @@ for i in {1..6}; do curl -s http://$VIP_FLOATING_IP/; printf '\n'; done
 5. Click `Create`.
 6. Wait until the health monitor is active and both pool members show a healthy or online state.
 
-**12.4.15 Stop Apache on web-1 and Observe the Limitation of PING Monitoring**
+**12.4.13 Stop Apache on web-1 and Observe the Limitation of PING Monitoring**
 
 ```bash
 # stop Apache on the first backend while leaving the VM running
-ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
+ssh -i ~/.ssh/bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
 ```
 
 ??? example "Expected result"
@@ -600,11 +451,11 @@ for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/ || printf 'req
     request failed
     ```
 
-**12.4.16 Start Apache Again Before Replacing the Health Monitor**
+**12.4.14 Start Apache Again Before Replacing the Health Monitor**
 
 ```bash
 # start Apache on the first backend again
-ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
+ssh -i ~/.ssh/bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
 ```
 
 ??? example "Expected result"
@@ -622,7 +473,7 @@ curl -s http://$WEB1_FLOATING_IP/
     <h1>Apache backend web-1</h1>
     ```
 
-**12.4.17 Replace the PING Monitor with an HTTP Monitor**
+**12.4.15 Replace the PING Monitor with an HTTP Monitor**
 
 **To replace the basic liveness monitor with an application-aware HTTP monitor via Horizon perform the following:**
 
@@ -642,11 +493,11 @@ curl -s http://$WEB1_FLOATING_IP/
 7. Click `Create`.
 8. Wait until the new HTTP health monitor is active and both members return to a healthy or online state.
 
-**12.4.18 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
+**12.4.16 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
 
 ```bash
 # stop Apache on the first backend again to trigger the HTTP monitor
-ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
+ssh -i ~/.ssh/bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
 ```
 
 ??? example "Expected result"
@@ -682,11 +533,11 @@ for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/; printf '\n'; 
     <h1>Apache backend web-2</h1>
     ```
 
-**12.4.19 Restore the Failed Backend After the Demo**
+**12.4.17 Restore the Failed Backend After the Demo**
 
 ```bash
 # start Apache on the first backend so both members can return to service
-ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
+ssh -i ~/.ssh/bootstrap.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
 ```
 
 ??? example "Expected result"
@@ -707,7 +558,7 @@ curl -s http://$WEB1_FLOATING_IP/healthcheck
 !!! note
     After the demo, give the HTTP monitor enough time to probe `web-1` again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.
 
-**12.4.20 Optional Cleanup**
+**12.4.18 Optional Cleanup**
 
 **To remove the demo resources after the exercise via Horizon perform the following:**
 
