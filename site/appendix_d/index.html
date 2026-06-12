@@ -1073,13 +1073,16 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>apache2
 <details class="example">
 <summary>Expected result</summary>
 <div class="highlight"><pre><span></span><code>&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
-request<span class="w"> </span>failed
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
-request<span class="w"> </span>failed
 &lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
-request<span class="w"> </span>failed
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
+&lt;h1&gt;Apache<span class="w"> </span>backend<span class="w"> </span>web-2&lt;/h1&gt;
 </code></pre></div>
 </details>
+</div>
+<div class="admonition example">
+<p>In this case, requests can still return quickly even though Apache is down on <code>web-1</code>. When HAProxy tries <code>web-1:80</code>, the kernel returns an immediate TCP refusal. That failure is fast, unlike a powered-off VM which can cause a timeout.</p>
 </div>
 <p><strong>12.4.14 Start Apache Again Before Replacing the Health Monitor</strong></p>
 <p>Use the <code>web-1</code> Horizon console again and run:</p>
