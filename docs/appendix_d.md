@@ -464,9 +464,7 @@ systemctl is-active apache2
 !!! example ""
     In this case, requests can still return quickly even though Apache is down on `web-1`. When HAProxy tries `web-1:80`, the kernel returns an immediate TCP refusal. That failure is fast, unlike a powered-off VM which can cause a timeout.
 
-**12.4.14 Start Apache Again Before Replacing the Health Monitor**
-
-Use the `web-1` Horizon console again and run:
+7. Restore the application on `web-1` before moving to the HTTP monitor test.
 
 ```bash
 # start Apache on the first backend again
@@ -478,17 +476,7 @@ sudo systemctl start apache2
     No output.
     ```
 
-```bash
-# confirm locally that the first backend Apache page responds again
-curl -s http://127.0.0.1/
-```
-
-??? example "Expected result"
-    ```bash
-    <h1>Apache backend web-1</h1>
-    ```
-
-**12.4.15 Replace the PING Monitor with an HTTP Monitor**
+**12.4.14 Replace the PING Monitor with an HTTP Monitor**
 
 1. From `Project > Network > Load Balancers`, click `demo-lb`.
 2. Open the `Pools` tab and click `demo-pool`.
@@ -502,10 +490,7 @@ curl -s http://127.0.0.1/
 > `Expected Codes`: **200**
 7. Click `Create`.
 8. Wait until the new HTTP health monitor is active and both members return to a healthy or online state.
-
-**12.4.16 Stop Apache on web-1 Again and Verify That HTTP Monitoring Protects the Service**
-
-Use the `web-1` Horizon console again and run:
+9. Use the `web-1` Horizon console again and run:
 
 ```bash
 # stop Apache on the first backend again to trigger the HTTP monitor
@@ -517,35 +502,35 @@ sudo systemctl stop apache2
     No output.
     ```
 
-!!! note
-    Return to `Project > Network > Load Balancers` and inspect the `demo-pool` members. After a short delay, the member for `web-1` should leave the healthy or online state because `/healthcheck` no longer returns `200`.
+10. Return to `Project > Network > Load Balancers` and inspect the `demo-pool` members. After a short delay, the member for `web-1` should leave the healthy or online state because `/healthcheck` no longer returns `200`.
 
-```bash
-# wait for the HTTP health monitor to mark web-1 unhealthy
-sleep 20
-```
-
-??? example "Expected result"
+!!! quote "Test"
     ```bash
-    No output.
+    # wait for the HTTP health monitor to mark web-1 unhealthy
+    sleep 20
     ```
 
-```bash
-# confirm that requests through the VIP continue to succeed from the remaining healthy backend
-for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/; printf '\n'; done
-```
+    ??? example "Expected result"
+        ```bash
+        No output.
+        ```
 
-??? example "Expected result"
     ```bash
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
+    # confirm that requests through the VIP continue to succeed from the remaining healthy backend
+    for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/; printf '\n'; done
     ```
 
-**12.4.17 Restore the Failed Backend After the Demo**
+    ??? example "Expected result"
+        ```bash
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-2</h1>
+        ```
+
+**12.4.15 Restore the Failed Backend After the Demo**
 
 Use the `web-1` Horizon console again and run:
 
@@ -572,7 +557,7 @@ curl -s http://127.0.0.1/healthcheck
 !!! note
     After the demo, give the HTTP monitor enough time to probe `web-1` again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.
 
-**12.4.18 Optional Cleanup**
+**12.4.16 Optional Cleanup**
 
 1. From `Project > Network > Load Balancers`, delete `demo-lb` and confirm the cascade delete of its child resources if Horizon prompts for it.
 2. From `Project > Compute > Instances`, delete `web-1` and `web-2`.
