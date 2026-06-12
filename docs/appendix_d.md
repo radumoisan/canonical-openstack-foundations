@@ -151,7 +151,12 @@ ssh -i ~/.ssh/bootstrap.pem ubuntu@<web-1-floating-ip>
 
 ```bash
 # install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-1
-sudo apt update && sudo apt install -y apache2 && printf '%s\n' '<h1>Apache backend web-1</h1>' | sudo tee /var/www/html/index.html && printf 'OK\n' | sudo tee /var/www/html/healthcheck && curl -s http://127.0.0.1/ && curl -s http://127.0.0.1/healthcheck
+sudo apt update && \
+sudo apt install -y apache2 && \
+printf '%s\n' '<h1>Apache backend web-1</h1>' | sudo tee /var/www/html/index.html && \
+printf 'OK\n' | sudo tee /var/www/html/healthcheck && \
+curl -s http://127.0.0.1/ && \
+curl -s http://127.0.0.1/healthcheck
 ```
 
 ??? example "Expected result"
@@ -191,7 +196,12 @@ ssh -i ~/.ssh/bootstrap.pem ubuntu@<web-2-floating-ip>
 
 ```bash
 # install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-2
-sudo apt update && sudo apt install -y apache2 && printf '%s\n' '<h1>Apache backend web-2</h1>' | sudo tee /var/www/html/index.html && printf 'OK\n' | sudo tee /var/www/html/healthcheck && curl -s http://127.0.0.1/ && curl -s http://127.0.0.1/healthcheck
+sudo apt update && \
+sudo apt install -y apache2 && \
+printf '%s\n' '<h1>Apache backend web-2</h1>' | sudo tee /var/www/html/index.html && \
+printf 'OK\n' | sudo tee /var/www/html/healthcheck && \
+curl -s http://127.0.0.1/ && \
+curl -s http://127.0.0.1/healthcheck
 ```
 
 ??? example "Expected result"
