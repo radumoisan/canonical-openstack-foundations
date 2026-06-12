@@ -454,12 +454,15 @@ systemctl is-active apache2
     ??? example "Expected result"
         ```bash
         <h1>Apache backend web-2</h1>
-        request failed
         <h1>Apache backend web-2</h1>
-        request failed
         <h1>Apache backend web-2</h1>
-        request failed
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-2</h1>
         ```
+
+!!! example ""
+    In this case, requests can still return quickly even though Apache is down on `web-1`. When HAProxy tries `web-1:80`, the kernel returns an immediate TCP refusal. That failure is fast, unlike a powered-off VM which can cause a timeout.
 
 **12.4.14 Start Apache Again Before Replacing the Health Monitor**
 
