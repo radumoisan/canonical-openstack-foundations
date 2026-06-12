@@ -401,6 +401,7 @@ for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
 
 1. From `Project > Compute > Instances`, use the instance action menu for `web-1` and start the instance again.
 2. Wait until `web-1` returns to the `Active` state in Horizon.
+3. Confirm that round-robin responses return before you stop Apache.
 
 !!! quote "Test"
     ```bash
@@ -418,7 +419,7 @@ for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
         <h1>Apache backend web-2</h1>
         ```
 
-3. From `Project > Compute > Instances`, open the Horizon console for `web-1`, log in as `ubuntu` with password `openstack`, and run the following command:
+4. From `Project > Compute > Instances`, open the Horizon console for `web-1`, log in as `ubuntu` with password `openstack`, and run the following command:
 
 ```bash
 # stop Apache on the first backend while leaving the VM running
@@ -430,29 +431,19 @@ sudo systemctl stop apache2
     No output.
     ```
 
-!!! quote "Test"
+```bash
+# confirm from the console that the Apache service is no longer active
+systemctl is-active apache2
+```
+
+??? example "Expected result"
     ```bash
-    # confirm from the console that the Apache service is no longer active
-    systemctl is-active apache2
+    inactive
     ```
 
-    ??? example "Expected result"
-        ```bash
-        inactive
-        ```
+5. Return to `Project > Network > Load Balancers` and inspect the `demo-pool` member list. With a `PING` monitor, `web-1` can still appear healthy because the VM is reachable even though the Apache application has stopped.
 
-    ```bash
-    # confirm that the Apache service on the first backend no longer answers locally
-    curl -sS --max-time 5 http://127.0.0.1/
-    ```
-
-    ??? example "Expected result"
-        ```bash
-        curl: (7) Failed to connect to 127.0.0.1 port 80 after 0 ms: Connection refused
-        ```
-
-!!! note
-    Return to `Project > Network > Load Balancers` and inspect the `demo-pool` member list. With a `PING` monitor, `web-1` can still appear healthy because the VM is reachable even though the Apache application has stopped.
+6. Verify the limitation from the VIP.
 
 !!! quote "Test"
     ```bash
