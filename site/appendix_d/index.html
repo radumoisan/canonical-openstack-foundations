@@ -768,11 +768,13 @@ ubuntu@web-1:~$
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># set a password for the ubuntu user so you can use the Horizon web console later</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;ubuntu:openstack&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>chpasswd
+sudo<span class="w"> </span>passwd<span class="w"> </span>ubuntu
 </code></pre></div>
 <details class="example">
 <summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
+<div class="highlight"><pre><span></span><code>New<span class="w"> </span>password:
+Retype<span class="w"> </span>new<span class="w"> </span>password:
+passwd:<span class="w"> </span>password<span class="w"> </span>updated<span class="w"> </span>successfully
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="c1"># install Apache, publish a unique landing page, add a health check file, and verify both endpoints on web-1</span>
