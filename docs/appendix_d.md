@@ -268,36 +268,22 @@ curl -s http://<web-2-floating-ip>/
 3. On the `Load Balancer Details` screen, enter or select the following, then click `Next`:
 > `Name`: **demo-lb**<br/>
 > `Description`: **Round-robin Apache demo**<br/>
-> `IP address`: **leave empty**<br/>
-> `Availability Zone`: **leave empty**<br/>
-> `Flavor`: **leave empty**<br/>
 > `Subnet`: **local-net: 10.0.20.0/24 (local-subnet)**<br/>
 > `Admin State Up`: **Yes**
 4. On the `Listener Details` screen, enter or select the following, then click `Next`:
 > `Create Listener`: **Yes**<br/>
 > `Name`: **demo-listener-http**<br/>
-> `Description`: **leave empty**<br/>
 > `Protocol`: **HTTP**<br/>
 > `Port`: **80**<br/>
-> `Client Data Timeout`: **leave default**<br/>
-> `TCP Inspect Timeout`: **leave default**<br/>
-> `Member Connect Timeout`: **leave default**<br/>
-> `Member Data Timeout`: **leave default**<br/>
-> `Connection Limit`: **leave default**<br/>
-> `Allowed Cidrs`: **leave default**<br/>
 > `Admin State Up`: **Yes**
 5. On the `Pool Details` screen, enter or select the following, then click `Next`:
 > `Create Pool`: **Yes**<br/>
 > `Name`: **demo-pool**<br/>
-> `Description`: **leave empty**<br/>
 > `Algorithm`: **ROUND_ROBIN**<br/>
 > `Session Persistence`: **None**<br/>
 > `TLS Enabled`: **No**<br/>
 > `Admin State Up`: **Yes**
 6. On the `Pool Members` screen, add `web-1` and `web-2`, then click `Next`.
-
-!!! note
-    Add only `web-1` and `web-2` as members. Do not add `test-master-kzhbh-w7cc7`.
 
 7. On the `Monitor Details` screen, set `Create Health Monitor` to `No`, then click `Create Load Balancer`.
 8. Wait until `demo-lb`, `demo-listener-http`, and `demo-pool` return to an active or online state and both backend members appear under the pool.
