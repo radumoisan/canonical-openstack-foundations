@@ -187,7 +187,7 @@ exit
     Connection to 192.168.100.88 closed.
     ```
 
-Repeat the same SSH, password update, Apache installation, landing page, and health check steps for `web-2`, using its floating IP address, **setting the password to `openstack`**, and **changing the landing page content to `<h1>Apache backend web-2</h1>`**.
+> Repeat the same SSH, password update, Apache installation, landing page, and health check steps for `web-2`, using its floating IP address, setting the password to `openstack`, and **changing the landing page content to `<h1>Apache backend web-2</h1>`**.
 
 **12.4.7 Verify Direct Backend Reachability and HTTP Responses**
 
