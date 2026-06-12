@@ -1020,6 +1020,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <ol>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and start the instance again.</li>
 <li>Wait until <code>web-1</code> returns to the <code>Active</code> state in Horizon.</li>
+<li>Confirm that round-robin responses return before you stop Apache.</li>
 </ol>
 <div class="admonition quote">
 <p class="admonition-title">Test</p>
@@ -1048,8 +1049,6 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"
 <div class="highlight"><pre><span></span><code>No<span class="w"> </span>output.
 </code></pre></div>
 </details>
-<div class="admonition quote">
-<p class="admonition-title">Test</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm from the console that the Apache service is no longer active</span>
 systemctl<span class="w"> </span>is-active<span class="w"> </span>apache2
 </code></pre></div>
@@ -1058,19 +1057,14 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>apache2
 <div class="highlight"><pre><span></span><code>inactive
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="c1"># confirm that the Apache service on the first backend no longer answers locally</span>
-curl<span class="w"> </span>-sS<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://127.0.0.1/
-</code></pre></div>
-<details class="example">
-<summary>Expected result</summary>
-<div class="highlight"><pre><span></span><code>curl:<span class="w"> </span><span class="o">(</span><span class="m">7</span><span class="o">)</span><span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>port<span class="w"> </span><span class="m">80</span><span class="w"> </span>after<span class="w"> </span><span class="m">0</span><span class="w"> </span>ms:<span class="w"> </span>Connection<span class="w"> </span>refused
-</code></pre></div>
-</details>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<ol>
+<li>
 <p>Return to <code>Project &gt; Network &gt; Load Balancers</code> and inspect the <code>demo-pool</code> member list. With a <code>PING</code> monitor, <code>web-1</code> can still appear healthy because the VM is reachable even though the Apache application has stopped.</p>
-</div>
+</li>
+<li>
+<p>Verify the limitation from the VIP.</p>
+</li>
+</ol>
 <div class="admonition quote">
 <p class="admonition-title">Test</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># send repeated HTTP requests through the VIP while one backend application is down</span>
