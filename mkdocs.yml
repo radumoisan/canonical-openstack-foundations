@@ -22,10 +22,10 @@ nav:
   - OpenStack Storage: openstack-storage.md
   - Juju OpenStack Provider: juju-openstack-provider.md
   - Appendices:
-      - Appendix A: appendinx_a.md
-      - Appendix B: appendinx_b.md
-      - Appendix C: appending_c.md
-      - Appendix D: appendinx_d.md
+      - Appendix A: appendix_a.md
+      - Appendix B: appendix_b.md
+      - Appendix C: appendix_c.md
+      - Appendix D: appendix_d.md
 
 markdown_extensions:
   - tables

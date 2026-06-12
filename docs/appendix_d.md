@@ -3,30 +3,32 @@
 This appendix provides a compact Horizon-based Octavia exercise that uses two Ubuntu workload instances running Apache behind a load balancer. All OpenStack resource changes are performed in Horizon. The Apache installation, `curl` tests, and service stop and start operations are performed from the student host terminal over SSH.
 
 !!! note
-    Use the browser proxy path from Chapter 1 and the Horizon access details from Chapter 5 to reach the dashboard at `https://192.168.100.35/horizon`.
+    Use the Horizon access details provided for this validation environment to reach the dashboard.
 
 !!! note
-    This appendix assumes the cloud already has Octavia installed, the Horizon load balancer panels are enabled, and the project user already has the resources created in Chapters 8 and 9: the `jammy` image, the `student-keypair` key pair, the `StudentProject_Network` network, the `StudentProject_Subnet` subnet, and router access to `Public_Network`.
+    This appendix assumes the cloud already has Octavia installed, the Horizon load balancer panels are enabled, and the project can create instances, floating IPs, and load balancers in this environment.
 
-**Objectives**
+!!! note
+    This appendix runs on a different student host and OpenStack environment from the earlier training chapters. Focus on the Octavia workflow and validation steps here; the environment-specific machine details are not part of the exercise.
 
-- Launch two Ubuntu backend instances from Horizon.
-- Assign floating IP addresses and verify direct SSH and HTTP access.
-- Install Apache on both backends and publish distinct landing pages.
-- Create an Octavia load balancer with an HTTP listener and a round-robin pool.
-- Demonstrate successful round-robin responses through the VIP.
-- Show that a `PING` health monitor only proves that the VM is reachable.
-- Replace the `PING` monitor with an `HTTP` monitor that checks `/healthcheck`.
-- Verify that the HTTP monitor removes a failed backend from service.
+!!! success "**Objectives**"
+  - [x] Launch two Ubuntu backend instances from Horizon.
+  - [x] Assign floating IP addresses and verify direct SSH and HTTP access.
+  - [x] Install Apache on both backends and publish distinct landing pages.
+  - [x] Create an Octavia load balancer with an HTTP listener and a round-robin pool.
+  - [x] Demonstrate successful round-robin responses through the VIP.
+  - [x] Show that a `PING` health monitor only proves that the VM is reachable.
+  - [x] Replace the `PING` monitor with an `HTTP` monitor that checks `/healthcheck`.
+  - [x] Verify that the HTTP monitor removes a failed backend from service.
 
 **12.4.1 Review the Starting Conditions**
 
 Before starting the appendix, confirm the following:
 
 1. You can log in to Horizon as the student project user.
-2. The project already has at least three available floating IP addresses or enough free addresses in `Public_Network` to allocate them.
-3. The private key from Chapter 8 is available on the student host at `~/.ssh/student-keypair.pem`.
-4. The `jammy` image is available and the `StudentProject_Network` network is connected to `Public_Network`.
+2. The project can allocate at least three floating IP addresses from the external network used in this environment.
+3. The SSH private key for the backend instances is available on the student host.
+4. An Ubuntu image, a project network and subnet for the backend instances, and external network access for floating IPs and the load balancer VIP are available in the project.
 5. The Horizon dashboard shows `Project > Network > Load Balancers`.
 
 !!! note
@@ -75,15 +77,15 @@ Before starting the appendix, confirm the following:
 5. On the `Source` tab, enter or select the following:
 > `Select Boot Source`: **Image**<br/>
 > `Create New Volume`: **No**
-6. Move `jammy` from `Available` to `Allocated`.
+6. Move the Ubuntu image for this environment from `Available` to `Allocated`.
 7. Click `Next`.
-8. On the `Flavor` tab, move `m1.smaller` from `Available` to `Allocated`.
+8. On the `Flavor` tab, move a small flavor suitable for an Apache demo instance from `Available` to `Allocated`.
 9. Click `Next`.
-10. On the `Networks` tab, move `StudentProject_Network` from `Available` to `Allocated`.
+10. On the `Networks` tab, move the project network for the backend instances from `Available` to `Allocated`.
 11. Click `Next` twice.
 12. On the `Security Groups` tab, keep `default` assigned to the instance.
 13. Click `Next`.
-14. On the `Key Pair` tab, move `student-keypair` from `Available` to `Allocated`.
+14. On the `Key Pair` tab, move the SSH key pair for this environment from `Available` to `Allocated`.
 15. Click `Launch Instance`.
 16. Wait for `web-1` to reach the `Active` state.
 
@@ -96,7 +98,7 @@ Before starting the appendix, confirm the following:
 > `Instance Name`: **web-2**
 3. Click `Launch Instance`.
 4. Wait for `web-2` to reach the `Active` state.
-5. In the `IP Address` column for both instances, record the fixed IP addresses shown on `StudentProject_Network`. You will use them later when adding pool members.
+5. In the `IP Address` column for both instances, record the fixed IP addresses shown on the selected project network. You will use them later when adding pool members.
 
 **12.4.5 Assign Floating IP Addresses to Both Backend Instances**
 
@@ -104,7 +106,7 @@ Before starting the appendix, confirm the following:
 
 1. From the panels on the left select `Project > Network > Floating IPs`.
 2. Click `Allocate IP To Project`.
-3. On the `Allocate Floating IP` screen, select `Public_Network` from the `Pool` list.
+3. On the `Allocate Floating IP` screen, select the external network used for floating IP allocation in this environment.
 4. Click `Allocate IP`.
 5. Repeat the allocation once more so that you have two free floating IP addresses.
 6. From the panels on the left select `Project > Compute > Instances`.
@@ -116,14 +118,14 @@ Before starting the appendix, confirm the following:
 
 **12.4.6 Connect to the Student Host**
 
-From the workstation terminal, connect to the student host that already contains the OpenStack credentials and the student key pair.
+From the workstation terminal, connect to the student host for this validation environment. That host should already contain the OpenStack credentials and the SSH private key you will use for the backend instances.
 
 !!! note
-    Replace the example addresses in the next command with the actual addresses you recorded from Horizon before you continue.
+    Replace the example host address, key path, and IP addresses in the next commands with the actual values for this environment before you continue.
 
 ```bash
 # connect to the student host
-ssh ubuntu@34.159.9.11
+ssh ubuntu@<student-host-address>
 ```
 
 ??? example "Expected result"
@@ -133,8 +135,18 @@ ssh ubuntu@34.159.9.11
     ```
 
 ```bash
+# set the path to the SSH private key for the backend instances
+export SSH_KEY_PATH=~/.ssh/my-private-key.pem
+```
+
+??? example "Expected result"
+    ```bash
+    No output.
+    ```
+
+```bash
 # confirm the student private key uses restrictive permissions
-chmod 600 ~/.ssh/student-keypair.pem
+chmod 600 "$SSH_KEY_PATH"
 ```
 
 ??? example "Expected result"
@@ -156,7 +168,7 @@ export WEB1_FIXED_IP=10.20.30.161 WEB2_FIXED_IP=10.20.30.162 WEB1_FLOATING_IP=19
 
 ```bash
 # connect to the first backend instance
-ssh -i ~/.ssh/student-keypair.pem ubuntu@$WEB1_FLOATING_IP
+ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP
 ```
 
 ??? example "Expected result"
@@ -264,7 +276,7 @@ exit
 
 ```bash
 # connect to the second backend instance
-ssh -i ~/.ssh/student-keypair.pem ubuntu@$WEB2_FLOATING_IP
+ssh -i "$SSH_KEY_PATH" ubuntu@$WEB2_FLOATING_IP
 ```
 
 ??? example "Expected result"
@@ -433,7 +445,7 @@ curl -s http://$WEB2_FLOATING_IP/
 3. On the `Create Load Balancer` screen, enter or select the following:
 > `Name`: **demo-lb**<br/>
 > `Description`: **Round-robin Apache demo**<br/>
-> `VIP Subnet`: **StudentProject_Subnet**
+> `VIP Subnet`: **the project subnet used by the backend instances**
 4. Click `Create Load Balancer`.
 5. Wait for `demo-lb` to reach the active or online state.
 6. Open the action menu for `demo-lb` and select `Create Listener`.
@@ -451,7 +463,7 @@ curl -s http://$WEB2_FLOATING_IP/
 12. Wait until the load balancer, listener, and pool all return to an active or online state.
 
 !!! note
-    Use the `StudentProject_Subnet` subnet for the VIP and the backend members. The pool members must use the instances' fixed IP addresses on `StudentProject_Network`, not their floating IP addresses.
+    Use the same project subnet for the VIP and the backend members. The pool members must use the instances' fixed IP addresses on the project network, not their floating IP addresses.
 
 **12.4.11 Add the Two Apache Backends as Pool Members**
 
@@ -461,13 +473,13 @@ curl -s http://$WEB2_FLOATING_IP/
 2. Open the `Pools` tab and click `demo-pool`.
 3. Select `Add Members`.
 4. Add the first backend member with the following values:
-> `Subnet`: **StudentProject_Subnet**<br/>
+> `Subnet`: **the project subnet used by the backend instances**<br/>
 > `IP Address`: **the fixed IP recorded for web-1**<br/>
 > `Protocol Port`: **80**<br/>
 > `Weight`: **1**
 5. Click `Add`.
 6. Repeat the process for the second backend member with the following values:
-> `Subnet`: **StudentProject_Subnet**<br/>
+> `Subnet`: **the project subnet used by the backend instances**<br/>
 > `IP Address`: **the fixed IP recorded for web-2**<br/>
 > `Protocol Port`: **80**<br/>
 > `Weight`: **1**
@@ -481,7 +493,7 @@ curl -s http://$WEB2_FLOATING_IP/
 2. Record the VIP address and the VIP port ID shown on the load balancer details page.
 3. From the panels on the left select `Project > Network > Floating IPs`.
 4. Click `Allocate IP To Project`.
-5. On the `Allocate Floating IP` screen, select `Public_Network` from the `Pool` list.
+5. On the `Allocate Floating IP` screen, select the external network used for floating IP allocation in this environment.
 6. Click `Allocate IP`.
 7. Next to the newly allocated address, click `Associate`.
 8. In the port selection list, choose the load balancer VIP port that matches the `demo-lb` VIP port ID.
@@ -531,7 +543,7 @@ for i in {1..6}; do curl -s http://$VIP_FLOATING_IP/; printf '\n'; done
 
 ```bash
 # stop Apache on the first backend while leaving the VM running
-ssh -i ~/.ssh/student-keypair.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
+ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
 ```
 
 ??? example "Expected result"
@@ -588,7 +600,7 @@ for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/ || printf 'req
 
 ```bash
 # start Apache on the first backend again
-ssh -i ~/.ssh/student-keypair.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
+ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
 ```
 
 ??? example "Expected result"
@@ -630,7 +642,7 @@ curl -s http://$WEB1_FLOATING_IP/
 
 ```bash
 # stop Apache on the first backend again to trigger the HTTP monitor
-ssh -i ~/.ssh/student-keypair.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
+ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP sudo systemctl stop apache2
 ```
 
 ??? example "Expected result"
@@ -670,7 +682,7 @@ for i in {1..6}; do curl -s --max-time 5 http://$VIP_FLOATING_IP/; printf '\n'; 
 
 ```bash
 # start Apache on the first backend so both members can return to service
-ssh -i ~/.ssh/student-keypair.pem ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
+ssh -i "$SSH_KEY_PATH" ubuntu@$WEB1_FLOATING_IP sudo systemctl start apache2
 ```
 
 ??? example "Expected result"

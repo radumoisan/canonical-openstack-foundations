@@ -32,7 +32,7 @@ A chapter can be marked `Complete` only after all of these are true:
 - Any environment-specific corrections discovered during validation have been incorporated.
 - The chapter still preserves the technical meaning of the source material.
 
-Exception: the appendix pages under `docs/appendinx_a.md`, `docs/appendinx_b.md`, and `docs/appending_c.md` are reference material and may be marked `Complete` after a documentation review pass when live validation is explicitly out of scope.
+Exception: the appendix pages under `docs/appendix_a.md`, `docs/appendix_b.md`, and `docs/appendix_c.md` are reference material and may be marked `Complete` after a documentation review pass when live validation is explicitly out of scope.
 
 ## Stage 1: Site Migration
 
@@ -174,7 +174,7 @@ Planned work:
 
 - Status: `In review`
 - Source range: `openstack_foundation_lab.md` chapter 13
-- Target pages: `docs/appendinx_a.md`, `docs/appendinx_b.md`, `docs/appending_c.md`, `docs/appendinx_d.md`
+- Target pages: `docs/appendix_a.md`, `docs/appendix_b.md`, `docs/appendix_c.md`, `docs/appendix_d.md`
 - Review note: The source skips chapter 12. The derived site publishes Appendices as Chapter 12 for consistent navigation while keeping the source file unchanged.
 - Review note: Appendix A was reviewed and reformatted as reference recovery guidance. Live validation was not required for this page by request.
 - Review note: Appendix D is a derived Horizon-only Octavia exercise that extends the training beyond the source material.
@@ -210,10 +210,10 @@ Validation workflow:
 - Cloud Workload Instances: `cloud-workload-instances.md`
 - OpenStack Storage: `openstack-storage.md`
 - Juju OpenStack Provider: `juju-openstack-provider.md`
-- Appendix A: `appendinx_a.md`
-- Appendix B: `appendinx_b.md`
-- Appendix C: `appending_c.md`
-- Appendix D: `appendinx_d.md`
+- Appendix A: `appendix_a.md`
+- Appendix B: `appendix_b.md`
+- Appendix C: `appendix_c.md`
+- Appendix D: `appendix_d.md`
 
 ## Notes
 
