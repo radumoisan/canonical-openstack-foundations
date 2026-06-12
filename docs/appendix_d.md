@@ -97,15 +97,15 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 > `Name`: **local-router**<br/>
 > `External Network`: **office**
 
-!!! note ""
-    Open `Project > Network > Network Topology` after creating the router. This makes it easier to see the new `local-router` object and its relationship to the external network.
+    !!! note ""
+        Open `Project > Network > Network Topology` after creating the router. This makes it easier to see the new `local-router` object and its relationship to the external network.
 
 3. Open `local-router`, select the `Interfaces` tab, and click `Add Interface`.
 4. On the `Add Interface` screen, select the following, then click `Add Interface`:
 > `Subnet`: **local-subnet**
 
-!!! note ""
-    Return to `Project > Network > Network Topology` after adding the interface. This view makes it easier to confirm that `local-net` is now connected to `local-router`.
+    !!! note ""
+        Return to `Project > Network > Network Topology` after adding the interface. This view makes it easier to confirm that `local-net` is now connected to `local-router`.
 
 5. From `Project > Network > Floating IPs`, click `Allocate IP To Project`.
 6. On the `Allocate Floating IP` screen, select `office` from the `Pool` list, then click `Allocate IP`.
@@ -115,8 +115,8 @@ If any of these prerequisites are missing, stop and correct them in Horizon befo
 10. Repeat the same association process for `web-2` using the second floating IP address.
 11. Record the two external addresses for later use from the terminal.
 
-!!! note ""
-    Check `Project > Network > Network Topology` again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.
+    !!! note ""
+        Check `Project > Network > Network Topology` again after the floating IP associations. This helps you see the router, the private network, and the external reachability in one place before you move on.
 
 **12.4.6 Connect to Each Backend and Install Apache**
 
@@ -305,62 +305,68 @@ curl -s http://<web-2-floating-ip>/
 
 **12.4.11 Verify Round-Robin Responses Through the VIP**
 
-```bash
-# send repeated HTTP requests through the load balancer VIP
-for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
-```
+1. Verify that round-robin responses are working through the VIP.
 
-??? example "Expected result"
     ```bash
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
+    # send repeated HTTP requests through the load balancer VIP
+    for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
     ```
+
+    ??? example "Expected result"
+        ```bash
+        <h1>Apache backend web-1</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-1</h1>
+        <h1>Apache backend web-2</h1>
+        <h1>Apache backend web-1</h1>
+        <h1>Apache backend web-2</h1>
+        ```
 
 !!! note
     This test can be performed also from a Web browser by reloading the page multiple times.
 
-1. From `Project > Compute > Instances`, use the instance action menu for `web-1` and shut the instance down.
-2. Wait until `web-1` shows the `Shut Off` state in Horizon.
+2. From `Project > Compute > Instances`, use the instance action menu for `web-1` and shut the instance down.
+3. Wait until `web-1` shows the `Shut Off` state in Horizon.
+4. Verify the limitation without a health monitor.
 
-```bash
-# send repeated HTTP requests through the VIP while one backend VM is powered off
-for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 'request failed'; printf '\n'; done
-```
+    !!! quote "Test"
+        ```bash
+        # send repeated HTTP requests through the VIP while one backend VM is powered off
+        for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 'request failed'; printf '\n'; done
+        ```
 
-??? example "Expected result"
-    ```bash
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-2</h1>
-    ```
+        ??? example "Expected result"
+            ```bash
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            ```
 
-!!! example ""
-    Without a health monitor, shutting down `web-1` does not automatically mark it unhealthy in Horizon. The member can remain attached to the pool even though the VM is no longer available. Client requests can still appear to work because the load balancer eventually serves content from `web-2`, but this is still not ideal: requests can still be sent to `web-1` first, fail internally, and only then be served by `web-2`. In this environment, normal browser requests completed in about `5 ms`, while requests during the failure scenario took about `3 s` before returning content from `web-2`. This suggests the load balancer is attempting a backend connection to the failed VM first and only then failing over.
+    !!! example ""
+        Without a health monitor, shutting down `web-1` does not automatically mark it unhealthy in Horizon. The member can remain attached to the pool even though the VM is no longer available. Client requests can still appear to work because the load balancer eventually serves content from `web-2`, but this is still not ideal: requests can still be sent to `web-1` first, fail internally, and only then be served by `web-2`. In this environment, normal browser requests completed in about `5 ms`, while requests during the failure scenario took about `3 s` before returning content from `web-2`. This suggests the load balancer is attempting a backend connection to the failed VM first and only then failing over.
 
-3. From `Project > Compute > Instances`, use the instance action menu for `web-1` and start the instance again.
-4. Wait until `web-1` returns to the `Active` state in Horizon.
+5. From `Project > Compute > Instances`, use the instance action menu for `web-1` and start the instance again.
+6. Wait until `web-1` returns to the `Active` state in Horizon.
+7. Confirm that round-robin responses return.
 
-```bash
-# confirm that round-robin responses return after web-1 starts again
-for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
-```
+    !!! quote "Test"
+        ```bash
+        # confirm that round-robin responses return after web-1 starts again
+        for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
+        ```
 
-??? example "Expected result"
-    ```bash
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
-    <h1>Apache backend web-1</h1>
-    <h1>Apache backend web-2</h1>
-    ```
+        ??? example "Expected result"
+            ```bash
+            <h1>Apache backend web-1</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-1</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-1</h1>
+            <h1>Apache backend web-2</h1>
+            ```
 
 **12.4.12 Create a PING Health Monitor**
 
@@ -421,25 +427,25 @@ for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
 
 4. From `Project > Compute > Instances`, open the Horizon console for `web-1`, log in as `ubuntu` with password `openstack`, and run the following command:
 
-```bash
-# stop Apache on the first backend while leaving the VM running
-sudo systemctl stop apache2
-```
-
-??? example "Expected result"
     ```bash
-    No output.
+    # stop Apache on the first backend while leaving the VM running
+    sudo systemctl stop apache2
     ```
 
-```bash
-# confirm from the console that the Apache service is no longer active
-systemctl is-active apache2
-```
+    ??? example "Expected result"
+        ```bash
+        No output.
+        ```
 
-??? example "Expected result"
     ```bash
-    inactive
+    # confirm from the console that the Apache service is no longer active
+    systemctl is-active apache2
     ```
+
+    ??? example "Expected result"
+        ```bash
+        inactive
+        ```
 
 5. Return to `Project > Network > Load Balancers` and inspect the `demo-pool` member list. With a `PING` monitor, `web-1` can still appear healthy because the VM is reachable even though the Apache application has stopped.
 
@@ -466,15 +472,15 @@ systemctl is-active apache2
 
 7. Restore the application on `web-1` before moving to the HTTP monitor test.
 
-```bash
-# start Apache on the first backend again
-sudo systemctl start apache2
-```
-
-??? example "Expected result"
     ```bash
-    No output.
+    # start Apache on the first backend again
+    sudo systemctl start apache2
     ```
+
+    ??? example "Expected result"
+        ```bash
+        No output.
+        ```
 
 **12.4.14 Replace the PING Monitor with an HTTP Monitor**
 
@@ -492,22 +498,9 @@ sudo systemctl start apache2
 8. Wait until the new HTTP health monitor is active and both members return to a healthy or online state.
 9. Use the `web-1` Horizon console again and run:
 
-```bash
-# stop Apache on the first backend again to trigger the HTTP monitor
-sudo systemctl stop apache2
-```
-
-??? example "Expected result"
     ```bash
-    No output.
-    ```
-
-10. Return to `Project > Network > Load Balancers` and inspect the `demo-pool` members. After a short delay, the member for `web-1` should leave the healthy or online state because `/healthcheck` no longer returns `200`.
-
-!!! quote "Test"
-    ```bash
-    # wait for the HTTP health monitor to mark web-1 unhealthy
-    sleep 20
+    # stop Apache on the first backend again to trigger the HTTP monitor
+    sudo systemctl stop apache2
     ```
 
     ??? example "Expected result"
@@ -515,32 +508,35 @@ sudo systemctl stop apache2
         No output.
         ```
 
+10. Return to `Project > Network > Load Balancers` and inspect the `demo-pool` members. After a short delay, the member for `web-1` should leave the healthy or online state because `/healthcheck` no longer returns `200`.
+
+    !!! quote "Test"
+        ```bash
+        # confirm that requests through the VIP continue to succeed from the remaining healthy backend
+        for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/; printf '\n'; done
+        ```
+
+        ??? example "Expected result"
+            ```bash
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            ```
+
+11. Restore Apache on `web-1` before you move on.
+
     ```bash
-    # confirm that requests through the VIP continue to succeed from the remaining healthy backend
-    for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/; printf '\n'; done
+    # start Apache on the first backend so both members can return to service
+    sudo systemctl start apache2
     ```
 
     ??? example "Expected result"
         ```bash
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
+        No output.
         ```
-
-11. Restore Apache on `web-1` before you move on.
-
-```bash
-# start Apache on the first backend so both members can return to service
-sudo systemctl start apache2
-```
-
-??? example "Expected result"
-    ```bash
-    No output.
-    ```
 
 !!! note
     After the demo, give the HTTP monitor enough time to probe `web-1` again. The member should return to a healthy or online state in Horizon and the VIP should resume serving both backends over time.
