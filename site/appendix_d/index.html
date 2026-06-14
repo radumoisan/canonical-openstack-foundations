@@ -1043,8 +1043,8 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 <ol>
 <li>From <code>Project &gt; Compute &gt; Instances</code>, use the instance action menu for <code>web-1</code> and start the instance again.</li>
 <li>Wait until <code>web-1</code> returns to the <code>Active</code> state in Horizon.</li>
-<li>Confirm that round-robin responses return before you stop Apache.</li>
-</ol>
+<li>
+<p>Confirm that round-robin responses return before you stop Apache.</p>
 <div class="admonition quote">
 <p class="admonition-title">Test</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># confirm that round-robin responses return after web-1 starts again</span>
@@ -1061,7 +1061,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;web-2-floating-
 </code></pre></div>
 </details>
 </div>
-<ol>
+</li>
 <li>
 <p>From <code>Project &gt; Compute &gt; Instances</code>, open the Horizon console for <code>web-1</code>, log in as <code>ubuntu</code> with password <code>openstack</code>, and run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># stop Apache on the first backend while leaving the VM running</span>
@@ -1086,8 +1086,6 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>apache2
 </li>
 <li>
 <p>Verify the limitation from the VIP.</p>
-</li>
-</ol>
 <div class="admonition quote">
 <p class="admonition-title">Test</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># send repeated HTTP requests through the VIP while one backend application is down</span>
@@ -1107,7 +1105,7 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>apache2
 <div class="admonition example">
 <p>In this case, requests can still return quickly even though Apache is down on <code>web-1</code>. When HAProxy tries <code>web-1:80</code>, the kernel returns an immediate TCP refusal. That failure is fast, unlike a powered-off VM which can cause a timeout.</p>
 </div>
-<ol>
+</li>
 <li>
 <p>Restore the application on <code>web-1</code> before moving to the HTTP monitor test.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># start Apache on the first backend again</span>
