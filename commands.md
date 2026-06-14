@@ -167,6 +167,68 @@ ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ss
 ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju controllers'"
 ```
 
+## Chapter 5 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju bootstrap --config default-base=\"ubuntu@22.04\" --bootstrap-constraints=\"mem=2G cores=1\" --constraints=\"mem=2G tags=juju\" maas maas-controller'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju add-model uos'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju model-config -m uos default-base=ubuntu@22.04'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju deploy /home/ubuntu/os_files/openstack-bundle.yaml'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju status'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'for ((i=0;i<4;i++)); do juju ssh $i -- sudo sysctl kernel.softlockup_panic=0; done'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'for ((i=0;i<4;i++)); do juju ssh $i -- sudo sysctl kernel.hardlockup_panic=0; done'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'for ((i=0;i<4;i++)); do juju ssh $i -- sudo systemctl disable --now apt-daily{,-upgrade}.{timer,service}; done'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju ssh ceph-mon/0 -- sudo ceph health detail'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju ssh ceph-mon/0 -- sudo ceph -s'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'sudo snap install openstackclients --channel=2024.1/stable --devmode'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'cp os_files/admin_openrc* ~/'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack catalog list'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack endpoint list'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "curl -s -o /dev/null -w '\''%{http_code}\n'\'' http://192.168.100.22/horizon"'
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.

@@ -106,6 +106,9 @@ Planned work:
 - Validation note: The OpenStack bundle deployed successfully with all 27 applications reaching `active` status.
 - Validation note: Ceph health checks returned `HEALTH_OK`, the Horizon dashboard was reachable at `http://192.168.100.35/horizon`, and the OpenStack CLI validated service catalog and endpoint access.
 - Validation note: Interactive monitoring and browser steps were preserved in the training content but validated non-interactively during live execution.
+- Validation note: Chapter 5 was revalidated on clean student host `34.40.48.14`; a fresh `maas-controller` bootstrapped on `os-juju01` at `192.168.100.16`.
+- Validation note: The OpenStack bundle deployed successfully with all 27 applications reaching `active` status in model `uos`.
+- Validation note: Ceph returned `HEALTH_OK`, OpenStack catalog and endpoint commands succeeded, and Horizon returned HTTP `302` at `http://192.168.100.22/horizon`.
 
 ### 6. Work with Software Defined Networks
 

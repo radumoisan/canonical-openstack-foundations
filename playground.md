@@ -38,3 +38,14 @@
 - HAProxy address: `192.168.100.12`
 - Final state before cleanup: `haproxy`, `landscape-server`, `postgresql`, and `rabbitmq-server` active
 - State: `landscape` model and `maas-controller` destroyed before Chapter 5
+
+## OpenStack Deployment
+
+- Controller: `maas-controller`
+- Controller address: `192.168.100.16`
+- Model: `uos`
+- OpenStack applications: `27/27` active after Chapter 5 deployment
+- Horizon URL: `http://192.168.100.22/horizon`
+- Keystone public endpoint: `https://192.168.100.32:5000/v3`
+- Swift public endpoint: `https://192.168.100.28:443/swift/v1`
+- Ceph health: `HEALTH_OK`
