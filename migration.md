@@ -176,6 +176,8 @@ Planned work:
 - Validation note: The Swift public endpoint URL is `https://192.168.100.43/swift/v1`. The wget download requires `--ca-certificate=/home/ubuntu/snap/openstackclients/common/root-ca.crt`.
 - Validation note: All CLI commands in sections 10.1 through 10.3 were validated successfully.
 - Validation note: The Web UI section (10.4) was reviewed and reorganized as an alternative path to the validated CLI workflow.
+- Validation note: Chapter 10 was revalidated on clean student host `34.40.48.14`; volume `volume1` ID `1f01698e-ee63-4b83-acc1-bbac584c2fc8` attached to `jammy1` as `/dev/vdb` and reached `in-use` status.
+- Validation note: Swift container `mydata` was created with `myfile01.txt` and `myfile02.txt`; public object download from `https://192.168.100.28/swift/v1/mydata/myfile02.txt` succeeded using the OpenStack clients CA certificate.
 
 ### 11. Configure Juju to Use OpenStack as a Provider
 

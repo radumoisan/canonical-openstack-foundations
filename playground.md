@@ -92,3 +92,13 @@
 - Instance fixed IP: `10.20.30.59`
 - Instance floating IP: `192.168.100.188`
 - Instance security groups: `StudentProject_Allow_ICMP`, `StudentProject_Allow_SSH`
+
+## OpenStack Storage
+
+- Volume: `volume1` (`1f01698e-ee63-4b83-acc1-bbac584c2fc8`)
+- Volume status: `in-use`
+- Attached server: `jammy1`
+- Attached device: `/dev/vdb`
+- Swift container: `mydata`
+- Swift objects: `myfile01.txt`, `myfile02.txt`
+- Swift public object validation: `myfile02.txt` downloaded successfully with CA certificate

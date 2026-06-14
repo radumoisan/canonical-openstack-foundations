@@ -373,6 +373,52 @@ ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_
 ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack server show jammy1 -c status -c addresses -c security_groups -f table && openstack floating ip list'\''"'
 ```
 
+## Chapter 10 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/student_openrc; openstack volume create volume1 --availability-zone nova --size 5 --description \"StudentProject Volume 01\"'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/student_openrc; openstack server add volume --device /dev/vdb jammy1 volume1'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/student_openrc; openstack server show jammy1 -c volumes_attached -f value; openstack volume show volume1 -c status -c attachments -f yaml'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'ssh -i ~/.ssh/student-keypair.pem -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.188 \"hostname; sudo fdisk -l; lsblk\"'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/admin_openrc; openstack container create mydata'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'mkdir -p ~/mydata; printf \"my file 1\\n\" > ~/mydata/myfile01.txt; printf \"my file 2\\n\" > ~/mydata/myfile02.txt'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'cd ~/mydata; source ~/admin_openrc; openstack object create mydata *'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/admin_openrc; openstack container show mydata; openstack object list mydata'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'cd ~; source ~/admin_openrc; openstack object save mydata myfile01.txt; ls -l ~/myfile01.txt'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/admin_openrc; swift post mydata --read-acl \".r:*\"; swift stat mydata'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'cd ~; wget https://192.168.100.28/swift/v1/mydata/myfile02.txt --ca-certificate=/home/ubuntu/snap/openstackclients/common/root-ca.crt; cat myfile02.txt'"
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.
