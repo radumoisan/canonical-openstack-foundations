@@ -687,8 +687,14 @@ is explained how to connect to it.</p>
 <p><strong>1.1.1 Create the SSH Tunnel</strong></p>
 <p>On <code>Linux</code>:</p>
 <p>Use the terminal:
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-D<span class="w"> </span><span class="m">9999</span><span class="w"> </span>ubuntu@&lt;your<span class="w"> </span>public<span class="w"> </span>IP&gt;
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the SSH SOCKS tunnel to the student host</span>
+ssh<span class="w"> </span>-D<span class="w"> </span><span class="m">9999</span><span class="w"> </span>ubuntu@&lt;your<span class="w"> </span>public<span class="w"> </span>IP&gt;
 </code></pre></div></p>
+<details class="example">
+<summary>Expected result</summary>
+<div class="highlight"><pre><span></span><code>The<span class="w"> </span>SSH<span class="w"> </span>session<span class="w"> </span>opens<span class="w"> </span>and<span class="w"> </span>stays<span class="w"> </span>connected<span class="w"> </span><span class="k">while</span><span class="w"> </span>the<span class="w"> </span>SOCKS<span class="w"> </span>proxy<span class="w"> </span>is<span class="w"> </span><span class="k">in</span><span class="w"> </span>use.
+</code></pre></div>
+</details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>-D 9999</code> creates a local SOCKS proxy on port <code>9999</code>.
