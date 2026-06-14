@@ -131,6 +131,8 @@ Planned work:
 - Validation note: The Ubuntu Jammy minimal cloud image was downloaded successfully and converted from `qcow2` to `raw` as `~/cloud_images/ubuntu-jammy.img`.
 - Validation note: Glance image `jammy` was uploaded successfully with minimum disk `3`, visibility `public`, and architecture `x86_64`.
 - Validation note: The uploaded image reached `active` status on the Ceph-backed Glance store.
+- Validation note: Chapter 7 was revalidated on clean student host `34.40.48.14`; image `jammy` uploaded as ID `85bafa79-7d2e-4280-86cf-46e220a53470` and reached `active` status.
+- Validation note: The clean MAAS VM required installing `qemu-utils` before converting the downloaded Jammy qcow2 image to raw format.
 
 ### 8. Configure an OpenStack Project
 

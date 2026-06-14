@@ -247,6 +247,36 @@ ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL
 ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "curl -s -o /dev/null -w '\''%{http_code}\n'\'' http://192.168.100.22/horizon"'
 ```
 
+## Chapter 7 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'mkdir -p ~/cloud_images'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'bash -lc '\''cd ~/cloud_images && wget https://cloud-images.ubuntu.com/minimal/releases/jammy/release/ubuntu-22.04-minimal-cloudimg-amd64.img'\'''"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'sudo apt-get update && sudo apt-get install -y qemu-utils'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'bash -lc '\''cd ~/cloud_images && qemu-img convert -f qcow2 -O raw ubuntu-22.04-minimal-cloudimg-amd64.img ubuntu-jammy.img'\'''"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'qemu-img info ~/cloud_images/ubuntu-jammy.img'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack image create --public --min-disk 3 --container-format bare --disk-format raw --property architecture=x86_64 --file ~/cloud_images/ubuntu-jammy.img --progress jammy'\'''"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack image show jammy'\'''"
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.

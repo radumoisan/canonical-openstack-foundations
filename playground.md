@@ -58,3 +58,13 @@
 - Provider network type: `flat`
 - MTU: `1300`
 - Floating IP pool: `192.168.100.150-192.168.100.199`
+
+## OpenStack Images
+
+- Image: `jammy`
+- Image ID: `85bafa79-7d2e-4280-86cf-46e220a53470`
+- Status: `active`
+- Visibility: `public`
+- Disk format: `raw`
+- Minimum disk: `3`
+- Architecture: `x86_64`
