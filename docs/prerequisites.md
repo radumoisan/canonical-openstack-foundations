@@ -12,8 +12,14 @@ On `Linux`:
 
 Use the terminal:
 ```bash
+# Create the SSH SOCKS tunnel to the student host
 ssh -D 9999 ubuntu@<your public IP>
 ```
+
+??? example "Expected result"
+    ```bash
+    The SSH session opens and stays connected while the SOCKS proxy is in use.
+    ```
 
 !!! note
     `-D 9999` creates a local SOCKS proxy on port `9999`.

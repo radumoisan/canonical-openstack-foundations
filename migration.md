@@ -57,6 +57,7 @@ Planned work:
 - Target page: `docs/prerequisites.md`
 - Validation note: `1.1 SSH connection` has been started on student host `34.159.9.11`.
 - Validation note: Firefox SOCKS proxy setup is verified locally and was later used successfully to access internal lab web interfaces.
+- Validation note: Chapter 1 SSH tunnel validation succeeded on clean student host `34.40.48.14` using a background SOCKS tunnel on local port `9999`; browser setup was skipped for the CLI-only unattended run.
 
 ### 2. Install and Configure MAAS
 

@@ -7,13 +7,20 @@ These are exact successful commands preserved as execution references for this l
 Use this command to reach the student host:
 
 ```bash
-ssh ubuntu@34.159.9.11
+ssh ubuntu@34.40.48.14
 ```
 
 Use this pattern to run commands on the MAAS VM from the student host:
 
 ```bash
-ssh ubuntu@34.159.9.11 'ssh ubuntu@192.168.100.3 "<command>"'
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "<command>"'
+```
+
+Use this command to validate the Chapter 1 SOCKS tunnel without leaving the
+terminal session attached:
+
+```bash
+ssh -fN -D 9999 -i ~/.ssh/id_ed25519 -o BatchMode=yes -o ExitOnForwardFailure=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@34.40.48.14
 ```
 
 ## Historical successful commands
