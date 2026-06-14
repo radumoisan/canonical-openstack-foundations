@@ -144,6 +144,8 @@ Planned work:
 - Validation note: The `openstack quota set` command emits a deprecation warning about `--force` defaulting for network quotas; this does not affect the outcome.
 - Validation note: All CLI commands in sections 8.1 through 8.8 were validated successfully.
 - Validation note: The Web UI section (8.9) was reviewed and reorganized as an alternative path to the validated CLI workflow.
+- Validation note: Chapter 8 was revalidated on clean student host `34.40.48.14`; `StudentProject` ID is `b41c5cc8e3644c109c9ed30cb03adaa2` and user `student` ID is `cd7f304259084c44a33d4d0425a5cd41`.
+- Validation note: Keypairs, ICMP/SSH security groups, quotas, tenant network/subnet/router, and floating IP allocation completed successfully; allocated floating IP was `192.168.100.188`.
 
 ### 9. Work with Cloud Workload Instances
 

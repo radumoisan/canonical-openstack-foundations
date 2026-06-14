@@ -277,6 +277,56 @@ ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'bash -lc '\''export JUJU_MODEL
 ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack image show jammy'\'''"
 ```
 
+## Chapter 8 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack project create --domain admin_domain --enable --description \"Student Project\" StudentProject'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack user create --project StudentProject --email student@example.com --password openstack --enable student --domain admin_domain'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack role add --project-domain admin_domain --user-domain admin_domain --user student --project StudentProject Member'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''cp os_files/student_* ~/ && source ~/student_openrc && openstack catalog list'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack keypair create student-keypair > ~/.ssh/student-keypair.pem && chmod 600 ~/.ssh/student-keypair.pem'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack keypair create --public-key ~/.ssh/id_rsa.pub existing-keypair'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group create --description \"Allow ICMP Traffic\" StudentProject_Allow_ICMP && openstack security group rule create --proto icmp StudentProject_Allow_ICMP && openstack security group rule create --proto icmp --egress StudentProject_Allow_ICMP'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack security group create --description \"Allow SSH Traffic\" StudentProject_Allow_SSH && openstack security group rule create --proto tcp --dst-port 22 StudentProject_Allow_SSH && openstack security group rule create --proto tcp --egress --dst-port 22 StudentProject_Allow_SSH'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack quota set --cores 40 --ram 25600 --instances 20 --volumes 5 --snapshots 5 --floating-ips 10 --secgroups 20 --secgroup-rules 200 StudentProject'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack network create StudentProject_Network --mtu 1300 && openstack subnet create --ip-version 4 --allocation-pool start=10.20.30.10,end=10.20.30.199 --gateway=10.20.30.1 --dhcp --dns-nameserver 192.168.100.3 --dns-nameserver 8.8.8.8 --subnet-range 10.20.30.0/24 --network StudentProject_Network StudentProject_Subnet'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack router create StudentProject_Public_Router && openstack router set --external-gateway Public_Network StudentProject_Public_Router && openstack router add subnet StudentProject_Public_Router StudentProject_Subnet && openstack router show StudentProject_Public_Router'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack floating ip create Public_Network'\''"'
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.

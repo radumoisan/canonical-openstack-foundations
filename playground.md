@@ -68,3 +68,17 @@
 - Disk format: `raw`
 - Minimum disk: `3`
 - Architecture: `x86_64`
+
+## Student Project
+
+- Project: `StudentProject`
+- Project ID: `b41c5cc8e3644c109c9ed30cb03adaa2`
+- User: `student`
+- User ID: `cd7f304259084c44a33d4d0425a5cd41`
+- Keypairs: `student-keypair`, `existing-keypair`
+- ICMP security group: `StudentProject_Allow_ICMP` (`3c45f30e-379c-42e9-936e-2dedadcb6cfa`)
+- SSH security group: `StudentProject_Allow_SSH` (`d91e0f68-2638-4224-a35f-4f4f2bc7462b`)
+- Tenant network: `StudentProject_Network` (`02cb4d86-3911-49d8-85e3-058998e3339f`)
+- Tenant subnet: `StudentProject_Subnet` (`58a1963f-283b-48bd-a2aa-c538ead51667`)
+- Tenant router: `StudentProject_Public_Router` (`8030e676-ce9c-4f74-b11d-6a3ae9ca83ab`)
+- Allocated floating IP: `192.168.100.188` (`e333cf26-cd24-4dd3-8e62-1c9bf64e7d06`)
