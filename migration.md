@@ -80,6 +80,9 @@ Planned work:
 - Validation note: Juju `3.6.23` was installed on the MAAS VM and controller `maas-controller` was bootstrapped on `os-juju01`.
 - Validation note: Juju dashboard deployment, `juju ssh`, and `juju scp` were validated against the controller model.
 - Validation note: The Juju dashboard browser login was validated at `http://192.168.100.11:8080` through the SOCKS proxy path.
+- Validation note: Chapter 3 was revalidated on clean student host `34.40.48.14`; Juju `3.6.23` bootstrapped `maas-controller` on `os-juju01` at `192.168.100.10`.
+- Validation note: Juju dashboard reached `active` on `192.168.100.11:8080`; browser login was skipped for the CLI-only unattended run.
+- Validation note: `juju ssh`, `juju scp`, and copied-file verification succeeded against the controller model.
 
 ### 4. Juju Charms
 

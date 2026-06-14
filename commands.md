@@ -83,6 +83,52 @@ ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ss
 ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'maas myprofile machines read | jq -r \".[] | select(.hostname==\\\"os-juju01\\\" or .hostname==\\\"os-compute01\\\" or .hostname==\\\"os-compute02\\\" or .hostname==\\\"os-compute03\\\" or .hostname==\\\"os-compute04\\\") | \\\"\\(.hostname) \\(.status_name) \\(.system_id)\\\"\"'"
 ```
 
+## Chapter 3 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'sudo snap install juju --channel=3.6/stable --devmode'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju add-cloud maas ~/os_files/maas.yaml --client'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'mkdir -p ~/.local/share/juju; printf \"credentials:\n  maas:\n    admin:\n      auth-type: oauth1\n      maas-oauth: %s\n\" \"\$(<~/maas-apikey)\" > ~/.local/share/juju/credentials.yaml'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju bootstrap --config default-base=\"ubuntu@22.04\" --bootstrap-constraints=\"mem=2G cores=1\" --constraints=\"mem=2G tags=juju\" maas maas-controller'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju deploy juju-dashboard dashboard --to=lxd:0'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju integrate dashboard controller'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju expose dashboard'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'timeout 10s juju dashboard --browser=false'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju ssh -m controller 0 -- hostname'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju scp -m controller /etc/services 0:/tmp'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju ssh -m controller 0 -- wc -l /tmp/services'"
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.

@@ -22,3 +22,11 @@
 - `os-compute02`: `Ready`, tag `storage`, system ID `drrqpn`
 - `os-compute03`: `Ready`, tag `storage`, system ID `ytgrks`
 - `os-compute04`: `Ready`, tag `storage`, system ID `fgsw3g`
+
+## Juju Controller
+
+- Controller: `maas-controller`
+- Controller machine: `os-juju01`
+- Controller address: `192.168.100.10`
+- Juju dashboard unit: `dashboard/0`
+- Juju dashboard address: `192.168.100.11:8080`
