@@ -82,3 +82,13 @@
 - Tenant subnet: `StudentProject_Subnet` (`58a1963f-283b-48bd-a2aa-c538ead51667`)
 - Tenant router: `StudentProject_Public_Router` (`8030e676-ce9c-4f74-b11d-6a3ae9ca83ab`)
 - Allocated floating IP: `192.168.100.188` (`e333cf26-cd24-4dd3-8e62-1c9bf64e7d06`)
+
+## Workload Instances
+
+- Flavor: `m1.smaller` (`27e59a80-aff9-42d6-a878-e1d21579b794`)
+- Aggregate flavor: `kvm.smaller` (`f751dea9-7f5c-4153-9dba-1cac1295b2bd`)
+- Host aggregate: `kvm`, hosts `os-compute01.maas`, `os-compute02.maas`, `os-compute03.maas`, `os-compute04.maas`
+- Instance: `jammy1` (`505b0715-3ddd-4b52-ab01-d17f3c8af49a`)
+- Instance fixed IP: `10.20.30.59`
+- Instance floating IP: `192.168.100.188`
+- Instance security groups: `StudentProject_Allow_ICMP`, `StudentProject_Allow_SSH`

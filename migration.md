@@ -160,6 +160,8 @@ Planned work:
 - Validation note: The `openstack server show jammy1 -c security_groups -f value` command returns security groups in compact JSON format rather than the full table shown in the source.
 - Validation note: All CLI commands in sections 9.1 through 9.5 were validated successfully.
 - Validation note: The Web UI section (9.6) was reviewed and reorganized as an alternative path to the validated CLI workflow.
+- Validation note: Chapter 9 was revalidated on clean student host `34.40.48.14`; flavors `m1.smaller` and `kvm.smaller`, aggregate `kvm`, and scheduler filter configuration were validated.
+- Validation note: Instance `jammy1` reached `ACTIVE` with fixed IP `10.20.30.59` and floating IP `192.168.100.188`; ICMP failed before adding the ICMP security group and succeeded after it was attached.
 
 ### 10. Work with OpenStack Storage
 

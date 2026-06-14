@@ -327,6 +327,52 @@ ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ss
 ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack floating ip create Public_Network'\''"'
 ```
 
+## Chapter 9 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack flavor create --vcpus 2 --ram 1024 --disk 5 --ephemeral 0 --swap 0 --public m1.smaller'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack aggregate create --zone nova kvm'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && for host in os-compute01.maas os-compute02.maas os-compute03.maas os-compute04.maas; do openstack aggregate add host kvm $host; done && openstack aggregate set --property kvm=true kvm'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 \"bash -lc 'export JUJU_MODEL=uos && source ~/admin_openrc && openstack flavor create --vcpus 1 --ram 512 --disk 5 --public kvm.smaller'\""
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 \"bash -lc 'export JUJU_MODEL=uos && source ~/admin_openrc && openstack flavor set --property aggregate_instance_extra_specs:kvm=true kvm.smaller'\""
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "juju config nova-cloud-controller scheduler-default-filters=ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,DifferentHostFilter,SameHostFilter,AggregateInstanceExtraSpecsFilter"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack server create --availability-zone nova --image jammy --flavor m1.smaller --key-name student-keypair --security-group StudentProject_Allow_SSH --nic net-id=02cb4d86-3911-49d8-85e3-058998e3339f jammy1'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack server add floating ip jammy1 192.168.100.188'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && ping -c 4 192.168.100.188'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack server add security group jammy1 StudentProject_Allow_ICMP'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''source ~/student_openrc && openstack server show jammy1 -c status -c addresses -c security_groups -f table && openstack floating ip list'\''"'
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.
