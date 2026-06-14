@@ -116,3 +116,13 @@
 - Landscape HAProxy address: `192.168.100.168`
 - Landscape status: `haproxy`, `landscape-server`, `postgresql`, and `rabbitmq-server` active
 - Cleanup status: Chapter `11.3.3` intentionally not run
+
+## Landscape Demo Client
+
+- Client: `jammy1`
+- Client IP: `192.168.100.188`
+- Landscape URL: `https://192.168.100.168`
+- Account name: `standalone`
+- Account title in UI: `Organisation`
+- Registration key: empty
+- Client status: registered, `landscape-client` active/running/enabled

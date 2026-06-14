@@ -481,6 +481,20 @@ ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ss
 ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju status haproxy -m landscape --format line'"
 ```
 
+## Landscape demo client enrollment
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.3 "ssh -i /home/ubuntu/.ssh/student-keypair.pem -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.188 \"sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y landscape-client\""'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.3 "ssh -i /home/ubuntu/.ssh/student-keypair.pem -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.188 \"bash -lc '\''sudo landscape-config --silent --url=https://192.168.100.168/message-system --ping-url=http://192.168.100.168/ping --account-name=standalone --computer-title=jammy1 --ssl-public-key=base64:$(openssl s_client -connect 192.168.100.168:443 -servername 192.168.100.168 </dev/null 2>/dev/null | openssl x509 -outform pem | base64 -w0)'\''\""'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.3 "ssh -i /home/ubuntu/.ssh/student-keypair.pem -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.188 \"sudo systemctl show -p ActiveState -p SubState -p UnitFileState landscape-client; sudo landscape-config --is-registered; sudo grep -n -E '\''account_name|computer_title|ping_url|url|ssl_public_key'\'' /etc/landscape/client.conf\""'
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.
