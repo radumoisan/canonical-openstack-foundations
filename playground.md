@@ -1,9 +1,9 @@
 # Playground Inventory
 
-- Date: `2026-06-05`
+- Date: `2026-06-14`
 - Student: `radumoisan`
 - Cloud: `gce`
-- Public IP: `34.159.9.11`
+- Public IP: `34.40.48.14`
 - Region: `europe-west3`
 - Zone: `europe-west3-a`
-- Purpose: Chapter-by-chapter validation of the OpenStack Foundations lab
+- Purpose: Chapter-by-chapter validation of the OpenStack Foundations lab on a clean deployment

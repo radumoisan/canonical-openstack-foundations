@@ -409,21 +409,21 @@ curl -s http://<web-2-floating-ip>/
 2. Wait until `web-1` returns to the `Active` state in Horizon.
 3. Confirm that round-robin responses return before you stop Apache.
 
-!!! quote "Test"
-    ```bash
-    # confirm that round-robin responses return after web-1 starts again
-    for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
-    ```
-
-    ??? example "Expected result"
+    !!! quote "Test"
         ```bash
-        <h1>Apache backend web-1</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-1</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-1</h1>
-        <h1>Apache backend web-2</h1>
+        # confirm that round-robin responses return after web-1 starts again
+        for i in {1..6}; do curl -s http://<vip-floating-ip>/; printf '\n'; done
         ```
+
+        ??? example "Expected result"
+            ```bash
+            <h1>Apache backend web-1</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-1</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-1</h1>
+            <h1>Apache backend web-2</h1>
+            ```
 
 4. From `Project > Compute > Instances`, open the Horizon console for `web-1`, log in as `ubuntu` with password `openstack`, and run the following command:
 
@@ -451,24 +451,24 @@ curl -s http://<web-2-floating-ip>/
 
 6. Verify the limitation from the VIP.
 
-!!! quote "Test"
-    ```bash
-    # send repeated HTTP requests through the VIP while one backend application is down
-    for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 'request failed'; printf '\n'; done
-    ```
-
-    ??? example "Expected result"
+    !!! quote "Test"
         ```bash
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
-        <h1>Apache backend web-2</h1>
+        # send repeated HTTP requests through the VIP while one backend application is down
+        for i in {1..6}; do curl -s --max-time 5 http://<vip-floating-ip>/ || printf 'request failed'; printf '\n'; done
         ```
 
-!!! example ""
-    In this case, requests can still return quickly even though Apache is down on `web-1`. When HAProxy tries `web-1:80`, the kernel returns an immediate TCP refusal. That failure is fast, unlike a powered-off VM which can cause a timeout.
+        ??? example "Expected result"
+            ```bash
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            <h1>Apache backend web-2</h1>
+            ```
+
+    !!! example ""
+        In this case, requests can still return quickly even though Apache is down on `web-1`. When HAProxy tries `web-1:80`, the kernel returns an immediate TCP refusal. That failure is fast, unlike a powered-off VM which can cause a timeout.
 
 7. Restore the application on `web-1` before moving to the HTTP monitor test.
 
