@@ -229,6 +229,24 @@ ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL
 ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "curl -s -o /dev/null -w '\''%{http_code}\n'\'' http://192.168.100.22/horizon"'
 ```
 
+## Chapter 6 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack network create Public_Network --external --provider-physical-network physnet1 --provider-network-type flat --mtu 1300'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack subnet create --ip-version 4 --allocation-pool start=192.168.100.150,end=192.168.100.199 --gateway=192.168.100.1 --no-dhcp --network Public_Network --subnet-range 192.168.100.0/24 Public_Subnet'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "bash -lc '\''export JUJU_MODEL=uos && source ~/admin_openrc && openstack network show Public_Network && openstack subnet show Public_Subnet'\''"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh ubuntu@192.168.100.3 "curl -s -o /dev/null -w '\''%{http_code}\n'\'' http://192.168.100.22/horizon"'
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.

@@ -49,3 +49,12 @@
 - Keystone public endpoint: `https://192.168.100.32:5000/v3`
 - Swift public endpoint: `https://192.168.100.28:443/swift/v1`
 - Ceph health: `HEALTH_OK`
+
+## OpenStack Networking
+
+- External network: `Public_Network`
+- External subnet: `Public_Subnet`
+- Provider physical network: `physnet1`
+- Provider network type: `flat`
+- MTU: `1300`
+- Floating IP pool: `192.168.100.150-192.168.100.199`

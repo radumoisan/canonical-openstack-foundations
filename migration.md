@@ -119,6 +119,8 @@ Planned work:
 - Validation note: External network `Public_Network` and subnet `Public_Subnet` were created successfully on `physnet1` with MTU `1300`.
 - Validation note: The validated subnet uses `192.168.100.0/24` with floating IP allocation pool `192.168.100.150-192.168.100.199` and DHCP disabled.
 - Validation note: Horizon remained reachable at `http://192.168.100.35/horizon` and returned HTTP `302` for an unauthenticated request.
+- Validation note: Chapter 6 was revalidated on clean student host `34.40.48.14`; `Public_Network` and `Public_Subnet` were created with the documented `physnet1`, flat provider, MTU `1300`, and floating IP allocation pool.
+- Validation note: Horizon returned HTTP `302` at `http://192.168.100.22/horizon` after network creation.
 
 ### 7. Work with Cloud Images
 
