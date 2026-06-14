@@ -129,6 +129,44 @@ ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju scp -m controller /etc/se
 ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju ssh -m controller 0 -- wc -l /tmp/services'"
 ```
 
+## Chapter 4 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju models'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju add-model landscape'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju model-config -m landscape default-base=ubuntu@22.04'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju deploy landscape-scalable'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju status --relations'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju status haproxy'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju destroy-model --no-prompt landscape'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju destroy-controller maas-controller --no-prompt'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju controllers'"
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.

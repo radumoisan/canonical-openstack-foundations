@@ -93,6 +93,8 @@ Planned work:
 - Validation note: The Landscape bundle reached `active` status with HAProxy exposed on `192.168.100.18` during validation.
 - Validation note: The cleanup flow to destroy the `landscape` model and `maas-controller` was validated and then executed as the transition into Chapter 5.
 - Validation note: During intermediate demo validation, the Juju dashboard was redeployed on the controller model and validated at `http://192.168.100.21:8080` before the final Chapter 4 teardown.
+- Validation note: Chapter 4 was revalidated on clean student host `34.40.48.14`; the Landscape bundle reached `active` with HAProxy exposed at `192.168.100.12`.
+- Validation note: The documented cleanup was executed; the `landscape` model was destroyed and `juju controllers` returned `ERROR No controllers registered.` after destroying `maas-controller`.
 
 ### 5. Deploy OpenStack
 

@@ -30,3 +30,11 @@
 - Controller address: `192.168.100.10`
 - Juju dashboard unit: `dashboard/0`
 - Juju dashboard address: `192.168.100.11:8080`
+- State: destroyed after Chapter 4 cleanup
+
+## Chapter 4 Landscape Validation
+
+- Model: `landscape`
+- HAProxy address: `192.168.100.12`
+- Final state before cleanup: `haproxy`, `landscape-server`, `postgresql`, and `rabbitmq-server` active
+- State: `landscape` model and `maas-controller` destroyed before Chapter 5
