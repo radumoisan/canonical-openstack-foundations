@@ -67,6 +67,9 @@ Planned work:
 - Validation note: Chapter 2 validation started on student host `34.159.9.11`.
 - Validation note: The MAAS VM image was recovered by replacing a corrupted guest image with a clean reprovisioned VM before continuing command validation.
 - Validation note: The Chapter 2 Web UI section was reviewed and reorganized as an alternative path to the validated CLI workflow.
+- Validation note: Chapter 2 was revalidated on clean student host `34.40.48.14`; MAAS VM `192.168.100.3` reached a `36G` root filesystem after resize, MAAS `3.4.9` initialized successfully, and all five lab nodes reached `Ready`.
+- Validation note: `os-juju01` was tagged `juju`; `os-compute01` through `os-compute04` were tagged `storage`.
+- Validation note: The clean host required installing `jq` on the MAAS VM and starting the newly created `os-*` libvirt domains before MAAS chassis enlistment discovered them.
 
 ### 3. Install and Configure Juju
 

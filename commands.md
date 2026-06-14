@@ -23,6 +23,66 @@ terminal session attached:
 ssh -fN -D 9999 -i ~/.ssh/id_ed25519 -o BatchMode=yes -o ExitOnForwardFailure=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@34.40.48.14
 ```
 
+## MAAS VM readiness and resize
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'hostname; uptime; df -h /; lsblk; sudo growpart --help >/dev/null 2>&1; echo growpart:$?'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'sudo qemu-img info /var/lib/libvirt/images/maas.img'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'sudo virsh shutdown maas; for i in $(seq 1 30); do state=$(sudo virsh domstate maas); [ "$state" = "shut off" ] && break; sleep 2; done; state=$(sudo virsh domstate maas); if [ "$state" != "shut off" ]; then sudo virsh destroy maas; fi; sudo virsh domstate maas'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'sudo qemu-img resize /var/lib/libvirt/images/maas.img +35G && sudo virsh start maas'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'sudo qemu-img info -U /var/lib/libvirt/images/maas.img'
+```
+
+## Chapter 2 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 'sudo bash /home/ubuntu/provision_maas.sh europe-west3-a'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 "hostname"'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'scp -r /home/ubuntu/os_files ubuntu@192.168.100.3:~'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'sudo apt-get -f install -y && sudo apt-get install -y jq'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'sudo bash ~/deploy/create-vms.sh'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 'for vm in os-juju01 os-compute01 os-compute02 os-compute03 os-compute04; do sudo virsh start "$vm" || true; done'
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'maas myprofile machines add-chassis chassis_type=virsh hostname=qemu+ssh://ubuntu@192.168.100.1/system prefix_filter=\"os-\"'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'maas myprofile machines accept-all'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'maas myprofile machines read | jq -r \".[] | select(.hostname==\\\"os-juju01\\\" or .hostname==\\\"os-compute01\\\" or .hostname==\\\"os-compute02\\\" or .hostname==\\\"os-compute03\\\" or .hostname==\\\"os-compute04\\\") | \\\"\\(.hostname) \\(.status_name) \\(.system_id)\\\"\"'"
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.
