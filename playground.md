@@ -102,3 +102,17 @@
 - Swift container: `mydata`
 - Swift objects: `myfile01.txt`, `myfile02.txt`
 - Swift public object validation: `myfile02.txt` downloaded successfully with CA certificate
+
+## OpenStack Provider Juju Controller
+
+- Cloud: `my-openstack`
+- Keystone endpoint: `https://192.168.100.32:5000/v3`
+- Image metadata URL: `https://192.168.100.28:443/swift/v1/simplestreams/data/`
+- Controller: `my-controller`
+- Controller floating IP: `192.168.100.195`
+- Flavor: `kvm.node`
+- Additional floating IPs allocated: `192.168.100.168`, `192.168.100.179`, `192.168.100.198`
+- Landscape model: `landscape`
+- Landscape HAProxy address: `192.168.100.168`
+- Landscape status: `haproxy`, `landscape-server`, `postgresql`, and `rabbitmq-server` active
+- Cleanup status: Chapter `11.3.3` intentionally not run

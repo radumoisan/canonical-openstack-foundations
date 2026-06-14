@@ -419,6 +419,68 @@ ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ss
 ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'cd ~; wget https://192.168.100.28/swift/v1/mydata/myfile02.txt --ca-certificate=/home/ubuntu/snap/openstackclients/common/root-ca.crt; cat myfile02.txt'"
 ```
 
+## Chapter 11 clean validation commands
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'export JUJU_MODEL=uos && juju deploy --to=lxd:3 --base ubuntu@22.04 --config ~/os_files/glance-simplestreams-sync.yaml --channel 2024.1/stable glance-simplestreams-sync'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'export JUJU_MODEL=uos && juju status glance-simplestreams-sync'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju add-cloud --client my-openstack ~/os_files/my-openstack.yaml'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju add-credential my-openstack --client -f ~/os_files/my-openstack-creds.yaml'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/student_openrc && for i in 1 2 3 4; do openstack floating ip create Public_Network; done'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/admin_openrc && openstack flavor create --vcpus 2 --ram 2048 --disk 10 --ephemeral 0 --swap 0 --public kvm.node'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'source ~/admin_openrc && openstack flavor set --property aggregate_instance_extra_specs:kvm=true kvm.node'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju bootstrap --config ~/os_files/my-config.yaml --bootstrap-constraints=mem=2G\ cores=2\ allocate-public-ip=true --constraints=mem=2G my-openstack my-controller'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju controllers'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju status -m controller'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju add-model landscape --config ssl-hostname-verification=false'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju set-model-constraints -m landscape allocate-public-ip=true'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju deploy -m landscape ~/os_files/landscape_bundle.yaml'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju status -m landscape'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh -i /home/ubuntu/.ssh/id_rsa -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa ubuntu@192.168.100.3 'juju status haproxy -m landscape --format line'"
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.

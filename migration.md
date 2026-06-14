@@ -191,6 +191,10 @@ Planned work:
 - Validation note: The `juju add-model` command also requires `ssl-hostname-verification=false` as model config, otherwise it fails with a TLS verification error.
 - Validation note: The Landscape bundle deployed successfully with all 4 machines reaching `started` state. HAProxy reached `active` status within 10 minutes.
 - Validation note: The `juju destroy-controller` command takes a significant amount of time because it must terminate all OpenStack instances (controller VM + 4 bundle VMs).
+- Validation note: Chapter 11 was revalidated on clean student host `34.40.48.14` through section `11.3.2`; section `11.3.3` cleanup was intentionally not run by request.
+- Validation note: `glance-simplestreams-sync` completed metadata upload to Swift, `my-openstack` used Keystone endpoint `https://192.168.100.32:5000/v3`, and `my-config.yaml` used metadata URL `https://192.168.100.28:443/swift/v1/simplestreams/data/`.
+- Validation note: `my-controller` bootstrapped successfully on OpenStack with controller floating IP `192.168.100.195`; the first bootstrap attempt failed before metadata sync completed and the retry succeeded.
+- Validation note: Landscape bundle in model `landscape` reached active status for `haproxy`, `landscape-server`, `postgresql`, and `rabbitmq-server`; HAProxy address is `192.168.100.168`.
 
 ### 12. Appendices
 
