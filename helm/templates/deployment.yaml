@@ -34,6 +34,7 @@ spec:
             value: {{ .Values.proxy.CLIENT_ID | quote }}
           - name: OAUTH2_PROXY_CLIENT_SECRET
           {{- if .Values.proxy.keycloak.secret_name }}
+            value: ""
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.proxy.keycloak.secret_name | quote }}
@@ -43,6 +44,7 @@ spec:
           {{- end }}
           - name: OAUTH2_PROXY_COOKIE_SECRET
           {{- if .Values.proxy.cookie.secret_name }}
+            value: ""
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.proxy.cookie.secret_name | quote }}
