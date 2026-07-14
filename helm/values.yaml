@@ -32,11 +32,22 @@ proxy:
   service:
     targetPort: 4180
   CLIENT_ID: mkdocs
-  CLIENT_SECRET: XjrgXQoXxt75qKHE09RsQJO9gU9zuYl7
-  COOKIE_SECRET: B8aKLnnvIQv3Ql0P
-  COOKIE_REFRESH: '12h' # aligned with "Access Token Lifespan"
-  COOKIE_EXPIRE: '168h' # aligned with "SSO Session Idle"
+  CLIENT_SECRET: ""
+  COOKIE_SECRET: ""
+  COOKIE_REFRESH: '12h'
+  COOKIE_EXPIRE: '168h'
   REDIRECT_URL: https://openstack.foundations.cloudbase.wiki/oauth2/callback
   OIDC_ISSUER_URL: https://auth.virtomat.dev/realms/mkdocs
   EMAIL_DOMAINS: '*'
   INSECURE_OIDC_ALLOW_UNVERIFIED_EMAIL: true
+  keycloak:
+    secret_name: ""
+    client_secret_key: "client-secret"
+  cookie:
+    secret_name: ""
+    secret_key: "cookie-secret"
+  redis:
+    enabled: true
+    connection_url: "redis://redis-master:6379"
+    secret_name: "redis"
+    secret_key: "password"
