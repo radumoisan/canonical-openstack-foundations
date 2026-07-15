@@ -109,13 +109,25 @@
 - Keystone endpoint: `https://192.168.100.32:5000/v3`
 - Image metadata URL: `https://192.168.100.28:443/swift/v1/simplestreams/data/`
 - Controller: `my-controller`
-- Controller floating IP: `192.168.100.195`
-- Flavor: `kvm.node`
-- Additional floating IPs allocated: `192.168.100.168`, `192.168.100.179`, `192.168.100.198`
-- Landscape model: `landscape`
-- Landscape HAProxy address: `192.168.100.168`
-- Landscape status: `haproxy`, `landscape-server`, `postgresql`, and `rabbitmq-server` active
-- Cleanup status: Chapter `11.3.3` intentionally not run
+- Cleanup status: removed on `2026-06-16`
+- Previous controller floating IP: `192.168.100.195`
+- Previous flavor: `kvm.node`
+- Previous additional floating IPs allocated: `192.168.100.168`, `192.168.100.172`, `192.168.100.179`, `192.168.100.198`
+- Previous Landscape model: `landscape`
+- Previous Landscape HAProxy address: `192.168.100.168`
+- Note: `juju destroy-controller --destroy-all-models my-controller --no-prompt` stalled during teardown, so `juju kill-controller my-controller --no-prompt` was used to finish cleanup. The separate `maas-controller` and `uos` model remain in place.
+
+## Juju Dashboard
+
+- Model: `controller`
+- Application: `juju-dashboard`
+- Cleanup status: removed from `my-controller:controller` on `2026-06-16`
+- Previous unit private IP: `10.20.30.53`
+- Previous unit floating IP: `192.168.100.172`
+- Previous browser URL through SOCKS proxy: `http://192.168.100.172:8080`
+- Previous local Juju CLI tunnel on MAAS VM: `http://127.0.0.1:31666`
+- Previous login user: `admin`
+- Note: the `controller` model now contains only the `controller` application; Landscape and OpenStack were left in place.
 
 ## Landscape Demo Client
 

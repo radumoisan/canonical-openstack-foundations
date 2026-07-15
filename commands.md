@@ -495,6 +495,40 @@ ssh ubuntu@34.40.48.14 'ssh -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostK
 ssh ubuntu@34.40.48.14 'ssh -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.3 "ssh -i /home/ubuntu/.ssh/student-keypair.pem -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new ubuntu@192.168.100.188 \"sudo systemctl show -p ActiveState -p SubState -p UnitFileState landscape-client; sudo landscape-config --is-registered; sudo grep -n -E '\''account_name|computer_title|ping_url|url|ssl_public_key'\'' /etc/landscape/client.conf\""'
 ```
 
+## Juju dashboard deployment
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju deploy juju-dashboard -m controller --channel 0.15/stable'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju integrate -m controller juju-dashboard:controller controller:dashboard'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'bash -lc '\''OS_AUTH_URL=https://192.168.100.32:5000/v3 OS_USERNAME=student OS_PASSWORD=openstack OS_USER_DOMAIN_NAME=admin_domain OS_PROJECT_DOMAIN_NAME=admin_domain OS_PROJECT_NAME=StudentProject OS_IDENTITY_API_VERSION=3 OS_AUTH_TYPE=password openstack --insecure floating ip create --port 26ad4180-07e0-4ef8-b0b5-32b2fa0f138c Public_Network -f yaml'\'''"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'bash -lc '\''OS_AUTH_URL=https://192.168.100.32:5000/v3 OS_USERNAME=student OS_PASSWORD=openstack OS_USER_DOMAIN_NAME=admin_domain OS_PROJECT_DOMAIN_NAME=admin_domain OS_PROJECT_NAME=StudentProject OS_IDENTITY_API_VERSION=3 OS_AUTH_TYPE=password openstack --insecure server reboot --hard --wait juju-fc6ec8-controller-1'\'''"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju dashboard -m controller --browser=false'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'juju expose juju-dashboard -m controller'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'curl -I -m 10 http://192.168.100.172:8080'"
+```
+
+```bash
+ssh ubuntu@34.40.48.14 "ssh ubuntu@192.168.100.3 'curl -sS -o /dev/null -w '\''%{http_code}\\n'\'' http://127.0.0.1:31666'"
+```
+
 ## Historical successful commands
 
 The following commands succeeded during live validation and are preserved exactly as executed.

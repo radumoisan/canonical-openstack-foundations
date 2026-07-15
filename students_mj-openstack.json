@@ -6,11 +6,12 @@
             "azure_resource_group": null,
             "cloud": "gce",
             "email": "radu.moisan@gmail.com",
-            "gce_public_ip": "34.159.9.11",
+            "gce_public_ip": "34.40.48.14",
             "gce_region": "europe-west3",
             "gce_zone": "europe-west3-a",
             "name": "radumoisan",
-            "password": "eRJyAwz2PpPArkBZI70gl"
+            "password": "nczmi9BlQ1iRynpgfQsZf"
         }
     ]
 }
+

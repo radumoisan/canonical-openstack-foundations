@@ -140,6 +140,7 @@ This repository is for the Ubuntu Server Advanced documentation site.
 - **Handle Failures Safely:** Return the attempted command or action, the exact error, any corrective attempts made, relevant output, and the observed state. The main agent should review the failure before deciding the next step.
 - **Avoid Hidden Assumptions:** Do not infer environment-specific details unless they are documented or already verified.
 - **Protect Secrets:** Never print, log, echo, or expose secret values. Prefer non-interactive secret handling where possible, and avoid prompts that may reveal sensitive data.
+- **Lab Credentials:** This repository is used for a disposable lab environment. Lab credentials, passwords, tokens, private keys, and similar values may be stored in workspace notes and operational records when needed for training or validation. When the user explicitly asks, those lab credentials may also be surfaced in chat or command output.
 - **Fail Fast on Repeated Errors:** If the same operation keeps failing after a small number of reasonable corrective attempts, stop for that target and return the facts. Do not continue experimenting without a corrected instruction.
 - **Main-Agent Orchestration:** The main agent is responsible for reviewing results, deciding follow-up actions, and delegating corrected tasks when needed.
 
