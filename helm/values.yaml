@@ -48,6 +48,6 @@ proxy:
     secret_key: "cookie-secret"
   redis:
     enabled: true
-    connection_url: "redis://redis-master:6379"
-    secret_name: "redis"
+    connection_url: "redis://valkey:6379"
+    secret_name: "valkey"
     secret_key: "password"
